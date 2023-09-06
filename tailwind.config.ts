@@ -30,6 +30,7 @@ const config: Config = {
       },
       colors: {
         main: '#001487',
+        emerald: '#005f87',
       },
       spacing: {
         ...px0_500,

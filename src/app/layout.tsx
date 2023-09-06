@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="ko" className={pretendard.variable}>
       <body className="font-normal">
         <Header />
-        <main className="max-w-screen-xl px-16px mx-auto">{children}</main>
+        <main>{children}</main>
       </body>
     </html>
   );

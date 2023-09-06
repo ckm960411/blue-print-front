@@ -14,18 +14,18 @@ export default function Header() {
           </Link>
           <ul className="flex items-center ml-24px">
             <li className={navLinkClass}>
-              <Link href="/">TECH</Link>
+              <Link href="/tech">TECH</Link>
             </li>
             <li className={navLinkClass}>
-              <Link href="/">STUDY</Link>
+              <Link href="/study">STUDY</Link>
             </li>
             <li className={navLinkClass}>
-              <Link href="/">TIL</Link>
+              <Link href="/work">WORK</Link>
             </li>
           </ul>
         </nav>
         <div>
-          <Link href="/" className={navLinkClass}>
+          <Link href="/about" className={navLinkClass}>
             ABOUT ME
           </Link>
         </div>

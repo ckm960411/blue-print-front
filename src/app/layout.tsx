@@ -1,10 +1,7 @@
 import { pretendard } from '@/utils/fonts';
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import Header from '@/components/Header';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,7 +17,7 @@ export default function RootLayout({
     <html lang="ko" className={pretendard.variable}>
       <body className="font-normal">
         <Header />
-        <main>{children}</main>
+        <main className="max-w-screen-xl px-16px mx-auto">{children}</main>
       </body>
     </html>
   );

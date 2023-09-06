@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <header className="border-b border-gray-200 h-64px">
-      <div className="max-w-screen-xl mx-auto h-full flex items-center justify-between w-full px-16px">
+      <div className="max-w-[1400px] mx-auto h-full flex items-center justify-between w-full px-16px">
         <nav className="flex items-center h-full">
           <Link href="/" className="text-24px font-semibold text-main">
             BluePrint.Dev

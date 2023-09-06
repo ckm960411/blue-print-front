@@ -2,6 +2,7 @@ import { pretendard } from '@/utils/fonts';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Header from '@/components/Header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,7 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={pretendard.variable}>
-      <body className="font-normal">{children}</body>
+      <body className="font-normal">
+        <Header />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }

@@ -1,4 +1,16 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
+
+const px0_500 = Array.from(Array(501))
+  .map((_, i) => `${i}px`)
+  .reduce((a, b) => {
+    return { [b]: b, ...a };
+  }, {});
+
+const fontSize0_50px = Array.from(Array(51))
+  .map((_, i) => `${i}px`)
+  .reduce((a, b) => {
+    return { [b]: [b, { lineHeight: '1' }], ...a };
+  }, {});
 
 const config: Config = {
   content: [
@@ -17,10 +29,16 @@ const config: Config = {
         pretendard: ['var(--font-pretendard)'],
       },
       colors: {
-        main: '#35C5F0',
+        main: '#001487',
+      },
+      spacing: {
+        ...px0_500,
+      },
+      fontSize: {
+        ...fontSize0_50px,
       },
     },
   },
   plugins: [],
-}
-export default config
+};
+export default config;

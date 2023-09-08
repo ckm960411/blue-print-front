@@ -3,6 +3,7 @@ import Image from 'next/image';
 import javascriptImg from '../../../public/img/tmp/javascript.png';
 import { CategoryCardData } from '@/utils/types/study';
 import Link from 'next/link';
+import SpaceY from '../SpaceY';
 
 interface CategoryCardProps {
   category: CategoryCardData;
@@ -20,8 +21,9 @@ export default function CategoryCard({ category }: CategoryCardProps) {
           height={200}
           className="w-80px h-80px object-contain"
         />
-        <div className="grow h-full p-16px flex flex-col justify-between">
+        <div className="grow h-full p-16px">
           <p className="font-semibold">{title}</p>
+          <SpaceY height={8} />
           <p className="font-medium text-gray-600 text-14px">
             게시물 수: {totalPostCount}개
           </p>

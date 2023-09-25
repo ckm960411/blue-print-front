@@ -7,7 +7,7 @@ import { MdWorkOutline } from 'react-icons/md';
 
 export default function SideBar() {
   return (
-    <div className="flex-shrink-0 w-240px h-full min-h-screen border-r border-gray-200 bg-blue-50">
+    <div className="flex-shrink-0 w-240px h-full min-h-screen border-r border-gray-200 bg-white">
       <div className="h-72px flex items-center px-16px">
         <Link href="/" className="text-24px font-semibold text-gray-800 p-8px">
           <span className="text-main">BluePrint</span>.Dev

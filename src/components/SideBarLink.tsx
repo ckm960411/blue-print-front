@@ -5,10 +5,10 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 
 interface SideBarLinkProps {
-  title: string;
+  children: React.ReactNode;
   href: string;
 }
-export default function SideBarLink({ title, href }: SideBarLinkProps) {
+export default function SideBarLink({ children, href }: SideBarLinkProps) {
   const pathname = usePathname();
 
   const isActive = pathname.startsWith(href);
@@ -16,11 +16,13 @@ export default function SideBarLink({ title, href }: SideBarLinkProps) {
   return (
     <Link
       href={href}
-      className={`w-full text-18px font-medium text-gray-600 hover:text-main p-16px rounded-xl hover:shadow-lg hover:bg-white duration-200 ${
-        isActive ? 'bg-white shadow-lg text-main' : ''
+      className={`flex items-center gap-12px w-full text-18px font-medium text-gray-600 hover:text-main p-16px rounded-xl hover:bg-white duration-200 ${
+        isActive
+          ? 'bg-white border-2 border-blue-200 border-dashed text-main'
+          : ''
       }`}
     >
-      {title}
+      {children}
     </Link>
   );
 }

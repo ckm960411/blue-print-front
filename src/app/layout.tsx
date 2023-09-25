@@ -2,6 +2,7 @@ import { pretendard } from '@/utils/fonts';
 import './globals.css';
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
+import SideBar from '@/components/SideBar';
 
 export const metadata: Metadata = {
   title: `KMin's Blog`,
@@ -16,8 +17,13 @@ export default function RootLayout({
   return (
     <html lang="ko" className={pretendard.variable}>
       <body className="font-normal">
-        <Header />
-        <main>{children}</main>
+        <div className="flex">
+          <SideBar />
+          <div className="grow">
+            <Header />
+            <main>{children}</main>
+          </div>
+        </div>
       </body>
     </html>
   );

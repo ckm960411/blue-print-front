@@ -24,7 +24,7 @@ export default function StudyPage() {
           <p className="text-48px mt-24px">경민의 개발공부</p>
         </div>
       </section>
-      <section className="max-w-screen-xl mx-auto px-16px pt-24px relative">
+      <section className="max-w-screen-xl mx-auto pt-24px relative">
         <Categories />
       </section>
     </section>

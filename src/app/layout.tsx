@@ -21,7 +21,7 @@ export default function RootLayout({
           <SideBar />
           <div className="grow">
             <Header />
-            <main>{children}</main>
+            <main className="p-16px">{children}</main>
           </div>
         </div>
       </body>

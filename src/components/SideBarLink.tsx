@@ -16,7 +16,7 @@ export default function SideBarLink({ children, href }: SideBarLinkProps) {
   return (
     <Link
       href={href}
-      className={`flex items-center gap-12px w-full text-18px font-medium text-gray-600 hover:text-main p-16px rounded-xl hover:bg-white duration-200 ${
+      className={`flex items-center gap-12px w-full text-18px font-medium text-gray-600 hover:text-main p-16px rounded-10px hover:bg-white duration-200 ${
         isActive ? 'bg-white border border-gray-200 text-main shadow-md' : ''
       }`}
     >

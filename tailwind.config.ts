@@ -38,6 +38,9 @@ const config: Config = {
       fontSize: {
         ...fontSize0_50px,
       },
+      borderRadius: {
+        '10px': '10px',
+      },
     },
   },
   plugins: [],

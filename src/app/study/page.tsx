@@ -7,7 +7,7 @@ import Categories from '@/components/study/Categories';
 export default function StudyPage() {
   return (
     <section>
-      <section className="bg-main relative">
+      <section className="bg-main relative rounded-10px overflow-hidden">
         <Image
           src={dashboardImage.src}
           alt="study dashboard"

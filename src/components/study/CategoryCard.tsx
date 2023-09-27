@@ -13,7 +13,7 @@ export default function CategoryCard({ category }: CategoryCardProps) {
 
   return (
     <Link href={`/study/${id}`}>
-      <div className="rounded-lg shadow-md overflow-hidden flex items-center duration-200 hover:shadow-lg">
+      <div className="rounded-10px shadow-md overflow-hidden flex items-center duration-200 hover:shadow-lg">
         <Image
           src={thumbnail}
           alt="목이미지"

@@ -25,7 +25,7 @@ export default function Home() {
         <p className="mt-16px text-18px font-medium">
           프론트엔드 개발자 KMin입니다
         </p>
-        <button className="px-24px py-16px text-18px font-medium border border-white rounded-md mt-24px hover:border-yellow-300 hover:text-yellow-300 duration-200">
+        <button className="px-24px py-16px text-18px font-medium border border-white rounded-10px mt-24px hover:border-yellow-300 hover:text-yellow-300 duration-200">
           <Link href="/about">Who Am I</Link>
         </button>
       </section>

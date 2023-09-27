@@ -22,9 +22,7 @@ export default function CategoryCard({ category }: CategoryCardProps) {
           className="h-80px w-80px object-contain"
         />
         <div className="h-full grow p-16px">
-          <p className="truncate-1-lines font-semibold">
-            {title}
-          </p>
+          <p className="truncate-1-lines font-semibold">{title}</p>
           <SpaceY height={8} />
           <p className="text-14px font-medium text-gray-600">
             게시물 수: {totalPostCount}개

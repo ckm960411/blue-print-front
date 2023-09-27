@@ -1,15 +1,15 @@
-import Link from 'next/link';
-import React from 'react';
-import SideBarLink from './SideBarLink';
-import { AiOutlineLaptop } from 'react-icons/ai';
-import { BsJournalBookmark } from 'react-icons/bs';
-import { MdWorkOutline } from 'react-icons/md';
+import Link from "next/link";
+import React from "react";
+import SideBarLink from "./SideBarLink";
+import { AiOutlineLaptop } from "react-icons/ai";
+import { BsJournalBookmark } from "react-icons/bs";
+import { MdWorkOutline } from "react-icons/md";
 
 export default function SideBar() {
   return (
-    <div className="flex-shrink-0 w-240px h-full min-h-screen border-r border-gray-200 bg-white">
-      <div className="h-72px flex items-center px-16px">
-        <Link href="/" className="text-24px font-semibold text-gray-800 p-8px">
+    <div className="h-full min-h-screen w-240px flex-shrink-0 border-r border-gray-200 bg-white">
+      <div className="flex h-72px items-center px-16px">
+        <Link href="/" className="p-8px text-24px font-semibold text-gray-800">
           <span className="text-main">BluePrint</span>.Dev
         </Link>
       </div>

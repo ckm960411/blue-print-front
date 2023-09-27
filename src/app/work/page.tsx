@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
 export default function WorkPage() {
-  return <div className="max-w-screen-xl px-16px mx-auto">WorkPage</div>;
+  return <div className="mx-auto max-w-screen-xl px-16px">WorkPage</div>;
 }

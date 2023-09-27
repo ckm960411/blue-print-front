@@ -40,7 +40,7 @@ export default function Categories() {
       <hr className="my-24px" />
       <div className="min-h-[360px]">
         <p className="text-26px font-bold">Language & Framework</p>
-        <div className="mt-24px grid grid-cols-3 gap-16px">
+        <div className="mt-24px grid grid-cols-1 gap-16px md:grid-cols-2 lg:grid-cols-3">
           {categories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}

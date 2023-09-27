@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { TbDatabaseEdit } from "react-icons/tb";
 import dashboardImage from "../../../public/img/study-dashboard.jpeg";
-import Categories from "@/components/study/Categories";
+import CategorySections from "@/components/study/CategorySections";
 
 export default function StudyPage() {
   return (
@@ -27,7 +27,7 @@ export default function StudyPage() {
         </div>
       </section>
       <section className="relative mx-auto max-w-screen-xl pt-24px">
-        <Categories />
+        <CategorySections />
       </section>
     </section>
   );

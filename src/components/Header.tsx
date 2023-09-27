@@ -12,7 +12,7 @@ export default function Header() {
               placeholder="원하는 키워드로 검색해보세요!"
               className="grow bg-gray-50 placeholder:text-14px"
             />
-            <button className="rounded-10px border border-gray-200 p-8px text-14px text-gray-600 duration-200 hover:text-main">
+            <button className="rounded-10px border border-gray-200 p-8px text-14px text-gray-600 duration-200 hover:bg-main hover:text-white hover:shadow-lg">
               검색
             </button>
           </div>
@@ -21,8 +21,8 @@ export default function Header() {
           </div>
         </div>
         <div className="flex flex-shrink-0 items-center gap-16px">
-          <button className="flex-center h-42px w-42px rounded-10px border border-gray-200 md:hidden">
-            <BiSearch className="h-20px w-20px text-gray-800" />
+          <button className="flex-center h-42px w-42px rounded-10px border border-gray-200 text-gray-800 duration-200 hover:bg-main hover:text-white hover:shadow-lg md:hidden">
+            <BiSearch className="h-20px w-20px" />
           </button>
           <button className="h-42px w-76px rounded-10px border border-gray-200 text-16px font-medium duration-200 hover:bg-main hover:text-white hover:shadow-lg">
             로그인

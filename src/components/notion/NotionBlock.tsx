@@ -11,6 +11,7 @@ import ColumnBlock from "./ColumnBlock";
 import CodeBlock from "./CodeBlock";
 import DividerBlock from "./DividerBlock";
 import ToDoBlock from "./ToDoBlock";
+import TableBlock from "./TableBlock";
 
 interface NotionBlockProps {
   block: Block;
@@ -43,6 +44,8 @@ export default function NotionBlock({ block }: NotionBlockProps) {
       return <DividerBlock block={block} />;
     case BlockType.to_do:
       return <ToDoBlock block={block} />;
+    case BlockType.table:
+      return <TableBlock block={block} />;
     default:
       return <div>NotionBlock</div>;
   }

@@ -19,7 +19,7 @@ export default function QuoteBlock({ block }: QuoteBlockProps) {
         ({ annotations: { bold, color, underline }, text: { content } }, i) => (
           <span
             key={i}
-            className={`${bold ? "font-bold" : "font-medium"} ${
+            className={`${bold ? "font-bold" : ""} ${
               underline ? "underline" : ""
             } ${getColorByBlockColor(color)}`}
           >

@@ -1,13 +1,19 @@
 import React from "react";
 import Image from "next/image";
 import javascriptImg from "../../../../public/img/tmp/javascript.png";
+import axios from "axios";
 
 interface CategoryPageProps {
   params: { categoryId: string };
 }
-export default function CategoryPage({
+export default async function CategoryPage({
   params: { categoryId },
 }: CategoryPageProps) {
+  const notion = await axios
+    .get(`http://localhost:3000/api/notion`)
+    .then((res) => res.data)
+    .catch((e) => console.log("e: ", e));
+
   const category = {
     id: 1,
     title: "JavaScript 마스터",
@@ -40,6 +46,11 @@ export default function CategoryPage({
           </p>
         </div>
       </div>
+      {Object.values(notion.block ?? {}).map((b: any, i: number) => (
+        <div key={i} className="text-24px font-bold hover:text-main">
+          {b?.value?.format?.page_icon} {b?.value?.properties?.title?.[0]}
+        </div>
+      ))}
     </div>
   );
 }

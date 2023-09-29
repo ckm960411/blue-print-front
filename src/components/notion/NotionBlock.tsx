@@ -3,6 +3,7 @@ import React from "react";
 import ParagraphBlock from "./ParagraphBlock";
 import QuoteBlock from "./QuoteBlock";
 import HeadingBlock from "./HeadingBlock";
+import BulletedListItemBlock from "./BulletedListItemBlock";
 
 interface NotionBlockProps {
   block: Block;
@@ -19,6 +20,8 @@ export default function NotionBlock({ block }: NotionBlockProps) {
     case BlockType.heading_2:
     case BlockType.heading_3:
       return <HeadingBlock block={block} />;
+    case BlockType.bulleted_list_item:
+      return <BulletedListItemBlock block={block} />;
     default:
       return <div>NotionBlock</div>;
   }

@@ -15,6 +15,7 @@ import TableBlock from "./TableBlock";
 import TableRowBlock from "./TableRowBlock";
 import ToggleBlock from "./ToggleBlock";
 import ImageBlock from "./ImageBlock";
+import BookmarkBlock from "./BookmarkBlock";
 
 interface NotionBlockProps {
   block: Block;
@@ -55,6 +56,8 @@ export default function NotionBlock({ block }: NotionBlockProps) {
       return <ToggleBlock block={block} />;
     case BlockType.image:
       return <ImageBlock block={block} />;
+    case BlockType.bookmark:
+      return <BookmarkBlock block={block} />;
     default:
       return <div>NotionBlock</div>;
   }

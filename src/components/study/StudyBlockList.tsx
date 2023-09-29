@@ -9,7 +9,7 @@ export default async function StudyBlockList({ pageId }: StudyBlockListProps) {
   const { results: blocks } = await getNotionBlockList(pageId);
 
   return (
-    <div>
+    <div className="mx-auto max-w-screen-xl">
       {blocks.map((block) => (
         <NotionBlock key={block.id} block={block} />
       ))}

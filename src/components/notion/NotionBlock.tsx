@@ -36,7 +36,7 @@ export default function NotionBlock({ block }: NotionBlockProps) {
       return <NumberedListItemBlock block={block} />;
     case BlockType.callout:
       return <CalloutBlock block={block} />;
-    case BlockType.pragraph:
+    case BlockType.paragraph:
       return <ParagraphBlock block={block} />;
     case BlockType.column_list:
       return <ColumnListBlock block={block} />;

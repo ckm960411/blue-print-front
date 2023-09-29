@@ -25,7 +25,7 @@ export enum BlockType {
   bulleted_list_item = "bulleted_list_item",
   numbered_list_item = "numbered_list_item",
   callout = "callout",
-  pragraph = "pragraph",
+  paragraph = "paragraph",
   column = "column",
   column_list = "column_list",
   code = "code",

@@ -1,14 +1,24 @@
 import React from "react";
 import Image from "next/image";
-import javascriptImg from "../../../public/img/tmp/javascript.png";
 import Link from "next/link";
-import SpaceY from "../SpaceY";
+import { get } from "@/app/api/axios";
+import { GetPageResDto } from "@/utils/types/notion";
 
 interface CategoryCardProps {
   pageId: string;
   url: string;
 }
-export default function CategoryCard({ pageId, url }: CategoryCardProps) {
+export default async function CategoryCard({ pageId, url }: CategoryCardProps) {
+  const {
+    data: {
+      properties: {
+        title: { title },
+      },
+    },
+  } = await get<GetPageResDto>(`/api/notion/pages/${pageId}`);
+
+  const pageTitle = title[0].text.content;
+
   return (
     <Link href={`/study/${pageId}`}>
       <div className="flex items-center overflow-hidden rounded-10px shadow-md duration-200 hover:shadow-lg">
@@ -20,8 +30,7 @@ export default function CategoryCard({ pageId, url }: CategoryCardProps) {
           className="h-80px w-80px object-contain"
         />
         <div className="h-full grow p-16px">
-          {/* <p className="truncate-1-lines font-semibold">{title}</p> */}
-          <p className="truncate-1-lines font-semibold">2</p>
+          <p className="truncate-1-lines font-semibold">{pageTitle}</p>
         </div>
       </div>
     </Link>

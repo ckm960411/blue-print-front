@@ -45,7 +45,7 @@ export default function NotionBlock({ block }: NotionBlockProps) {
     case BlockType.code:
       return <CodeBlock block={block} />;
     case BlockType.divider:
-      return <DividerBlock block={block} />;
+      return <DividerBlock />;
     case BlockType.to_do:
       return <ToDoBlock block={block} />;
     case BlockType.table:

@@ -1,9 +1,6 @@
 import { Block } from "@/utils/types/notion";
 import React from "react";
 
-interface DividerBlockProps {
-  block: Block;
-}
-export default function DividerBlock({ block }: DividerBlockProps) {
-  return <div>DividerBlock</div>;
+export default function DividerBlock() {
+  return <hr className="my-8px" />;
 }

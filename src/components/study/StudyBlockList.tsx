@@ -1,5 +1,6 @@
 import { getNotionBlockList } from "@/utils/services/notion";
 import React from "react";
+import NotionBlock from "../notion/NotionBlock";
 
 interface StudyBlockListProps {
   pageId: string;
@@ -10,7 +11,7 @@ export default async function StudyBlockList({ pageId }: StudyBlockListProps) {
   return (
     <div>
       {blocks.map((block) => (
-        <div key={block.id}>1</div>
+        <NotionBlock key={block.id} block={block} />
       ))}
     </div>
   );

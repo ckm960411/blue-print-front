@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import SideBar from "@/components/SideBar";
+import { ChakraUIProvider } from "@/components/ChakraUIProvider";
 
 export const metadata: Metadata = {
   title: `KMin's Blog`,
@@ -17,13 +18,15 @@ export default function RootLayout({
   return (
     <html lang="ko" className={pretendard.variable}>
       <body className="font-normal">
-        <div className="flex">
-          <SideBar />
-          <div className="grow">
-            <Header />
-            <main className="p-16px">{children}</main>
+        <ChakraUIProvider>
+          <div className="flex">
+            <SideBar />
+            <div className="grow">
+              <Header />
+              <main className="p-16px">{children}</main>
+            </div>
           </div>
-        </div>
+        </ChakraUIProvider>
       </body>
     </html>
   );

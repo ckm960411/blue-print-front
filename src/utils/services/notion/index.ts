@@ -1,5 +1,5 @@
 import { get } from "@/app/api/axios";
-import { GetPageResDto } from "@/utils/types/notion";
+import { GetBlockListResDto, GetPageResDto } from "@/utils/types/notion";
 import { CategorySection } from "@/utils/types/study";
 
 export const getNotionSections = async () => {
@@ -9,5 +9,12 @@ export const getNotionSections = async () => {
 
 export const getNotionPageById = async (pageId: string) => {
   const { data } = await get<GetPageResDto>(`/api/notion/pages/${pageId}`);
+  return data;
+};
+
+export const getNotionBlockList = async (blockId: string) => {
+  const { data } = await get<GetBlockListResDto>(
+    `/api/notion/blocks/${blockId}`,
+  );
   return data;
 };

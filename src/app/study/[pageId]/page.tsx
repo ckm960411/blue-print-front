@@ -4,10 +4,10 @@ import javascriptImg from "../../../../public/img/tmp/javascript.png";
 import axios from "axios";
 
 interface CategoryPageProps {
-  params: { categoryId: string };
+  params: { pageId: string };
 }
 export default async function CategoryPage({
-  params: { categoryId },
+  params: { pageId },
 }: CategoryPageProps) {
   const notion = await axios
     .get(`http://localhost:3000/api/notion`)

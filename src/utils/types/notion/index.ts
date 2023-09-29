@@ -61,7 +61,7 @@ export interface BlockContent {
   has_column_header: boolean; // table
   has_row_header: boolean; // table
   table_width: number; // table: 테이블 컬럼 개수
-  cells: RichText[]; // table_row
+  cells: RichText[][]; // table_row
 }
 export type BlockTypeContent = {
   [key in BlockType]: BlockContent;

@@ -1,8 +1,10 @@
 "use client";
 
 import { Block, BlockType } from "@/utils/types/notion";
+import { useToast } from "@chakra-ui/react";
 import React from "react";
-import { AiOutlineCopy } from "react-icons/ai";
+import { AiOutlineCopy, AiOutlineNotification } from "react-icons/ai";
+import { ImNotification } from "react-icons/im";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -10,6 +12,8 @@ interface CodeBlockProps {
   block: Block;
 }
 export default function CodeBlock({ block }: CodeBlockProps) {
+  const toast = useToast();
+
   if (block.type !== BlockType.code) return <></>;
 
   const { code } = block;
@@ -22,8 +26,26 @@ export default function CodeBlock({ block }: CodeBlockProps) {
   const handleCopy = async () => {
     navigator.clipboard
       .writeText(codeText)
-      .then(() => alert("코드가 복사되었습니다."))
-      .catch(() => alert("코드 복사 중 에러가 발생했습니다."));
+      .then(() =>
+        toast({
+          render: () => (
+            <div className="flex items-center gap-8px rounded-10px bg-main p-20px text-16px font-bold text-white">
+              <AiOutlineNotification className="text-22px" />
+              <span>코드 복사가 완료되었습니다.</span>
+            </div>
+          ),
+        }),
+      )
+      .catch(() =>
+        toast({
+          render: () => (
+            <div className="flex items-center gap-8px rounded-10px bg-red-500 p-20px text-16px font-bold text-white">
+              <ImNotification className="text-22px" />
+              <span>코드 복사가 문제가 발생했습니다.</span>
+            </div>
+          ),
+        }),
+      );
   };
 
   const convertedLanguage =

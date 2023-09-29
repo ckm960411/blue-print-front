@@ -1,11 +1,7 @@
-export interface Category {
-  id: number;
-  title: string;
-  thumbnail: string;
-  totalPostCount: number;
-}
+import { PageIdAndUrl } from "@/app/api/notion/pages/route";
+
 export interface CategorySection {
   id: number;
   name: string;
-  categories: Category[];
+  categories: PageIdAndUrl[];
 }

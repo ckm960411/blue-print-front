@@ -1,9 +1,9 @@
 import { get } from "@/app/api/axios";
-import { PageIdAndUrl } from "@/app/api/notion/pages/route";
 import { GetPageResDto } from "@/utils/types/notion";
+import { CategorySection } from "@/utils/types/study";
 
-export const getNotionPageIdAndUrls = async () => {
-  const { data } = await get<PageIdAndUrl[]>("api/notion/pages");
+export const getNotionSections = async () => {
+  const { data } = await get<CategorySection[]>("api/notion/pages");
   return data;
 };
 

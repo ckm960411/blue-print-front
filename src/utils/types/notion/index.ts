@@ -9,7 +9,13 @@ export type TextColor =
   | "yellow"
   | "yellow_background"
   | "green"
-  | "green_background";
+  | "green_background"
+  | "orange"
+  | "orange_background"
+  | "blue"
+  | "blue_background"
+  | "pink"
+  | "pink_background";
 export enum BlockType {
   table_of_contents = "table_of_contents",
   quote = "quote",

@@ -10,9 +10,11 @@ export default async function StudyBlockList({ pageId }: StudyBlockListProps) {
 
   return (
     <div className="mx-auto max-w-screen-xl">
-      {blocks.map((block) => (
-        <NotionBlock key={block.id} block={block} />
-      ))}
+      <div className="flex flex-col gap-8px">
+        {blocks.map((block) => (
+          <NotionBlock key={block.id} block={block} />
+        ))}
+      </div>
     </div>
   );
 }

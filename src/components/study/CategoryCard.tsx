@@ -1,23 +1,16 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { get } from "@/app/api/axios";
-import { GetPageResDto } from "@/utils/types/notion";
+import { getNotionPageById } from "@/utils/services/notion";
 
 interface CategoryCardProps {
   pageId: string;
   url: string;
 }
 export default async function CategoryCard({ pageId, url }: CategoryCardProps) {
-  const {
-    data: {
-      properties: {
-        title: { title },
-      },
-    },
-  } = await get<GetPageResDto>(`/api/notion/pages/${pageId}`);
+  const data = await getNotionPageById(pageId);
 
-  const pageTitle = title[0].text.content;
+  const pageTitle = data.properties.title.title[0].text.content;
 
   return (
     <Link href={`/study/${pageId}`}>

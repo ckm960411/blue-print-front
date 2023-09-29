@@ -1,11 +1,10 @@
 import React from "react";
 import CategoryCard from "./CategoryCard";
 
-import { PageIdAndUrl } from "@/app/api/notion/pages/route";
-import { get } from "@/app/api/axios";
+import { getNotionPageIdAndUrls } from "@/utils/services/notion";
 
 export default async function CategorySections() {
-  const { data: pages } = await get<PageIdAndUrl[]>("api/notion/pages");
+  const pages = await getNotionPageIdAndUrls();
 
   return (
     <div className="flex flex-col gap-120px">

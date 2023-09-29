@@ -51,6 +51,7 @@ export interface BlockContent {
   is_toggleable?: boolean; // heading
   icon?: Icon; // 콜아웃의 경우 이모지
   caption?: RichText[]; // code, image, bookmark
+  language?: string;
   url?: string; // bookmark
   file?: {
     expiry_time: Date | string;

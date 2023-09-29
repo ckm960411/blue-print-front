@@ -12,7 +12,6 @@ import CodeBlock from "./CodeBlock";
 import DividerBlock from "./DividerBlock";
 import ToDoBlock from "./ToDoBlock";
 import TableBlock from "./TableBlock";
-import TableRowBlock from "./TableRowBlock";
 import ToggleBlock from "./ToggleBlock";
 import ImageBlock from "./ImageBlock";
 import BookmarkBlock from "./BookmarkBlock";
@@ -50,8 +49,6 @@ export default function NotionBlock({ block }: NotionBlockProps) {
       return <ToDoBlock block={block} />;
     case BlockType.table:
       return <TableBlock block={block} />;
-    case BlockType.table_row:
-      return <TableRowBlock block={block} />;
     case BlockType.toggle:
       return <ToggleBlock block={block} />;
     case BlockType.image:

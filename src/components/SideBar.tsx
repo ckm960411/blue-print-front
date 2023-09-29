@@ -24,7 +24,7 @@ export default function SideBar() {
 
   return (
     <div
-      className={`h-full min-h-screen flex-shrink-0 overflow-hidden border-r border-gray-200 bg-white duration-200 ${
+      className={`min-h-screen flex-shrink-0 overflow-hidden border-r border-gray-200 bg-white duration-200 ${
         isSpreaded ? "w-240px" : "w-88px"
       }`}
     >

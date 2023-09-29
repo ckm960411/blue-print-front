@@ -1,9 +1,13 @@
+import { Z_INDEX } from "@/utils/common";
 import React from "react";
 import { BiSearch } from "react-icons/bi";
 
 export default function Header() {
   return (
-    <header className="h-72px border-b border-gray-200">
+    <header
+      className="sticky top-0 h-72px border-b border-gray-200 bg-white"
+      style={{ zIndex: Z_INDEX.HEADER }}
+    >
       <div className="flex h-full w-full items-center gap-16px px-24px">
         <div className="grow">
           <div className="hidden w-360px items-center gap-12px rounded-10px border border-gray-200 bg-gray-50 px-16px py-6px md:flex">

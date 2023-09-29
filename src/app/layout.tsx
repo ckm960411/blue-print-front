@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="ko" className={pretendard.variable}>
       <body className="font-normal">
         <ChakraUIProvider>
-          <div className="flex">
+          <div className="flex relative">
             <SideBar />
             <div className="grow">
               <Header />

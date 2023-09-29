@@ -37,14 +37,19 @@ export enum BlockType {
   image = "image",
   bookmark = "bookmark",
 }
+
+export interface Icon {
+  type: "text" | "emoji" | "file" | "external";
+  emoji?: string;
+  file?: { url: string; expiry_time: string };
+  external?: { url: string };
+}
+
 export interface BlockContent {
   color?: TextColor;
   rich_text?: RichText[];
   is_toggleable?: boolean; // heading
-  icon?: {
-    type: "text" | "emoji";
-    emoji?: string;
-  }; // 콜아웃의 경우 이모지
+  icon?: Icon; // 콜아웃의 경우 이모지
   caption?: RichText[]; // code, image, bookmark
   url?: string; // bookmark
   file?: {

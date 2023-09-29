@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import javascriptImg from "../../../../public/img/tmp/javascript.png";
-import axios from "axios";
-import { getNotionBlockList, getNotionPageById } from "@/utils/services/notion";
+import { getNotionPageById } from "@/utils/services/notion";
+import StudyBlockList from "@/components/study/StudyBlockList";
 
 interface CategoryPageProps {
   params: { pageId: string };
@@ -11,7 +10,6 @@ export default async function CategoryPage({
   params: { pageId },
 }: CategoryPageProps) {
   const pageData = await getNotionPageById(pageId);
-  const { results: blocks } = await getNotionBlockList(pageId);
 
   const pageTitle = pageData.properties.title.title[0].text.content;
   const pageIcon = pageData.icon?.file?.url ?? "";
@@ -34,6 +32,9 @@ export default async function CategoryPage({
           priority
         />
         <h1 className="text-22px font-bold md:text-32px">{pageTitle}</h1>
+      </div>
+      <div className="mt-24px">
+        <StudyBlockList pageId={pageId} />
       </div>
     </div>
   );

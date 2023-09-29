@@ -4,6 +4,7 @@ import ParagraphBlock from "./ParagraphBlock";
 import QuoteBlock from "./QuoteBlock";
 import HeadingBlock from "./HeadingBlock";
 import BulletedListItemBlock from "./BulletedListItemBlock";
+import NumberedListItemBlock from "./NumberedListItemBlock";
 
 interface NotionBlockProps {
   block: Block;
@@ -22,6 +23,8 @@ export default function NotionBlock({ block }: NotionBlockProps) {
       return <HeadingBlock block={block} />;
     case BlockType.bulleted_list_item:
       return <BulletedListItemBlock block={block} />;
+    case BlockType.numbered_list_item:
+      return <NumberedListItemBlock block={block} />;
     default:
       return <div>NotionBlock</div>;
   }

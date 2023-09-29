@@ -7,6 +7,7 @@ import BulletedListItemBlock from "./BulletedListItemBlock";
 import NumberedListItemBlock from "./NumberedListItemBlock";
 import CalloutBlock from "./CalloutBlock";
 import ColumnListBlock from "./ColumnListBlock";
+import ColumnBlock from "./ColumnBlock";
 
 interface NotionBlockProps {
   block: Block;
@@ -31,6 +32,8 @@ export default function NotionBlock({ block }: NotionBlockProps) {
       return <ParagraphBlock block={block} />;
     case BlockType.column_list:
       return <ColumnListBlock block={block} />;
+    case BlockType.column:
+      return <ColumnBlock block={block} />;
     default:
       return <div>NotionBlock</div>;
   }

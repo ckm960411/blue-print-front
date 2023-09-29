@@ -2,6 +2,7 @@
 
 import { Block, BlockType } from "@/utils/types/notion";
 import React from "react";
+import { AiOutlineCopy } from "react-icons/ai";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -16,6 +17,15 @@ export default function CodeBlock({ block }: CodeBlockProps) {
 
   if (!rich_text) return <></>;
 
+  const codeText = rich_text.map((richText) => richText.text.content).join("");
+
+  const handleCopy = async () => {
+    navigator.clipboard
+      .writeText(codeText)
+      .then(() => alert("코드가 복사되었습니다."))
+      .catch(() => alert("코드 복사 중 에러가 발생했습니다."));
+  };
+
   const convertedLanguage =
     code.language === "typescript"
       ? "tsx"
@@ -24,7 +34,14 @@ export default function CodeBlock({ block }: CodeBlockProps) {
       : code.language;
 
   return (
-    <div>
+    <div className="relative overflow-hidden">
+      <button
+        onClick={handleCopy}
+        className="flex-center absolute right-0 top-0 gap-6px rounded-bl-[10px] bg-gray-100 bg-opacity-50 px-12px py-6px text-14px text-gray-100"
+      >
+        <AiOutlineCopy />
+        <span>복사</span>
+      </button>
       <SyntaxHighlighter
         language={convertedLanguage}
         style={oneDark}
@@ -38,7 +55,7 @@ export default function CodeBlock({ block }: CodeBlockProps) {
           margin: 0,
         }}
       >
-        {rich_text.map((richText) => richText.text.content).join("")}
+        {codeText}
       </SyntaxHighlighter>
     </div>
   );

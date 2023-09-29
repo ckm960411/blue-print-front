@@ -10,26 +10,27 @@ export type TextColor =
   | "yellow_background"
   | "green"
   | "green_background";
-export type BlockType =
-  | "table_of_contents"
-  | "quote"
-  | "heading_1"
-  | "heading_2"
-  | "heading_3"
-  | "bulleted_list_item"
-  | "numbered_list_item"
-  | "callout"
-  | "pragraph"
-  | "column"
-  | "column_list"
-  | "code"
-  | "divider"
-  | "to_do"
-  | "table"
-  | "table_row"
-  | "toggle"
-  | "image"
-  | "bookmark";
+export enum BlockType {
+  table_of_contents = "table_of_contents",
+  quote = "quote",
+  heading_1 = "heading_1",
+  heading_2 = "heading_2",
+  heading_3 = "heading_3",
+  bulleted_list_item = "bulleted_list_item",
+  numbered_list_item = "numbered_list_item",
+  callout = "callout",
+  pragraph = "pragraph",
+  column = "column",
+  column_list = "column_list",
+  code = "code",
+  divider = "divider",
+  to_do = "to_do",
+  table = "table",
+  table_row = "table_row",
+  toggle = "toggle",
+  image = "image",
+  bookmark = "bookmark",
+}
 export interface BlockContent {
   color?: TextColor;
   rich_text?: RichText[];

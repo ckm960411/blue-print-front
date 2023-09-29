@@ -95,12 +95,11 @@ export interface GetBlockListResDto {
   results: Block[];
 }
 
-export type PageIcon =
-  | {
-      type: "file";
-      file: { expiry_time: string; url: string };
-    }
-  | { type: "emoji"; emoji: string };
+export type PageIcon = {
+  type: "emoji" | "file ";
+  emoji?: string;
+  file?: { expiry_time: string; url: string };
+};
 
 export interface GetPageResDto {
   id: string;

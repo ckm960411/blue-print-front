@@ -1,4 +1,4 @@
-import { notionApi } from "@/utils/common";
+import { notionApi } from "@/utils/common/notion";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (

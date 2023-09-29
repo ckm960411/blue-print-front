@@ -9,6 +9,7 @@ import CalloutBlock from "./CalloutBlock";
 import ColumnListBlock from "./ColumnListBlock";
 import ColumnBlock from "./ColumnBlock";
 import CodeBlock from "./CodeBlock";
+import DividerBlock from "./DividerBlock";
 
 interface NotionBlockProps {
   block: Block;
@@ -37,6 +38,8 @@ export default function NotionBlock({ block }: NotionBlockProps) {
       return <ColumnBlock block={block} />;
     case BlockType.code:
       return <CodeBlock block={block} />;
+    case BlockType.divider:
+      return <DividerBlock block={block} />;
     default:
       return <div>NotionBlock</div>;
   }

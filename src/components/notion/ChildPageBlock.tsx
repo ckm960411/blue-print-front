@@ -1,5 +1,8 @@
+"use client";
+
 import { Block } from "@/utils/types/notion";
 import Link from "next/link";
+import { useParams, usePathname } from "next/navigation";
 import React from "react";
 import { LuFileSymlink } from "react-icons/lu";
 
@@ -9,16 +12,18 @@ interface ChildPageBlockProps {
 export default function ChildPageBlock({ block }: ChildPageBlockProps) {
   const {
     id,
-    parent,
     has_children,
     child_page: { title },
   } = block;
+
+  const { pageIds }: { pageIds: string[] } = useParams();
+  const slashedPageIds = [...pageIds, id].join("/");
 
   return (
     <div>
       {has_children ? (
         <Link
-          href={`/notion/study/detail/${id}?=parentIds=[${parent.page_id}]`}
+          href={`/study/${slashedPageIds}`}
           className="flex items-center gap-4px py-4px text-16px font-semibold text-gray-800 underline"
         >
           <LuFileSymlink className="h-22px w-22px" />

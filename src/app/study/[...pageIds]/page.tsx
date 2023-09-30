@@ -4,11 +4,15 @@ import { getNotionPageById } from "@/utils/services/notion";
 import StudyBlockList from "@/components/study/StudyBlockList";
 
 interface CategoryPageProps {
-  params: { pageId: string };
+  params: { pageIds: string[] };
 }
 export default async function CategoryPage({
-  params: { pageId },
+  params: { pageIds },
 }: CategoryPageProps) {
+  const pageId = pageIds.at(-1);
+
+  if (!pageId) return <></>;
+
   const pageData = await getNotionPageById(pageId);
 
   const pageTitle = pageData.properties.title.title[0].text.content;

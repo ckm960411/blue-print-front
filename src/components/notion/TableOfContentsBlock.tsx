@@ -17,6 +17,24 @@ export default function TableOfContentsBlock({
   const [headings, setHeadings] = useState<Block[]>([]);
   const [open, setOpen] = useState(false);
 
+  const handleClickHeading = (
+    e: React.MouseEvent<HTMLParagraphElement>,
+    headingId: string,
+  ) => {
+    e.preventDefault();
+    const headingEl = document.querySelector(`#${headingId}`) as
+      | HTMLElement
+      | undefined;
+    const headingScrollTop = headingEl?.offsetTop;
+    const NAVBAR_HEIGHT = 70;
+    const PADDING = 16;
+
+    window.scrollTo({
+      top: headingScrollTop ? headingScrollTop - (NAVBAR_HEIGHT + PADDING) : 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     getNotionBlockList(block.parent.page_id)
       .then(({ results }) => {
@@ -48,7 +66,11 @@ export default function TableOfContentsBlock({
         }`}
       >
         {headings.map((heading) => (
-          <p key={heading.id} className="underline">
+          <p
+            key={heading.id}
+            onClick={(e) => handleClickHeading(e, heading.id)}
+            className="underline"
+          >
             {heading.heading_1 ? (
               <p className="cursor-pointer text-22px leading-[140%]">
                 {heading.heading_1.rich_text && (

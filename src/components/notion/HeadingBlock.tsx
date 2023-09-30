@@ -26,6 +26,7 @@ export default function HeadingBlock({ block }: HeadingBlockProps) {
       return (
         <div
           key={i}
+          id={block.id}
           className={`font-bold ${getTextSize(type)} ${getColorByBlockColor(
             color,
           )}`}

@@ -1,17 +1,15 @@
-import { Block, BlockType } from "@/utils/types/notion";
+import { Block } from "@/utils/types/notion";
 import React from "react";
 import RichText from "./RichText";
-import Image from "next/image";
 import NotionIcon from "./NotionIcon";
 
 interface CalloutBlockProps {
   block: Block;
 }
 export default function CalloutBlock({ block }: CalloutBlockProps) {
-  if (block.type !== BlockType.callout) return <></>;
-
-  const { callout } = block;
-  const { rich_text, icon } = callout;
+  const {
+    callout: { rich_text, icon },
+  } = block;
 
   if (!rich_text || !icon) return <></>;
 

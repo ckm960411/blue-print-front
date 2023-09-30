@@ -1,5 +1,4 @@
-import { getColorByBlockColor } from "@/utils/common/notion";
-import { Block, BlockType } from "@/utils/types/notion";
+import { Block } from "@/utils/types/notion";
 import React from "react";
 import { BsDot } from "react-icons/bs";
 import RichText from "./RichText";
@@ -10,10 +9,9 @@ interface BulletedListItemBlockProps {
 export default function BulletedListItemBlock({
   block,
 }: BulletedListItemBlockProps) {
-  if (block.type !== BlockType.bulleted_list_item) return <></>;
-
-  const { bulleted_list_item } = block;
-  const { rich_text } = bulleted_list_item;
+  const {
+    bulleted_list_item: { rich_text },
+  } = block;
 
   if (!rich_text) return <></>;
 

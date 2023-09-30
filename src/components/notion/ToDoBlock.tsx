@@ -1,4 +1,4 @@
-import { Block, BlockType } from "@/utils/types/notion";
+import { Block } from "@/utils/types/notion";
 import React from "react";
 import RichText from "./RichText";
 import { BsCheckSquare, BsCheckSquareFill } from "react-icons/bs";
@@ -7,8 +7,6 @@ interface ToDoBlockProps {
   block: Block;
 }
 export default function ToDoBlock({ block }: ToDoBlockProps) {
-  if (block.type !== BlockType.to_do) return <></>;
-
   const {
     to_do: { checked, rich_text },
   } = block;

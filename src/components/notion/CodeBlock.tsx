@@ -1,6 +1,6 @@
 "use client";
 
-import { Block, BlockType } from "@/utils/types/notion";
+import { Block } from "@/utils/types/notion";
 import { useToast } from "@chakra-ui/react";
 import React from "react";
 import { AiOutlineCopy, AiOutlineNotification } from "react-icons/ai";
@@ -14,10 +14,9 @@ interface CodeBlockProps {
 export default function CodeBlock({ block }: CodeBlockProps) {
   const toast = useToast();
 
-  if (block.type !== BlockType.code) return <></>;
-
-  const { code } = block;
-  const { rich_text } = code;
+  const {
+    code: { rich_text, language },
+  } = block;
 
   if (!rich_text) return <></>;
 
@@ -49,11 +48,11 @@ export default function CodeBlock({ block }: CodeBlockProps) {
   };
 
   const convertedLanguage =
-    code.language === "typescript"
+    language === "typescript"
       ? "tsx"
-      : code.language === "javascript"
+      : language === "javascript"
       ? "jsx"
-      : code.language;
+      : language;
 
   return (
     <div className="relative overflow-hidden">

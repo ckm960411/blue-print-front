@@ -14,6 +14,7 @@ export default function ToggleBlock({ block, children }: ToggleBlockProps) {
 
   const {
     toggle: { rich_text },
+    has_children,
   } = block;
 
   if (!rich_text) return <></>;
@@ -39,7 +40,7 @@ export default function ToggleBlock({ block, children }: ToggleBlockProps) {
         }`}
       >
         <div className="rounded-10px border border-main p-16px shadow-md">
-          {children}
+          {has_children && children}
         </div>
       </div>
     </div>

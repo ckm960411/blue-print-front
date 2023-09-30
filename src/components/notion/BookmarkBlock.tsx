@@ -42,7 +42,9 @@ export default async function BookmarkBlock({ block }: BookmarkBlockProps) {
           <div className="flex flex-col gap-8px pb-8px">
             {titleValue && <p className="text-16px font-bold">{titleValue}</p>}
             {descriptionValue && (
-              <p className="text-14px text-gray-500">{descriptionValue}</p>
+              <p className="truncate-2-lines text-14px text-gray-500">
+                {descriptionValue}
+              </p>
             )}
           </div>
           <div className="flex items-center gap-6px">
@@ -58,7 +60,7 @@ export default async function BookmarkBlock({ block }: BookmarkBlockProps) {
         </div>
         {imageValue && (
           <div
-            className="min-h-100px w-200px bg-cover bg-center"
+            className="min-h-100px w-200px flex-shrink-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${imageValue})` }}
           />
         )}

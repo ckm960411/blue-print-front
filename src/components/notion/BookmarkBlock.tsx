@@ -35,7 +35,6 @@ export default async function BookmarkBlock({ block }: BookmarkBlockProps) {
     <div>
       <Link
         href={url}
-        passHref
         target="_blank"
         className="flex overflow-hidden rounded-10px border border-blue-200 duration-200 hover:border-blue-300 hover:shadow-md"
       >

@@ -72,23 +72,23 @@ export default function TableOfContentsBlock({
             className="underline"
           >
             {heading.heading_1 ? (
-              <p className="cursor-pointer text-22px leading-[140%]">
+              <span className="cursor-pointer text-22px leading-[140%]">
                 {heading.heading_1.rich_text && (
                   <RichText richText={heading.heading_1.rich_text} />
                 )}
-              </p>
+              </span>
             ) : heading.heading_2 ? (
-              <p className="cursor-pointer text-18px leading-[140%]">
+              <span className="cursor-pointer text-18px leading-[140%]">
                 {heading.heading_2.rich_text && (
                   <RichText richText={heading.heading_2.rich_text} />
                 )}
-              </p>
+              </span>
             ) : (
-              <p className="cursor-pointer text-16px leading-[140%]">
+              <span className="cursor-pointer text-16px leading-[140%]">
                 {heading.heading_3.rich_text && (
                   <RichText richText={heading.heading_3.rich_text} />
                 )}
-              </p>
+              </span>
             )}
           </p>
         ))}

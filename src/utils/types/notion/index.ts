@@ -36,6 +36,8 @@ export enum BlockType {
   toggle = "toggle",
   image = "image",
   bookmark = "bookmark",
+  child_page = "child_page",
+  link_preview = "link_preview",
 }
 
 export interface Icon {

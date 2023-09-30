@@ -16,6 +16,8 @@ import ToggleBlock from "./ToggleBlock";
 import ImageBlock from "./ImageBlock";
 import BookmarkBlock from "./BookmarkBlock";
 import StudyBlockList from "../study/StudyBlockList";
+import ChildPageBlock from "./ChildPageBlock";
+import LinkPreviewBlock from "./LinkPreviewBlock";
 
 interface NotionBlockProps {
   block: Block;
@@ -60,6 +62,10 @@ export default function NotionBlock({ block }: NotionBlockProps) {
       return <ImageBlock block={block} />;
     case BlockType.bookmark:
       return <BookmarkBlock block={block} />;
+    case BlockType.child_page:
+      return <ChildPageBlock block={block} />;
+    case BlockType.link_preview:
+      return <LinkPreviewBlock block={block} />;
     default:
       return <div>NotionBlock</div>;
   }

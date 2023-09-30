@@ -16,7 +16,7 @@ export default async function CategoryPage({
   const pageData = await getNotionPageById(pageId);
 
   const pageTitle = pageData.properties.title.title[0].text.content;
-  const pageIcon = pageData.icon?.file?.url ?? "";
+  const pageIcon = pageData.icon?.file?.url ?? pageData.icon?.emoji ?? "";
 
   return (
     <div>
@@ -27,14 +27,20 @@ export default async function CategoryPage({
             "linear-gradient(90deg, rgba(236,253,245,1) 0%, rgba(219,234,254,1) 100%)",
         }}
       >
-        <Image
-          src={pageIcon}
-          alt="study dashboard"
-          width={1200}
-          height={400}
-          className="h-80px w-80px object-contain md:h-160px md:w-160px lg:h-200px lg:w-200px"
-          priority
-        />
+        {pageData.icon?.file ? (
+          <Image
+            src={pageIcon}
+            alt="study dashboard"
+            width={1200}
+            height={400}
+            className="h-80px w-80px object-contain md:h-160px md:w-160px lg:h-200px lg:w-200px"
+            priority
+          />
+        ) : (
+          <span className="text-[80px] leading-[1] md:h-160px md:text-[160px] lg:h-200px lg:text-[200px]">
+            {pageIcon}
+          </span>
+        )}
         <h1 className="text-22px font-bold md:text-32px">{pageTitle}</h1>
       </div>
       <div className="mt-24px">

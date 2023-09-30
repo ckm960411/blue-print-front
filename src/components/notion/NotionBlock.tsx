@@ -18,6 +18,7 @@ import BookmarkBlock from "./BookmarkBlock";
 import StudyBlockList from "../study/StudyBlockList";
 import ChildPageBlock from "./ChildPageBlock";
 import LinkPreviewBlock from "./LinkPreviewBlock";
+import TableOfContentsBlock from "./TableOfContentsBlock";
 
 interface NotionBlockProps {
   block: Block;
@@ -66,6 +67,8 @@ export default function NotionBlock({ block }: NotionBlockProps) {
       return <ChildPageBlock block={block} />;
     case BlockType.link_preview:
       return <LinkPreviewBlock block={block} />;
+    case BlockType.table_of_contents:
+      return <TableOfContentsBlock block={block} />;
     default:
       return <div>NotionBlock</div>;
   }

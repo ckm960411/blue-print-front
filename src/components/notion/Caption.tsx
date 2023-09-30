@@ -11,7 +11,7 @@ export default function Caption({ caption }: CaptionProps) {
   }
 
   return (
-    <p className="mt-8px text-14px text-gray-600">
+    <p className="mt-8px px-16px text-14px text-gray-600">
       <RichTextComponent richText={caption} />
     </p>
   );

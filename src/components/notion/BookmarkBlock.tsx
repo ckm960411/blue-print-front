@@ -57,15 +57,10 @@ export default async function BookmarkBlock({ block }: BookmarkBlockProps) {
           </div>
         </div>
         {imageValue && (
-          <div className="w-full max-w-[200px]">
-            <Image
-              src={imageValue}
-              alt={url}
-              width={200}
-              height={100}
-              className="h-full w-full flex-shrink-0"
-            />
-          </div>
+          <div
+            className="min-h-100px w-200px bg-cover bg-center"
+            style={{ backgroundImage: `url(${imageValue})` }}
+          />
         )}
       </Link>
       <Caption caption={caption} />

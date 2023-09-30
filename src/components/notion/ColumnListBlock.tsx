@@ -11,7 +11,7 @@ export default async function ColumnListBlock({ block }: ColumnListBlockProps) {
 
   return (
     <div
-      className="grid"
+      className="grid gap-16px py-16px"
       style={{ gridTemplateColumns: `repeat(${columns.length}, 1fr)` }}
     >
       {columns.map((col) => (

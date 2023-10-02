@@ -22,9 +22,7 @@ export default function TableOfContentsBlock({
     headingId: string,
   ) => {
     e.preventDefault();
-    const headingEl = document.querySelector(`#${headingId}`) as
-      | HTMLElement
-      | undefined;
+    const headingEl = document.getElementById(`${headingId}`);
     const headingScrollTop = headingEl?.offsetTop;
     const NAVBAR_HEIGHT = 70;
     const PADDING = 16;

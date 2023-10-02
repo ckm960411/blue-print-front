@@ -54,25 +54,30 @@ export default function HeadingBlock({ block }: HeadingBlockProps) {
     } = block;
     if (!rich_text) return <></>;
 
+    const getHeadingStyle = (headingType: typeof type) => {
+      if (headingType === heading_1) return "text-28px mt-16px mb-8px";
+      if (headingType === heading_2) return "text-24px mt-6px mb-4px";
+      return "text-20px mt-4px";
+    };
+
     return (
       <p
-        className={`rounded-md font-bold leading-[140%] ${
-          color ? "py-4px pl-8px" : ""
+        className={`rounded-md font-bold leading-[140%] ${getHeadingStyle(
+          type,
+        )} ${color ? "py-4px pl-8px" : ""} ${
+          color ? getColorByBlockColor(color) : ""
         }`}
       >
         {rich_text.map(({ annotations, text: { content } }, i) => {
-          const getHeadingStyle = (headingType: typeof type) => {
-            if (headingType === heading_1) return "text-28px my-8px";
-            if (headingType === heading_2) return "text-24px my-6px";
-            return "text-20px my-4px";
-          };
           return (
             <span
               key={i}
               id={block.id}
-              className={`${getHeadingStyle(type)} ${getColorByBlockColor(
-                color !== "default" ? color : annotations.color,
-              )}`}
+              className={
+                color !== "default"
+                  ? ""
+                  : getColorByBlockColor(annotations.color)
+              }
             >
               {content}
             </span>

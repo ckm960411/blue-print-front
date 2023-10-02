@@ -44,7 +44,11 @@ export default function NotionBlock({ block }: NotionBlockProps) {
         </BulletedListItemBlock>
       );
     case BlockType.numbered_list_item:
-      return <NumberedListItemBlock block={block} />;
+      return (
+        <NumberedListItemBlock block={block}>
+          <StudyBlockList pageId={block.id} />
+        </NumberedListItemBlock>
+      );
     case BlockType.callout:
       return <CalloutBlock block={block} />;
     case BlockType.paragraph:

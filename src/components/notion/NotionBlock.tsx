@@ -70,7 +70,11 @@ export default function NotionBlock({ block }: NotionBlockProps) {
     case BlockType.divider:
       return <DividerBlock />;
     case BlockType.to_do:
-      return <ToDoBlock block={block} />;
+      return (
+        <ToDoBlock block={block}>
+          <StudyBlockList pageId={block.id} />
+        </ToDoBlock>
+      );
     case BlockType.table:
       return <TableBlock block={block} />;
     case BlockType.toggle:

@@ -50,7 +50,11 @@ export default function NotionBlock({ block }: NotionBlockProps) {
         </NumberedListItemBlock>
       );
     case BlockType.callout:
-      return <CalloutBlock block={block} />;
+      return (
+        <CalloutBlock block={block}>
+          <StudyBlockList pageId={block.id} />
+        </CalloutBlock>
+      );
     case BlockType.paragraph:
       return <ParagraphBlock block={block} />;
     case BlockType.column_list:

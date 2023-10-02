@@ -1,4 +1,4 @@
-import { get } from "@/app/api/axios";
+import { API_BASE_URL } from "..";
 
 export interface MetaData {
   faviconLink: string | null;
@@ -6,8 +6,10 @@ export interface MetaData {
 }
 export const getMetaDataByUrl = async (url: string) => {
   try {
-    const { data } = await get<MetaData>(`/api/crawling?url=${url}`);
-    return data;
+    const data = await fetch(`${API_BASE_URL}/api/crawling?url=${url}`).then(
+      (res) => res.json(),
+    );
+    return data as MetaData;
   } catch (error) {
     console.error(error);
   }

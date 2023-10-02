@@ -38,7 +38,11 @@ export default function NotionBlock({ block }: NotionBlockProps) {
     case BlockType.heading_3:
       return <HeadingBlock block={block} />;
     case BlockType.bulleted_list_item:
-      return <BulletedListItemBlock block={block} />;
+      return (
+        <BulletedListItemBlock block={block}>
+          <StudyBlockList pageId={block.id} />
+        </BulletedListItemBlock>
+      );
     case BlockType.numbered_list_item:
       return <NumberedListItemBlock block={block} />;
     case BlockType.callout:

@@ -5,20 +5,26 @@ import RichText from "./RichText";
 
 interface BulletedListItemBlockProps {
   block: Block;
+  children?: React.ReactNode;
 }
 export default function BulletedListItemBlock({
   block,
+  children,
 }: BulletedListItemBlockProps) {
   const {
     bulleted_list_item: { rich_text },
+    has_children,
   } = block;
 
   if (!rich_text) return <></>;
 
   return (
-    <p className="flex items-start">
-      <BsDot className="h-22px w-22px flex-shrink-0" />
-      <RichText richText={rich_text} />
-    </p>
+    <div>
+      <p className="flex items-start">
+        <BsDot className="h-22px w-22px flex-shrink-0" />
+        <RichText richText={rich_text} />
+      </p>
+      {has_children && <div className="mt-8px pl-24px">{children}</div>}
+    </div>
   );
 }

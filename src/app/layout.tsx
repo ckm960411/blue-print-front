@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import SideBar from "@/components/SideBar";
 import { ChakraUIProvider } from "@/components/ChakraUIProvider";
+import BottomNavigation from "@/components/BottomNavigation";
 
 export const metadata: Metadata = {
   title: `KMin's Blog`,
@@ -17,15 +18,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={pretendard.variable}>
-      <body className="font-normal">
+      <body className="flex flex-col font-normal">
         <ChakraUIProvider>
-          <div className="flex relative">
+          <div className="relative flex grow">
             <SideBar />
             <div className="grow">
               <Header />
               <main className="p-16px">{children}</main>
             </div>
           </div>
+          <BottomNavigation />
         </ChakraUIProvider>
       </body>
     </html>

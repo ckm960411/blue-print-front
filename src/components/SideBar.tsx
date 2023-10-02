@@ -11,6 +11,7 @@ import { useMediaQuery } from "react-responsive";
 
 export default function SideBar() {
   const UNDER_1024PX = useMediaQuery({ query: "(max-width: 1023px)" });
+  const UNDER_480PX = useMediaQuery({ query: "(max-width: 479px)" });
 
   const [isSpreaded, setIsSpreaded] = useState(true);
 
@@ -21,6 +22,8 @@ export default function SideBar() {
       setIsSpreaded(true);
     }
   }, [UNDER_1024PX]);
+
+  if (UNDER_480PX) return <></>;
 
   return (
     <div

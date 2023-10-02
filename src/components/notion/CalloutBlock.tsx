@@ -19,9 +19,13 @@ export default function CalloutBlock({ block, children }: CalloutBlockProps) {
     <div className="my-8px rounded-10px bg-blue-50 p-16px">
       <div className="flex items-start gap-16px">
         <NotionIcon icon={icon} />
-        <RichText richText={rich_text} />
+        <div>
+          <div>
+            <RichText richText={rich_text} />
+          </div>
+          {has_children && <div className="mt-8px">{children}</div>}
+        </div>
       </div>
-      {has_children && <div className="mt-8px">{children}</div>}
     </div>
   );
 }

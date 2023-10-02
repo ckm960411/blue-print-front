@@ -53,7 +53,7 @@ export default function RichText({ richText }: RichTextProps) {
           return (
             <code
               key={i}
-              className="rounded-md bg-blue-50 px-4px py-2px text-14px font-medium text-main"
+              className="whitespace-pre-wrap rounded-md bg-blue-50 px-4px py-2px text-14px font-medium text-main"
             >
               {content}
             </code>
@@ -63,7 +63,7 @@ export default function RichText({ richText }: RichTextProps) {
         return (
           <span
             key={i}
-            className={`${bold ? "font-bold" : ""} ${
+            className={`whitespace-pre-wrap ${bold ? "font-bold" : ""} ${
               underline ? "underline" : ""
             } ${getColorByBlockColor(color)}`}
           >

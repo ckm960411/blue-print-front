@@ -59,7 +59,7 @@ export default function TableOfContentsBlock({
           <p
             key={heading.id}
             onClick={(e) => handleClickHeading(e, heading.id)}
-            className="underline"
+            className="truncate-1-lines underline"
           >
             {heading.heading_1 ? (
               <span className="cursor-pointer text-22px leading-[140%]">

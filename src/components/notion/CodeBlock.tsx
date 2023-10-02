@@ -76,7 +76,9 @@ export default function CodeBlock({ block }: CodeBlockProps) {
           borderRadius: "10px",
           margin: 0,
         }}
-        lineProps={() => ({ style: { fontSize: "14px !important" } })}
+        lineProps={() => ({
+          style: { fontSize: "14px !important", flexWrap: "wrap" },
+        })}
       >
         {codeText}
       </SyntaxHighlighter>

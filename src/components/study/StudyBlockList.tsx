@@ -8,6 +8,8 @@ interface StudyBlockListProps {
 export default async function StudyBlockList({ pageId }: StudyBlockListProps) {
   const { results: blocks } = await getNotionBlockList(pageId);
 
+  if (!blocks) return <></>;
+
   return (
     <div className="mx-auto w-full max-w-screen-xl">
       <div className="flex flex-col gap-8px">

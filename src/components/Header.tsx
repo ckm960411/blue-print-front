@@ -1,3 +1,5 @@
+'use client';
+
 import { Z_INDEX } from "@/utils/common";
 import React from "react";
 import { BiSearch } from "react-icons/bi";

@@ -27,9 +27,9 @@ export default function HeadingBlock({ block }: HeadingBlockProps) {
         <div
           key={i}
           id={block.id}
-          className={`font-bold ${getHeadingStyle(type)} ${getColorByBlockColor(
-            color,
-          )}`}
+          className={`font-bold leading-[140%] ${getHeadingStyle(
+            type,
+          )} ${getColorByBlockColor(color)}`}
         >
           {content}
         </div>

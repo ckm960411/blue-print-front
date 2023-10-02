@@ -13,7 +13,7 @@ export default function QuoteBlock({ block }: QuoteBlockProps) {
   if (!rich_text) return <></>;
 
   return (
-    <div className="my-4px border-l-2 border-gray-800 py-4px pl-12px text-16px font-medium">
+    <div className="my-4px rounded-r-10px border-l-2 border-gray-800 bg-blue-50 py-4px pl-12px pr-2px text-16px font-medium leading-[140%]">
       <RichText richText={rich_text} />
     </div>
   );

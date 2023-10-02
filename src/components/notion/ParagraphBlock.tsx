@@ -4,17 +4,25 @@ import RichText from "./RichText";
 
 interface ParagraphBlockProps {
   block: Block;
+  children?: React.ReactNode;
 }
-export default function ParagraphBlock({ block }: ParagraphBlockProps) {
+export default function ParagraphBlock({
+  block,
+  children,
+}: ParagraphBlockProps) {
   const {
     paragraph: { rich_text },
+    has_children,
   } = block;
 
   if (!rich_text) return <></>;
 
   return (
-    <p>
-      <RichText richText={rich_text} />
-    </p>
+    <div>
+      <p>
+        <RichText richText={rich_text} />
+      </p>
+      {has_children && <div className="mt-8px pl-24px">{children}</div>}
+    </div>
   );
 }

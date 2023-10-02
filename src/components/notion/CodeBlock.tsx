@@ -67,6 +67,7 @@ export default function CodeBlock({ block }: CodeBlockProps) {
         language={convertedLanguage}
         style={oneDark}
         wrapLongLines
+        showLineNumbers
         customStyle={{
           overflowX: "auto",
           maxWidth: "100%",
@@ -75,6 +76,7 @@ export default function CodeBlock({ block }: CodeBlockProps) {
           borderRadius: "10px",
           margin: 0,
         }}
+        lineProps={() => ({ style: { fontSize: "14px !important" } })}
       >
         {codeText}
       </SyntaxHighlighter>

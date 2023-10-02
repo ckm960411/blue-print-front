@@ -62,6 +62,7 @@ export default function HeadingBlock({ block }: HeadingBlockProps) {
 
     return (
       <p
+        id={block.id}
         className={`rounded-md font-bold leading-[140%] ${getHeadingStyle(
           type,
         )} ${color ? "py-4px pl-8px" : ""} ${
@@ -72,7 +73,6 @@ export default function HeadingBlock({ block }: HeadingBlockProps) {
           return (
             <span
               key={i}
-              id={block.id}
               className={
                 color !== "default"
                   ? ""

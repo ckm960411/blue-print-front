@@ -51,7 +51,7 @@ export default function TableOfContentsBlock({
         </button>
       </div>
       <div
-        className={`flex flex-col gap-8px overflow-hidden ${
+        className={`flex flex-col gap-8px overflow-hidden font-medium ${
           open ? "h-auto pt-24px" : "h-0px pt-0px"
         }`}
       >

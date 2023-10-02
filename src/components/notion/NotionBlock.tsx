@@ -22,8 +22,9 @@ import TableOfContentsBlock from "./TableOfContentsBlock";
 
 interface NotionBlockProps {
   block: Block;
+  blocks: Block[];
 }
-export default function NotionBlock({ block }: NotionBlockProps) {
+export default function NotionBlock({ block, blocks }: NotionBlockProps) {
   const { type } = block;
 
   switch (type) {
@@ -92,7 +93,7 @@ export default function NotionBlock({ block }: NotionBlockProps) {
     case BlockType.link_preview:
       return <LinkPreviewBlock block={block} />;
     case BlockType.table_of_contents:
-      return <TableOfContentsBlock block={block} />;
+      return <TableOfContentsBlock block={block} blocks={blocks} />;
     default:
       return <div>NotionBlock</div>;
   }

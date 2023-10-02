@@ -3,9 +3,12 @@ import React from "react";
 
 interface RichTextProps {
   richText: RichText[];
+  defaultColor?: string;
 }
-export default function RichText({ richText }: RichTextProps) {
+export default function RichText({ richText, defaultColor }: RichTextProps) {
   const getColorByBlockColor = (color: TextColor) => {
+    if (defaultColor) return defaultColor;
+
     switch (color) {
       case "gray":
         return "text-gray-600";

@@ -1,20 +1,20 @@
 "use client";
 
-import { getNotionBlockList } from "@/utils/services/notion";
 import { Block, BlockType } from "@/utils/types/notion";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import RichText from "./RichText";
 import { TbTriangleInvertedFilled } from "react-icons/tb";
 
 interface TableOfContentsBlockProps {
   block: Block;
+  blocks: Block[];
 }
 export default function TableOfContentsBlock({
   block,
+  blocks,
 }: TableOfContentsBlockProps) {
   const { heading_1, heading_2, heading_3 } = BlockType;
 
-  const [headings, setHeadings] = useState<Block[]>([]);
   const [open, setOpen] = useState(false);
 
   const handleClickHeading = (
@@ -35,17 +35,9 @@ export default function TableOfContentsBlock({
     });
   };
 
-  useEffect(() => {
-    getNotionBlockList(block.parent.page_id)
-      .then(({ results }) => {
-        setHeadings(
-          results.filter((block) =>
-            [heading_1, heading_2, heading_3].includes(block.type),
-          ),
-        );
-      })
-      .catch(console.error);
-  }, []);
+  const headings = blocks.filter((block) =>
+    [heading_1, heading_2, heading_3].includes(block.type),
+  );
 
   return (
     <div className="rounded-10px border border-gray-200 p-20px text-16px font-medium text-gray-600">
@@ -74,19 +66,28 @@ export default function TableOfContentsBlock({
             {heading.heading_1 ? (
               <span className="cursor-pointer text-22px leading-[140%]">
                 {heading.heading_1.rich_text && (
-                  <RichText richText={heading.heading_1.rich_text} />
+                  <RichText
+                    richText={heading.heading_1.rich_text}
+                    defaultColor="text-gray-600"
+                  />
                 )}
               </span>
             ) : heading.heading_2 ? (
               <span className="cursor-pointer text-18px leading-[140%]">
                 {heading.heading_2.rich_text && (
-                  <RichText richText={heading.heading_2.rich_text} />
+                  <RichText
+                    richText={heading.heading_2.rich_text}
+                    defaultColor="text-gray-600"
+                  />
                 )}
               </span>
             ) : (
               <span className="cursor-pointer text-16px leading-[140%]">
                 {heading.heading_3.rich_text && (
-                  <RichText richText={heading.heading_3.rich_text} />
+                  <RichText
+                    richText={heading.heading_3.rich_text}
+                    defaultColor="text-gray-600"
+                  />
                 )}
               </span>
             )}

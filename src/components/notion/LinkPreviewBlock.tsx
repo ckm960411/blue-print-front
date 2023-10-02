@@ -36,7 +36,7 @@ export default async function LinkPreviewBlock({
     <Link
       href={url}
       target="_blank"
-      className="flex overflow-hidden rounded-10px border border-blue-200 duration-200 hover:border-blue-300 hover:shadow-md"
+      className="my-8px flex overflow-hidden rounded-10px border border-blue-200 duration-200 hover:border-blue-300 hover:shadow-md"
     >
       <div className="flex grow flex-col justify-between p-16px">
         <div className="flex flex-col gap-8px pb-8px">

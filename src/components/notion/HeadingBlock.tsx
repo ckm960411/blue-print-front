@@ -17,17 +17,17 @@ export default function HeadingBlock({ block }: HeadingBlockProps) {
     if (!rich_text) return <></>;
 
     return rich_text.map(({ annotations: { color }, text: { content } }, i) => {
-      const getTextSize = (headingType: typeof type) => {
-        if (headingType === heading_1) return "text-28px";
-        if (headingType === heading_2) return "text-24px";
-        return "text-20px";
+      const getHeadingStyle = (headingType: typeof type) => {
+        if (headingType === heading_1) return "text-28px my-8px";
+        if (headingType === heading_2) return "text-24px my-6px";
+        return "text-20px my-4px";
       };
 
       return (
         <div
           key={i}
           id={block.id}
-          className={`font-bold ${getTextSize(type)} ${getColorByBlockColor(
+          className={`font-bold ${getHeadingStyle(type)} ${getColorByBlockColor(
             color,
           )}`}
         >

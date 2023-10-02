@@ -20,11 +20,11 @@ export default function ChildPageBlock({ block }: ChildPageBlockProps) {
   const slashedPageIds = [...pageIds, id].join("/");
 
   return (
-    <div>
+    <div className="my-4px">
       {has_children ? (
         <Link
           href={`/study/${slashedPageIds}`}
-          className="flex items-center gap-4px py-4px text-16px font-semibold text-gray-800 underline"
+          className="inline-flex items-center gap-4px py-4px text-16px font-semibold text-gray-800 underline"
         >
           <LuFileSymlink className="h-22px w-22px" />
           <span>{title}</span>

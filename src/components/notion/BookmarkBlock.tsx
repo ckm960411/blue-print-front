@@ -32,7 +32,7 @@ export default async function BookmarkBlock({ block }: BookmarkBlockProps) {
   const descriptionValue = description ? metaTags[description] : "";
 
   return (
-    <div>
+    <div className="my-8px">
       <Link
         href={url}
         target="_blank"

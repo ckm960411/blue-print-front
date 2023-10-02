@@ -55,7 +55,7 @@ export default function CodeBlock({ block }: CodeBlockProps) {
       : language;
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative my-4px overflow-hidden">
       <button
         onClick={handleCopy}
         className="flex-center absolute right-0 top-0 gap-6px rounded-bl-[10px] bg-gray-100 bg-opacity-50 px-12px py-6px text-14px text-gray-100"

@@ -61,8 +61,8 @@ export default function TableOfContentsBlock({
         </button>
       </div>
       <div
-        className={`mt-24px flex flex-col gap-8px overflow-hidden ${
-          open ? "mt-24px h-auto" : "mt-0px h-0px"
+        className={`flex flex-col gap-8px overflow-hidden ${
+          open ? "h-auto pt-24px" : "h-0px pt-0px"
         }`}
       >
         {headings.map((heading) => (

@@ -14,8 +14,14 @@ export default function ImageBlock({ block }: ImageBlockProps) {
   const url = file?.url ?? "";
 
   return (
-    <div>
-      <Image src={url} alt="" width={1024} height={720} className="w-full" />
+    <div className="my-8px">
+      <Image
+        src={url}
+        alt=""
+        width={1024}
+        height={720}
+        className="w-full rounded-10px shadow-lg"
+      />
       <Caption caption={caption} />
     </div>
   );

@@ -28,7 +28,11 @@ export default function NotionBlock({ block }: NotionBlockProps) {
 
   switch (type) {
     case BlockType.quote:
-      return <QuoteBlock block={block} />;
+      return (
+        <QuoteBlock block={block}>
+          <StudyBlockList pageId={block.id} />
+        </QuoteBlock>
+      );
     case BlockType.heading_1:
     case BlockType.heading_2:
     case BlockType.heading_3:

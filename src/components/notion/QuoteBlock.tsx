@@ -55,7 +55,7 @@ export default function QuoteBlock({ block, children }: QuoteBlockProps) {
 
   return (
     <div
-      className={`my-4px border-l-2 border-gray-800 py-4px pl-12px pr-2px ${getColorByBlockColor(
+      className={`my-4px border-l-2 border-gray-800 px-12px py-8px pr-2px ${getColorByBlockColor(
         color,
       )}`}
     >

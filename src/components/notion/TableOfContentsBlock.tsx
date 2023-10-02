@@ -38,9 +38,9 @@ export default function TableOfContentsBlock({
   );
 
   return (
-    <div className="rounded-10px border border-gray-200 p-20px text-16px font-medium text-gray-600">
+    <div className="rounded-10px border border-gray-200 bg-white p-12px text-16px font-medium text-gray-600 md:p-20px">
       <div className="flex items-center justify-between">
-        <p className="text-22px font-bold text-gray-800">목차</p>
+        <p className="text-18px font-bold text-gray-800 md:text-22px">목차</p>
         <button
           onClick={() => setOpen((prev) => !prev)}
           className={`flex-center h-32px w-32px rounded-10px duration-200 hover:border hover:border-blue-300 hover:shadow-md ${
@@ -62,7 +62,7 @@ export default function TableOfContentsBlock({
             className="truncate-1-lines underline"
           >
             {heading.heading_1 ? (
-              <span className="cursor-pointer text-22px leading-[140%]">
+              <span className="cursor-pointer text-18px leading-[140%] md:text-22px md:leading-[140%]">
                 {heading.heading_1.rich_text && (
                   <RichText
                     richText={heading.heading_1.rich_text}
@@ -71,7 +71,7 @@ export default function TableOfContentsBlock({
                 )}
               </span>
             ) : heading.heading_2 ? (
-              <span className="cursor-pointer text-18px leading-[140%]">
+              <span className="cursor-pointer text-16px leading-[140%] md:text-18px md:leading-[140%]">
                 {heading.heading_2.rich_text && (
                   <RichText
                     richText={heading.heading_2.rich_text}
@@ -80,7 +80,7 @@ export default function TableOfContentsBlock({
                 )}
               </span>
             ) : (
-              <span className="cursor-pointer text-16px leading-[140%]">
+              <span className="cursor-pointer text-14px leading-[140%] md:text-16px md:leading-[140%]">
                 {heading.heading_3.rich_text && (
                   <RichText
                     richText={heading.heading_3.rich_text}

@@ -19,6 +19,7 @@ import StudyBlockList from "../study/StudyBlockList";
 import ChildPageBlock from "./ChildPageBlock";
 import LinkPreviewBlock from "./LinkPreviewBlock";
 import TableOfContentsBlock from "./TableOfContentsBlock";
+import TableBlockWrapper from "./TableBlockWrapper";
 
 interface NotionBlockProps {
   block: Block;
@@ -77,7 +78,11 @@ export default function NotionBlock({ block, blocks }: NotionBlockProps) {
         </ToDoBlock>
       );
     case BlockType.table:
-      return <TableBlock block={block} />;
+      return (
+        <TableBlockWrapper>
+          <TableBlock block={block} />
+        </TableBlockWrapper>
+      );
     case BlockType.toggle:
       return (
         <ToggleBlock block={block}>

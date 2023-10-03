@@ -27,42 +27,46 @@ export default function SideBar() {
 
   return (
     <div
-      className={`min-h-screen flex-shrink-0 overflow-hidden border-r border-gray-200 bg-white duration-200 ${
-        isSpreaded ? "w-240px" : "w-88px"
-      }`}
+      className={`min-h-screen flex-shrink-0 border-r border-gray-200 bg-white`}
     >
       <div
-        className={`flex h-72px items-center px-16px ${
-          isSpreaded ? "justify-center" : "justify-start"
+        className={`sticky top-0 overflow-hidden duration-200  ${
+          isSpreaded ? "w-240px" : "w-88px"
         }`}
       >
-        <Link
-          href="/"
-          className="hidden p-8px text-24px font-semibold text-gray-800 lg:block lg:text-24px"
-        >
-          <span className="text-main">BluePrint</span>.Dev
-        </Link>
-        <button
-          onClick={() => setIsSpreaded((prev) => !prev)}
-          className={`flex-center block h-56px lg:hidden ${
-            isSpreaded ? "w-full" : "w-56px"
+        <div
+          className={`flex h-72px items-center px-16px ${
+            isSpreaded ? "justify-center" : "justify-start"
           }`}
         >
-          <PiHamburgerLight className="text-22px text-gray-800 duration-200 hover:text-main" />
-        </button>
-      </div>
-      <div className="px-16px py-32px">
-        <ul className="flex flex-col gap-12px">
-          <SideBarLink title="TECH" href="/tech" isSpreaded={isSpreaded}>
-            <AiOutlineLaptop className="text-22px" />
-          </SideBarLink>
-          <SideBarLink title="STUDY" href="/study" isSpreaded={isSpreaded}>
-            <BsJournalBookmark className="text-20px" />
-          </SideBarLink>
-          <SideBarLink title="WORK" href="/work" isSpreaded={isSpreaded}>
-            <MdWorkOutline className="text-22px" />
-          </SideBarLink>
-        </ul>
+          <Link
+            href="/"
+            className="hidden p-8px text-24px font-semibold text-gray-800 lg:block lg:text-24px"
+          >
+            <span className="text-main">BluePrint</span>.Dev
+          </Link>
+          <button
+            onClick={() => setIsSpreaded((prev) => !prev)}
+            className={`flex-center block h-56px lg:hidden ${
+              isSpreaded ? "w-full" : "w-56px"
+            }`}
+          >
+            <PiHamburgerLight className="text-22px text-gray-800 duration-200 hover:text-main" />
+          </button>
+        </div>
+        <div className="px-16px py-32px">
+          <ul className="flex flex-col gap-12px">
+            <SideBarLink title="TECH" href="/tech" isSpreaded={isSpreaded}>
+              <AiOutlineLaptop className="text-22px" />
+            </SideBarLink>
+            <SideBarLink title="STUDY" href="/study" isSpreaded={isSpreaded}>
+              <BsJournalBookmark className="text-20px" />
+            </SideBarLink>
+            <SideBarLink title="WORK" href="/work" isSpreaded={isSpreaded}>
+              <MdWorkOutline className="text-22px" />
+            </SideBarLink>
+          </ul>
+        </div>
       </div>
     </div>
   );

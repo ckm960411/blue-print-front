@@ -5,6 +5,7 @@ import { useToast } from "@chakra-ui/react";
 import React from "react";
 import { AiOutlineCopy, AiOutlineNotification } from "react-icons/ai";
 import { ImNotification } from "react-icons/im";
+import { useMediaQuery } from "react-responsive";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -13,6 +14,7 @@ interface CodeBlockProps {
 }
 export default function CodeBlock({ block }: CodeBlockProps) {
   const toast = useToast();
+  const UNDER_480PX = useMediaQuery({ query: "(max-width: 479px)"})
 
   const {
     code: { rich_text, language },
@@ -77,7 +79,7 @@ export default function CodeBlock({ block }: CodeBlockProps) {
           margin: 0,
         }}
         lineProps={() => ({
-          style: { fontSize: "14px !important", flexWrap: "wrap" },
+          style: { fontSize: UNDER_480PX ? 12 : 14, flexWrap: "wrap" },
         })}
       >
         {codeText}

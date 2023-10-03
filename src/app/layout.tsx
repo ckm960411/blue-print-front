@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import SideBar from "@/components/SideBar";
 import { ChakraUIProvider } from "@/components/ChakraUIProvider";
 import BottomNavigation from "@/components/BottomNavigation";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const metadata: Metadata = {
   title: `KMin's Blog`,
@@ -26,6 +27,7 @@ export default function RootLayout({
               <Header />
               <main className="p-16px">{children}</main>
             </div>
+            <ScrollToTop />
           </div>
           <BottomNavigation />
         </ChakraUIProvider>

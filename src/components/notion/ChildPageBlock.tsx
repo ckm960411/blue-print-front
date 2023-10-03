@@ -24,13 +24,13 @@ export default function ChildPageBlock({ block }: ChildPageBlockProps) {
       {has_children ? (
         <Link
           href={`/study/${slashedPageIds}`}
-          className="inline-flex items-center gap-4px py-4px text-16px font-semibold text-gray-800 underline"
+          className="inline-flex items-center gap-4px py-2px text-16px font-semibold leading-[140%] text-gray-800 underline"
         >
           <LuFileSymlink className="h-22px w-22px" />
           <span>{title}</span>
         </Link>
       ) : (
-        <p className="gap-4px py-4px text-16px font-semibold text-gray-800 underline">
+        <p className="gap-4px py-2px text-16px font-semibold leading-[140%] text-gray-800 underline">
           {title}
         </p>
       )}

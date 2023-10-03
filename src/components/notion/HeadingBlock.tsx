@@ -55,9 +55,11 @@ export default function HeadingBlock({ block }: HeadingBlockProps) {
     if (!rich_text) return <></>;
 
     const getHeadingStyle = (headingType: typeof type) => {
-      if (headingType === heading_1) return "text-28px mt-16px mb-8px";
-      if (headingType === heading_2) return "text-24px mt-6px mb-4px";
-      return "text-20px mt-4px";
+      if (headingType === heading_1)
+        return "text-22px sm:text-28px mt-16px mb-8px";
+      if (headingType === heading_2)
+        return "text-20px sm:text-24px mt-6px mb-4px";
+      return "text-18px sm:text-20px mt-4px";
     };
 
     return (

@@ -18,14 +18,14 @@ export default async function CategoryPage({
     pageIds.map((pageId) => getNotionPageById(pageId)),
   );
 
-  const pageData = await getNotionPageById(pageId);
-
   if (!pageDatas) return <></>;
 
+  const currentPageData = pageDatas.at(-1);
+
   const currentTitle =
-    pageDatas.at(-1)?.properties?.title?.title?.[0]?.text?.content ?? "";
+    currentPageData?.properties?.title?.title?.[0]?.text?.content ?? "";
   const currentIcon =
-    pageDatas.at(-1)?.icon?.file?.url ?? pageData.icon?.emoji ?? "";
+    currentPageData?.icon?.file?.url ?? currentPageData?.icon?.emoji ?? "";
 
   const linkDatas = pageDatas.map((pageData) => ({
     id: pageData.id,
@@ -42,7 +42,7 @@ export default async function CategoryPage({
             "linear-gradient(90deg, rgba(236,253,245,1) 0%, rgba(219,234,254,1) 100%)",
         }}
       >
-        {pageData.icon?.file ? (
+        {currentPageData?.icon?.file ? (
           <Image
             src={currentIcon}
             alt="study dashboard"
@@ -56,7 +56,9 @@ export default async function CategoryPage({
             {currentIcon}
           </span>
         )}
-        <h1 className="text-22px font-bold md:text-32px">{currentTitle}</h1>
+        <h1 className="break-normal px-16px text-center text-22px font-bold md:text-32px">
+          {currentTitle}
+        </h1>
       </div>
       <div className="mt-24px">
         <StudyBlockList pageId={pageId} />

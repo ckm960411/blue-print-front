@@ -36,3 +36,7 @@ input {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+nav.chakra-breadcrumb > ol {
+  flex-wrap: wrap;
+}

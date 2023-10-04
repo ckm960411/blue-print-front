@@ -21,7 +21,7 @@ export default function ToggleBlock({ block, children }: ToggleBlockProps) {
 
   return (
     <div>
-      <div className="flex gap-8px">
+      <div className={`flex gap-8px ${has_children ? "" : "text-gray-500"}`}>
         <button
           onClick={() => setOpen((prev) => !prev)}
           className={`flex-center h-24px w-24px duration-200 ${
@@ -34,15 +34,17 @@ export default function ToggleBlock({ block, children }: ToggleBlockProps) {
           <RichText richText={rich_text} />
         </p>
       </div>
-      <div
-        className={`overflow-hidden pl-24px pt-16px ${
-          open ? "h-auto" : "h-0px"
-        }`}
-      >
-        <div className="rounded-10px border border-main p-16px shadow-md">
-          {has_children && children}
+      {has_children && (
+        <div
+          className={`overflow-hidden pl-24px pt-16px ${
+            open ? "h-auto" : "h-0px"
+          }`}
+        >
+          <div className="rounded-10px border border-main p-16px shadow-md">
+            {children}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

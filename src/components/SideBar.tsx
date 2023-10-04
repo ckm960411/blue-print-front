@@ -11,6 +11,9 @@ import { useMediaQuery } from "react-responsive";
 import { useRecoilState } from "recoil";
 import { sideBarOpenState } from "@/utils/recoil/store";
 
+export const CLOSED_SIDE_BAR_WIDTH = 88;
+export const OPENED_SIDE_BAR_WIDTH = 240;
+
 export default function SideBar() {
   const UNDER_1024PX = useMediaQuery({ query: "(max-width: 1023px)" });
   const UNDER_480PX = useMediaQuery({ query: "(max-width: 479px)" });
@@ -18,11 +21,7 @@ export default function SideBar() {
   const [isSpreaded, setIsSpreaded] = useRecoilState(sideBarOpenState);
 
   useEffect(() => {
-    if (UNDER_1024PX) {
-      setIsSpreaded(false);
-    } else {
-      setIsSpreaded(true);
-    }
+    setIsSpreaded(!UNDER_1024PX);
   }, [UNDER_1024PX]);
 
   if (UNDER_480PX) return <></>;
@@ -32,9 +31,10 @@ export default function SideBar() {
       className={`min-h-screen flex-shrink-0 border-r border-gray-200 bg-white`}
     >
       <div
-        className={`sticky top-0 overflow-hidden duration-200  ${
-          isSpreaded ? "w-240px" : "w-88px"
-        }`}
+        className="sticky top-0 overflow-hidden duration-200"
+        style={{
+          width: isSpreaded ? OPENED_SIDE_BAR_WIDTH : CLOSED_SIDE_BAR_WIDTH,
+        }}
       >
         <div
           className={`flex h-72px items-center px-16px ${

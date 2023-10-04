@@ -49,8 +49,10 @@ export default function RichText({ richText, defaultColor }: RichTextProps) {
 
   return (
     <span>
-      {richText.map(({ annotations, text: { content } }, i) => {
+      {richText.map(({ annotations, text }, i) => {
         const { bold, color, underline, code } = annotations;
+
+        if (!text?.content) return <></>;
 
         if (code) {
           return (
@@ -58,7 +60,7 @@ export default function RichText({ richText, defaultColor }: RichTextProps) {
               key={i}
               className="whitespace-pre-wrap rounded-md bg-blue-50 px-4px py-2px text-14px font-medium text-main"
             >
-              {content}
+              {text.content}
             </code>
           );
         }
@@ -70,7 +72,7 @@ export default function RichText({ richText, defaultColor }: RichTextProps) {
               underline ? "underline" : ""
             } ${getColorByBlockColor(color)}`}
           >
-            {content}
+            {text.content}
           </span>
         );
       })}

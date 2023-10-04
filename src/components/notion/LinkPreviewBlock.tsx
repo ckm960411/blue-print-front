@@ -36,7 +36,7 @@ export default async function LinkPreviewBlock({
     <Link
       href={url}
       target="_blank"
-      className="my-8px flex overflow-hidden rounded-10px border border-blue-200 duration-200 hover:border-blue-300 hover:shadow-md"
+      className="my-8px flex flex-col-reverse overflow-hidden rounded-10px border border-blue-200 duration-200 hover:border-blue-300 hover:shadow-md sm:flex-row"
     >
       <div className="flex grow flex-col justify-between p-16px">
         <div className="flex flex-col gap-8px pb-8px">
@@ -60,7 +60,7 @@ export default async function LinkPreviewBlock({
       </div>
       {imageValue && (
         <div
-          className="min-h-100px w-full max-w-[200px] flex-shrink-0 bg-cover bg-center"
+          className="h-120px w-full flex-shrink-0 bg-cover bg-center sm:h-auto sm:max-w-[200px]"
           style={{ backgroundImage: `url(${imageValue})` }}
         />
       )}

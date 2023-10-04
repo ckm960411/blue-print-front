@@ -6,6 +6,7 @@ import SideBar from "@/components/SideBar";
 import { ChakraUIProvider } from "@/components/ChakraUIProvider";
 import BottomNavigation from "@/components/BottomNavigation";
 import ScrollToTop from "@/components/ScrollToTop";
+import RecoilProvider from "@/components/RecoilProvider";
 
 export const metadata: Metadata = {
   title: `KMin's Blog`,
@@ -20,17 +21,19 @@ export default function RootLayout({
   return (
     <html lang="ko" className={pretendard.variable}>
       <body className="flex flex-col font-normal">
-        <ChakraUIProvider>
-          <div className="relative flex grow">
-            <SideBar />
-            <div className="grow">
-              <Header />
-              <main className="p-16px">{children}</main>
+        <RecoilProvider>
+          <ChakraUIProvider>
+            <div className="relative flex grow">
+              <SideBar />
+              <div className="grow">
+                <Header />
+                <main className="p-16px">{children}</main>
+              </div>
+              <ScrollToTop />
             </div>
-            <ScrollToTop />
-          </div>
-          <BottomNavigation />
-        </ChakraUIProvider>
+            <BottomNavigation />
+          </ChakraUIProvider>
+        </RecoilProvider>
       </body>
     </html>
   );

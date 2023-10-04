@@ -8,12 +8,14 @@ import { BsJournalBookmark } from "react-icons/bs";
 import { PiHamburgerLight } from "react-icons/Pi";
 import { MdWorkOutline } from "react-icons/md";
 import { useMediaQuery } from "react-responsive";
+import { useRecoilState } from "recoil";
+import { sideBarOpenState } from "@/utils/recoil/store";
 
 export default function SideBar() {
   const UNDER_1024PX = useMediaQuery({ query: "(max-width: 1023px)" });
   const UNDER_480PX = useMediaQuery({ query: "(max-width: 479px)" });
 
-  const [isSpreaded, setIsSpreaded] = useState(true);
+  const [isSpreaded, setIsSpreaded] = useRecoilState(sideBarOpenState);
 
   useEffect(() => {
     if (UNDER_1024PX) {

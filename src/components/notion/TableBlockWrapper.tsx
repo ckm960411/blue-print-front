@@ -17,16 +17,16 @@ export default function TableBlockWrapper({
   const UNDER_480PX = useMediaQuery({ query: "(max-width: 479px)" });
 
   const sideBarOpen = useRecoilValue(sideBarOpenState);
+  const [maxWidth, setMaxWidth] = useState(0);
 
-  const maxWidth = (() => {
+  useEffect(() => {
     const getSideBarWidth = () => {
       if (UNDER_480PX) return 0;
       if (sideBarOpen) return OPENED_SIDE_BAR_WIDTH;
       return CLOSED_SIDE_BAR_WIDTH;
     };
-
-    return Math.min(width, 1280) - getSideBarWidth() - 32;
-  })();
+    setMaxWidth(Math.min(width, 1280) - 32 - getSideBarWidth());
+  }, [width, UNDER_480PX, sideBarOpen]);
 
   return (
     <div

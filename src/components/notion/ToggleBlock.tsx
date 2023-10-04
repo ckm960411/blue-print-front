@@ -20,7 +20,7 @@ export default function ToggleBlock({ block, children }: ToggleBlockProps) {
   if (!rich_text) return <></>;
 
   return (
-    <div>
+    <div className="flex flex-col">
       <div className={`flex gap-8px ${has_children ? "" : "text-gray-500"}`}>
         <button
           onClick={() => setOpen((prev) => !prev)}

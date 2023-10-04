@@ -20,6 +20,7 @@ import ChildPageBlock from "./ChildPageBlock";
 import LinkPreviewBlock from "./LinkPreviewBlock";
 import TableOfContentsBlock from "./TableOfContentsBlock";
 import TableBlockWrapper from "./TableBlockWrapper";
+import HeadingBlockWrapper from "./HeadingBlockWrapper";
 
 interface NotionBlockProps {
   block: Block;
@@ -38,7 +39,7 @@ export default function NotionBlock({ block, blocks }: NotionBlockProps) {
     case BlockType.heading_1:
     case BlockType.heading_2:
     case BlockType.heading_3:
-      return <HeadingBlock block={block} />;
+      return <HeadingBlockWrapper block={block} />;
     case BlockType.bulleted_list_item:
       return (
         <BulletedListItemBlock block={block}>

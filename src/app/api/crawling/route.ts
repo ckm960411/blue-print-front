@@ -4,14 +4,14 @@ import { load } from "cheerio";
 
 export const GET = async (req: NextRequest) => {
   try {
-    const url = req.nextUrl.searchParams.get("url");
-    if (!url) return;
+    const url = req.url.split("url=")[1];
     const { data: html } = await get(url);
     const $ = load(html);
 
     // 파비콘 가져오기
-    const faviconLink = $('link[rel="shortcut icon"]').attr('href') || 
-    $('link[rel="icon"]').attr('href');
+    const faviconLink =
+      $('link[rel="shortcut icon"]').attr("href") ||
+      $('link[rel="icon"]').attr("href");
 
     // 메타태그 가져오기
     let metaTags: Record<string, string> = {};

@@ -16,6 +16,7 @@ export default async function CategorySections() {
             {section.categories.map((page) => (
               <CategoryCard
                 key={page.page_id}
+                title={page.title}
                 pageId={page.page_id}
                 url={page.url}
               />

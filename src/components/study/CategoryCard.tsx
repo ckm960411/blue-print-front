@@ -4,13 +4,16 @@ import Link from "next/link";
 import { getNotionPageById } from "@/utils/services/notion";
 
 interface CategoryCardProps {
+  title: string;
   pageId: string;
   url: string;
 }
-export default async function CategoryCard({ pageId, url }: CategoryCardProps) {
+export default async function CategoryCard({
+  title,
+  pageId,
+  url,
+}: CategoryCardProps) {
   const data = await getNotionPageById(pageId);
-
-  const pageTitle = data.properties.title.title[0].text.content;
 
   return (
     <Link href={`/study/${pageId}`}>
@@ -23,7 +26,7 @@ export default async function CategoryCard({ pageId, url }: CategoryCardProps) {
           className="h-80px w-80px object-cover"
         />
         <div className="h-full grow p-16px">
-          <p className="truncate-1-lines font-semibold">{pageTitle}</p>
+          <p className="truncate-1-lines font-semibold">{title}</p>
         </div>
       </div>
     </Link>

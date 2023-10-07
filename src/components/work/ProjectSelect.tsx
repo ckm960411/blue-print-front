@@ -19,6 +19,11 @@ export default function ProjectSelect({}: ProjectSelectProps) {
 
   useOnClickOutside(dropdownRef, closeDropdown);
 
+  const handleClick = (prj: string) => {
+    setProject(prj);
+    closeDropdown();
+  };
+
   return (
     <div className="relative">
       <button
@@ -31,12 +36,15 @@ export default function ProjectSelect({}: ProjectSelectProps) {
         <FiChevronDown />
       </button>
       {dropdownOpened && (
-        <div className="absolute left-0 top-[calc(100%+8px)] w-200px rounded-10px border border-gray-200 bg-white py-8px shadow-md">
+        <div
+          ref={dropdownRef}
+          className="absolute left-0 top-[calc(100%+8px)] w-200px rounded-10px border border-gray-200 bg-white py-8px shadow-md"
+        >
           {projects.map((prj, i) => {
             return (
               <div
                 key={i}
-                ref={dropdownRef}
+                onClick={() => handleClick(prj)}
                 className={`w-full cursor-pointer p-8px text-14px hover:bg-gray-50 ${
                   prj === project ? "bg-gray-50" : "bg-white"
                 }`}

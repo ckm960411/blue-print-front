@@ -4,13 +4,15 @@ import { Block } from "@/utils/types/notion";
 import React, { useState } from "react";
 import RichText from "./RichText";
 import { TbTriangleInvertedFilled } from "react-icons/tb";
+import { useToggle } from "usehooks-ts";
+import ToggleButton from "@/components/components/ToggleButton";
 
 interface ToggleBlockProps {
   block: Block;
   children?: React.ReactNode;
 }
 export default function ToggleBlock({ block, children }: ToggleBlockProps) {
-  const [open, setOpen] = useState(false);
+  const [open, onToggle] = useToggle();
 
   const {
     toggle: { rich_text },
@@ -22,14 +24,7 @@ export default function ToggleBlock({ block, children }: ToggleBlockProps) {
   return (
     <div className="flex flex-col">
       <div className={`flex gap-8px ${has_children ? "" : "text-gray-500"}`}>
-        <button
-          onClick={() => setOpen((prev) => !prev)}
-          className={`flex-center h-24px w-24px duration-200 ${
-            open ? "-rotate-180" : ""
-          }`}
-        >
-          <TbTriangleInvertedFilled />
-        </button>
+        <ToggleButton open={open} onToggle={onToggle} />
         <p>
           <RichText richText={rich_text} />
         </p>

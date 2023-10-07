@@ -10,6 +10,8 @@ import { MdWorkOutline } from "react-icons/md";
 import { useMediaQuery } from "react-responsive";
 import { useRecoilState } from "recoil";
 import { sideBarOpenState } from "@/utils/recoil/store";
+import { getNotionSections } from "@/utils/services/notion";
+import { CategorySection } from "@/utils/types/study";
 
 export const CLOSED_SIDE_BAR_WIDTH = 88;
 export const OPENED_SIDE_BAR_WIDTH = 240;
@@ -19,17 +21,22 @@ export default function SideBar() {
   const UNDER_480PX = useMediaQuery({ query: "(max-width: 479px)" });
 
   const [isSpreaded, setIsSpreaded] = useRecoilState(sideBarOpenState);
+  const [studySections, setStudySections] = useState<CategorySection[]>();
 
   useEffect(() => {
     setIsSpreaded(!UNDER_1024PX);
   }, [UNDER_1024PX]);
 
+  useEffect(() => {
+    getNotionSections()
+      .then((data) => setStudySections(data))
+      .catch(console.error);
+  }, []);
+
   if (UNDER_480PX) return <></>;
 
   return (
-    <div
-      className={`min-h-screen flex-shrink-0 border-r border-gray-200 bg-white`}
-    >
+    <div className="min-h-screen flex-shrink-0 border-r border-gray-200 bg-white">
       <div
         className="sticky top-0 overflow-hidden duration-200"
         style={{
@@ -69,6 +76,7 @@ export default function SideBar() {
               icon={<BsJournalBookmark className="text-20px" />}
               href="/study"
               isSpreaded={isSpreaded}
+              sections={studySections}
             />
             <SideBarLink
               title="WORK"

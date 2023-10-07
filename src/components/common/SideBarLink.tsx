@@ -5,18 +5,21 @@ import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { useToggle } from "usehooks-ts";
 import ToggleButton from "@/components/components/ToggleButton";
+import { CategorySection } from "@/utils/types/study";
 
 interface SideBarLinkProps {
   title: string;
   icon: React.ReactNode;
   href: string;
   isSpreaded: boolean;
+  sections?: CategorySection[];
 }
 export default function SideBarLink({
   title,
   icon,
   href,
   isSpreaded,
+  sections,
 }: SideBarLinkProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -41,47 +44,41 @@ export default function SideBarLink({
           <div>{icon}</div>
           <span className={isSpreaded ? "block" : "hidden"}>{title}</span>
         </div>
-        {isActive && (
+        {sections && isActive && (
           <div className="pr-16px">
             <ToggleButton open={open} onToggle={onToggle} w={16} h={16} />
           </div>
         )}
       </div>
-      {isActive && open && (
+      {sections && isActive && open && (
         <div className="w-full px-12px pb-12px">
-          <ul className="flex max-h-[240px] flex-col gap-16px overflow-y-scroll rounded-10px bg-gray-50 p-8px text-14px leading-[150%] text-gray-600">
-            <li>
-              <p className="font-semibold">카테고리명</p>
-              <hr className="my-4px" />
-              <ul className="flex flex-col gap-4px text-12px leading-[140%]">
-                <li>작은 카테고리1</li>
-                <li>작은 카테고리2</li>
-              </ul>
-            </li>
-            <li>
-              <p className="font-semibold">카테고리명</p>
-              <hr className="my-4px" />
-              <ul className="flex flex-col gap-4px text-12px leading-[140%]">
-                <li>작은 카테고리1</li>
-                <li>작은 카테고리2</li>
-              </ul>
-            </li>
-            <li>
-              <p className="font-semibold">카테고리명</p>
-              <hr className="my-4px" />
-              <ul className="flex flex-col gap-4px text-12px leading-[140%]">
-                <li>작은 카테고리1</li>
-                <li>작은 카테고리2</li>
-              </ul>
-            </li>
-            <li>
-              <p className="font-semibold">카테고리명</p>
-              <hr className="my-4px" />
-              <ul className="flex flex-col gap-4px text-12px leading-[140%]">
-                <li>작은 카테고리1</li>
-                <li>작은 카테고리2</li>
-              </ul>
-            </li>
+          <ul className="flex max-h-[320px] flex-col gap-16px overflow-y-scroll rounded-10px bg-gray-50 p-8px text-14px leading-[150%] text-gray-600">
+            {sections.map((section) => (
+              <li key={section.id}>
+                <p className="font-semibold">{section.name}</p>
+                <div className="my-6px h-1px bg-gray-400" />
+                <ul className="flex flex-col gap-6px text-12px leading-[140%]">
+                  {section.categories.map((category) => {
+                    const isActiveCategory = pathname.includes(
+                      category.page_id,
+                    );
+
+                    return (
+                      <li
+                        key={category.page_id}
+                        className={`truncate-1-lines hover:text-main ${
+                          isActiveCategory
+                            ? "font-medium text-main"
+                            : "text-gray-600"
+                        }`}
+                      >
+                        {category.title}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </li>
+            ))}
           </ul>
         </div>
       )}

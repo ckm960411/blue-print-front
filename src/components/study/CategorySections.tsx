@@ -10,7 +10,7 @@ export default async function CategorySections() {
     <div className="flex flex-col gap-120px">
       {sections.map((section) => (
         <div key={section.id}>
-          <p className="text-26px font-bold">Language & Framework</p>
+          <p className="text-26px font-bold">{section.name}</p>
           <hr className="my-16px" />
           <div className="mt-24px grid grid-cols-1 gap-16px md:grid-cols-2 lg:grid-cols-3">
             {section.categories.map((page) => (

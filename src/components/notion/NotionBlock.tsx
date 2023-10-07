@@ -25,15 +25,20 @@ import BlockMaxWidthWrapper from "@/components/notion/components/BlockMaxWidthWr
 interface NotionBlockProps {
   block: Block;
   blocks: Block[];
+  depth?: number;
 }
-export default function NotionBlock({ block, blocks }: NotionBlockProps) {
+export default function NotionBlock({
+  block,
+  blocks,
+  depth = 0,
+}: NotionBlockProps) {
   const { type } = block;
 
   switch (type) {
     case BlockType.quote:
       return (
         <QuoteBlock block={block}>
-          <StudyBlockList pageId={block.id} />
+          <StudyBlockList pageId={block.id} depth={depth + 1} />
         </QuoteBlock>
       );
     case BlockType.heading_1:
@@ -43,25 +48,25 @@ export default function NotionBlock({ block, blocks }: NotionBlockProps) {
     case BlockType.bulleted_list_item:
       return (
         <BulletedListItemBlock block={block}>
-          <StudyBlockList pageId={block.id} />
+          <StudyBlockList pageId={block.id} depth={depth + 1} />
         </BulletedListItemBlock>
       );
     case BlockType.numbered_list_item:
       return (
         <NumberedListItemBlock block={block}>
-          <StudyBlockList pageId={block.id} />
+          <StudyBlockList pageId={block.id} depth={depth + 1} />
         </NumberedListItemBlock>
       );
     case BlockType.callout:
       return (
         <CalloutBlock block={block}>
-          <StudyBlockList pageId={block.id} />
+          <StudyBlockList pageId={block.id} depth={depth + 1} />
         </CalloutBlock>
       );
     case BlockType.paragraph:
       return (
         <ParagraphBlock block={block}>
-          <StudyBlockList pageId={block.id} />
+          <StudyBlockList pageId={block.id} depth={depth + 1} />
         </ParagraphBlock>
       );
     case BlockType.column_list:
@@ -75,19 +80,19 @@ export default function NotionBlock({ block, blocks }: NotionBlockProps) {
     case BlockType.to_do:
       return (
         <ToDoBlock block={block}>
-          <StudyBlockList pageId={block.id} />
+          <StudyBlockList pageId={block.id} depth={depth + 1} />
         </ToDoBlock>
       );
     case BlockType.table:
       return (
-        <BlockMaxWidthWrapper>
+        <BlockMaxWidthWrapper depth={depth + 1}>
           <TableBlock block={block} />
         </BlockMaxWidthWrapper>
       );
     case BlockType.toggle:
       return (
         <ToggleBlock block={block}>
-          <StudyBlockList pageId={block.id} />
+          <StudyBlockList pageId={block.id} depth={depth + 1} />
         </ToggleBlock>
       );
     case BlockType.image:

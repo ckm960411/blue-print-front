@@ -12,9 +12,11 @@ import {
 
 interface BlockMaxWidthWrapperProps {
   children: React.ReactNode;
+  depth?: number;
 }
 export default function BlockMaxWidthWrapper({
   children,
+  depth = 0,
 }: BlockMaxWidthWrapperProps) {
   const { width } = useWindowSize();
   const UNDER_480PX = useMediaQuery({ query: "(max-width: 479px)" });
@@ -34,7 +36,7 @@ export default function BlockMaxWidthWrapper({
   return (
     <div
       className="my-8px overflow-x-auto rounded-10px border border-gray-200 px-8px"
-      style={{ maxWidth }}
+      style={{ maxWidth: maxWidth - depth * 24 }}
     >
       {children}
     </div>

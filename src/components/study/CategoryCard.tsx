@@ -20,7 +20,7 @@ export default async function CategoryCard({ pageId, url }: CategoryCardProps) {
           alt="목이미지"
           width={200}
           height={200}
-          className="h-80px w-80px object-contain"
+          className="h-80px w-80px object-cover"
         />
         <div className="h-full grow p-16px">
           <p className="truncate-1-lines font-semibold">{pageTitle}</p>

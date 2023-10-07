@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 export default function StudyPage() {
   return (
-    <section>
-      <section className="relative overflow-hidden rounded-10px bg-main">
+    <section className="pb-72px">
+      <section className="relative overflow-hidden rounded-10px bg-main ">
         <Image
           src={dashboardImage.src}
           alt="study dashboard"

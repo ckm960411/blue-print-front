@@ -53,6 +53,7 @@ export default function SideBarLink({
       </div>
       <SideBarSections
         show={!!sections && isActive && open}
+        href={href}
         sections={sections}
       />
     </div>

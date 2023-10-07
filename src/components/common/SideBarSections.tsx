@@ -7,10 +7,12 @@ import SideBarSectionCategoryList from "@/components/common/SideBarSectionCatego
 
 interface SideBarSectionsProps {
   show: boolean;
+  href: string;
   sections?: CategorySection[];
 }
 export default function SideBarSections({
   show,
+  href,
   sections,
 }: SideBarSectionsProps) {
   const pathname = usePathname();
@@ -25,7 +27,7 @@ export default function SideBarSections({
             <p className="font-semibold">{section.name}</p>
             <div className="my-6px h-1px bg-gray-400" />
             <ul className="flex flex-col gap-6px text-12px leading-[140%]">
-              <SideBarSectionCategoryList section={section} />
+              <SideBarSectionCategoryList href={href} section={section} />
             </ul>
           </li>
         ))}

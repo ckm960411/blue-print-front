@@ -1,12 +1,12 @@
 import { pretendard } from "@/utils/fonts";
 import "./globals.css";
 import type { Metadata } from "next";
-import Header from "@/components/Header";
-import SideBar from "@/components/SideBar";
-import { ChakraUIProvider } from "@/components/ChakraUIProvider";
-import BottomNavigation from "@/components/BottomNavigation";
-import ScrollToTop from "@/components/ScrollToTop";
-import RecoilProvider from "@/components/RecoilProvider";
+import Header from "@/components/common/Header";
+import SideBar from "@/components/common/SideBar";
+import { ChakraUIProvider } from "@/components/common/ChakraUIProvider";
+import BottomNavigation from "@/components/common/BottomNavigation";
+import ScrollToTop from "@/components/common/ScrollToTop";
+import RecoilProvider from "@/components/common/RecoilProvider";
 
 export const metadata: Metadata = {
   title: `KMin's Blog`,

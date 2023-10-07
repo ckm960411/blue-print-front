@@ -12,7 +12,7 @@ export default async function StudyBlockList({ pageId }: StudyBlockListProps) {
 
   return (
     <div className="mx-auto w-full max-w-screen-xl">
-      <div className="flex flex-col gap-8px">
+      <div className="flex flex-col gap-8px break-all">
         {blocks.map((block) => (
           <NotionBlock key={block.id} block={block} blocks={blocks} />
         ))}

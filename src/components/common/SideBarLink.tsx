@@ -6,6 +6,7 @@ import React from "react";
 import { useToggle } from "usehooks-ts";
 import ToggleButton from "@/components/components/ToggleButton";
 import { CategorySection } from "@/utils/types/study";
+import SideBarSections from "@/components/common/SideBarSections";
 
 interface SideBarLinkProps {
   title: string;
@@ -50,38 +51,10 @@ export default function SideBarLink({
           </div>
         )}
       </div>
-      {sections && isActive && open && (
-        <div className="w-full px-12px pb-12px">
-          <ul className="flex max-h-[320px] flex-col gap-16px overflow-y-scroll rounded-10px bg-gray-50 p-8px text-14px leading-[150%] text-gray-600">
-            {sections.map((section) => (
-              <li key={section.id}>
-                <p className="font-semibold">{section.name}</p>
-                <div className="my-6px h-1px bg-gray-400" />
-                <ul className="flex flex-col gap-6px text-12px leading-[140%]">
-                  {section.categories.map((category) => {
-                    const isActiveCategory = pathname.includes(
-                      category.page_id,
-                    );
-
-                    return (
-                      <li
-                        key={category.page_id}
-                        className={`truncate-1-lines hover:text-main ${
-                          isActiveCategory
-                            ? "font-medium text-main"
-                            : "text-gray-600"
-                        }`}
-                      >
-                        {category.title}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <SideBarSections
+        show={!!sections && isActive && open}
+        sections={sections}
+      />
     </div>
   );
 }

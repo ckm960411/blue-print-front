@@ -8,7 +8,7 @@ import { sideBarOpenState } from "@/utils/recoil/store";
 import {
   CLOSED_SIDE_BAR_WIDTH,
   OPENED_SIDE_BAR_WIDTH,
-} from "@/components/common/SideBar";
+} from "@/components/common/sidebar/SideBar";
 
 interface BlockMaxWidthWrapperProps {
   children: React.ReactNode;

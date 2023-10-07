@@ -2,7 +2,7 @@ import { pretendard } from "@/utils/fonts";
 import "./globals.css";
 import type { Metadata } from "next";
 import Header from "@/components/common/Header";
-import SideBar from "@/components/common/SideBar";
+import SideBar from "@/components/common/sidebar/SideBar";
 import { ChakraUIProvider } from "@/components/common/ChakraUIProvider";
 import BottomNavigation from "@/components/common/BottomNavigation";
 import ScrollToTop from "@/components/common/ScrollToTop";

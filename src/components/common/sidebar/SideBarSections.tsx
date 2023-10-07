@@ -3,7 +3,7 @@
 import React from "react";
 import { CategorySection } from "@/utils/types/study";
 import { usePathname } from "next/navigation";
-import SideBarSectionCategoryList from "@/components/common/SideBarSectionCategoryList";
+import SideBarSectionCategoryList from "@/components/common/sidebar/SideBarSectionCategoryList";
 
 interface SideBarSectionsProps {
   show: boolean;

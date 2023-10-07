@@ -6,7 +6,7 @@ import React from "react";
 import { useToggle } from "usehooks-ts";
 import ToggleButton from "@/components/components/ToggleButton";
 import { CategorySection } from "@/utils/types/study";
-import SideBarSections from "@/components/common/SideBarSections";
+import SideBarSections from "@/components/common/sidebar/SideBarSections";
 
 interface SideBarLinkProps {
   title: string;

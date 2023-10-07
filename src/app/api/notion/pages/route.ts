@@ -1,11 +1,5 @@
 import { NextResponse } from "next/server";
 
-export interface PageIdAndUrl {
-  title: string;
-  page_id: string;
-  url: string;
-}
-
 export const GET = async () => {
   try {
     return NextResponse.json([

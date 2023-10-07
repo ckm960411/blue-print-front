@@ -19,8 +19,8 @@ import StudyBlockList from "../study/StudyBlockList";
 import ChildPageBlock from "./ChildPageBlock";
 import LinkPreviewBlock from "./LinkPreviewBlock";
 import TableOfContentsBlock from "./TableOfContentsBlock";
-import TableBlockWrapper from "./TableBlockWrapper";
 import HeadingBlockWrapper from "./HeadingBlockWrapper";
+import BlockMaxWidthWrapper from "@/components/notion/components/BlockMaxWidthWrapper";
 
 interface NotionBlockProps {
   block: Block;
@@ -80,9 +80,9 @@ export default function NotionBlock({ block, blocks }: NotionBlockProps) {
       );
     case BlockType.table:
       return (
-        <TableBlockWrapper>
+        <BlockMaxWidthWrapper>
           <TableBlock block={block} />
-        </TableBlockWrapper>
+        </BlockMaxWidthWrapper>
       );
     case BlockType.toggle:
       return (

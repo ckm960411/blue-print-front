@@ -5,14 +5,17 @@ import { useWindowSize } from "usehooks-ts";
 import { useMediaQuery } from "react-responsive";
 import { useRecoilValue } from "recoil";
 import { sideBarOpenState } from "@/utils/recoil/store";
-import { CLOSED_SIDE_BAR_WIDTH, OPENED_SIDE_BAR_WIDTH } from "../SideBar";
+import {
+  CLOSED_SIDE_BAR_WIDTH,
+  OPENED_SIDE_BAR_WIDTH,
+} from "@/components/SideBar";
 
-interface TableBlockWrapperProps {
+interface BlockMaxWidthWrapperProps {
   children: React.ReactNode;
 }
-export default function TableBlockWrapper({
+export default function BlockMaxWidthWrapper({
   children,
-}: TableBlockWrapperProps) {
+}: BlockMaxWidthWrapperProps) {
   const { width } = useWindowSize();
   const UNDER_480PX = useMediaQuery({ query: "(max-width: 479px)" });
 
@@ -31,7 +34,7 @@ export default function TableBlockWrapper({
   return (
     <div
       className="my-8px overflow-x-auto rounded-10px border border-gray-200 px-8px"
-      style={{ width: maxWidth }}
+      style={{ maxWidth }}
     >
       {children}
     </div>

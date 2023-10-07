@@ -26,9 +26,9 @@ export default function RootLayout({
           <ChakraUIProvider>
             <div className="relative flex grow">
               <SideBar />
-              <div className="grow">
+              <div className="flex grow flex-col">
                 <Header />
-                <main>
+                <main className="grow">
                   <ImageDetailProvider>{children}</ImageDetailProvider>
                 </main>
               </div>

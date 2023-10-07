@@ -20,7 +20,7 @@ export default function ImageDetailProvider({
       {imageDetails && imageDetails.length > 0 && (
         <ImageDetailModal imageDetails={imageDetails} onClose={handleClose} />
       )}
-      <div>{children}</div>
+      <div className="h-full">{children}</div>
     </>
   );
 }

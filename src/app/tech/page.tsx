@@ -5,7 +5,7 @@ import techDashboardImage from "../../../public/img/tech-dashboard.jpg";
 
 export default function TechPage() {
   return (
-    <section>
+    <section className="p-16px">
       <section className="relative overflow-hidden rounded-10px bg-main">
         <Image
           src={techDashboardImage.src}

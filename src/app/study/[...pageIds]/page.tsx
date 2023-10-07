@@ -51,7 +51,7 @@ export default async function CategoryPage({
   }));
 
   return (
-    <div>
+    <div className="p-16px">
       <BreadCrumb linkDatas={linkDatas} />
       <div
         className="flex-center mt-16px h-240px flex-col gap-16px rounded-10px bg-blue-50 md:h-320px lg:h-400px lg:gap-32px"

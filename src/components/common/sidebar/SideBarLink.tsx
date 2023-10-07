@@ -37,22 +37,22 @@ export default function SideBarLink({
       } `}
     >
       <div
-        className={`flex h-56px items-center justify-between gap-12px ${
-          isSpreaded ? "justify-start pl-16px" : "justify-center"
+        className={`flex h-56px items-center gap-12px ${
+          isSpreaded ? "justify-between pl-16px" : "justify-center"
         }`}
       >
         <div className="flex h-56px items-center gap-12px">
           <div>{icon}</div>
           <span className={isSpreaded ? "block" : "hidden"}>{title}</span>
         </div>
-        {sections && isActive && (
+        {sections && isActive && isSpreaded && (
           <div className="pr-16px">
             <ToggleButton open={open} onToggle={onToggle} w={16} h={16} />
           </div>
         )}
       </div>
       <SideBarSections
-        show={!!sections && isActive && open}
+        show={!!sections && isActive && open && isSpreaded}
         href={href}
         sections={sections}
       />

@@ -58,15 +58,24 @@ export default function SideBar() {
         </div>
         <div className="px-16px py-32px">
           <ul className="flex flex-col gap-12px">
-            <SideBarLink title="TECH" href="/tech" isSpreaded={isSpreaded}>
-              <AiOutlineLaptop className="text-22px" />
-            </SideBarLink>
-            <SideBarLink title="STUDY" href="/study" isSpreaded={isSpreaded}>
-              <BsJournalBookmark className="text-20px" />
-            </SideBarLink>
-            <SideBarLink title="WORK" href="/work" isSpreaded={isSpreaded}>
-              <MdWorkOutline className="text-22px" />
-            </SideBarLink>
+            <SideBarLink
+              title="TECH"
+              icon={<AiOutlineLaptop className="text-22px" />}
+              href="/tech"
+              isSpreaded={isSpreaded}
+            />
+            <SideBarLink
+              title="STUDY"
+              icon={<BsJournalBookmark className="text-20px" />}
+              href="/study"
+              isSpreaded={isSpreaded}
+            />
+            <SideBarLink
+              title="WORK"
+              icon={<MdWorkOutline className="text-22px" />}
+              href="/work"
+              isSpreaded={isSpreaded}
+            />
           </ul>
         </div>
       </div>

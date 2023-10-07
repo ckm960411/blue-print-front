@@ -7,6 +7,24 @@ import BreadCrumb from "@/components/study/BreadCrumb";
 interface CategoryPageProps {
   params: { pageIds: string[] };
 }
+export async function generateMetadata({
+  params: { pageIds },
+}: CategoryPageProps) {
+  const pageId = pageIds.at(-1);
+  if (!pageId) {
+    return {
+      title: "KMin의 개발노트 이모저모",
+      description: "경민의 노고지리딘딘이 가득 들어간 개발노트입니다.",
+    };
+  }
+
+  const pageData = await getNotionPageById(pageId);
+  const title = pageData?.properties?.title?.title?.[0]?.text?.content;
+  return {
+    title: title ?? "KMin의 개발노트 이모저모",
+    description: title ?? "경민의 노고지리딘딘이 가득 들어간 개발노트입니다.",
+  };
+}
 export default async function CategoryPage({
   params: { pageIds },
 }: CategoryPageProps) {
@@ -66,4 +84,3 @@ export default async function CategoryPage({
     </div>
   );
 }
-

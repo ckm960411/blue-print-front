@@ -3,7 +3,12 @@ import Image from "next/image";
 import { TbDatabaseEdit } from "react-icons/tb";
 import dashboardImage from "../../../public/img/study-dashboard.jpeg";
 import CategorySections from "@/components/study/CategorySections";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "KMin의 개발공부",
+  description: "KMin의 노고지리딘딘이 가득 담기 개발노트",
+};
 export default function StudyPage() {
   return (
     <section>

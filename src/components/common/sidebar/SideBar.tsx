@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import SideBarLink from "./SideBarLink";
 import { AiOutlineLaptop } from "react-icons/ai";
 import { BsJournalBookmark } from "react-icons/bs";
-import { PiHamburgerLight } from "react-icons/Pi";
+import { PiHamburgerLight } from "react-icons/pi";
 import { MdWorkOutline } from "react-icons/md";
 import { useMediaQuery } from "react-responsive";
 import { useRecoilState } from "recoil";

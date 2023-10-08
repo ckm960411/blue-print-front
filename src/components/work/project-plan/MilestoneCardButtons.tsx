@@ -1,7 +1,12 @@
-import IconButton from "@/components/components/IconButton";
-import { BsBookmark, BsPencil } from "react-icons/bs";
-import { FiChevronDown } from "react-icons/fi";
 import React from "react";
+import IconButton from "@/components/components/IconButton";
+import {
+  BsBookmark,
+  BsPencil,
+  BsReverseLayoutSidebarInsetReverse,
+} from "react-icons/bs";
+import { FiChevronDown } from "react-icons/fi";
+import { PiNotebookLight } from "react-icons/pi";
 
 interface MilestoneCardButtonsProps {
   open: boolean;
@@ -13,6 +18,12 @@ export default function MilestoneCardButtons({
 }: MilestoneCardButtonsProps) {
   return (
     <div className="absolute right-16px top-16px flex items-center gap-8px">
+      <IconButton>
+        <PiNotebookLight className="text-22px" />
+      </IconButton>
+      <IconButton>
+        <BsReverseLayoutSidebarInsetReverse />
+      </IconButton>
       <IconButton>
         <BsPencil />
       </IconButton>

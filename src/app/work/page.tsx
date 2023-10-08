@@ -17,7 +17,7 @@ export default function WorkPage() {
           </p>
         </div>
         <SpaceY height={32} />
-        <Tabs>
+        <Tabs id="work-project-tabs" variant="enclosed">
           <TabList>
             <Tab>Dashboard</Tab>
             <Tab>Project Plan</Tab>

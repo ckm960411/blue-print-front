@@ -2,23 +2,23 @@ import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilesto
 import React from "react";
 
 interface MilestoneCardHeaderProps {
-  open: boolean;
+  toggleOpened: boolean;
 }
 export default function MilestoneCardHeader({
-  open,
+  toggleOpened,
 }: MilestoneCardHeaderProps) {
   return (
     <div
       className={`flex duration-200 ${
-        open ? "flex-col items-start gap-8px" : "items-center gap-8px"
+        toggleOpened ? "flex-col items-start gap-8px" : "items-center gap-8px"
       }`}
     >
       <ProjectMilestoneEmoji
-        className={`duration-200 ${open ? "text-32px" : "text-22px"}`}
+        className={`duration-200 ${toggleOpened ? "text-32px" : "text-22px"}`}
       />
       <p
         className={`font-bold leading-[150%] text-gray-700 duration-200 ${
-          open ? "text-22px" : "text-16px"
+          toggleOpened ? "text-22px" : "text-16px"
         }`}
       >
         마일스톤 이름

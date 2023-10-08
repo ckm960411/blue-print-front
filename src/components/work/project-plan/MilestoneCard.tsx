@@ -13,15 +13,18 @@ interface ProjectMilestoneCardProps {
 export default function MilestoneCard({
   openContent = false,
 }: ProjectMilestoneCardProps) {
-  const [open, setOpen] = useState(() => openContent);
+  const [toggleOpened, setToggleOpened] = useState(() => openContent);
 
-  const handleToggleOpen = () => setOpen((prev) => !prev);
+  const handleToggleOpen = () => setToggleOpened((prev) => !prev);
 
   return (
     <div className="relative flex flex-col gap-24px rounded-10px border border-gray-200 px-16px py-20px">
-      <MilestoneCardButtons open={open} onToggleOpen={handleToggleOpen} />
-      <MilestoneCardHeader open={open} />
-      {open && <MilestoneCardSummary />}
+      <MilestoneCardButtons
+        toggleOpened={toggleOpened}
+        onToggleOpen={handleToggleOpen}
+      />
+      <MilestoneCardHeader toggleOpened={toggleOpened} />
+      {toggleOpened && <MilestoneCardSummary />}
     </div>
   );
 }

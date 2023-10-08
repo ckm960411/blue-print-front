@@ -10,11 +10,11 @@ import { PiNotebookLight } from "react-icons/pi";
 import { Tooltip } from "@chakra-ui/react";
 
 interface MilestoneCardButtonsProps {
-  open: boolean;
+  toggleOpened: boolean;
   onToggleOpen: () => void;
 }
 export default function MilestoneCardButtons({
-  open,
+  toggleOpened,
   onToggleOpen,
 }: MilestoneCardButtonsProps) {
   return (
@@ -61,7 +61,7 @@ export default function MilestoneCardButtons({
       </Tooltip>
       <IconButton onClick={onToggleOpen}>
         <FiChevronDown
-          className={`duration-200 ${open ? "rotate-180" : "rotate-0"}`}
+          className={`duration-200 ${toggleOpened ? "rotate-180" : "rotate-0"}`}
         />
       </IconButton>
     </div>

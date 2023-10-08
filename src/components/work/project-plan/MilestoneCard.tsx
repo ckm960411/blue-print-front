@@ -33,9 +33,7 @@ export default function MilestoneCard({
       />
       <MilestoneCardHeader toggleOpened={toggleOpened} />
       {toggleOpened && <MilestoneCardSummary />}
-      {drawerOpened && (
-        <MilestoneDrawer isOpen={drawerOpened} onClose={closeDrawer} />
-      )}
+      <MilestoneDrawer isOpen={drawerOpened} onClose={closeDrawer} />
     </div>
   );
 }

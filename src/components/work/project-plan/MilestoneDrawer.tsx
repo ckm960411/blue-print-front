@@ -1,9 +1,9 @@
 import React from "react";
 import { Drawer, DrawerContent } from "@chakra-ui/modal";
-import { DrawerOverlay } from "@chakra-ui/react";
 import MilestoneCardHeader from "@/components/work/project-plan/MilestoneCardHeader";
 import MilestoneDrawerButtonGroup from "@/components/work/project-plan/MilestoneDrawerButtonGroup";
 import { useMediaQuery } from "react-responsive";
+import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSummary";
 
 interface MilestoneDrawerProps {
   isOpen: boolean;
@@ -23,8 +23,9 @@ export default function MilestoneDrawer({
     >
       <DrawerContent>
         <MilestoneDrawerButtonGroup onClose={onClose} />
-        <div className="p-16px">
+        <div className="flex flex-col gap-24px p-16px">
           <MilestoneCardHeader />
+          <MilestoneCardSummary />
         </div>
       </DrawerContent>
     </Drawer>

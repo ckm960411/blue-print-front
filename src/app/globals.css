@@ -15,6 +15,11 @@ input {
   justify-content: center;
   align-items: center;
 }
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .truncate-1-lines {
   display: -webkit-box;

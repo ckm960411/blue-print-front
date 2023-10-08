@@ -24,7 +24,7 @@ export default function MilestoneDrawer({
     >
       <DrawerContent>
         <MilestoneDrawerButtonGroup onClose={onClose} />
-        <div className="flex flex-col gap-24px">
+        <div className="flex flex-col gap-16px">
           <div className="flex flex-col gap-24px p-16px">
             <MilestoneCardHeader />
             <MilestoneCardSummary />

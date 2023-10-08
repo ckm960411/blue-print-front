@@ -35,7 +35,7 @@ export default function ProjectMilestoneEmoji({
         <PickerWrapper
           onEmojiSelect={handleEmojiSelect}
           onClickOutside={handleClosePicker}
-          wrapperClass="absolute top-0 left-[200%] shadow-md rounded-10px overflow-hidden"
+          wrapperClass="absolute top-0 left-[calc(100%+16px)] shadow-md rounded-10px overflow-hidden"
         />
       )}
     </div>

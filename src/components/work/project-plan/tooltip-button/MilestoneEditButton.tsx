@@ -3,12 +3,12 @@ import { BsPencil } from "react-icons/bs";
 import { Tooltip } from "@chakra-ui/react";
 import React from "react";
 
-interface MilestoenEditButtonProps {
+interface MilestoneEditButtonProps {
   onClick?: () => void;
 }
-export default function MilestoenEditButton({
+export default function MilestoneEditButton({
   onClick,
-}: MilestoenEditButtonProps) {
+}: MilestoneEditButtonProps) {
   return (
     <Tooltip
       label="수정하기"

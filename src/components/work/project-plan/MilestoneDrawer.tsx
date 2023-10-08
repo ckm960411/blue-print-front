@@ -2,8 +2,7 @@ import React from "react";
 import { Drawer, DrawerContent } from "@chakra-ui/modal";
 import { DrawerOverlay } from "@chakra-ui/react";
 import MilestoneCardHeader from "@/components/work/project-plan/MilestoneCardHeader";
-import MilestoneFullPageButton from "@/components/work/project-plan/tooltip-button/MilestoneFullPageButton";
-import MilestoneCloseSideTabButton from "@/components/work/project-plan/tooltip-button/MilestoneCloseSideTabButton";
+import MilestoneDrawerButtonGroup from "@/components/work/project-plan/MilestoneDrawerButtonGroup";
 
 interface MilestoneDrawerProps {
   isOpen: boolean;
@@ -17,10 +16,7 @@ export default function MilestoneDrawer({
     <Drawer onClose={onClose} isOpen={isOpen} size="md">
       <DrawerOverlay />
       <DrawerContent>
-        <div className="flex items-center gap-8px p-8px">
-          <MilestoneCloseSideTabButton onClick={onClose} />
-          <MilestoneFullPageButton />
-        </div>
+        <MilestoneDrawerButtonGroup onClose={onClose} />
         <div className="p-16px">
           <MilestoneCardHeader />
         </div>

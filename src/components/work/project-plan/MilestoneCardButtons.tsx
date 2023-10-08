@@ -3,7 +3,7 @@ import IconButton from "@/components/components/IconButton";
 import { FiChevronDown } from "react-icons/fi";
 import MilestoneFullPageButton from "@/components/work/project-plan/tooltip-button/MilestoneFullPageButton";
 import MilestoenSideTabButton from "@/components/work/project-plan/tooltip-button/MilestoenSideTabButton";
-import MilestoenEditButton from "@/components/work/project-plan/tooltip-button/MilestoenEditButton";
+import MilestoenEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
 import MilestoenBookmarkButton from "@/components/work/project-plan/tooltip-button/MilestoenBookmarkButton";
 
 interface MilestoneCardButtonsProps {

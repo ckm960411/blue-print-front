@@ -39,7 +39,7 @@ export default function ProjectSelect({}: ProjectSelectProps) {
       {dropdownOpened && (
         <div
           ref={dropdownRef}
-          className={`absolute top-[calc(100%+8px)] w-200px rounded-10px border border-gray-200 bg-white py-8px shadow-md ${
+          className={`absolute top-[calc(100%+8px)] z-10 w-200px rounded-10px border border-gray-200 bg-white py-8px shadow-md ${
             UNDER_380PX ? "right-0" : "left-0"
           }`}
         >
@@ -48,7 +48,7 @@ export default function ProjectSelect({}: ProjectSelectProps) {
               <div
                 key={i}
                 onClick={() => handleClick(prj)}
-                className={`w-full cursor-pointer p-8px text-14px hover:bg-gray-50 ${
+                className={`w-full cursor-pointer bg-white p-8px text-14px hover:bg-gray-50 ${
                   prj === project ? "bg-gray-50" : "bg-white"
                 }`}
               >

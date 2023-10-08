@@ -1,5 +1,5 @@
 import IconButton from "@/components/components/IconButton";
-import { BsBookmark } from "react-icons/bs";
+import { BsBookmark, BsPencil } from "react-icons/bs";
 import { FiChevronDown } from "react-icons/fi";
 import React from "react";
 
@@ -13,6 +13,9 @@ export default function MilestoneCardButtons({
 }: MilestoneCardButtonsProps) {
   return (
     <div className="absolute right-16px top-16px flex items-center gap-8px">
+      <IconButton>
+        <BsPencil />
+      </IconButton>
       <IconButton>
         <BsBookmark />
       </IconButton>

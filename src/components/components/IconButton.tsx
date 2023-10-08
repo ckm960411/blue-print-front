@@ -1,4 +1,3 @@
-import { BsBookmark } from "react-icons/bs";
 import React from "react";
 
 interface IconButtonProps {
@@ -8,15 +7,13 @@ interface IconButtonProps {
   className?: HTMLButtonElement["className"];
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 }
-export default function IconButton({
-  children,
-  w = 32,
-  h,
-  className,
-  onClick,
-}: IconButtonProps) {
+function IconButton(
+  { children, w = 32, h, className, onClick }: IconButtonProps,
+  ref: React.ForwardedRef<HTMLButtonElement>,
+) {
   return (
     <button
+      ref={ref}
       onClick={onClick}
       className={`flex-center flex rounded-10px bg-white duration-200 hover:bg-gray-50 ${className}`}
       style={{ width: w, height: h ?? w }}
@@ -25,3 +22,5 @@ export default function IconButton({
     </button>
   );
 }
+
+export default React.forwardRef(IconButton);

@@ -11,6 +11,8 @@
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
     "@chakra-ui/react": "^2.8.1",
+    "@emoji-mart/data": "^1.1.2",
+    "@emoji-mart/react": "^1.1.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@notionhq/client": "^2.2.13",
@@ -21,6 +23,7 @@
     "axios": "^1.5.1",
     "cheerio": "^1.0.0-rc.12",
     "date-fns": "^2.30.0",
+    "emoji-mart": "^5.5.2",
     "encoding": "^0.1.13",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",

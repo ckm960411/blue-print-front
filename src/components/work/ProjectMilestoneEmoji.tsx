@@ -7,8 +7,12 @@ import Unicode, {
 import React, { useState } from "react";
 import PickerWrapper from "@/components/components/PickerWrapper";
 
-interface ProjectMilestoneEmojiProps {}
-export default function ProjectMilestoneEmoji({}: ProjectMilestoneEmojiProps) {
+interface ProjectMilestoneEmojiProps {
+  className?: HTMLDivElement["className"];
+}
+export default function ProjectMilestoneEmoji({
+  className,
+}: ProjectMilestoneEmojiProps) {
   const [showPicker, setShowPicker] = useState(false);
   const [emoji, setEmoji] = useState<EmojiType>(laptopEmoji);
 
@@ -25,7 +29,7 @@ export default function ProjectMilestoneEmoji({}: ProjectMilestoneEmojiProps) {
       <Unicode
         value={emoji.unified}
         onClick={() => setShowPicker(true)}
-        className="cursor-pointer text-22px"
+        className={`cursor-pointer text-22px ${className}`}
       />
       {showPicker && (
         <PickerWrapper

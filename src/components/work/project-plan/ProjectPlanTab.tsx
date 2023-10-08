@@ -1,6 +1,6 @@
 import { TabPanel } from "@chakra-ui/tabs";
 import React from "react";
-import MilestoneCard from "@/components/work/MilestoneCard";
+import MilestoneCard from "@/components/work/project-plan/MilestoneCard";
 
 interface ProjectPlanTabProps {}
 export default function ProjectPlanTab({}: ProjectPlanTabProps) {

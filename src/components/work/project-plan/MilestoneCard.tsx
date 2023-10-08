@@ -1,9 +1,9 @@
 "use client";
 
-import ProjectMilestoneEmoji from "@/components/work/ProjectMilestoneEmoji";
+import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilestoneEmoji";
 import { FiChevronDown } from "react-icons/fi";
 import React, { useState } from "react";
-import MileStoneCardContent from "@/components/work/MileStoneCardContent";
+import MileStoneCardContent from "@/components/work/project-plan/MileStoneCardContent";
 import { BsBookmark } from "react-icons/bs";
 import IconButton from "@/components/components/IconButton";
 

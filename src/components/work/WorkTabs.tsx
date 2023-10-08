@@ -1,7 +1,7 @@
 import React from "react";
 import { Tab, TabList, TabPanels, Tabs } from "@chakra-ui/tabs";
 import DashBoardTab from "@/components/work/DashBoardTab";
-import ProjectPlanTab from "@/components/work/ProjectPlanTab";
+import ProjectPlanTab from "@/components/work/project-plan/ProjectPlanTab";
 import TaskListTab from "@/components/work/TaskListTab";
 
 interface WorkTabsProps {}

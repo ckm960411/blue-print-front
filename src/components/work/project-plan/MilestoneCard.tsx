@@ -17,9 +17,9 @@ export default function MilestoneCard({
   const handleToggleOpen = () => setOpen((prev) => !prev);
 
   return (
-    <div className="relative flex flex-col gap-16px rounded-10px border border-gray-200 px-16px py-20px">
-      <MilestoneCardHeader open={open} />
+    <div className="relative flex flex-col gap-24px rounded-10px border border-gray-200 px-16px py-20px">
       <MilestoneCardButtons open={open} onToggleOpen={handleToggleOpen} />
+      <MilestoneCardHeader open={open} />
       {open && <MileStoneCardContent />}
     </div>
   );

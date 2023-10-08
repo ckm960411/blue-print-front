@@ -10,8 +10,9 @@ export default function ProjectPlanTab({}: ProjectPlanTabProps) {
 
       <hr className="my-16px" />
 
-      <div>
+      <div className="flex flex-col gap-16px">
         <MilestoneCard openContent={true} />
+        <MilestoneCard openContent={false} />
       </div>
     </TabPanel>
   );

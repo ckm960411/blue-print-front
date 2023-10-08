@@ -10,14 +10,14 @@ export default function MilestoneCardHeader({
   return (
     <div
       className={`flex duration-200 ${
-        open ? "flex-col gap-8px" : "items-center gap-8px"
+        open ? "flex-col items-start gap-8px" : "items-center gap-8px"
       }`}
     >
       <ProjectMilestoneEmoji
         className={`duration-200 ${open ? "text-32px" : "text-22px"}`}
       />
       <p
-        className={`font-bold text-gray-700 duration-200 ${
+        className={`font-bold leading-[150%] text-gray-700 duration-200 ${
           open ? "text-22px" : "text-16px"
         }`}
       >

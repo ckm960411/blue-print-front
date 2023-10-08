@@ -24,7 +24,7 @@ export default function CircularProgressWrapper({
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    setTimeout(() => setProgress(value), 300);
+    setTimeout(() => setProgress(value), 100);
   }, [value]);
 
   return (
@@ -35,7 +35,7 @@ export default function CircularProgressWrapper({
         styles={buildStyles({
           pathColor,
           trailColor,
-          pathTransitionDuration: 0.5,
+          pathTransitionDuration: 1,
         })}
       />
     </div>

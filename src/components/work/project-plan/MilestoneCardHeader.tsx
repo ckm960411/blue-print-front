@@ -16,13 +16,18 @@ export default function MilestoneCardHeader({
       <ProjectMilestoneEmoji
         className={`duration-200 ${toggleOpened ? "text-32px" : "text-22px"}`}
       />
-      <p
-        className={`font-bold leading-[150%] text-gray-700 duration-200 ${
-          toggleOpened ? "text-22px" : "text-16px"
-        }`}
-      >
-        마일스톤 이름
-      </p>
+      <div className="flex items-center gap-8px">
+        <p
+          className={`font-bold leading-[150%] text-gray-700 duration-200 ${
+            toggleOpened ? "text-22px" : "text-16px"
+          }`}
+        >
+          마일스톤 이름
+        </p>
+        <div className="rounded-full border border-red-500 px-8px py-4px text-12px text-red-500">
+          긴급
+        </div>
+      </div>
     </div>
   );
 }

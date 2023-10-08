@@ -1,8 +1,6 @@
 "use client";
 
-import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilestoneEmoji";
 import React, { useState } from "react";
-import MileStoneCardContent from "@/components/work/project-plan/MileStoneCardContent";
 import MilestoneCardButtons from "@/components/work/project-plan/MilestoneCardButtons";
 import MilestoneCardHeader from "@/components/work/project-plan/MilestoneCardHeader";
 import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSummary";

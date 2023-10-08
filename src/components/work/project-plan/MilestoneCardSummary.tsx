@@ -43,7 +43,7 @@ export default function MilestoneCardSummary({}: MilestoneCardSummaryProps) {
       </div>
       <div className="flex h-14px items-center gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
-          긴급도
+          우선순위
         </p>
         <div className="flex items-center gap-4px rounded-md bg-purple-50 px-8px py-4px text-14px font-medium">
           <Unicode value="2b50" className="text-12px" />

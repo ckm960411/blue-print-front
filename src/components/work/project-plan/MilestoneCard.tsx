@@ -6,6 +6,8 @@ import MileStoneCardContent from "@/components/work/project-plan/MileStoneCardCo
 import MilestoneCardButtons from "@/components/work/project-plan/MilestoneCardButtons";
 import MilestoneCardHeader from "@/components/work/project-plan/MilestoneCardHeader";
 import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSummary";
+import MilestoneDrawer from "@/components/work/project-plan/MilestoneDrawer";
+import { useDisclosure } from "@chakra-ui/hooks";
 
 interface ProjectMilestoneCardProps {
   openContent?: boolean;
@@ -14,6 +16,11 @@ export default function MilestoneCard({
   openContent = false,
 }: ProjectMilestoneCardProps) {
   const [toggleOpened, setToggleOpened] = useState(() => openContent);
+  const {
+    isOpen: drawerOpened,
+    onOpen: openDrawer,
+    onClose: closeDrawer,
+  } = useDisclosure();
 
   const handleToggleOpen = () => setToggleOpened((prev) => !prev);
 
@@ -22,9 +29,13 @@ export default function MilestoneCard({
       <MilestoneCardButtons
         toggleOpened={toggleOpened}
         onToggleOpen={handleToggleOpen}
+        onDrawerOpen={openDrawer}
       />
       <MilestoneCardHeader toggleOpened={toggleOpened} />
       {toggleOpened && <MilestoneCardSummary />}
+      {drawerOpened && (
+        <MilestoneDrawer isOpen={drawerOpened} onClose={closeDrawer} />
+      )}
     </div>
   );
 }

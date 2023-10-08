@@ -2,10 +2,10 @@ import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilesto
 import React from "react";
 
 interface MilestoneCardHeaderProps {
-  toggleOpened: boolean;
+  toggleOpened?: boolean;
 }
 export default function MilestoneCardHeader({
-  toggleOpened,
+  toggleOpened = true,
 }: MilestoneCardHeaderProps) {
   return (
     <div

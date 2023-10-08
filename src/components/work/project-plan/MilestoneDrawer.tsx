@@ -4,6 +4,7 @@ import MilestoneCardHeader from "@/components/work/project-plan/MilestoneCardHea
 import MilestoneDrawerButtonGroup from "@/components/work/project-plan/MilestoneDrawerButtonGroup";
 import { useMediaQuery } from "react-responsive";
 import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSummary";
+import MilestoneDrawerTabs from "@/components/work/project-plan/MilestoneDrawerTabs";
 
 interface MilestoneDrawerProps {
   isOpen: boolean;
@@ -23,9 +24,12 @@ export default function MilestoneDrawer({
     >
       <DrawerContent>
         <MilestoneDrawerButtonGroup onClose={onClose} />
-        <div className="flex flex-col gap-24px p-16px">
-          <MilestoneCardHeader />
-          <MilestoneCardSummary />
+        <div className="flex flex-col gap-24px">
+          <div className="flex flex-col gap-24px p-16px">
+            <MilestoneCardHeader />
+            <MilestoneCardSummary />
+          </div>
+          <MilestoneDrawerTabs />
         </div>
       </DrawerContent>
     </Drawer>

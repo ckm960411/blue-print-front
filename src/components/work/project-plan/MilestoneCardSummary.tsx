@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Unicode from "@/components/components/Unicode";
 
 interface MilestoneCardSummaryProps {}
 export default function MilestoneCardSummary({}: MilestoneCardSummaryProps) {
@@ -22,6 +23,33 @@ export default function MilestoneCardSummary({}: MilestoneCardSummaryProps) {
           <button className="rounded-md bg-gray-50 px-4px py-2px text-14px font-medium text-gray-800 hover:bg-gray-100">
             클릭하여 설정해주세요
           </button>
+        </div>
+      </div>
+      <div className="flex h-14px items-center gap-8px">
+        <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
+          분류
+        </p>
+        <div className="flex flex-wrap items-center gap-8px">
+          <div className="rounded-md bg-blue-50 px-8px py-4px text-14px font-medium">
+            Feature
+          </div>
+          <div className="rounded-md bg-teal-50 px-8px py-4px text-14px font-medium">
+            Chore
+          </div>
+          <div className="rounded-md bg-red-50 px-8px py-4px text-14px font-medium">
+            Hotfix
+          </div>
+        </div>
+      </div>
+      <div className="flex h-14px items-center gap-8px">
+        <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
+          긴급도
+        </p>
+        <div className="flex items-center gap-4px rounded-md bg-purple-50 px-8px py-4px text-14px font-medium">
+          <Unicode value="2b50" className="text-12px" />
+          <Unicode value="2b50" className="text-12px" />
+          <Unicode value="2b50" className="text-12px" />
+          <Unicode value="2b50" className="text-12px" />
         </div>
       </div>
       <div className="flex h-14px items-center gap-8px">

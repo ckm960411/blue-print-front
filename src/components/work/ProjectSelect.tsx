@@ -3,6 +3,7 @@
 import React, { useRef, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { useBoolean, useOnClickOutside } from "usehooks-ts";
+import { useMediaQuery } from "react-responsive";
 
 const projects = ["프로젝트1", "프로젝트2", "프로젝트3", "프로젝트4"];
 
@@ -16,7 +17,7 @@ export default function ProjectSelect({}: ProjectSelectProps) {
     setFalse: closeDropdown,
   } = useBoolean(false);
   const [project, setProject] = useState(projects[0]);
-
+  const UNDER_380PX = useMediaQuery({ query: "(max-width: 379px)" });
   useOnClickOutside(dropdownRef, closeDropdown);
 
   const handleClick = (prj: string) => {
@@ -38,7 +39,9 @@ export default function ProjectSelect({}: ProjectSelectProps) {
       {dropdownOpened && (
         <div
           ref={dropdownRef}
-          className="absolute left-0 top-[calc(100%+8px)] w-200px rounded-10px border border-gray-200 bg-white py-8px shadow-md"
+          className={`absolute top-[calc(100%+8px)] w-200px rounded-10px border border-gray-200 bg-white py-8px shadow-md ${
+            UNDER_380PX ? "right-0" : "left-0"
+          }`}
         >
           {projects.map((prj, i) => {
             return (

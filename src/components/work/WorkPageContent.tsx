@@ -1,5 +1,6 @@
 import React from "react";
 import WorkSideContent from "@/components/work/WorkSideContent";
+import WorkTabs from "@/components/work/WorkTabs";
 
 interface WorkPageContentProps {}
 export default function WorkPageContent({}: WorkPageContentProps) {
@@ -8,7 +9,9 @@ export default function WorkPageContent({}: WorkPageContentProps) {
       <div className="w-400px flex-shrink-0 border-r border-gray-200">
         <WorkSideContent />
       </div>
-      <div className="grow">WorkMainContent</div>
+      <div className="relative bottom-42px grow bg-white">
+        <WorkTabs />
+      </div>
     </div>
   );
 }

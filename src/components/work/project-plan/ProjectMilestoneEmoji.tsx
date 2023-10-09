@@ -6,6 +6,7 @@ import Unicode, {
 } from "@/components/components/Unicode";
 import React, { useState } from "react";
 import PickerWrapper from "@/components/components/PickerWrapper";
+import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 
 interface ProjectMilestoneEmojiProps {
   className?: HTMLDivElement["className"];
@@ -16,7 +17,9 @@ export default function ProjectMilestoneEmoji({
   const [showPicker, setShowPicker] = useState(false);
   const [emoji, setEmoji] = useState<EmojiType>(laptopEmoji);
 
-  const handleClosePicker = () => setShowPicker(false);
+  const handleClosePicker = () => {
+    setShowPicker(false);
+  };
 
   // TODO: 이모지 선택시 실제 데이터에 반영되도록
   const handleEmojiSelect = (data: EmojiType) => {
@@ -25,19 +28,23 @@ export default function ProjectMilestoneEmoji({
   };
 
   return (
-    <div className="relative">
-      <Unicode
-        value={emoji.unified}
-        onClick={() => setShowPicker(true)}
-        className={`cursor-pointer text-22px ${className}`}
-      />
-      {showPicker && (
-        <PickerWrapper
-          onEmojiSelect={handleEmojiSelect}
-          onClickOutside={handleClosePicker}
-          wrapperClass="absolute top-0 left-[calc(100%+16px)] shadow-md rounded-10px overflow-hidden"
-        />
-      )}
-    </div>
+    <Popover
+      isOpen={showPicker}
+      onClose={handleClosePicker}
+      placement="bottom-start"
+    >
+      <div className="relative">
+        <PopoverTrigger>
+          <Unicode
+            value={emoji.unified}
+            onClick={() => setShowPicker(true)}
+            className={`cursor-pointer text-22px ${className}`}
+          />
+        </PopoverTrigger>
+        <PopoverContent>
+          <PickerWrapper onEmojiSelect={handleEmojiSelect} />
+        </PopoverContent>
+      </div>
+    </Popover>
   );
 }

@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Unicode from "@/components/components/Unicode";
 import MilestoneStartDate from "@/components/work/project-plan/MilestoneStartDate";
 import MilestoneEndDate from "@/components/work/project-plan/MilestoneEndDate";
 import MilestoneClassification from "@/components/work/project-plan/MilestoneClassification";
+import MilestonePriority from "@/components/work/project-plan/MilestonePriority";
 
 interface MilestoneCardSummaryProps {
   startDate: Date | undefined;
@@ -29,17 +29,7 @@ export default function MilestoneCardSummary({
         onChange={onChangeDate("endDate")}
       />
       <MilestoneClassification />
-      <div className="flex h-14px items-center gap-8px">
-        <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
-          우선순위
-        </p>
-        <div className="flex items-center gap-4px rounded-md bg-purple-50 px-8px py-4px text-14px font-medium">
-          <Unicode value="2b50" className="text-12px" />
-          <Unicode value="2b50" className="text-12px" />
-          <Unicode value="2b50" className="text-12px" />
-          <Unicode value="2b50" className="text-12px" />
-        </div>
-      </div>
+      <MilestonePriority />
       <div className="flex h-14px items-center gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
           진행상태

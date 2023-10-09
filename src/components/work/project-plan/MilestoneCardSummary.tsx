@@ -6,6 +6,7 @@ import MilestoneEndDate from "@/components/work/project-plan/MilestoneEndDate";
 import MilestoneClassification from "@/components/work/project-plan/MilestoneClassification";
 import MilestonePriority from "@/components/work/project-plan/MilestonePriority";
 import MilestoneProgress from "@/components/work/project-plan/MilestoneProgress";
+import MilestoneTags from "@/components/work/project-plan/MilestoneTags";
 
 interface MilestoneCardSummaryProps {
   startDate: Date | undefined;
@@ -32,22 +33,7 @@ export default function MilestoneCardSummary({
       <MilestoneClassification />
       <MilestonePriority />
       <MilestoneProgress />
-      <div className="flex h-14px items-center gap-8px">
-        <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
-          태그
-        </p>
-        <div className="flex flex-wrap items-center gap-8px">
-          <div className="rounded-md bg-blue-50 px-8px py-4px text-14px font-medium">
-            태그1
-          </div>
-          <div className="rounded-md bg-teal-50 px-8px py-4px text-14px font-medium">
-            태그2
-          </div>
-          <div className="rounded-md bg-orange-50 px-8px py-4px text-14px font-medium">
-            태그3
-          </div>
-        </div>
-      </div>
+      <MilestoneTags />
       <div className="flex items-start gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
           링크

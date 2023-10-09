@@ -20,30 +20,24 @@ export default function MilestonePriority({}: MilestonePriorityProps) {
       <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
         우선순위
       </p>
-      <div className="relative">
-        <Popover
-          isOpen={editing}
-          onClose={handleClose}
-          placement="bottom-start"
-        >
-          <PopoverTrigger>
-            <div>
-              <PriorityButton onClick={handleOpen} priority={priority} />
-            </div>
-          </PopoverTrigger>
-          <PopoverContent className="w-200px">
-            <div className="flex flex-wrap items-center gap-8px p-16px">
-              {[1, 2, 3, 4, 5].map((priority) => (
-                <PriorityButton
-                  key={priority}
-                  onClick={() => handleClickPriority(priority)}
-                  priority={priority}
-                />
-              ))}
-            </div>
-          </PopoverContent>
-        </Popover>
-      </div>
+      <Popover isOpen={editing} onClose={handleClose} placement="bottom-start">
+        <PopoverTrigger>
+          <div>
+            <PriorityButton onClick={handleOpen} priority={priority} />
+          </div>
+        </PopoverTrigger>
+        <PopoverContent className="w-200px">
+          <div className="flex flex-wrap items-center gap-8px p-16px">
+            {[1, 2, 3, 4, 5].map((priority) => (
+              <PriorityButton
+                key={priority}
+                onClick={() => handleClickPriority(priority)}
+                priority={priority}
+              />
+            ))}
+          </div>
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }

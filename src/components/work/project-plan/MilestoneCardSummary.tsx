@@ -4,6 +4,7 @@ import Link from "next/link";
 import Unicode from "@/components/components/Unicode";
 import MilestoneStartDate from "@/components/work/project-plan/MilestoneStartDate";
 import MilestoneEndDate from "@/components/work/project-plan/MilestoneEndDate";
+import MilestoneClassification from "@/components/work/project-plan/MilestoneClassification";
 
 interface MilestoneCardSummaryProps {
   startDate: Date | undefined;
@@ -27,22 +28,7 @@ export default function MilestoneCardSummary({
         endDate={endDate}
         onChange={onChangeDate("endDate")}
       />
-      <div className="flex h-14px items-center gap-8px">
-        <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
-          분류
-        </p>
-        <div className="flex flex-wrap items-center gap-8px">
-          <div className="rounded-md bg-blue-50 px-8px py-4px text-14px font-medium">
-            Feature
-          </div>
-          <div className="rounded-md bg-teal-50 px-8px py-4px text-14px font-medium">
-            Chore
-          </div>
-          <div className="rounded-md bg-red-50 px-8px py-4px text-14px font-medium">
-            Hotfix
-          </div>
-        </div>
-      </div>
+      <MilestoneClassification />
       <div className="flex h-14px items-center gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
           우선순위

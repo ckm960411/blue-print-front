@@ -6,13 +6,23 @@ import { format } from "date-fns";
 import { useState } from "react";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 
-interface MilestoneCalendarButtonProps {}
-export default function MilestoneCalendarButton({}: MilestoneCalendarButtonProps) {
+interface MilestoneCalendarButtonProps {
+  onChange: (date: Date) => void;
+  date?: Date;
+  startDate?: Date;
+  endDate?: Date;
+}
+export default function MilestoneCalendarButton({
+  onChange,
+  date,
+  startDate,
+  endDate,
+}: MilestoneCalendarButtonProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedDate, setSelectedDate] = useState<Date>();
 
   const handleChange = (date: Date) => {
-    setSelectedDate(date);
+    onChange(date);
     onClose();
   };
 
@@ -22,11 +32,8 @@ export default function MilestoneCalendarButton({}: MilestoneCalendarButtonProps
         onClick={onOpen}
         className="rounded-md bg-gray-50 px-4px py-2px text-14px font-medium text-gray-800 hover:bg-gray-100"
       >
-        {selectedDate
-          ? format(
-              selectedDate,
-              `yyyy년 M월 d일 (${getDayByAsiaSeoulFormat(selectedDate)})`,
-            )
+        {date
+          ? format(date, `yyyy년 M월 d일 (${getDayByAsiaSeoulFormat(date)})`)
           : "클릭하여 설정해주세요"}
       </button>
       <Modal
@@ -38,7 +45,13 @@ export default function MilestoneCalendarButton({}: MilestoneCalendarButtonProps
         <ModalOverlay />
         <ModalContent>
           <div className="px-16px">
-            <Calendar locale={ko} date={selectedDate} onChange={handleChange} />
+            <Calendar
+              locale={ko}
+              date={selectedDate}
+              onChange={handleChange}
+              minDate={startDate}
+              maxDate={endDate}
+            />
           </div>
           <div className="px-16px pb-16px text-right">
             <button

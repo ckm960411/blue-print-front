@@ -3,22 +3,53 @@
 import Link from "next/link";
 import Unicode from "@/components/components/Unicode";
 import MilestoneCalendarButton from "@/components/work/project-plan/MilestoneCalendarButton";
+import { useState } from "react";
+import { differenceInDays } from "date-fns";
+import { isNil } from "lodash";
 
 interface MilestoneCardSummaryProps {}
 export default function MilestoneCardSummary({}: MilestoneCardSummaryProps) {
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
+
+  const remainDays = endDate ? differenceInDays(endDate, new Date()) : null;
+
   return (
     <div className="flex flex-col gap-16px">
       <div className="flex h-14px items-center gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
           시작일
         </p>
-        <MilestoneCalendarButton />
+        <MilestoneCalendarButton
+          date={startDate}
+          endDate={endDate}
+          onChange={(date) => setStartDate(date)}
+        />
       </div>
       <div className="flex h-14px items-center gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
           종료일
         </p>
-        <MilestoneCalendarButton />
+        <div className="flex items-center gap-8px">
+          <MilestoneCalendarButton
+            date={endDate}
+            startDate={startDate}
+            onChange={(date) => setEndDate(date)}
+          />
+          {!isNil(remainDays) && (
+            <div
+              className={`text-14px font-medium ${
+                remainDays <= 2 ? "text-red-500" : "text-gray-600"
+              }`}
+            >
+              {remainDays < 0
+                ? `${Math.abs(remainDays)}일 지남`
+                : remainDays === 0
+                ? "오늘"
+                : `${remainDays}일 남음`}
+            </div>
+          )}
+        </div>
       </div>
       <div className="flex h-14px items-center gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">

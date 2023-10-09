@@ -1,4 +1,4 @@
-import { addDays, differenceInBusinessDays, format } from "date-fns";
+import { addDays, differenceInDays, format } from "date-fns";
 
 interface ProjectOutlineToDoContainerProps {}
 export default function ProjectOutlineToDoContainer({}: ProjectOutlineToDoContainerProps) {
@@ -32,7 +32,7 @@ export default function ProjectOutlineToDoContainer({}: ProjectOutlineToDoContai
       <div className="flex flex-col gap-8px">
         {data.map(({ title, percentage, endDate }, i) => {
           const remainDays =
-            differenceInBusinessDays(new Date(endDate), new Date()) + 1;
+            differenceInDays(new Date(endDate), new Date()) + 1;
 
           return (
             <div key={i} className="flex items-center gap-8px">

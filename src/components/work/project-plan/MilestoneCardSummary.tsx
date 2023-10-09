@@ -1,17 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import Unicode from "@/components/components/Unicode";
-import MilestoneCalendarButton from "@/components/work/project-plan/MilestoneCalendarButton";
-import { useState } from "react";
 import { differenceInDays } from "date-fns";
 import { isNil } from "lodash";
+import Unicode from "@/components/components/Unicode";
+import MilestoneCalendarButton from "@/components/work/project-plan/MilestoneCalendarButton";
 
-interface MilestoneCardSummaryProps {}
-export default function MilestoneCardSummary({}: MilestoneCardSummaryProps) {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
-
+interface MilestoneCardSummaryProps {
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+  onChangeDate: (type: "startDate" | "endDate") => (date: Date) => void;
+}
+export default function MilestoneCardSummary({
+  startDate,
+  endDate,
+  onChangeDate,
+}: MilestoneCardSummaryProps) {
   const remainDays = endDate ? differenceInDays(endDate, new Date()) : null;
 
   return (
@@ -23,7 +27,7 @@ export default function MilestoneCardSummary({}: MilestoneCardSummaryProps) {
         <MilestoneCalendarButton
           date={startDate}
           endDate={endDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={onChangeDate("startDate")}
         />
       </div>
       <div className="flex h-14px items-center gap-8px">
@@ -34,7 +38,7 @@ export default function MilestoneCardSummary({}: MilestoneCardSummaryProps) {
           <MilestoneCalendarButton
             date={endDate}
             startDate={startDate}
-            onChange={(date) => setEndDate(date)}
+            onChange={onChangeDate("endDate")}
           />
           {!isNil(remainDays) && (
             <div

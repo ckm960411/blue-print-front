@@ -53,7 +53,7 @@ export default function ProjectOutlineToDoContainer({}: ProjectOutlineToDoContai
                   remainDays <= 2 ? "font-medium text-red-500" : "text-gray-600"
                 }`}
               >
-                D-{remainDays}일
+                D{remainDays * -1}일
               </p>
             </div>
           );

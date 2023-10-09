@@ -5,6 +5,7 @@ import MilestoneDrawerButtonGroup from "@/components/work/project-plan/sidetab/M
 import { useMediaQuery } from "react-responsive";
 import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSummary";
 import MilestoneDrawerTabs from "@/components/work/project-plan/sidetab/MilestoneDrawerTabs";
+import SpaceY from "@/components/common/SpaceY";
 
 interface MilestoneDrawerProps {
   isOpen: boolean;
@@ -24,11 +25,12 @@ export default function MilestoneDrawer({
     >
       <DrawerContent className="flex flex-col">
         <MilestoneDrawerButtonGroup onClose={onClose} />
-        <div className="flex grow flex-col gap-16px overflow-y-scroll">
-          <div className="flex flex-shrink-0 flex-col gap-24px p-16px">
+        <div className="grow overflow-y-scroll">
+          <div className="flex flex-col gap-24px p-16px">
             <MilestoneCardHeader />
             <MilestoneCardSummary />
           </div>
+          <SpaceY height={16} />
           <MilestoneDrawerTabs />
         </div>
       </DrawerContent>

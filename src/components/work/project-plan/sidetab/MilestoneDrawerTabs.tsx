@@ -7,7 +7,7 @@ import MilestoneDrawerMemoTab from "@/components/work/project-plan/sidetab/Miles
 interface MilestoneDrawerTabsProps {}
 export default function MilestoneDrawerTabs({}: MilestoneDrawerTabsProps) {
   return (
-    <Tabs id="work-project-tabs" variant="enclosed" className="grow">
+    <Tabs id="work-project-tabs" variant="enclosed">
       <TabList>
         <Tab>Board</Tab>
         <Tab>Task</Tab>

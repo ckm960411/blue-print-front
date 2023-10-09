@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { differenceInDays } from "date-fns";
-import { isNil } from "lodash";
 import Unicode from "@/components/components/Unicode";
-import MilestoneCalendarButton from "@/components/work/project-plan/MilestoneCalendarButton";
+import MilestoneStartDate from "@/components/work/project-plan/MilestoneStartDate";
+import MilestoneEndDate from "@/components/work/project-plan/MilestoneEndDate";
 
 interface MilestoneCardSummaryProps {
   startDate: Date | undefined;
@@ -16,45 +15,18 @@ export default function MilestoneCardSummary({
   endDate,
   onChangeDate,
 }: MilestoneCardSummaryProps) {
-  const remainDays = endDate ? differenceInDays(endDate, new Date()) : null;
-
   return (
     <div className="flex flex-col gap-16px">
-      <div className="flex h-14px items-center gap-8px">
-        <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
-          시작일
-        </p>
-        <MilestoneCalendarButton
-          date={startDate}
-          endDate={endDate}
-          onChange={onChangeDate("startDate")}
-        />
-      </div>
-      <div className="flex h-14px items-center gap-8px">
-        <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
-          종료일
-        </p>
-        <div className="flex items-center gap-8px">
-          <MilestoneCalendarButton
-            date={endDate}
-            startDate={startDate}
-            onChange={onChangeDate("endDate")}
-          />
-          {!isNil(remainDays) && (
-            <div
-              className={`text-14px font-medium ${
-                remainDays <= 2 ? "text-red-500" : "text-gray-600"
-              }`}
-            >
-              {remainDays < 0
-                ? `${Math.abs(remainDays)}일 지남`
-                : remainDays === 0
-                ? "오늘"
-                : `${remainDays}일 남음`}
-            </div>
-          )}
-        </div>
-      </div>
+      <MilestoneStartDate
+        startDate={startDate}
+        endDate={endDate}
+        onChange={onChangeDate("startDate")}
+      />
+      <MilestoneEndDate
+        startDate={startDate}
+        endDate={endDate}
+        onChange={onChangeDate("endDate")}
+      />
       <div className="flex h-14px items-center gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
           분류

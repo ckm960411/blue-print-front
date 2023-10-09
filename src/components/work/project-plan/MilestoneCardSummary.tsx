@@ -12,19 +12,13 @@ export default function MilestoneCardSummary({}: MilestoneCardSummaryProps) {
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
           시작일
         </p>
-        <div>
-          <MilestoneCalendarButton />
-        </div>
+        <MilestoneCalendarButton />
       </div>
       <div className="flex h-14px items-center gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
           종료일
         </p>
-        <div>
-          <button className="rounded-md bg-gray-50 px-4px py-2px text-14px font-medium text-gray-800 hover:bg-gray-100">
-            클릭하여 설정해주세요
-          </button>
-        </div>
+        <MilestoneCalendarButton />
       </div>
       <div className="flex h-14px items-center gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">

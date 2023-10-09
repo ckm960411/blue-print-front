@@ -1,10 +1,10 @@
 import React from "react";
 import { Drawer, DrawerContent } from "@chakra-ui/modal";
 import MilestoneCardHeader from "@/components/work/project-plan/MilestoneCardHeader";
-import MilestoneDrawerButtonGroup from "@/components/work/project-plan/MilestoneDrawerButtonGroup";
+import MilestoneDrawerButtonGroup from "@/components/work/project-plan/sidetab/MilestoneDrawerButtonGroup";
 import { useMediaQuery } from "react-responsive";
 import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSummary";
-import MilestoneDrawerTabs from "@/components/work/project-plan/MilestoneDrawerTabs";
+import MilestoneDrawerTabs from "@/components/work/project-plan/sidetab/MilestoneDrawerTabs";
 
 interface MilestoneDrawerProps {
   isOpen: boolean;

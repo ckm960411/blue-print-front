@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import MilestoneCardButtons from "@/components/work/project-plan/MilestoneCardButtons";
 import MilestoneCardHeader from "@/components/work/project-plan/MilestoneCardHeader";
 import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSummary";
-import MilestoneDrawer from "@/components/work/project-plan/MilestoneDrawer";
+import MilestoneDrawer from "@/components/work/project-plan/sidetab/MilestoneDrawer";
 import { useDisclosure } from "@chakra-ui/hooks";
 
 interface ProjectMilestoneCardProps {

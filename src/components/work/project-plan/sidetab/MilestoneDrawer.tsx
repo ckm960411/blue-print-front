@@ -22,10 +22,10 @@ export default function MilestoneDrawer({
       isOpen={isOpen}
       size={UNDER_768PX ? "full" : "md"}
     >
-      <DrawerContent>
+      <DrawerContent className="flex flex-col">
         <MilestoneDrawerButtonGroup onClose={onClose} />
-        <div className="flex flex-col gap-16px">
-          <div className="flex flex-col gap-24px p-16px">
+        <div className="flex grow flex-col gap-16px overflow-y-scroll">
+          <div className="flex flex-shrink-0 flex-col gap-24px p-16px">
             <MilestoneCardHeader />
             <MilestoneCardSummary />
           </div>

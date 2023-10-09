@@ -6,7 +6,7 @@ import DrawerTodoContainer from "@/components/work/project-plan/sidetab/task/Dra
 interface MilestoneDrawerTaskTabProps {}
 export default function MilestoneDrawerTaskTab({}: MilestoneDrawerTaskTabProps) {
   return (
-    <TabPanel>
+    <TabPanel className="overflow-y-scroll">
       <DrawerTaskTabButtonGroup />
       <DrawerTodoContainer />
     </TabPanel>

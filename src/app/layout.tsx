@@ -1,5 +1,4 @@
 import { pretendard } from "@/utils/fonts";
-import "./globals.css";
 import type { Metadata } from "next";
 import Header from "@/components/common/Header";
 import SideBar from "@/components/common/sidebar/SideBar";
@@ -8,6 +7,10 @@ import BottomNavigation from "@/components/common/BottomNavigation";
 import ScrollToTop from "@/components/common/ScrollToTop";
 import RecoilProvider from "@/components/common/RecoilProvider";
 import ImageDetailProvider from "@/components/common/ImageDetailProvider";
+
+import "./globals.css";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
 
 export const metadata: Metadata = {
   title: `KMin's Blog`,

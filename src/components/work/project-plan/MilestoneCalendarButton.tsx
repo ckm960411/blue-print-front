@@ -40,6 +40,14 @@ export default function MilestoneCalendarButton({}: MilestoneCalendarButtonProps
           <div className="px-16px">
             <Calendar locale={ko} date={selectedDate} onChange={handleChange} />
           </div>
+          <div className="px-16px pb-16px text-right">
+            <button
+              onClick={onClose}
+              className="rounded-md px-12px py-8px text-16px font-medium text-gray-800 hover:bg-gray-50"
+            >
+              닫기
+            </button>
+          </div>
         </ModalContent>
       </Modal>
     </div>

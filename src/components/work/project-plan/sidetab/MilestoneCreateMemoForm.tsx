@@ -1,7 +1,14 @@
 "use client";
 
-import MilestoneMemoEditor from "@/components/work/project-plan/sidetab/MilestoneMemoEditor";
+import dynamic from "next/dynamic";
 import React, { useRef, useState } from "react";
+
+const MilestoneMemoEditor = dynamic(
+  () =>
+    import(
+      "../../../../components/work/project-plan/sidetab/MilestoneMemoEditor"
+    ),
+);
 
 interface MilestoneCreateMemoFormProps {
   onCancel: () => void;

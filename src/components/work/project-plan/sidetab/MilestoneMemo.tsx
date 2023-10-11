@@ -1,9 +1,20 @@
 import IconButton from "@/components/components/IconButton";
 import React from "react";
-import { BsBookmark, BsFileEarmarkCheck, BsTrash } from "react-icons/bs";
+import {
+  BsBookmark,
+  BsFileEarmarkCheck,
+  BsFillBookmarkFill,
+  BsTrash,
+} from "react-icons/bs";
 
-interface MilestoneMemoProps {}
-export default function MilestoneMemo({}: MilestoneMemoProps) {
+interface MilestoneMemoProps {
+  isChecked?: boolean;
+  isBookmarked?: boolean;
+}
+export default function MilestoneMemo({
+  isChecked,
+  isBookmarked,
+}: MilestoneMemoProps) {
   return (
     <div className="flex w-full flex-col gap-8px rounded-10px border border-gray-200 p-16px">
       <div className="flex-between">
@@ -15,13 +26,19 @@ export default function MilestoneMemo({}: MilestoneMemoProps) {
             className="rounded-md bg-transparent text-16px hover:bg-transparent"
             w={24}
           >
-            <BsFileEarmarkCheck />
+            <BsFileEarmarkCheck
+              className={isChecked ? "text-green-500" : "text-gray-800"}
+            />
           </IconButton>
           <IconButton
             className="rounded-md bg-transparent text-16px hover:bg-transparent"
             w={24}
           >
-            <BsBookmark />
+            {isBookmarked ? (
+              <BsFillBookmarkFill className="text-red-500" />
+            ) : (
+              <BsBookmark className="text-gray-800" />
+            )}
           </IconButton>
           <IconButton
             className="rounded-md bg-transparent text-18px hover:bg-transparent"

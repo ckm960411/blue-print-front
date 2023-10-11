@@ -1,6 +1,7 @@
 "use client";
 
 import WorkSideContentIcons from "@/components/work/WorkSideContentIcons";
+import WorkSideMemo from "@/components/work/WorkSideMemo";
 import WorkSideProjectOutline from "@/components/work/WorkSideProjectOutline";
 import { useState } from "react";
 import { WorkSideContentType } from "@/utils/types/work";
@@ -20,10 +21,10 @@ export default function WorkSideContent({}: WorkSideContentProps) {
         setContentType={setContentType}
       />
 
-      <div>
+      <div className="px-16px">
         {contentType === OUTLINE && <WorkSideProjectOutline />}
         {contentType === CALENDAR && <div>CALENDAR</div>}
-        {contentType === MEMO && <div>MEMO</div>}
+        {contentType === MEMO && <WorkSideMemo />}
       </div>
     </div>
   );

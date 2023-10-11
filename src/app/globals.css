@@ -58,3 +58,7 @@ div#work-project-tabs > div.chakra-tabs__tablist > button.chakra-tabs__tab[aria-
 div#milestone-memo-editor div.toastui-editor-toolbar {
   display: none;
 }
+
+div#milestone-memo-editor div.ProseMirror.toastui-editor-contents {
+  padding: 16px;
+}

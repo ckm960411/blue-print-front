@@ -3,8 +3,12 @@
 import MilestoneMemoEditor from "@/components/work/project-plan/sidetab/MilestoneMemoEditor";
 import React, { useRef, useState } from "react";
 
-interface MilestoneCreateMemoFormProps {}
-export default function MilestoneCreateMemoForm({}: MilestoneCreateMemoFormProps) {
+interface MilestoneCreateMemoFormProps {
+  onCancel: () => void;
+}
+export default function MilestoneCreateMemoForm({
+  onCancel,
+}: MilestoneCreateMemoFormProps) {
   const editor = useRef<any>();
 
   const [title, setTitle] = useState("");
@@ -34,7 +38,10 @@ export default function MilestoneCreateMemoForm({}: MilestoneCreateMemoFormProps
       </div>
       <MilestoneMemoEditor ref={editor} onChange={handleChangeMemo} />
       <div className="flex items-center justify-end gap-8px">
-        <button className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50">
+        <button
+          onClick={onCancel}
+          className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50"
+        >
           취소
         </button>
         <button

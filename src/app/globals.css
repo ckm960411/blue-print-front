@@ -53,3 +53,8 @@ div#work-project-tabs > div.chakra-tabs__tablist {
 div#work-project-tabs > div.chakra-tabs__tablist > button.chakra-tabs__tab[aria-selected="true"] {
   color: #001487
 }
+
+/* toaso UI editor - milestone memo editor */
+div#milestone-memo-editor div.toastui-editor-toolbar {
+  display: none;
+}

@@ -12,6 +12,7 @@ import ImageDetailProvider from "@/components/common/ImageDetailProvider";
 import "./globals.css";
 import "../css/react-date-range.css"; // main style file
 import "../css/react-date-range-default.css"; // theme css file
+import "@toast-ui/editor/dist/toastui-editor.css";
 
 export const metadata: Metadata = {
   title: `KMin's Blog`,

@@ -15,21 +15,19 @@ export default function DrawerTodoContainer({}: DrawerTodoContainerProps) {
   return (
     <div className="mt-16px flex flex-col gap-24px">
       <div className="grid grid-cols-4 gap-8px text-center text-gray-800">
-        {tabs.map((tab, index) => {
-          return (
-            <button
-              key={index}
-              onClick={() => setTabIndex(index)}
-              className={`border-b-[3px] py-4px ${tab.borderColor} ${
-                index === tabIndex
-                  ? "font-semibold text-gray-800"
-                  : "text-gray-400"
-              }`}
-            >
-              {tab.title}
-            </button>
-          );
-        })}
+        {tabs.map((tab, index) => (
+          <button
+            key={index}
+            onClick={() => setTabIndex(index)}
+            className={`border-b-[3px] py-4px ${tab.borderColor} ${
+              index === tabIndex
+                ? "font-semibold text-gray-800"
+                : "text-gray-400"
+            }`}
+          >
+            {tab.title}
+          </button>
+        ))}
       </div>
       <div className="flex flex-col gap-16px">
         <TaskCard />

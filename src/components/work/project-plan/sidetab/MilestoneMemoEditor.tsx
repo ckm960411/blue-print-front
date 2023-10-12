@@ -1,20 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { Editor } from "@toast-ui/react-editor";
 
 interface MilestoneMemoEditorProps {
-  onChange: () => void;
+  onChange: (value: string) => void;
   hideModeSwitch?: boolean;
 }
-function MilestoneMemoEditor(
-  { onChange, hideModeSwitch = true }: MilestoneMemoEditorProps,
-  ref: any,
-) {
+export default function MilestoneMemoEditor({
+  onChange,
+  hideModeSwitch = true,
+}: MilestoneMemoEditorProps) {
+  const editor = useRef<any>();
+
   return (
     <div id="milestone-memo-editor">
       <Editor
-        ref={ref}
+        ref={editor}
         height="160px"
         placeholder="메모를 입력하세요"
         initialValue=" "
@@ -22,11 +24,9 @@ function MilestoneMemoEditor(
         initialEditType="wysiwyg"
         useCommandShortcut={true}
         usageStatistics={false}
-        onChange={onChange}
+        onChange={() => onChange(editor.current.getInstance().getHTML())}
         hideModeSwitch={hideModeSwitch}
       />
     </div>
   );
 }
-
-export default React.forwardRef(MilestoneMemoEditor);

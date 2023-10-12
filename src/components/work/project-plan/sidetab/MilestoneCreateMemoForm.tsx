@@ -2,7 +2,7 @@
 
 import { Colors } from "@/utils/common/color";
 import dynamic from "next/dynamic";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 const MilestoneMemoEditor = dynamic(
   () =>
@@ -19,16 +19,13 @@ export default function MilestoneCreateMemoForm({
   onCancel,
   hideModeSwitch = true,
 }: MilestoneCreateMemoFormProps) {
-  const editor = useRef<any>();
-
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tempMemoColor, setTempMemoColor] =
     useState<keyof typeof Colors>("yellow");
 
-  const handleChangeMemo = () => {
-    const data = editor.current.getInstance().getHTML();
-    setContent(data);
+  const handleChangeMemo = (value: string) => {
+    setContent(value);
   };
 
   const handeSubmit = () => {
@@ -68,7 +65,6 @@ export default function MilestoneCreateMemoForm({
         })}
       </div>
       <MilestoneMemoEditor
-        ref={editor}
         onChange={handleChangeMemo}
         hideModeSwitch={hideModeSwitch}
       />

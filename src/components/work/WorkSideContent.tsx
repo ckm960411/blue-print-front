@@ -1,5 +1,6 @@
 "use client";
 
+import WorkSideCalendar from "@/components/work/WorkSideCalendar";
 import WorkSideContentIcons from "@/components/work/WorkSideContentIcons";
 import WorkSideMemo from "@/components/work/WorkSideMemo";
 import WorkSideProjectOutline from "@/components/work/WorkSideProjectOutline";
@@ -23,7 +24,7 @@ export default function WorkSideContent({}: WorkSideContentProps) {
 
       <div className="px-16px">
         {contentType === OUTLINE && <WorkSideProjectOutline />}
-        {contentType === CALENDAR && <div>CALENDAR</div>}
+        {contentType === CALENDAR && <WorkSideCalendar />}
         {contentType === MEMO && <WorkSideMemo />}
       </div>
     </div>

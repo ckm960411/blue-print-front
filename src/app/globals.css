@@ -54,7 +54,7 @@ div#work-project-tabs > div.chakra-tabs__tablist > button.chakra-tabs__tab[aria-
   color: #001487
 }
 
-/* toaso UI editor - milestone memo editor */
+/* toast UI editor - milestone memo editor */
 div#milestone-memo-editor div.toastui-editor-toolbar {
   display: none;
 }
@@ -62,3 +62,5 @@ div#milestone-memo-editor div.toastui-editor-toolbar {
 div#milestone-memo-editor div.ProseMirror.toastui-editor-contents {
   padding: 16px;
 }
+
+

@@ -5,8 +5,12 @@ import { Editor } from "@toast-ui/react-editor";
 
 interface MilestoneMemoEditorProps {
   onChange: () => void;
+  hideModeSwitch?: boolean;
 }
-function MilestoneMemoEditor({ onChange }: MilestoneMemoEditorProps, ref: any) {
+function MilestoneMemoEditor(
+  { onChange, hideModeSwitch = true }: MilestoneMemoEditorProps,
+  ref: any,
+) {
   return (
     <div id="milestone-memo-editor">
       <Editor
@@ -19,6 +23,7 @@ function MilestoneMemoEditor({ onChange }: MilestoneMemoEditorProps, ref: any) {
         useCommandShortcut={true}
         usageStatistics={false}
         onChange={onChange}
+        hideModeSwitch={hideModeSwitch}
       />
     </div>
   );

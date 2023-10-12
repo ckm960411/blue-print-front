@@ -14,8 +14,8 @@ export default function WorkSideMemo({}: WorkSideMemoProps) {
       />
 
       <div className="flex flex-col gap-16px">
-        <MilestoneMemo isBookmarked />
-        <MilestoneMemo isChecked />
+        <MilestoneMemo isBookmarked theme="green" />
+        <MilestoneMemo isChecked theme="blue" />
         <MilestoneMemo />
       </div>
     </div>

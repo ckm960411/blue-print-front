@@ -1,8 +1,9 @@
 import IconButton from "@/components/components/IconButton";
+import { Colors } from "@/utils/common/color";
 import React from "react";
 import {
   BsBookmark,
-  BsFileEarmarkCheck,
+  BsCheckLg,
   BsFillBookmarkFill,
   BsTrash,
 } from "react-icons/bs";
@@ -10,15 +11,23 @@ import {
 interface MilestoneMemoProps {
   isChecked?: boolean;
   isBookmarked?: boolean;
+  theme?: keyof typeof Colors;
 }
 export default function MilestoneMemo({
   isChecked,
   isBookmarked,
+  theme = "yellow",
 }: MilestoneMemoProps) {
   return (
-    <div className="flex w-full flex-col gap-8px rounded-10px border border-gray-200 p-16px">
+    <div
+      className="flex w-full flex-col gap-8px rounded-r-[10px] border-l-4 border-green-500 bg-green-50 p-16px"
+      style={{
+        borderColor: Colors[theme][500],
+        backgroundColor: Colors[theme][50],
+      }}
+    >
       <div className="flex-between">
-        <p className="text-16px font-bold text-gray-800">
+        <p className="truncate-1-lines text-16px font-bold text-gray-800">
           Lorem ipsum dolor sit amet,{" "}
         </p>
         <div className="flex items-center gap-8px">
@@ -26,7 +35,7 @@ export default function MilestoneMemo({
             className="rounded-md bg-transparent text-16px hover:bg-transparent"
             w={24}
           >
-            <BsFileEarmarkCheck
+            <BsCheckLg
               className={isChecked ? "text-green-500" : "text-gray-800"}
             />
           </IconButton>
@@ -48,11 +57,10 @@ export default function MilestoneMemo({
           </IconButton>
         </div>
       </div>
-      <p className="text-14px leading-[150%] text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-        delectus dicta dolores doloribus eaque, eius enim error ex facilis harum
-        id illum labore magni mollitia nemo repellendus ut voluptas voluptatum!
+      <p className="text-14px leading-[150%] text-gray-700">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
       </p>
+      <p className="text-14px text-gray-600">yyyy.MM.dd (D)</p>
     </div>
   );
 }

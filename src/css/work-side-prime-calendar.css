@@ -14,7 +14,7 @@ div#work-side-prime-calendar .p-datepicker table td:not(.task-td) span:not(.p-hi
   width: 100%;
   background: unset !important;
 }
-div#work-side-prime-calendar .p-datepicker table td > span.tdInnerEl {
+div#work-side-prime-calendar .p-datepicker table td > span.tableDataSpan {
   border-radius: unset;
 }
 

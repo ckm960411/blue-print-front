@@ -1,6 +1,6 @@
 "use client";
 
-import { Colors } from "@/utils/common/color";
+import { ColorKey, Colors } from "@/utils/common/color";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
@@ -21,8 +21,7 @@ export default function MilestoneCreateMemoForm({
 }: MilestoneCreateMemoFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [tempMemoColor, setTempMemoColor] =
-    useState<keyof typeof Colors>("yellow");
+  const [tempMemoColor, setTempMemoColor] = useState<ColorKey>("yellow");
 
   const handleChangeMemo = (value: string) => {
     setContent(value);
@@ -47,7 +46,7 @@ export default function MilestoneCreateMemoForm({
       </div>
       <div className="flex flex-wrap items-center gap-8px">
         {Object.keys(Colors).map((c: string, i) => {
-          const colorName = c as keyof typeof Colors;
+          const colorName = c as ColorKey;
           return (
             <button
               key={i}

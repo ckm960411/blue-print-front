@@ -1,5 +1,5 @@
 import IconButton from "@/components/components/IconButton";
-import { Colors } from "@/utils/common/color";
+import { ColorKey, Colors } from "@/utils/common/color";
 import React from "react";
 import {
   BsBookmark,
@@ -11,7 +11,7 @@ import {
 interface MilestoneMemoProps {
   isChecked?: boolean;
   isBookmarked?: boolean;
-  theme?: keyof typeof Colors;
+  theme?: ColorKey;
 }
 export default function MilestoneMemo({
   isChecked,

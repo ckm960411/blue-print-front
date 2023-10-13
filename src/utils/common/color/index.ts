@@ -130,3 +130,5 @@ export const Colors = {
     950: "#500724",
   },
 } as const;
+
+export type ColorKey = keyof typeof Colors;

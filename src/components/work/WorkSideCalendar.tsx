@@ -1,10 +1,9 @@
 "use client";
 
 import { Colors } from "@/utils/common/color";
-import { getMonth, getYear } from "date-fns";
 import { ko } from "date-fns/locale";
 import { findIndex, forEach, reduce, some } from "lodash";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Calendar } from "react-date-range";
 import { pipe, filter, forEach as forEachFP } from "lodash/fp";
 
@@ -12,9 +11,6 @@ import "../../css/work-side-calenar.css";
 
 interface WorkSideCalendarProps {}
 export default function WorkSideCalendar({}: WorkSideCalendarProps) {
-  const [year, setYear] = useState(getYear(new Date()));
-  const [month, setMonth] = useState(getMonth(new Date()) + 1);
-
   const tasks = [
     {
       id: 0,
@@ -77,27 +73,33 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
     btnChild.setAttribute("class", `${btnChild.className} order-${colorIndex}`);
   };
 
-  useEffect(() => {
+  const setTimeline = () => {
     if (typeof document === "undefined") return;
 
-    const rdrDays: HTMLElement | null = document.querySelector(".rdrDays");
-    if (!rdrDays) return;
+    setTimeout(() => {
+      const rdrDays: HTMLElement | null = document.querySelector(".rdrDays");
+      if (!rdrDays) return;
 
-    const buttons = Array.from(rdrDays.children);
-    const btnGroups: Record<number, Element[]> = groupButtonsByIndex(buttons);
+      const buttons = Array.from(rdrDays.children);
+      const btnGroups: Record<number, Element[]> = groupButtonsByIndex(buttons);
 
-    forEach(Object.values(btnGroups), (btns) => {
-      let childColors: string[] = [];
+      forEach(Object.values(btnGroups), (btns) => {
+        let childColors: string[] = [];
 
-      forEach(btns, (btn) => {
-        pipe(
-          filter(isRelevantButtonChild),
-          forEachFP((btnChild: Element) => {
-            setChildColorClass(childColors, btnChild);
-          }),
-        )(btn.children);
+        forEach(btns, (btn) => {
+          pipe(
+            filter(isRelevantButtonChild),
+            forEachFP((btnChild: Element) => {
+              setChildColorClass(childColors, btnChild);
+            }),
+          )(btn.children);
+        });
       });
-    });
+    }, 0);
+  };
+
+  useEffect(() => {
+    setTimeline();
   }, []);
 
   return (
@@ -106,21 +108,16 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
         <Calendar
           locale={ko}
           displayMode="dateRange"
-          onChange={(date) => console.log("date: ", date)}
-          onShownDateChange={(date) => {
-            setYear(getYear(date));
-            setMonth(getMonth(date) + 1);
-          }}
           ranges={tasks.map((task) => ({
             startDate: new Date(task.from),
             endDate: new Date(task.to),
             color: Colors[task.color as keyof typeof Colors][50],
             showDateDisplay: false,
           }))}
+          onShownDateChange={setTimeline}
+          dragSelectionEnabled={false}
+          preventSnapRefocus={false}
         />
-      </div>
-      <div>
-        year: {year} / month: {month}
       </div>
     </div>
   );

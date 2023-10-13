@@ -1,3 +1,4 @@
+import PrimeReactUIProvider from "@/components/common/PrimeReactUIProvider";
 import React from "react";
 import type { Metadata } from "next";
 import { pretendard } from "@/utils/fonts";
@@ -13,6 +14,7 @@ import "./globals.css";
 import "../css/react-date-range.css"; // main style file
 import "../css/react-date-range-default.css"; // theme css file
 import "@toast-ui/editor/dist/toastui-editor.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
 
 export const metadata: Metadata = {
   title: `KMin's Blog`,
@@ -28,19 +30,21 @@ export default function RootLayout({
     <html lang="ko" className={pretendard.variable}>
       <body className="flex flex-col font-normal">
         <RecoilProvider>
-          <ChakraUIProvider>
-            <div className="relative flex grow">
-              <SideBar />
-              <div className="flex grow flex-col">
-                <Header />
-                <main className="grow">
-                  <ImageDetailProvider>{children}</ImageDetailProvider>
-                </main>
+          <PrimeReactUIProvider>
+            <ChakraUIProvider>
+              <div className="relative flex grow">
+                <SideBar />
+                <div className="flex grow flex-col">
+                  <Header />
+                  <main className="grow">
+                    <ImageDetailProvider>{children}</ImageDetailProvider>
+                  </main>
+                </div>
+                <ScrollToTop />
               </div>
-              <ScrollToTop />
-            </div>
-            <BottomNavigation />
-          </ChakraUIProvider>
+              <BottomNavigation />
+            </ChakraUIProvider>
+          </PrimeReactUIProvider>
         </RecoilProvider>
       </body>
     </html>

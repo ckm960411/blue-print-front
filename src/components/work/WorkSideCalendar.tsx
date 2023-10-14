@@ -4,15 +4,19 @@ import { ColorKey, Colors } from "@/utils/common/color";
 import {
   addDays,
   differenceInDays,
+  endOfDay,
   getDate,
   getDay,
   getMonth,
   getYear,
+  isWithinInterval,
+  startOfDay,
   startOfMonth,
 } from "date-fns";
-import { forEach } from "lodash";
+import { forEach, isNil } from "lodash";
+import { ConfirmPopup } from "primereact/confirmpopup";
 import { Nullable } from "primereact/ts-helpers";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Calendar as PrimeCalendar } from "primereact/calendar";
 
 import "../../css/work-side-prime-calendar.css";
@@ -40,7 +44,10 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
     },
   ];
 
+  const calendar = useRef<PrimeCalendar>();
+
   const [date, setDate] = useState<Nullable<Date>>(null);
+  const [visible, setVisible] = useState(false);
 
   type DateInfo = {
     year: number;
@@ -51,21 +58,16 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
 
   const getDateInfo = (date: Date): DateInfo => {
     const year = getYear(date);
-    const month = getMonth(date) + 1; // date-fns's getMonth is 0-indexed.
+    const month = getMonth(date) + 1;
 
-    // Calculate the first day of the month.
     const firstDayOfMonth = startOfMonth(date);
-
-    // Calculate which week of the month it is.
     let week = Math.floor((getDate(date) + getDay(firstDayOfMonth) - 1) / 7);
-
-    // Calculate which day of the week it is (0 for Sunday, 6 for Saturday).
     let dayOfWeek = getDay(date);
 
     return {
       year,
-      month /* already converted to 1-indexed */,
-      week,
+      month,
+      week, // 월 안에서 몇번째 인덱스인지
       dayOfWeek,
     };
   };
@@ -165,7 +167,7 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
         );
       });
     });
-  }, [date]);
+  }, [date, visible]);
 
   useEffect(() => {
     setDate(new Date());
@@ -175,13 +177,45 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
     <div>
       <div id="work-side-prime-calendar">
         <PrimeCalendar
+          ref={calendar as any}
           value={date}
-          onChange={(e) => setDate(e.value)}
+          onChange={({ originalEvent, value }) => {
+            console.log("originalEvent: ", originalEvent);
+            if (isNil(value)) return;
+            setDate(value);
+            const foundTasks = tasks.filter((task) => {
+              return isWithinInterval(value, {
+                start: startOfDay(new Date(task.from)),
+                end: endOfDay(new Date(task.to)),
+              });
+            });
+
+            foundTasks.length > 0 && setVisible(true);
+          }}
           inline
           showWeek
           onViewDateChange={(e) => setDate(e.value)}
         />
       </div>
+      <ConfirmPopup
+        target={calendar.current?.getElement()}
+        visible={visible}
+        onHide={() => setVisible(false)}
+        icon="pi pi-exclamation-triangle"
+        className="w-full max-w-[367px]"
+        message={
+          <div className="w-full">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
+            assumenda commodi mollitia nobis odit perspiciatis porro quae sint
+            unde vel. Aperiam error laborum mollitia rem! Illum optio quod quos
+            recusandae?
+          </div>
+        }
+        acceptLabel="닫기"
+        accept={() => setVisible(false)}
+        acceptClassName="border border-gray-200 rounded-md py-4px px-8px"
+        rejectClassName="hidden"
+      />
     </div>
   );
 }

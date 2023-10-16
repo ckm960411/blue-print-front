@@ -1,3 +1,4 @@
+import CreateButton from "@/components/work/components/CreateButton";
 import MilestoneCreateMemoForm from "@/components/work/project-plan/sidetab/MilestoneCreateMemoForm";
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -30,13 +31,7 @@ export default function MilestoneDrawerMemoTabHeader({
         <BsCheckLg />
         <span>{showChecked ? "모두 보기" : "체크된 것만 보기"}</span>
       </button>
-      <button
-        onClick={() => setShowForm(true)}
-        className="flex-center gap-4px rounded-md p-4px text-14px font-medium text-gray-600 duration-200 hover:bg-gray-50"
-      >
-        <AiOutlinePlus />
-        <span>추가하기</span>
-      </button>
+      <CreateButton onClick={() => setShowForm(true)} />
     </div>
   );
 }

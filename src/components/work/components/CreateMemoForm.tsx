@@ -1,6 +1,9 @@
 "use client";
 
 import { ColorKey, Colors } from "@/utils/common/color";
+import { createMemo } from "@/utils/services/memo";
+import { CreateMemoReqDto } from "@/utils/services/memo/dto/create-memo.req.dto";
+import { useMutation } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
@@ -9,26 +12,50 @@ const MilestoneMemoEditor = dynamic(
 );
 
 interface CreateMemoFormProps {
-  onCancel: () => void;
+  onClose?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
+  onFail?: () => void;
   hideModeSwitch?: boolean;
 }
 export default function CreateMemoForm({
-  onCancel,
+  onClose,
+  onSuccess,
+  onError,
+  onFail,
   hideModeSwitch = true,
 }: CreateMemoFormProps) {
+  const DEFAULT_COLOR: ColorKey = "yellow";
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [tempMemoColor, setTempMemoColor] = useState<ColorKey>("yellow");
+  const [color, setColor] = useState<ColorKey>(DEFAULT_COLOR);
+
+  const { mutate } = useMutation(
+    ["create-memo-form"],
+    async (data: CreateMemoReqDto) => createMemo(data),
+    {
+      onSuccess: (data) => {
+        setTitle("");
+        setContent("");
+        setContent(DEFAULT_COLOR);
+        onSuccess?.();
+        onClose?.();
+      },
+      onError: onError,
+    },
+  );
 
   const handleChangeMemo = (value: string) => {
     setContent(value);
   };
 
   const handeSubmit = () => {
-    if (title.trim() === "") return;
-    if (content.trim() === "") return;
+    if (title.trim() === "" || content.trim() === "") {
+      return onFail?.();
+    }
 
-    console.log(`title: ${title} / content: ${content}`);
+    mutate({ title, content, color });
   };
 
   return (
@@ -47,12 +74,12 @@ export default function CreateMemoForm({
           return (
             <button
               key={i}
-              onClick={() => setTempMemoColor(colorName)}
+              onClick={() => setColor(colorName)}
               className="h-20px w-20px flex-shrink-0 rounded-full border"
               style={{
                 backgroundColor: Colors[colorName][50],
                 borderColor:
-                  tempMemoColor === colorName
+                  color === colorName
                     ? Colors[colorName][500]
                     : Colors.gray[200],
               }}
@@ -66,7 +93,7 @@ export default function CreateMemoForm({
       />
       <div className="flex items-center justify-end gap-8px">
         <button
-          onClick={onCancel}
+          onClick={onClose}
           className="rounded-md px-8px py-6px text-14px font-medium text-gray-600"
         >
           취소

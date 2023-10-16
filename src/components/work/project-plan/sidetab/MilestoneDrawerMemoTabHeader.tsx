@@ -14,9 +14,9 @@ export default function MilestoneDrawerMemoTabHeader({
   const [showForm, setShowForm] = useState(false);
 
   if (showForm) {
-    const handleCancel = () => setShowForm(false);
+    const handleClose = () => setShowForm(false);
 
-    return <CreateMemoForm onCancel={handleCancel} />;
+    return <CreateMemoForm onClose={handleClose} />;
   }
 
   return (

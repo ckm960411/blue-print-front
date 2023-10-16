@@ -11,14 +11,14 @@ const MilestoneMemoEditor = dynamic(
     ),
 );
 
-interface MilestoneCreateMemoFormProps {
+interface CreateMemoFormProps {
   onCancel: () => void;
   hideModeSwitch?: boolean;
 }
-export default function MilestoneCreateMemoForm({
+export default function CreateMemoForm({
   onCancel,
   hideModeSwitch = true,
-}: MilestoneCreateMemoFormProps) {
+}: CreateMemoFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tempMemoColor, setTempMemoColor] = useState<ColorKey>("yellow");

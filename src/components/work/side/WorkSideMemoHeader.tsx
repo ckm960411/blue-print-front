@@ -3,14 +3,14 @@ import ToggleCheckOnly from "@/components/work/components/ToggleCheckOnly";
 import CreateMemoForm from "@/components/work/project-plan/sidetab/CreateMemoForm";
 import React, { useState } from "react";
 
-interface MilestoneDrawerMemoTabHeaderProps {
+interface WorkSideMemoHeaderProps {
   showChecked: boolean;
   onToggleCheck: () => void;
 }
-export default function MilestoneDrawerMemoTabHeader({
+export default function WorkSideMemoHeader({
   showChecked,
   onToggleCheck,
-}: MilestoneDrawerMemoTabHeaderProps) {
+}: WorkSideMemoHeaderProps) {
   const [showForm, setShowForm] = useState(false);
 
   if (showForm) {

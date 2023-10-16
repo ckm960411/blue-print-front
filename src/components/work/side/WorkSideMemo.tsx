@@ -1,5 +1,6 @@
 import MilestoneDrawerMemoTabHeader from "@/components/work/project-plan/sidetab/MilestoneDrawerMemoTabHeader";
 import MilestoneMemo from "@/components/work/project-plan/sidetab/MilestoneMemo";
+import WorkSideMemoHeader from "@/components/work/side/WorkSideMemoHeader";
 import React, { useState } from "react";
 
 interface WorkSideMemoProps {}
@@ -8,7 +9,7 @@ export default function WorkSideMemo({}: WorkSideMemoProps) {
 
   return (
     <div className="flex flex-col gap-16px">
-      <MilestoneDrawerMemoTabHeader
+      <WorkSideMemoHeader
         showChecked={showChecked}
         onToggleCheck={() => setShowChecked((prev) => !prev)}
       />

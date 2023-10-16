@@ -8,16 +8,16 @@ import {
   BsTrash,
 } from "react-icons/bs";
 
-interface MilestoneMemoProps {
+interface MemoCardProps {
   isChecked?: boolean;
   isBookmarked?: boolean;
   theme?: ColorKey;
 }
-export default function MilestoneMemo({
+export default function MemoCard({
   isChecked,
   isBookmarked,
   theme = "yellow",
-}: MilestoneMemoProps) {
+}: MemoCardProps) {
   return (
     <div
       className="flex w-full flex-col gap-8px rounded-r-[10px] border-l-4 border-green-500 bg-green-50 p-16px"

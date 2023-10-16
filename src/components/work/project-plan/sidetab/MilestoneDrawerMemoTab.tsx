@@ -1,7 +1,7 @@
 "use client";
 
 import MilestoneDrawerMemoTabHeader from "@/components/work/project-plan/sidetab/MilestoneDrawerMemoTabHeader";
-import MilestoneMemo from "@/components/work/project-plan/sidetab/MilestoneMemo";
+import MemoCard from "@/components/work/components/MemoCard";
 import { TabPanel } from "@chakra-ui/tabs";
 import React, { useState } from "react";
 
@@ -17,9 +17,9 @@ export default function MilestoneDrawerMemoTab({}: MilestoneDrawerMemoTabProps) 
       />
 
       <div className="flex flex-col gap-16px">
-        <MilestoneMemo />
-        <MilestoneMemo />
-        <MilestoneMemo />
+        <MemoCard />
+        <MemoCard />
+        <MemoCard />
       </div>
     </TabPanel>
   );

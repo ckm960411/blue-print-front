@@ -1,5 +1,5 @@
 import MilestoneDrawerMemoTabHeader from "@/components/work/project-plan/sidetab/MilestoneDrawerMemoTabHeader";
-import MilestoneMemo from "@/components/work/project-plan/sidetab/MilestoneMemo";
+import MemoCard from "@/components/work/components/MemoCard";
 import WorkSideMemoHeader from "@/components/work/side/WorkSideMemoHeader";
 import React, { useState } from "react";
 
@@ -15,9 +15,9 @@ export default function WorkSideMemo({}: WorkSideMemoProps) {
       />
 
       <div className="flex flex-col gap-16px">
-        <MilestoneMemo isBookmarked theme="green" />
-        <MilestoneMemo isChecked theme="blue" />
-        <MilestoneMemo />
+        <MemoCard isBookmarked theme="green" />
+        <MemoCard isChecked theme="blue" />
+        <MemoCard />
       </div>
     </div>
   );

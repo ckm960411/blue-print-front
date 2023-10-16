@@ -1,6 +1,6 @@
 import CreateButton from "@/components/work/components/CreateButton";
 import ToggleCheckOnly from "@/components/work/components/ToggleCheckOnly";
-import CreateMemoForm from "@/components/work/project-plan/sidetab/CreateMemoForm";
+import CreateMemoForm from "@/components/work/components/CreateMemoForm";
 import React, { useState } from "react";
 
 interface WorkSideMemoHeaderProps {

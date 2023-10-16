@@ -1,6 +1,7 @@
 "use client";
 
 import { ColorKey, Colors } from "@/utils/common/color";
+import { useMemoMutation } from "@/utils/hooks/memo/useMemoMutation";
 import { createMemo } from "@/utils/services/memo";
 import { CreateMemoReqDto } from "@/utils/services/memo/dto/create-memo.req.dto";
 import { useMutation } from "@tanstack/react-query";
@@ -31,20 +32,16 @@ export default function CreateMemoForm({
   const [content, setContent] = useState("");
   const [color, setColor] = useState<ColorKey>(DEFAULT_COLOR);
 
-  const { mutate } = useMutation(
-    ["create-memo-form"],
-    async (data: CreateMemoReqDto) => createMemo(data),
-    {
-      onSuccess: (data) => {
-        setTitle("");
-        setContent("");
-        setContent(DEFAULT_COLOR);
-        onSuccess?.();
-        onClose?.();
-      },
-      onError: onError,
+  const { mutate } = useMemoMutation({
+    onSuccess: (data) => {
+      setTitle("");
+      setContent("");
+      setContent(DEFAULT_COLOR);
+      onSuccess?.();
+      onClose?.();
     },
-  );
+    onError: onError,
+  });
 
   const handleChangeMemo = (value: string) => {
     setContent(value);

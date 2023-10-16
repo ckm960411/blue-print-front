@@ -1,5 +1,8 @@
 import IconButton from "@/components/components/IconButton";
+import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
+import { Memo } from "@/utils/types/memo";
+import { format } from "date-fns";
 import React from "react";
 import {
   BsBookmark,
@@ -9,15 +12,15 @@ import {
 } from "react-icons/bs";
 
 interface MemoCardProps {
-  isChecked?: boolean;
-  isBookmarked?: boolean;
-  theme?: ColorKey;
+  memo: Memo;
 }
-export default function MemoCard({
-  isChecked,
-  isBookmarked,
-  theme = "yellow",
-}: MemoCardProps) {
+export default function MemoCard({ memo }: MemoCardProps) {
+  const DEFAULT_COLOR: ColorKey = "yellow";
+
+  const { color, isChecked, isBookmarked, title, content, createdAt } = memo;
+
+  const theme: ColorKey = (color as ColorKey) ?? DEFAULT_COLOR;
+
   return (
     <div
       className="flex w-full flex-col gap-8px rounded-r-[10px] border-l-4 border-green-500 bg-green-50 p-16px"
@@ -28,7 +31,7 @@ export default function MemoCard({
     >
       <div className="flex-between">
         <p className="truncate-1-lines text-16px font-bold text-gray-800">
-          Lorem ipsum dolor sit amet,{" "}
+          {title}
         </p>
         <div className="flex items-center gap-8px">
           <IconButton
@@ -57,10 +60,14 @@ export default function MemoCard({
           </IconButton>
         </div>
       </div>
-      <p className="text-14px leading-[150%] text-gray-700">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+      <div
+        dangerouslySetInnerHTML={{ __html: content }}
+        className="text-14px leading-[150%] text-gray-700"
+      />
+      <p className="text-14px text-gray-600">
+        {format(new Date(createdAt), "yyyy.MM.dd")} (
+        {getDayByAsiaSeoulFormat(new Date(createdAt))})
       </p>
-      <p className="text-14px text-gray-600">yyyy.MM.dd (D)</p>
     </div>
   );
 }

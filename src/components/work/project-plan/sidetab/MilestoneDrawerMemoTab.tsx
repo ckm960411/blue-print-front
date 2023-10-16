@@ -17,9 +17,9 @@ export default function MilestoneDrawerMemoTab({}: MilestoneDrawerMemoTabProps) 
       />
 
       <div className="flex flex-col gap-16px">
-        <MemoCard />
-        <MemoCard />
-        <MemoCard />
+        {/*<MemoCard />*/}
+        {/*<MemoCard />*/}
+        {/*<MemoCard />*/}
       </div>
     </TabPanel>
   );

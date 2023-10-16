@@ -3,7 +3,8 @@ import { CreateMemoReqDto } from "@/utils/services/memo/dto/create-memo.req.dto"
 import { Memo } from "@/utils/types/memo";
 
 export const getAllMemos = async () => {
-  return await get(`memo`);
+  const { data } = await get<Memo[]>(`memo`);
+  return data;
 };
 
 export const createMemo = async (createMemoReqDto: CreateMemoReqDto) => {

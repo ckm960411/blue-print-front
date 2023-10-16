@@ -1,4 +1,5 @@
 import PrimeReactUIProvider from "@/components/common/PrimeReactUIProvider";
+import TanstackQueryProvider from "@/components/common/TanstackQueryProvider";
 import React from "react";
 import type { Metadata } from "next";
 import { pretendard } from "@/utils/fonts";
@@ -30,21 +31,23 @@ export default function RootLayout({
     <html lang="ko" className={pretendard.variable}>
       <body className="flex flex-col font-normal">
         <RecoilProvider>
-          <PrimeReactUIProvider>
-            <ChakraUIProvider>
-              <div className="relative flex grow">
-                <SideBar />
-                <div className="flex grow flex-col">
-                  <Header />
-                  <main className="grow">
-                    <ImageDetailProvider>{children}</ImageDetailProvider>
-                  </main>
+          <TanstackQueryProvider>
+            <PrimeReactUIProvider>
+              <ChakraUIProvider>
+                <div className="relative flex grow">
+                  <SideBar />
+                  <div className="flex grow flex-col">
+                    <Header />
+                    <main className="grow">
+                      <ImageDetailProvider>{children}</ImageDetailProvider>
+                    </main>
+                  </div>
+                  <ScrollToTop />
                 </div>
-                <ScrollToTop />
-              </div>
-              <BottomNavigation />
-            </ChakraUIProvider>
-          </PrimeReactUIProvider>
+                <BottomNavigation />
+              </ChakraUIProvider>
+            </PrimeReactUIProvider>
+          </TanstackQueryProvider>
         </RecoilProvider>
       </body>
     </html>

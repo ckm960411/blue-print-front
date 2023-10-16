@@ -1,4 +1,5 @@
 import MemoCard from "@/components/work/components/MemoCard";
+import { QueryKeys } from "@/utils/common/query-keys";
 import { getAllMemos } from "@/utils/services/memo";
 import { useQuery } from "@tanstack/react-query";
 import { Toast } from "primereact/toast";
@@ -8,7 +9,7 @@ interface WorkSideMemoContainerProps {}
 export default function WorkSideMemoContainer({}: WorkSideMemoContainerProps) {
   const toast = useRef<Toast | null>(null);
 
-  const { data: memos = [] } = useQuery(["get-all-memos"], getAllMemos, {
+  const { data: memos = [] } = useQuery(QueryKeys.getAllMemos, getAllMemos, {
     onError: () =>
       toast.current?.show({
         severity: "error",

@@ -1,5 +1,5 @@
 import React from "react";
-import WorkSideContent from "@/components/work/WorkSideContent";
+import WorkSideContent from "@/components/work/side/WorkSideContent";
 import WorkTabs from "@/components/work/WorkTabs";
 
 interface WorkPageContentProps {}

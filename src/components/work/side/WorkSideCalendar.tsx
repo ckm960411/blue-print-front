@@ -19,7 +19,7 @@ import { Nullable } from "primereact/ts-helpers";
 import { useEffect, useRef, useState } from "react";
 import { Calendar as PrimeCalendar } from "primereact/calendar";
 
-import "../../css/work-side-prime-calendar.css";
+import "../../../css/work-side-prime-calendar.css";
 
 interface WorkSideCalendarProps {}
 export default function WorkSideCalendar({}: WorkSideCalendarProps) {

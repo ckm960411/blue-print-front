@@ -1,9 +1,9 @@
 "use client";
 
-import WorkSideCalendar from "@/components/work/WorkSideCalendar";
-import WorkSideContentIcons from "@/components/work/WorkSideContentIcons";
-import WorkSideMemo from "@/components/work/WorkSideMemo";
-import WorkSideProjectOutline from "@/components/work/WorkSideProjectOutline";
+import WorkSideCalendar from "@/components/work/side/WorkSideCalendar";
+import WorkSideContentIcons from "@/components/work/side/WorkSideContentIcons";
+import WorkSideMemo from "@/components/work/side/WorkSideMemo";
+import WorkSideProjectOutline from "@/components/work/side/WorkSideProjectOutline";
 import { useState } from "react";
 import { WorkSideContentType } from "@/utils/types/work";
 

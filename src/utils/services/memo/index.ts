@@ -2,8 +2,12 @@ import { deleteCall, get, patch, post } from "@/app/api/axios";
 import { CreateMemoReqDto } from "@/utils/services/memo/dto/create-memo.req.dto";
 import { Memo } from "@/utils/types/memo";
 
-export const getAllMemos = async () => {
-  const { data } = await get<Memo[]>(`memo`);
+export interface GetAllMemosReqDto {
+  checked?: boolean;
+}
+export const getAllMemos = async (params?: GetAllMemosReqDto) => {
+  const checked = !!params?.checked;
+  const { data } = await get<Memo[]>(`memo?checked=${checked}`);
   return data;
 };
 

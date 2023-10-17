@@ -13,7 +13,7 @@ export default function WorkSideMemo({}: WorkSideMemoProps) {
         onToggleCheck={() => setShowChecked((prev) => !prev)}
       />
 
-      <WorkSideMemoContainer />
+      <WorkSideMemoContainer showChecked={showChecked} />
     </div>
   );
 }

@@ -15,7 +15,7 @@ const _getHeader = (config?: AxiosRequestConfig | undefined) => {
   };
 };
 
-export const get = <T extends unknown = any>(
+export const get = <T = any>(
   url: string,
   config?: AxiosRequestConfig | undefined,
 ): Promise<AxiosResponse<T>> => {
@@ -23,7 +23,7 @@ export const get = <T extends unknown = any>(
   return axios.get(url, options);
 };
 
-export const post = <T extends unknown = any>(
+export const post = <T = any>(
   url: string,
   data: any,
   options?: any,
@@ -34,15 +34,12 @@ export const post = <T extends unknown = any>(
   return axios.post(url, data, { ...options, headers });
 };
 
-export const deleteCall = <T extends unknown = any>(
-  url: string,
-  data?: any,
-) => {
+export const deleteCall = <T = any>(url: string, data?: any) => {
   const options = _getHeader();
   return axios.delete<T>(url, { ...options, data });
 };
 
-export const patch = (url: string, data: any) => {
+export const patch = <T = any>(url: string, data: any) => {
   const options = _getHeader();
-  return axios.patch(url, data, options);
+  return axios.patch<T>(url, data, options);
 };

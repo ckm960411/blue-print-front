@@ -25,7 +25,17 @@ export default function WorkSideMemoContainer({}: WorkSideMemoContainerProps) {
       <Toast ref={toast} />
       <div className="flex flex-col gap-16px">
         {memos.map((memo) => (
-          <MemoCard key={memo.id} memo={memo} />
+          <MemoCard
+            key={memo.id}
+            memo={memo}
+            onDelete={() =>
+              toast.current?.show({
+                severity: "success",
+                summary: "메모 삭제 완료",
+                detail: "메모 삭제가 완료되었습니다.",
+              })
+            }
+          />
         ))}
       </div>
     </>

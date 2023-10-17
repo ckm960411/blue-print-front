@@ -1,7 +1,10 @@
 import IconButton from "@/components/components/IconButton";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
+import { QueryKeys } from "@/utils/common/query-keys";
+import { deleteMemo } from "@/utils/services/memo";
 import { Memo } from "@/utils/types/memo";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import React from "react";
 import {
@@ -16,10 +19,23 @@ interface MemoCardProps {
 }
 export default function MemoCard({ memo }: MemoCardProps) {
   const DEFAULT_COLOR: ColorKey = "yellow";
-
   const { color, isChecked, isBookmarked, title, content, createdAt } = memo;
 
   const theme: ColorKey = (color as ColorKey) ?? DEFAULT_COLOR;
+
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteMemoRequest } = useMutation(
+    ["delete-memo"],
+    (id: number) => deleteMemo(id),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllMemos);
+      },
+    },
+  );
+
+  const handleDelete = () => deleteMemoRequest(memo.id);
 
   return (
     <div
@@ -53,6 +69,7 @@ export default function MemoCard({ memo }: MemoCardProps) {
             )}
           </IconButton>
           <IconButton
+            onClick={handleDelete}
             className="rounded-md bg-transparent text-18px hover:bg-transparent"
             w={24}
           >

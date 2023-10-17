@@ -1,4 +1,4 @@
-import { get, post } from "@/app/api/axios";
+import { deleteCall, get, post } from "@/app/api/axios";
 import { CreateMemoReqDto } from "@/utils/services/memo/dto/create-memo.req.dto";
 import { Memo } from "@/utils/types/memo";
 
@@ -9,5 +9,10 @@ export const getAllMemos = async () => {
 
 export const createMemo = async (createMemoReqDto: CreateMemoReqDto) => {
   const { data } = await post<Memo>(`memo`, createMemoReqDto);
+  return data;
+};
+
+export const deleteMemo = async (id: number) => {
+  const { data } = await deleteCall(`memo/${id}`);
   return data;
 };

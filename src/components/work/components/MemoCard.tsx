@@ -2,7 +2,7 @@ import IconButton from "@/components/components/IconButton";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
-import { deleteMemo } from "@/utils/services/memo";
+import { bookmarkMemo, deleteMemo } from "@/utils/services/memo";
 import { Memo } from "@/utils/types/memo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -35,7 +35,16 @@ export default function MemoCard({ memo }: MemoCardProps) {
     },
   );
 
-  const handleDelete = () => deleteMemoRequest(memo.id);
+  const { mutate: bookmarkMemoRequest } = useMutation(
+    ["bookmark-memo"],
+    ({ id, bookmark }: { id: number; bookmark: boolean }) =>
+      bookmarkMemo(id, bookmark),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllMemos);
+      },
+    },
+  );
 
   return (
     <div
@@ -59,6 +68,9 @@ export default function MemoCard({ memo }: MemoCardProps) {
             />
           </IconButton>
           <IconButton
+            onClick={() =>
+              bookmarkMemoRequest({ id: memo.id, bookmark: !isBookmarked })
+            }
             className="rounded-md bg-transparent text-16px hover:bg-transparent"
             w={24}
           >
@@ -69,7 +81,7 @@ export default function MemoCard({ memo }: MemoCardProps) {
             )}
           </IconButton>
           <IconButton
-            onClick={handleDelete}
+            onClick={() => deleteMemoRequest(memo.id)}
             className="rounded-md bg-transparent text-18px hover:bg-transparent"
             w={24}
           >

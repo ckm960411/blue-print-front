@@ -2,7 +2,7 @@ import IconButton from "@/components/components/IconButton";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
-import { bookmarkMemo, deleteMemo } from "@/utils/services/memo";
+import { bookmarkMemo, checkMemo, deleteMemo } from "@/utils/services/memo";
 import { Memo } from "@/utils/types/memo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -46,6 +46,16 @@ export default function MemoCard({ memo }: MemoCardProps) {
     },
   );
 
+  const { mutate: checkMemoRequest } = useMutation(
+    ["check-memo"],
+    ({ id, check }: { id: number; check: boolean }) => checkMemo(id, check),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllMemos);
+      },
+    },
+  );
+
   return (
     <div
       className="flex w-full flex-col gap-8px rounded-r-[10px] border-l-4 border-green-500 bg-green-50 p-16px"
@@ -60,6 +70,7 @@ export default function MemoCard({ memo }: MemoCardProps) {
         </p>
         <div className="flex items-center gap-8px">
           <IconButton
+            onClick={() => checkMemoRequest({ id: memo.id, check: !isChecked })}
             className="rounded-md bg-transparent text-16px hover:bg-transparent"
             w={24}
           >

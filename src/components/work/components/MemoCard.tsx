@@ -1,7 +1,7 @@
 import IconButton from "@/components/components/IconButton";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
-import { QueryKeys } from "@/utils/common/query-keys";
+import { GET_ALL_MEMOS, QueryKeys } from "@/utils/common/query-keys";
 import {
   deleteMemo,
   updateMemo,
@@ -41,7 +41,7 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
       updateMemo(id, data),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMemos());
+        queryClient.invalidateQueries([GET_ALL_MEMOS]);
       },
       onError: () => {
         toast.current?.show({
@@ -58,7 +58,7 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
     (id: number) => deleteMemo(id),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMemos());
+        queryClient.invalidateQueries([GET_ALL_MEMOS]);
         onDelete?.();
       },
       onError: () => {

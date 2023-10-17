@@ -9,8 +9,6 @@ interface WorkSideMemoContainerProps {}
 export default function WorkSideMemoContainer({}: WorkSideMemoContainerProps) {
   const toast = useRef<Toast | null>(null);
 
-  // TODO: memo 최신순 불러오기
-  // TODO: memo 체크, 북마크, 업데이트, 지우기
   const { data: memos = [] } = useQuery(QueryKeys.getAllMemos, getAllMemos, {
     onError: () =>
       toast.current?.show({

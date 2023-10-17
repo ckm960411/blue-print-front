@@ -18,7 +18,7 @@ export const useMemoMutation = ({
     async (data: CreateMemoReqDto) => createMemo(data),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMemos);
+        queryClient.invalidateQueries(QueryKeys.getAllMemos());
         onSuccess?.();
       },
       onError,

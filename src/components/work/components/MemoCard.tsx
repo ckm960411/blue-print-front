@@ -41,7 +41,7 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
       updateMemo(id, data),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMemos);
+        queryClient.invalidateQueries(QueryKeys.getAllMemos());
       },
       onError: () => {
         toast.current?.show({
@@ -58,7 +58,7 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
     (id: number) => deleteMemo(id),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMemos);
+        queryClient.invalidateQueries(QueryKeys.getAllMemos());
         onDelete?.();
       },
       onError: () => {

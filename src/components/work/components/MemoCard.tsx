@@ -2,7 +2,11 @@ import IconButton from "@/components/components/IconButton";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
-import { bookmarkMemo, checkMemo, deleteMemo } from "@/utils/services/memo";
+import {
+  deleteMemo,
+  updateMemo,
+  UpdateMemoReqDto,
+} from "@/utils/services/memo";
 import { Memo } from "@/utils/types/memo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -35,20 +39,10 @@ export default function MemoCard({ memo }: MemoCardProps) {
     },
   );
 
-  const { mutate: bookmarkMemoRequest } = useMutation(
-    ["bookmark-memo"],
-    ({ id, bookmark }: { id: number; bookmark: boolean }) =>
-      bookmarkMemo(id, bookmark),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMemos);
-      },
-    },
-  );
-
-  const { mutate: checkMemoRequest } = useMutation(
-    ["check-memo"],
-    ({ id, check }: { id: number; check: boolean }) => checkMemo(id, check),
+  const { mutate: updateMemoRequest } = useMutation(
+    ["update-memo"],
+    ({ id, ...data }: { id: number } & UpdateMemoReqDto) =>
+      updateMemo(id, data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllMemos);
@@ -70,7 +64,9 @@ export default function MemoCard({ memo }: MemoCardProps) {
         </p>
         <div className="flex items-center gap-8px">
           <IconButton
-            onClick={() => checkMemoRequest({ id: memo.id, check: !isChecked })}
+            onClick={() =>
+              updateMemoRequest({ id: memo.id, isChecked: !isChecked })
+            }
             className="rounded-md bg-transparent text-16px hover:bg-transparent"
             w={24}
           >
@@ -80,7 +76,7 @@ export default function MemoCard({ memo }: MemoCardProps) {
           </IconButton>
           <IconButton
             onClick={() =>
-              bookmarkMemoRequest({ id: memo.id, bookmark: !isBookmarked })
+              updateMemoRequest({ id: memo.id, isBookmarked: !isBookmarked })
             }
             className="rounded-md bg-transparent text-16px hover:bg-transparent"
             w={24}

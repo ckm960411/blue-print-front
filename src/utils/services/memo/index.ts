@@ -17,6 +17,21 @@ export const deleteMemo = async (id: number) => {
   return data;
 };
 
+export interface UpdateMemoReqDto {
+  title?: string;
+  content?: string;
+  isChecked?: boolean;
+  isBookmarked?: boolean;
+  color?: string;
+}
+export const updateMemo = async (
+  id: number,
+  updateMemoReqDto: UpdateMemoReqDto,
+) => {
+  const { data } = await patch<Memo>(`memo/${id}`, updateMemoReqDto);
+  return data;
+};
+
 export const bookmarkMemo = async (id: number, bookmark: boolean) => {
   const { data } = await patch<Memo>(`memo/bookmark/${id}`, { bookmark });
   return data;

@@ -31,13 +31,3 @@ export const updateMemo = async (
   const { data } = await patch<Memo>(`memo/${id}`, updateMemoReqDto);
   return data;
 };
-
-export const bookmarkMemo = async (id: number, bookmark: boolean) => {
-  const { data } = await patch<Memo>(`memo/bookmark/${id}`, { bookmark });
-  return data;
-};
-
-export const checkMemo = async (id: number, check: boolean) => {
-  const { data } = await patch<Memo>(`memo/check/${id}`, { check });
-  return data;
-};

@@ -3,9 +3,7 @@
 import { ColorKey, Colors } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { useMemoMutation } from "@/utils/hooks/memo/useMemoMutation";
-import { createMemo } from "@/utils/services/memo";
-import { CreateMemoReqDto } from "@/utils/services/memo/dto/create-memo.req.dto";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 

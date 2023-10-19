@@ -1,5 +1,5 @@
-import CreateTaskModal from "@/components/work/project-plan/CreateTaskModal";
 import React from "react";
+import CreateTaskModal from "@/components/work/project-plan/CreateTaskModal";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AiOutlinePlus } from "react-icons/ai";
 

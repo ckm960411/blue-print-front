@@ -1,8 +1,7 @@
 import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
 import { QueryKeys } from "@/utils/common/query-keys";
-import { CreateLinkReqDto } from "@/utils/services/dto/create-link.req.dto";
-import { deleteLinkById } from "@/utils/services/link";
-import { updateTask } from "@/utils/services/task";
+import { CreateLinkReqDto } from "@/utils/services/link/dto/create-link.req.dto";
+import { createLink, deleteLinkById } from "@/utils/services/link";
 import { Link as LinkType } from "@/utils/types";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -26,10 +25,9 @@ export default function TaskLinksForm({
   const [name, setName] = useState("");
   const [href, setHref] = useState("");
 
-  const { mutate: updateLinkRequest } = useMutation(
-    ["update-task"],
-    ({ name, href }: CreateLinkReqDto) =>
-      updateTask(taskId, { links: [{ name, href, taskId }] }),
+  const { mutate: createLinkRequest } = useMutation(
+    ["create-link"],
+    ({ name, href }: CreateLinkReqDto) => createLink({ taskId, name, href }),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllTasks());
@@ -75,7 +73,7 @@ export default function TaskLinksForm({
   const handleConfirm = () => {
     if (!name.trim() || !href.trim()) return;
 
-    updateLinkRequest({ name, href });
+    createLinkRequest({ name, href });
     handleClose();
   };
 

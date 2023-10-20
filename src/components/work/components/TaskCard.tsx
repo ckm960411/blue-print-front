@@ -92,9 +92,7 @@ export default function TaskCard({ task }: TaskCardProps) {
                 endDate={endDate}
                 onChange={handleChangeDate("endDate")}
               />
-              <MilestoneClassification />
               <MilestonePriority />
-              <MilestoneProgress />
               <MilestoneTags />
               <MilestoneLinks />
             </div>

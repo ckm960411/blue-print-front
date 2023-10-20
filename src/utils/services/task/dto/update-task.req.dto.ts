@@ -1,5 +1,3 @@
-import { CreateLinkReqDto } from "@/utils/services/dto/create-link.req.dto";
-
 export interface UpdateTaskReqDto {
   title?: string;
   description?: string;
@@ -8,5 +6,4 @@ export interface UpdateTaskReqDto {
   endAt?: Date;
   priority?: Date;
   isBookmarked?: boolean;
-  links?: CreateLinkReqDto[];
 }

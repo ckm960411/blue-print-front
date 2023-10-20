@@ -1,6 +1,7 @@
 import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { CreateLinkReqDto } from "@/utils/services/dto/create-link.req.dto";
+import { deleteLinkById } from "@/utils/services/link";
 import { updateTask } from "@/utils/services/task";
 import { Link as LinkType } from "@/utils/types";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
@@ -43,6 +44,23 @@ export default function TaskLinksForm({
     },
   );
 
+  const { mutate: deleteLinkRequest } = useMutation(
+    ["delete-link"],
+    (id: number) => deleteLinkById(id),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+      },
+      onError: () => {
+        toast.current?.show({
+          severity: "error",
+          summary: "문제 발생",
+          detail: "링크 삭제 중 문제가 발생했습니다.",
+        });
+      },
+    },
+  );
+
   const resetState = () => {
     setName("");
     setHref("");
@@ -75,7 +93,7 @@ export default function TaskLinksForm({
         >
           <PopoverTrigger>
             <div className="flex items-start gap-16px">
-              {links?.length && (
+              {links && links.length > 0 && (
                 <div className="flex flex-col items-start gap-12px">
                   {links.map((link) => (
                     <div key={link.id} className="flex items-center gap-6px">
@@ -86,7 +104,10 @@ export default function TaskLinksForm({
                       >
                         {link.name}
                       </Link>
-                      <button className="h-16px w-16px">
+                      <button
+                        onClick={() => deleteLinkRequest(link.id)}
+                        className="h-16px w-16px"
+                      >
                         <BsTrash />
                       </button>
                     </div>

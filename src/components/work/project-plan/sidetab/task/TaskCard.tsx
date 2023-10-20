@@ -40,9 +40,10 @@ export default function TaskCard({ task }: TaskCardProps) {
       )}
 
       {task.content && (
-        <div className="truncate-3-lines text-14px leading-[150%] text-gray-800">
-          {task.content}
-        </div>
+        <div
+          className="truncate-3-lines text-14px leading-[150%] text-gray-800"
+          dangerouslySetInnerHTML={{ __html: task.content }}
+        />
       )}
 
       <div className="flex-between mt-8px">

@@ -1,3 +1,4 @@
+import { QueryKeys } from "@/utils/common/query-keys";
 import { createTask } from "@/utils/services/task";
 import {
   Modal,
@@ -8,7 +9,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import dynamic from "next/dynamic";
 import { Toast } from "primereact/toast";
@@ -27,6 +28,7 @@ export default function CreateTaskModal({
   onClose,
 }: CreateTaskModalProps) {
   const toast = useRef<Toast>(null);
+  const queryClient = useQueryClient();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -42,6 +44,9 @@ export default function CreateTaskModal({
           summary: "할일 작성 완료",
           detail: "할일이 추가되었습니다.",
         });
+        setTitle("");
+        setDescription("");
+        queryClient.invalidateQueries({ queryKey: QueryKeys.getAllTasks() });
         onClose();
       },
       onError: (e) => {

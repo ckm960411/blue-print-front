@@ -80,19 +80,11 @@ export default function TaskCard({ task }: TaskCardProps) {
         <AccordionItem style={{ border: "unset" }}>
           <AccordionPanel className="px-0">
             <div className="flex flex-col gap-16px border-t border-gray-200 pt-16px">
-              <TaskStartAtForm
-                taskId={task.id}
-                startAt={task.startAt}
-                endAt={task.endAt}
-              />
-              <TaskEndAtForm
-                taskId={task.id}
-                starAt={task.startAt}
-                endAt={task.endAt}
-              />
+              <TaskStartAtForm task={task} />
+              <TaskEndAtForm task={task} />
               <MilestonePriority />
               <MilestoneTags />
-              <TaskLinksForm taskId={task.id} links={task.links} />
+              <TaskLinksForm task={task} />
             </div>
           </AccordionPanel>
           <AccordionButton className="p-0 hover:bg-transparent">

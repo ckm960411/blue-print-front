@@ -2,7 +2,7 @@ import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/M
 import { QueryKeys } from "@/utils/common/query-keys";
 import { CreateLinkReqDto } from "@/utils/services/link/dto/create-link.req.dto";
 import { createLink, deleteLinkById } from "@/utils/services/link";
-import { Link as LinkType } from "@/utils/types";
+import { Task } from "@/utils/types/task";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
@@ -11,13 +11,10 @@ import React, { useRef, useState } from "react";
 import { BsTrash } from "react-icons/bs";
 
 interface TaskLinksFormProps {
-  taskId: number;
-  links: LinkType[] | null;
+  task: Task;
 }
-export default function TaskLinksForm({
-  taskId,
-  links = [],
-}: TaskLinksFormProps) {
+export default function TaskLinksForm({ task }: TaskLinksFormProps) {
+  const { id, links = [] } = task;
   const queryClient = useQueryClient();
   const toast = useRef<Toast>(null);
 
@@ -27,7 +24,8 @@ export default function TaskLinksForm({
 
   const { mutate: createLinkRequest } = useMutation(
     ["create-link"],
-    ({ name, href }: CreateLinkReqDto) => createLink({ taskId, name, href }),
+    ({ name, href }: CreateLinkReqDto) =>
+      createLink({ taskId: id, name, href }),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllTasks());

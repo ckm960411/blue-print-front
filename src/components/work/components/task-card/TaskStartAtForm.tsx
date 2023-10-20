@@ -2,7 +2,7 @@ import TaskCalendarModal from "@/components/work/components/task-card/TaskCalend
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { updateTask } from "@/utils/services/task";
-import { DateTime } from "@/utils/types";
+import { Task } from "@/utils/types/task";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -10,22 +10,17 @@ import { Toast } from "primereact/toast";
 import { useRef } from "react";
 
 interface TaskStartAtFormProps {
-  taskId: number;
-  startAt: DateTime | null;
-  endAt: DateTime | null;
+  task: Task;
 }
-export default function TaskStartAtForm({
-  taskId,
-  startAt,
-  endAt,
-}: TaskStartAtFormProps) {
+export default function TaskStartAtForm({ task }: TaskStartAtFormProps) {
+  const { id, startAt, endAt } = task;
   const toast = useRef<Toast>(null);
   const queryClient = useQueryClient();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { mutate: updateStartAt } = useMutation(
     ["update-task"],
-    (startAt: Date) => updateTask(taskId, { startAt }),
+    (startAt: Date) => updateTask(id, { startAt }),
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries(QueryKeys.getAllTasks());

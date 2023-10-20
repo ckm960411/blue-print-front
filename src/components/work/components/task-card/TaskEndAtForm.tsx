@@ -2,7 +2,7 @@ import TaskCalendarModal from "@/components/work/components/task-card/TaskCalend
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { updateTask } from "@/utils/services/task";
-import { DateTime } from "@/utils/types";
+import { Task } from "@/utils/types/task";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -10,22 +10,18 @@ import { Toast } from "primereact/toast";
 import { useRef } from "react";
 
 interface TaskEndAtFormProps {
-  taskId: number;
-  starAt: DateTime | null;
-  endAt: DateTime | null;
+  task: Task;
 }
-export default function TaskEndAtForm({
-  taskId,
-  starAt,
-  endAt,
-}: TaskEndAtFormProps) {
+export default function TaskEndAtForm({ task }: TaskEndAtFormProps) {
+  const { id, startAt, endAt } = task;
+
   const toast = useRef<Toast>(null);
   const queryClient = useQueryClient();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { mutate: updateStartAt } = useMutation(
     ["update-task"],
-    (endAt: Date) => updateTask(taskId, { endAt }),
+    (endAt: Date) => updateTask(id, { endAt }),
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries(QueryKeys.getAllTasks());
@@ -64,7 +60,7 @@ export default function TaskEndAtForm({
           date={endAt}
           onClose={onClose}
           onUpdate={updateStartAt}
-          minDate={starAt}
+          minDate={startAt}
         />
       </div>
     </>

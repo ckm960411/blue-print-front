@@ -1,4 +1,5 @@
 import IconButton from "@/components/components/IconButton";
+import TaskBookmarkButton from "@/components/work/components/task-card/TaskBookmarkButton";
 import MilestoneClassification from "@/components/work/project-plan/MilestoneClassification";
 import MilestoneEndDate from "@/components/work/project-plan/MilestoneEndDate";
 import MilestoneLinks from "@/components/work/project-plan/MilestoneLinks";
@@ -34,9 +35,7 @@ export default function TaskCard({ task }: TaskCardProps) {
 
   return (
     <div className="relative flex flex-col gap-8px bg-white p-16px shadow-md duration-200 hover:shadow-lg">
-      <button className="absolute right-8px top-0 px-8px pb-8px">
-        <BsFillBookmarkFill className="text-20px text-gray-300" />
-      </button>
+      <TaskBookmarkButton taskId={task.id} isBookmarked={task.isBookmarked} />
 
       {/* TODO: Tag 반영 필요 */}
       <div className="flex flex-wrap items-center gap-8px">

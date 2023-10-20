@@ -1,4 +1,4 @@
-import TaskCard from "@/components/work/project-plan/sidetab/task/TaskCard";
+import TaskCard from "@/components/work/components/TaskCard";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { getAllTask } from "@/utils/services/task";
 import { Progress } from "@/utils/types";

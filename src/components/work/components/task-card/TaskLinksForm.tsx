@@ -1,13 +1,46 @@
 import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
+import { QueryKeys } from "@/utils/common/query-keys";
+import { CreateLinkReqDto } from "@/utils/services/dto/create-link.req.dto";
+import { updateTask } from "@/utils/services/task";
+import { Link as LinkType } from "@/utils/types";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import React, { useState } from "react";
+import { Toast } from "primereact/toast";
+import React, { useRef, useState } from "react";
 
-interface TaskLinksFormProps {}
-export default function TaskLinksForm({}: TaskLinksFormProps) {
+interface TaskLinksFormProps {
+  taskId: number;
+  links: LinkType[] | null;
+}
+export default function TaskLinksForm({
+  taskId,
+  links = [],
+}: TaskLinksFormProps) {
+  const queryClient = useQueryClient();
+  const toast = useRef<Toast>(null);
+
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState("");
   const [href, setHref] = useState("");
+
+  const { mutate: updateLinkRequest } = useMutation(
+    ["update-task"],
+    ({ name, href }: CreateLinkReqDto) =>
+      updateTask(taskId, { links: [{ name, href, taskId }] }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+      },
+      onError: () => {
+        toast.current?.show({
+          severity: "error",
+          summary: "문제 발생",
+          detail: "링크 생성 중 문제가 발생했습니다.",
+        });
+      },
+    },
+  );
 
   const resetState = () => {
     setName("");
@@ -21,80 +54,88 @@ export default function TaskLinksForm({}: TaskLinksFormProps) {
   };
 
   const handleConfirm = () => {
-    // TODO: 링크 추가시 DB 반영후 revalidate 필요
+    if (!name.trim() || !href.trim()) return;
 
+    updateLinkRequest({ name, href });
     handleClose();
   };
 
   return (
-    <div className="flex items-start gap-8px">
-      <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
-        링크
-      </p>
-      <Popover isOpen={editing} onClose={handleClose} placement="bottom-start">
-        <PopoverTrigger>
-          <div className="flex items-start gap-16px">
-            <div className="flex flex-col gap-12px">
-              <Link
-                href="https://uglyus.co.kr"
-                target="_blank"
-                className="text-14px text-blue-600 underline"
-              >
-                노션 기획 문서
-              </Link>
-              <Link
-                href="https://uglyus.co.kr"
-                target="_blank"
-                className="text-14px text-blue-600 underline"
-              >
-                피그마
-              </Link>
-            </div>
-            <MilestoneEditButton
-              w={24}
-              onClick={handleOpen}
-              className="text-14px"
-              tooltipPlacement="right-start"
-            />
-          </div>
-        </PopoverTrigger>
-        <PopoverContent className="w-240px p-16px">
-          <div className="flex flex-col gap-16px text-14px">
-            <div className="flex items-center gap-8px">
-              <p className="flex-shrink-0 text-gray-600">이름:</p>
-              <input
-                value={name}
-                placeholder="링크 이름 입력"
-                onChange={(e) => setName(e.target.value)}
-                className="grow"
+    <>
+      <Toast ref={toast} />
+      <div className="flex items-start gap-8px">
+        <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
+          링크
+        </p>
+        <Popover
+          isOpen={editing}
+          onClose={handleClose}
+          placement="bottom-start"
+        >
+          <PopoverTrigger>
+            <div className="flex items-start gap-16px">
+              <div className="flex flex-col gap-12px">
+                <Link
+                  href="https://uglyus.co.kr"
+                  target="_blank"
+                  className="text-14px text-blue-600 underline"
+                >
+                  노션 기획 문서
+                </Link>
+                <Link
+                  href="https://uglyus.co.kr"
+                  target="_blank"
+                  className="text-14px text-blue-600 underline"
+                >
+                  피그마
+                </Link>
+              </div>
+              <MilestoneEditButton
+                w={24}
+                onClick={handleOpen}
+                className="text-14px"
+                tooltipPlacement="right-start"
               />
             </div>
-            <div className="flex items-center gap-8px">
-              <p className="flex-shrink-0 text-gray-600">링크:</p>
-              <input
-                value={href}
-                placeholder="링크 주소 입력"
-                onChange={(e) => setHref(e.target.value)}
-                className="grow"
-              />
+          </PopoverTrigger>
+          <PopoverContent className="w-240px p-16px">
+            <div className="flex flex-col gap-16px text-14px">
+              <div className="flex items-center gap-8px">
+                <p className="flex-shrink-0 text-gray-600">이름:</p>
+                <input
+                  value={name}
+                  placeholder="링크 이름 입력"
+                  onChange={(e) => setName(e.target.value)}
+                  className="grow"
+                />
+              </div>
+              <div className="flex items-center gap-8px">
+                <p className="flex-shrink-0 text-gray-600">링크:</p>
+                <input
+                  value={href}
+                  placeholder="링크 주소 입력"
+                  onChange={(e) => setHref(e.target.value)}
+                  className="grow"
+                />
+              </div>
+              <div className="flex items-center justify-end gap-8px">
+                <button
+                  onClick={handleClose}
+                  className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50"
+                >
+                  취소
+                </button>
+                <button
+                  onClick={handleConfirm}
+                  className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50"
+                >
+                  확인
+                </button>
+              </div>
             </div>
-            <div className="flex items-center justify-end gap-8px">
-              <button
-                onClick={handleClose}
-                className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50"
-              >
-                취소
-              </button>
-              <button
-                onClick={handleConfirm}
-                className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50"
-              >
-                확인
-              </button>
-            </div>
-          </div>
-        </PopoverContent>
-      </Popover>
-    </div>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </>
   );
 }

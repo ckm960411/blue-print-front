@@ -90,7 +90,7 @@ export default function TaskCard({ task }: TaskCardProps) {
               />
               <MilestonePriority />
               <MilestoneTags />
-              <TaskLinksForm />
+              <TaskLinksForm taskId={task.id} links={task.links} />
             </div>
           </AccordionPanel>
           <AccordionButton className="p-0 hover:bg-transparent">

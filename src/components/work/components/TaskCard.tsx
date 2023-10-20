@@ -4,6 +4,7 @@ import TaskEndAtForm from "@/components/work/components/task-card/TaskEndAtForm"
 import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm";
 import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorityForm";
 import TaskStartAtForm from "@/components/work/components/task-card/TaskStartAtForm";
+import TaskTags from "@/components/work/components/task-card/TaskTags";
 import MilestoneEndDate from "@/components/work/project-plan/MilestoneEndDate";
 import MilestonePriority from "@/components/work/project-plan/MilestonePriority";
 import MilestoneStartDate from "@/components/work/project-plan/MilestoneStartDate";
@@ -37,15 +38,7 @@ export default function TaskCard({ task }: TaskCardProps) {
     <div className="relative flex flex-col gap-8px bg-white p-16px shadow-md duration-200 hover:shadow-lg">
       <TaskBookmarkButton taskId={task.id} isBookmarked={task.isBookmarked} />
 
-      {/* TODO: Tag 반영 필요 */}
-      <div className="flex flex-wrap items-center gap-8px">
-        <div className="rounded-xl bg-orange-50 px-12px py-6px text-14px font-semibold text-orange-600">
-          Planning
-        </div>
-        <div className="rounded-xl bg-blue-50 px-12px py-6px text-14px font-semibold text-blue-600">
-          개발중
-        </div>
-      </div>
+      <TaskTags />
 
       <div className="flex-between gap-12px">
         <div className="truncate-1-lines text-16px font-bold">{task.title}</div>

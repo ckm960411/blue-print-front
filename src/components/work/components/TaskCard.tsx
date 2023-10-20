@@ -2,6 +2,7 @@ import IconButton from "@/components/components/IconButton";
 import TaskBookmarkButton from "@/components/work/components/task-card/TaskBookmarkButton";
 import TaskEndAtForm from "@/components/work/components/task-card/TaskEndAtForm";
 import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm";
+import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorityForm";
 import TaskStartAtForm from "@/components/work/components/task-card/TaskStartAtForm";
 import MilestoneEndDate from "@/components/work/project-plan/MilestoneEndDate";
 import MilestonePriority from "@/components/work/project-plan/MilestonePriority";
@@ -82,7 +83,7 @@ export default function TaskCard({ task }: TaskCardProps) {
             <div className="flex flex-col gap-16px border-t border-gray-200 pt-16px">
               <TaskStartAtForm task={task} />
               <TaskEndAtForm task={task} />
-              <MilestonePriority />
+              <TaskPriorityForm task={task} />
               <MilestoneTags />
               <TaskLinksForm task={task} />
             </div>

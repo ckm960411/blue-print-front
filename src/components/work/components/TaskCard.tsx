@@ -1,10 +1,8 @@
 import IconButton from "@/components/components/IconButton";
 import TaskBookmarkButton from "@/components/work/components/task-card/TaskBookmarkButton";
-import MilestoneClassification from "@/components/work/project-plan/MilestoneClassification";
+import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm";
 import MilestoneEndDate from "@/components/work/project-plan/MilestoneEndDate";
-import MilestoneLinks from "@/components/work/project-plan/MilestoneLinks";
 import MilestonePriority from "@/components/work/project-plan/MilestonePriority";
-import MilestoneProgress from "@/components/work/project-plan/MilestoneProgress";
 import MilestoneStartDate from "@/components/work/project-plan/MilestoneStartDate";
 import MilestoneTags from "@/components/work/project-plan/MilestoneTags";
 import { Task } from "@/utils/types/task";
@@ -16,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { BsFillBookmarkFill } from "react-icons/bs";
 import { GoComment } from "react-icons/go";
 import { HiLink } from "react-icons/hi";
 
@@ -93,7 +90,7 @@ export default function TaskCard({ task }: TaskCardProps) {
               />
               <MilestonePriority />
               <MilestoneTags />
-              <MilestoneLinks />
+              <TaskLinksForm />
             </div>
           </AccordionPanel>
           <AccordionButton className="p-0 hover:bg-transparent">

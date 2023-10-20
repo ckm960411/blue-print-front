@@ -1,8 +1,9 @@
 import { ColorKey, Colors } from "@/utils/common/color";
+import { QueryKeys } from "@/utils/common/query-keys";
 import { createTag } from "@/utils/services/tag";
 import { CreateTagReqDto } from "@/utils/services/tag/dto/create-tag.req.dto";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 
 interface CreateUpdateTagFormProps {
@@ -19,6 +20,8 @@ export default function CreateUpdateTagForm({
   parentIdType,
   parentId,
 }: CreateUpdateTagFormProps) {
+  const queryClient = useQueryClient();
+
   const [editing, setEditing] = useState(false);
   const [tagName, setTagName] = useState("");
   const [tagColor, setTagColor] = useState<ColorKey>("slate");
@@ -30,7 +33,9 @@ export default function CreateUpdateTagForm({
     ["create-tag"],
     (data: CreateTagReqDto) => createTag(data),
     {
-      onSuccess: console.log,
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+      },
       onError: console.error,
     },
   );

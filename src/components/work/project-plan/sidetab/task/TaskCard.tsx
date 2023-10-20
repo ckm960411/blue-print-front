@@ -1,5 +1,11 @@
 import IconButton from "@/components/components/IconButton";
 import { Task } from "@/utils/types/task";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionItem,
+  AccordionPanel,
+} from "@chakra-ui/react";
 import React from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsFillBookmarkFill } from "react-icons/bs";
@@ -39,26 +45,39 @@ export default function TaskCard({ task }: TaskCardProps) {
         </div>
       )}
 
-      {task.content && (
-        <div
-          className="truncate-3-lines text-14px leading-[150%] text-gray-800"
-          dangerouslySetInnerHTML={{ __html: task.content }}
-        />
-      )}
-
-      <div className="flex-between mt-8px">
-        <div className="mt-8px flex items-center gap-8px">
-          <button className="flex-center gap-4px text-14px text-gray-600">
-            <GoComment />
-            <span>n</span>
-          </button>
-          <button className="flex-center gap-4px text-14px text-gray-600">
-            <HiLink />
-            <span>n</span>
-          </button>
-        </div>
-        <p className="text-12px text-gray-600">n일 남음</p>
-      </div>
+      <Accordion allowToggle>
+        <AccordionItem style={{ border: "unset" }}>
+          {({ isExpanded }) => (
+            <>
+              <AccordionPanel className="px-0">
+                {task.content && (
+                  <div
+                    className={`text-14px leading-[150%] text-gray-800 ${
+                      isExpanded ? "" : "truncate-3-lines"
+                    }`}
+                    dangerouslySetInnerHTML={{ __html: task.content }}
+                  />
+                )}
+              </AccordionPanel>
+              <AccordionButton className="p-0 hover:bg-transparent">
+                <div className="flex-between w-full">
+                  <div className="mt-8px flex items-center gap-8px">
+                    <button className="flex-center gap-4px text-14px text-gray-600">
+                      <GoComment />
+                      <span>n</span>
+                    </button>
+                    <button className="flex-center gap-4px text-14px text-gray-600">
+                      <HiLink />
+                      <span>n</span>
+                    </button>
+                  </div>
+                  <p className="text-12px text-gray-600">n일 남음</p>
+                </div>
+              </AccordionButton>
+            </>
+          )}
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 }

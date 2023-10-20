@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
+import { BsTrash } from "react-icons/bs";
 
 interface TaskLinksFormProps {
   taskId: number;
@@ -74,22 +75,24 @@ export default function TaskLinksForm({
         >
           <PopoverTrigger>
             <div className="flex items-start gap-16px">
-              <div className="flex flex-col gap-12px">
-                <Link
-                  href="https://uglyus.co.kr"
-                  target="_blank"
-                  className="text-14px text-blue-600 underline"
-                >
-                  노션 기획 문서
-                </Link>
-                <Link
-                  href="https://uglyus.co.kr"
-                  target="_blank"
-                  className="text-14px text-blue-600 underline"
-                >
-                  피그마
-                </Link>
-              </div>
+              {links?.length && (
+                <div className="flex flex-col items-start gap-12px">
+                  {links.map((link) => (
+                    <div key={link.id} className="flex items-center gap-6px">
+                      <Link
+                        href={link.href}
+                        target="_blank"
+                        className="text-14px text-blue-600 underline"
+                      >
+                        {link.name}
+                      </Link>
+                      <button className="h-16px w-16px">
+                        <BsTrash />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
               <MilestoneEditButton
                 w={24}
                 onClick={handleOpen}

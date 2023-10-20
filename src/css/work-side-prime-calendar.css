@@ -1,3 +1,7 @@
+div#task-calendar table.p-datepicker-calendar {
+  table-layout: fixed !important;
+}
+
 div#work-side-prime-calendar table.p-datepicker-calendar {
   table-layout: fixed !important;
 }

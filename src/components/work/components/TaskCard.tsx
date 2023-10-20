@@ -5,10 +5,6 @@ import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm"
 import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorityForm";
 import TaskStartAtForm from "@/components/work/components/task-card/TaskStartAtForm";
 import TaskTags from "@/components/work/components/task-card/TaskTags";
-import MilestoneEndDate from "@/components/work/project-plan/MilestoneEndDate";
-import MilestonePriority from "@/components/work/project-plan/MilestonePriority";
-import MilestoneStartDate from "@/components/work/project-plan/MilestoneStartDate";
-import MilestoneTags from "@/components/work/project-plan/MilestoneTags";
 import { Task } from "@/utils/types/task";
 import {
   Accordion,
@@ -26,13 +22,6 @@ interface TaskCardProps {
 }
 export default function TaskCard({ task }: TaskCardProps) {
   const [contentExpanded, setContentExpanded] = useState(false);
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
-
-  const handleChangeDate = (type: "startDate" | "endDate") => (date: Date) => {
-    if (type === "startDate") return setStartDate(date);
-    else return setEndDate(date);
-  };
 
   return (
     <div className="relative flex flex-col gap-8px bg-white p-16px shadow-md duration-200 hover:shadow-lg">
@@ -77,7 +66,6 @@ export default function TaskCard({ task }: TaskCardProps) {
               <TaskStartAtForm task={task} />
               <TaskEndAtForm task={task} />
               <TaskPriorityForm task={task} />
-              <MilestoneTags />
               <TaskLinksForm task={task} />
             </div>
           </AccordionPanel>

@@ -2,11 +2,13 @@ import { ColorKey, Colors } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { createTag } from "@/utils/services/tag";
 import { CreateTagReqDto } from "@/utils/services/tag/dto/create-tag.req.dto";
+import { Tag } from "@/utils/types/tag.index";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 
 interface CreateUpdateTagFormProps {
+  tag?: Tag;
   children: React.ReactNode;
   chidlrenWrapperClassName?: HTMLDivElement["className"];
   type: "create" | "update";
@@ -14,6 +16,7 @@ interface CreateUpdateTagFormProps {
   parentId: number;
 }
 export default function CreateUpdateTagForm({
+  tag,
   children,
   chidlrenWrapperClassName,
   type,
@@ -23,8 +26,10 @@ export default function CreateUpdateTagForm({
   const queryClient = useQueryClient();
 
   const [editing, setEditing] = useState(false);
-  const [tagName, setTagName] = useState("");
-  const [tagColor, setTagColor] = useState<ColorKey>("slate");
+  const [tagName, setTagName] = useState(() => tag?.name ?? "");
+  const [tagColor, setTagColor] = useState<ColorKey>(
+    () => tag?.color ?? "slate",
+  );
 
   const handleEdit = () => setEditing(true);
   const handleClose = () => setEditing(false);

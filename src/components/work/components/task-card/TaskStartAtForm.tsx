@@ -12,10 +12,12 @@ import { useRef } from "react";
 interface TaskStartAtFormProps {
   taskId: number;
   startAt: DateTime | null;
+  endAt: DateTime | null;
 }
 export default function TaskStartAtForm({
   taskId,
   startAt,
+  endAt,
 }: TaskStartAtFormProps) {
   const toast = useRef<Toast>(null);
   const queryClient = useQueryClient();
@@ -62,6 +64,7 @@ export default function TaskStartAtForm({
           date={startAt}
           onClose={onClose}
           onUpdate={updateStartAt}
+          maxDate={endAt}
         />
       </div>
     </>

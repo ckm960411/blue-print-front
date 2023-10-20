@@ -7,12 +7,16 @@ interface TaskCalendarModalProps {
   date: DateTime | null;
   onClose: () => void;
   onUpdate: (date: Date) => void;
+  minDate?: DateTime | null;
+  maxDate?: DateTime | null;
 }
 export default function TaskCalendarModal({
   isOpen,
   date,
   onUpdate,
   onClose,
+  minDate,
+  maxDate,
 }: TaskCalendarModalProps) {
   return (
     <Modal
@@ -34,6 +38,8 @@ export default function TaskCalendarModal({
             }}
             inline
             showWeek
+            minDate={minDate ? new Date(minDate) : undefined}
+            maxDate={maxDate ? new Date(maxDate) : undefined}
           />
         </div>
         <div className="px-16px pb-16px text-right">

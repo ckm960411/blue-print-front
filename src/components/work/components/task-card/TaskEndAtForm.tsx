@@ -11,9 +11,14 @@ import { useRef } from "react";
 
 interface TaskEndAtFormProps {
   taskId: number;
+  starAt: DateTime | null;
   endAt: DateTime | null;
 }
-export default function TaskEndAtForm({ taskId, endAt }: TaskEndAtFormProps) {
+export default function TaskEndAtForm({
+  taskId,
+  starAt,
+  endAt,
+}: TaskEndAtFormProps) {
   const toast = useRef<Toast>(null);
   const queryClient = useQueryClient();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -59,6 +64,7 @@ export default function TaskEndAtForm({ taskId, endAt }: TaskEndAtFormProps) {
           date={endAt}
           onClose={onClose}
           onUpdate={updateStartAt}
+          minDate={starAt}
         />
       </div>
     </>

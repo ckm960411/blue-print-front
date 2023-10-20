@@ -2,6 +2,7 @@ import CreateUpdateTagForm from "@/components/work/components/task-card/CreateUp
 import { Colors } from "@/utils/common/color";
 import { Task } from "@/utils/types/task";
 import React from "react";
+import { AiOutlinePlus } from "react-icons/ai";
 
 interface TaskTagsProps {
   task: Task;
@@ -26,8 +27,9 @@ export default function TaskTags({ task }: TaskTagsProps) {
         parentIdType="taskId"
         parentId={task.id}
       >
-        <button className="rounded-md bg-gray-50 px-12px py-6px text-14px text-gray-600 duration-200 hover:bg-gray-100">
-          태그 추가
+        <button className="flex-center gap-4px rounded-md bg-gray-50 px-8px py-4px text-14px text-gray-600 duration-200 hover:bg-gray-100">
+          <AiOutlinePlus className="text-12px" />
+          <span>태그 추가</span>
         </button>
       </CreateUpdateTagForm>
     </div>

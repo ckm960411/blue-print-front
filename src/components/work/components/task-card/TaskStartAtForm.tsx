@@ -1,12 +1,11 @@
+import TaskCalendarModal from "@/components/work/components/task-card/TaskCalendarModal";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { updateTask } from "@/utils/services/task";
 import { DateTime } from "@/utils/types";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/modal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { Calendar } from "primereact/calendar";
 import { Toast } from "primereact/toast";
 import { useRef } from "react";
 
@@ -58,37 +57,12 @@ export default function TaskStartAtForm({
             : "클릭하여 설정해주세요"}
         </button>
 
-        <Modal
-          isCentered
-          onClose={onClose}
+        <TaskCalendarModal
           isOpen={isOpen}
-          motionPreset="slideInBottom"
-        >
-          <ModalOverlay />
-          <ModalContent>
-            <div id="task-calendar" className="px-16px">
-              <Calendar
-                value={startAt ? new Date(startAt) : undefined}
-                onChange={({ value }) => {
-                  if (value) {
-                    updateStartAt(value);
-                  }
-                  onClose();
-                }}
-                inline
-                showWeek
-              />
-            </div>
-            <div className="px-16px pb-16px text-right">
-              <button
-                onClick={onClose}
-                className="rounded-md px-12px py-8px text-16px font-medium text-gray-800 hover:bg-gray-50"
-              >
-                닫기
-              </button>
-            </div>
-          </ModalContent>
-        </Modal>
+          date={startAt}
+          onClose={onClose}
+          onUpdate={updateStartAt}
+        />
       </div>
     </>
   );

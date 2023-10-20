@@ -60,7 +60,7 @@ export default function TaskContainer({}: TaskContainerProps) {
           ))}
         </div>
         <div className="flex flex-col gap-16px">
-          {tasks?.map((task) => <TaskCard key={task.id} />)}
+          {tasks?.map((task) => <TaskCard key={task.id} task={task} />)}
         </div>
       </div>
     </>

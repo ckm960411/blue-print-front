@@ -6,8 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
 
-interface DrawerTodoContainerProps {}
-export default function DrawerTodoContainer({}: DrawerTodoContainerProps) {
+interface TaskContainerProps {}
+export default function TaskContainer({}: TaskContainerProps) {
   const toast = useRef<Toast>(null);
   const [progress, setProgress] = useState<Progress>(Progress.ToDo);
 

@@ -1,8 +1,7 @@
 "use client";
 
-import DrawerTodoContainer from "@/components/work/project-plan/sidetab/task/DrawerTodoContainer";
-import TaskCard from "@/components/work/project-plan/sidetab/task/TaskCard";
 import TaskListTabHeader from "@/components/work/project-plan/TaskListTabHeader";
+import TaskContainer from "@/components/work/TaskContainer";
 import { TabPanel } from "@chakra-ui/tabs";
 import React from "react";
 
@@ -17,12 +16,12 @@ export default function TaskListTab({}: TaskListTabProps) {
           긴급한 태스크
         </p>
         <div className="flex flex-col gap-16px">
-          <TaskCard />
-          <TaskCard />
+          {/*<TaskCard />*/}
+          {/*<TaskCard />*/}
         </div>
       </div>
 
-      <DrawerTodoContainer />
+      <TaskContainer />
     </TabPanel>
   );
 }

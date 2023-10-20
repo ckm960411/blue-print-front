@@ -1,4 +1,5 @@
 import CreateUpdateTagForm from "@/components/work/components/task-card/CreateUpdateTagForm";
+import { Colors } from "@/utils/common/color";
 import { Task } from "@/utils/types/task";
 import React from "react";
 
@@ -8,12 +9,18 @@ interface TaskTagsProps {
 export default function TaskTags({ task }: TaskTagsProps) {
   return (
     <div className="flex flex-wrap items-center gap-8px">
-      {/*<div className="rounded-xl bg-orange-50 px-12px py-6px text-14px font-semibold text-orange-600">*/}
-      {/*  Planning*/}
-      {/*</div>*/}
-      {/*<div className="rounded-xl bg-blue-50 px-12px py-6px text-14px font-semibold text-blue-600">*/}
-      {/*  개발중*/}
-      {/*</div>*/}
+      {task.tags.map((tag) => (
+        <div
+          key={tag.id}
+          className="rounded-xl bg-orange-50 px-12px py-6px text-14px font-semibold text-orange-600"
+          style={{
+            backgroundColor: Colors[tag.color][50],
+            color: Colors[tag.color][600],
+          }}
+        >
+          {tag.name}
+        </div>
+      ))}
       <CreateUpdateTagForm
         type="create"
         parentIdType="taskId"

@@ -1,4 +1,5 @@
 import { DateTime, Link, Priority, Progress } from "@/utils/types";
+import { Tag } from "@/utils/types/tag.index";
 
 export interface Task {
   id: number;
@@ -13,7 +14,8 @@ export interface Task {
   priority: Priority;
   isBookmarked: boolean;
   progress: Progress;
-  links: Link[] | null;
+  links: Link[];
+  tags: Tag[];
   projectId: number | null;
   milestoneId: number | null;
 }

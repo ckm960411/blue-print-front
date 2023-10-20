@@ -14,7 +14,7 @@ export default function TaskTags({ task }: TaskTagsProps) {
       {/*<div className="rounded-xl bg-blue-50 px-12px py-6px text-14px font-semibold text-blue-600">*/}
       {/*  개발중*/}
       {/*</div>*/}
-      <CreateUpdateTagForm>
+      <CreateUpdateTagForm type="create">
         <button className="rounded-md bg-gray-50 px-12px py-6px text-14px text-gray-600 duration-200 hover:bg-gray-100">
           태그 추가
         </button>

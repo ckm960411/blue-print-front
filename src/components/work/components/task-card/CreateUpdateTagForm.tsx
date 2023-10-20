@@ -5,10 +5,12 @@ import React, { useState } from "react";
 interface CreateUpdateTagFormProps {
   children: React.ReactNode;
   chidlrenWrapperClassName?: HTMLDivElement["className"];
+  type: "create" | "update";
 }
 export default function CreateUpdateTagForm({
   children,
   chidlrenWrapperClassName,
+  type,
 }: CreateUpdateTagFormProps) {
   const [editing, setEditing] = useState(false);
   const [tagName, setTagName] = useState("");
@@ -52,6 +54,11 @@ export default function CreateUpdateTagForm({
           </div>
         </div>
         <div className="flex items-center justify-end gap-8px">
+          {type === "update" && (
+            <button className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50">
+              삭제
+            </button>
+          )}
           <button
             onClick={handleClose}
             className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50"

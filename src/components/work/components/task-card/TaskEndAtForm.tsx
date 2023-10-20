@@ -34,7 +34,7 @@ export default function TaskEndAtForm({
         toast.current?.show({
           severity: "error",
           summary: "문제 발생",
-          detail: "시작일 수정 중 문제가 발생했습니다.",
+          detail: "종료일 수정 중 문제가 발생했습니다.",
         });
       },
     },
@@ -45,7 +45,7 @@ export default function TaskEndAtForm({
       <Toast ref={toast} />
       <div className="flex h-14px items-center gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
-          시작일
+          종료일
         </p>
         <button
           onClick={onOpen}

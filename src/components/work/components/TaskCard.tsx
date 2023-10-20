@@ -1,5 +1,6 @@
 import IconButton from "@/components/components/IconButton";
 import TaskBookmarkButton from "@/components/work/components/task-card/TaskBookmarkButton";
+import TaskEndAtForm from "@/components/work/components/task-card/TaskEndAtForm";
 import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm";
 import TaskStartAtForm from "@/components/work/components/task-card/TaskStartAtForm";
 import MilestoneEndDate from "@/components/work/project-plan/MilestoneEndDate";
@@ -80,11 +81,7 @@ export default function TaskCard({ task }: TaskCardProps) {
           <AccordionPanel className="px-0">
             <div className="flex flex-col gap-16px border-t border-gray-200 pt-16px">
               <TaskStartAtForm taskId={task.id} startAt={task.startAt} />
-              <MilestoneEndDate
-                startDate={startDate}
-                endDate={endDate}
-                onChange={handleChangeDate("endDate")}
-              />
+              <TaskEndAtForm taskId={task.id} endAt={task.endAt} />
               <MilestonePriority />
               <MilestoneTags />
               <TaskLinksForm taskId={task.id} links={task.links} />

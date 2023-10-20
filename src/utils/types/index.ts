@@ -8,3 +8,9 @@ export enum Progress {
   Review = "Review",
   Completed = "Completed",
 }
+
+export interface Link {
+  name: string;
+  href: string;
+  taskId: number | null;
+}

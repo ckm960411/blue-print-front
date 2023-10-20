@@ -1,4 +1,4 @@
-import { DateTime, Priority, Progress } from "@/utils/types";
+import { DateTime, Link, Priority, Progress } from "@/utils/types";
 
 export interface Task {
   id: number;
@@ -13,6 +13,7 @@ export interface Task {
   priority: Priority;
   isBookmarked: boolean;
   progress: Progress;
+  links: Link[] | null;
   projectId: number | null;
   milestoneId: number | null;
 }

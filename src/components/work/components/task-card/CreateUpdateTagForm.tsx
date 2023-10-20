@@ -1,23 +1,55 @@
-import { Colors } from "@/utils/common/color";
+import { ColorKey, Colors } from "@/utils/common/color";
+import { createTag } from "@/utils/services/tag";
+import { CreateTagReqDto } from "@/utils/services/tag/dto/create-tag.req.dto";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 
 interface CreateUpdateTagFormProps {
   children: React.ReactNode;
   chidlrenWrapperClassName?: HTMLDivElement["className"];
   type: "create" | "update";
+  parentIdType: "taskId" | "milestoneId";
+  parentId: number;
 }
 export default function CreateUpdateTagForm({
   children,
   chidlrenWrapperClassName,
   type,
+  parentIdType,
+  parentId,
 }: CreateUpdateTagFormProps) {
   const [editing, setEditing] = useState(false);
   const [tagName, setTagName] = useState("");
-  const [tagColor, setTagColor] = useState<string>(Colors.slate[50]);
+  const [tagColor, setTagColor] = useState<ColorKey>("slate");
 
   const handleEdit = () => setEditing(true);
   const handleClose = () => setEditing(false);
+
+  const { mutate: createTagRequest } = useMutation(
+    ["create-tag"],
+    (data: CreateTagReqDto) => createTag(data),
+    {
+      onSuccess: console.log,
+      onError: console.error,
+    },
+  );
+
+  const handleConfirm = () => {
+    if (!tagName.trim()) return;
+
+    if (type === "create") {
+      createTagRequest({
+        [parentIdType]: parentId,
+        name: tagName,
+        color: tagColor,
+      });
+    } else {
+      //   update
+    }
+
+    handleClose();
+  };
 
   return (
     <Popover isOpen={editing} onClose={handleClose} placement="bottom-start">
@@ -39,15 +71,17 @@ export default function CreateUpdateTagForm({
         <div className="flex items-start gap-12px">
           <span className="flex-shrink-0">색상: </span>
           <div className="flex flex-wrap items-center gap-8px">
-            {Object.values(Colors).map((colors, i) => (
+            {(Object.keys(Colors) as ColorKey[]).map((colorKey, i) => (
               <button
                 key={i}
-                onClick={() => setTagColor(colors[50])}
+                onClick={() => setTagColor(colorKey)}
                 className="h-20px w-20px flex-shrink-0 rounded-full border"
                 style={{
-                  backgroundColor: colors[50],
+                  backgroundColor: Colors[colorKey][50],
                   borderColor:
-                    tagColor === colors[50] ? colors[500] : Colors.gray[200],
+                    tagColor === colorKey
+                      ? Colors[colorKey][500]
+                      : Colors.gray[200],
                 }}
               />
             ))}
@@ -66,7 +100,7 @@ export default function CreateUpdateTagForm({
             취소
           </button>
           <button
-            // onClick={handleConfirm}
+            onClick={handleConfirm}
             className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50"
           >
             확인

@@ -27,7 +27,7 @@ export default function TaskCard({ task }: TaskCardProps) {
     <div className="relative flex flex-col gap-8px bg-white p-16px shadow-md duration-200 hover:shadow-lg">
       <TaskBookmarkButton taskId={task.id} isBookmarked={task.isBookmarked} />
 
-      <TaskTags />
+      <TaskTags task={task} />
 
       <div className="flex-between gap-12px">
         <div className="truncate-1-lines text-16px font-bold">{task.title}</div>

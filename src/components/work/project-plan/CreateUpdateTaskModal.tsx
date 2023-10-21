@@ -66,6 +66,14 @@ export default function CreateUpdateTaskModal({
     },
   );
 
+  const handleConfirm = () => {
+    if (type === "create") {
+      createTaskRequest();
+    } else {
+      // update
+    }
+  };
+
   return (
     <>
       <Toast ref={toast} />
@@ -109,10 +117,10 @@ export default function CreateUpdateTaskModal({
                 취소
               </button>
               <button
-                onClick={() => createTaskRequest()}
+                onClick={handleConfirm}
                 className="rounded-md bg-blue-500 px-12px py-10px text-14px font-semibold text-white duration-200 hover:bg-main"
               >
-                생성
+                {type === "create" ? "생성" : "수정"}
               </button>
             </div>
           </ModalFooter>

@@ -13,6 +13,7 @@ import { differenceInDays, startOfToday } from "date-fns";
 import { isNil } from "lodash";
 import React from "react";
 import { HiLink } from "react-icons/hi";
+import { TbLayoutNavbarExpand } from "react-icons/tb";
 
 interface TaskCardDetailAccordionProps {
   task: Task;
@@ -35,7 +36,7 @@ export default function TaskCardDetailAccordion({
             <TaskLinksForm task={task} />
           </div>
         </AccordionPanel>
-        <AccordionButton className="p-0 hover:bg-transparent">
+        <AccordionButton className="h-24px p-0 hover:bg-transparent">
           <div className="flex-between w-full">
             <div className="flex items-center gap-8px">
               {task.priority === 5 && (
@@ -55,19 +56,22 @@ export default function TaskCardDetailAccordion({
                 </button>
               )}
             </div>
-            {isNil(leftDays) || (
-              <p
-                className={`text-12px ${
-                  leftDays <= 2 ? "font-bold text-red-500" : "text-gray-600"
-                }`}
-              >
-                {leftDays > 0
-                  ? `${leftDays}일 남음`
-                  : leftDays < 0
-                  ? `${-leftDays}일 지남`
-                  : "오늘"}
-              </p>
-            )}
+            <div className="flex items-center gap-16px">
+              {isNil(leftDays) || (
+                <p
+                  className={`text-12px ${
+                    leftDays <= 2 ? "font-bold text-red-500" : "text-gray-600"
+                  }`}
+                >
+                  {leftDays > 0
+                    ? `${leftDays}일 남음`
+                    : leftDays < 0
+                    ? `${-leftDays}일 지남`
+                    : "오늘"}
+                </p>
+              )}
+              <TbLayoutNavbarExpand className="text-20px" />
+            </div>
           </div>
         </AccordionButton>
       </AccordionItem>

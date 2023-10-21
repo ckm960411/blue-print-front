@@ -1,5 +1,6 @@
 "use client";
 
+import { Milestone } from "@/utils/types/milestone";
 import React, { useState } from "react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import MilestoneCardButtons from "@/components/work/project-plan/MilestoneCardButtons";
@@ -8,9 +9,11 @@ import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSu
 import MilestoneDrawer from "@/components/work/project-plan/sidetab/MilestoneDrawer";
 
 interface ProjectMilestoneCardProps {
+  milestone: Milestone;
   openContent?: boolean;
 }
 export default function MilestoneCard({
+  milestone,
   openContent = false,
 }: ProjectMilestoneCardProps) {
   const [startDate, setStartDate] = useState<Date>();
@@ -33,21 +36,27 @@ export default function MilestoneCard({
   return (
     <div className="relative flex flex-col gap-24px rounded-10px border border-gray-200 px-16px py-20px">
       <MilestoneCardButtons
+        milestone={milestone}
         toggleOpened={toggleOpened}
         onToggleOpen={handleToggleOpen}
         onDrawerOpen={openDrawer}
       />
 
-      <MilestoneCardHeader toggleOpened={toggleOpened} />
+      <MilestoneCardHeader milestone={milestone} toggleOpened={toggleOpened} />
       {toggleOpened && (
         <MilestoneCardSummary
+          milestone={milestone}
           startDate={startDate}
           endDate={endDate}
           onChangeDate={handleChangeDate}
         />
       )}
 
-      <MilestoneDrawer isOpen={drawerOpened} onClose={closeDrawer} />
+      <MilestoneDrawer
+        milestone={milestone}
+        isOpen={drawerOpened}
+        onClose={closeDrawer}
+      />
     </div>
   );
 }

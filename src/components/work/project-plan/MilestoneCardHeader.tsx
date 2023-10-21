@@ -1,12 +1,17 @@
 import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilestoneEmoji";
+import { Milestone } from "@/utils/types/milestone";
 import React from "react";
 
 interface MilestoneCardHeaderProps {
+  milestone: Milestone;
   toggleOpened?: boolean;
 }
 export default function MilestoneCardHeader({
+  milestone,
   toggleOpened = true,
 }: MilestoneCardHeaderProps) {
+  const { title, priority } = milestone;
+
   return (
     <div
       className={`flex duration-200 ${
@@ -22,11 +27,13 @@ export default function MilestoneCardHeader({
             toggleOpened ? "text-22px" : "text-16px"
           }`}
         >
-          마일스톤 이름
+          {title}
         </p>
-        <div className="rounded-full border border-red-500 px-8px py-4px text-12px text-red-500">
-          긴급
-        </div>
+        {priority === 5 && (
+          <div className="rounded-full border border-red-500 px-8px py-4px text-12px text-red-500">
+            긴급
+          </div>
+        )}
       </div>
     </div>
   );

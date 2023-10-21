@@ -6,12 +6,15 @@ import { useMediaQuery } from "react-responsive";
 import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSummary";
 import MilestoneDrawerTabs from "@/components/work/project-plan/sidetab/MilestoneDrawerTabs";
 import SpaceY from "@/components/common/SpaceY";
+import { Milestone } from "@/utils/types/milestone";
 
 interface MilestoneDrawerProps {
+  milestone: Milestone;
   isOpen: boolean;
   onClose: () => void;
 }
 export default function MilestoneDrawer({
+  milestone,
   isOpen,
   onClose,
 }: MilestoneDrawerProps) {
@@ -35,8 +38,9 @@ export default function MilestoneDrawer({
         <MilestoneDrawerButtonGroup onClose={onClose} />
         <div className="grow overflow-y-scroll">
           <div className="flex flex-col gap-24px p-16px">
-            <MilestoneCardHeader />
+            <MilestoneCardHeader milestone={milestone} />
             <MilestoneCardSummary
+              milestone={milestone}
               startDate={startDate}
               endDate={endDate}
               onChangeDate={handleChangeDate}

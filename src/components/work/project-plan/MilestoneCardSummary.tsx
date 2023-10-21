@@ -7,13 +7,16 @@ import MilestonePriority from "@/components/work/project-plan/MilestonePriority"
 import MilestoneProgress from "@/components/work/project-plan/MilestoneProgress";
 import MilestoneTags from "@/components/work/project-plan/MilestoneTags";
 import MilestoneLinks from "@/components/work/project-plan/MilestoneLinks";
+import { Milestone } from "@/utils/types/milestone";
 
 interface MilestoneCardSummaryProps {
+  milestone: Milestone;
   startDate: Date | undefined;
   endDate: Date | undefined;
   onChangeDate: (type: "startDate" | "endDate") => (date: Date) => void;
 }
 export default function MilestoneCardSummary({
+  milestone,
   startDate,
   endDate,
   onChangeDate,

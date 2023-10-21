@@ -1,3 +1,4 @@
+import { Milestone } from "@/utils/types/milestone";
 import React from "react";
 import IconButton from "@/components/components/IconButton";
 import { FiChevronDown } from "react-icons/fi";
@@ -7,11 +8,13 @@ import MilestoenSideTabButton from "@/components/work/project-plan/tooltip-butto
 import MilestoenBookmarkButton from "@/components/work/project-plan/tooltip-button/MilestoenBookmarkButton";
 
 interface MilestoneCardButtonsProps {
+  milestone: Milestone;
   toggleOpened: boolean;
   onToggleOpen: () => void;
   onDrawerOpen: () => void;
 }
 export default function MilestoneCardButtons({
+  milestone,
   toggleOpened,
   onToggleOpen,
   onDrawerOpen,
@@ -21,7 +24,7 @@ export default function MilestoneCardButtons({
       <MilestoneFullPageButton />
       <MilestoenSideTabButton onClick={onDrawerOpen} />
       <MilestoneTrashButton />
-      <MilestoenBookmarkButton />
+      <MilestoenBookmarkButton milestone={milestone} />
       <IconButton onClick={onToggleOpen}>
         <FiChevronDown
           className={`duration-200 ${toggleOpened ? "rotate-180" : "rotate-0"}`}

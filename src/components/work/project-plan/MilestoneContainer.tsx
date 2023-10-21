@@ -17,7 +17,11 @@ export default function MilestoneContainer({}: MilestoneContainerProps) {
   return (
     <div className="flex flex-col gap-16px">
       {milestones.map((milestone, i) => (
-        <MilestoneCard key={milestone.id} openContent={i === 0} />
+        <MilestoneCard
+          key={milestone.id}
+          milestone={milestone}
+          openContent={i === 0}
+        />
       ))}
     </div>
   );

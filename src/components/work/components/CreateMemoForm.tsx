@@ -7,9 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
-const MilestoneMemoEditor = dynamic(
-  () => import("../project-plan/sidetab/MilestoneMemoEditor"),
-);
+const PlainEditor = dynamic(() => import("../components/PlainEditor"));
 
 interface CreateMemoFormProps {
   onClose?: () => void;
@@ -85,7 +83,7 @@ export default function CreateMemoForm({
           );
         })}
       </div>
-      <MilestoneMemoEditor
+      <PlainEditor
         onChange={handleChangeMemo}
         hideModeSwitch={hideModeSwitch}
       />

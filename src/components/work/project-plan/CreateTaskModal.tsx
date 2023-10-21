@@ -16,9 +16,7 @@ import dynamic from "next/dynamic";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
 
-const MilestoneMemoEditor = dynamic(
-  () => import("../project-plan/sidetab/MilestoneMemoEditor"),
-);
+const PlainEditor = dynamic(() => import("../components/PlainEditor"));
 
 interface CreateTaskModalProps {
   isOpen: boolean;
@@ -96,7 +94,7 @@ export default function CreateTaskModal({
               placeholder="할일의 간단한 설명을 입력하세요"
               className="w-full rounded-md border border-gray-200 px-16px py-12px text-16px focus:bg-blue-50"
             />
-            <MilestoneMemoEditor
+            <PlainEditor
               type={type}
               content={content}
               onChange={(v) => setContent(v)}

@@ -1,24 +1,24 @@
 "use client";
 
-import React, { useRef } from "react";
 import { Editor } from "@toast-ui/react-editor";
+import React, { useRef } from "react";
 
-interface MilestoneMemoEditorProps {
+interface PlainEditorProps {
   type?: "create" | "update";
   content?: string;
   onChange: (value: string) => void;
   hideModeSwitch?: boolean;
 }
-export default function MilestoneMemoEditor({
+export default function PlainEditor({
   type = "create",
   content,
   onChange,
   hideModeSwitch = true,
-}: MilestoneMemoEditorProps) {
+}: PlainEditorProps) {
   const editor = useRef<any>();
 
   return (
-    <div id="milestone-memo-editor">
+    <div id="plain-editor">
       <Editor
         ref={editor}
         height="160px"

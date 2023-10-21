@@ -1,6 +1,4 @@
-import { QueryKeys } from "@/utils/common/query-keys";
-import { updateTask } from "@/utils/services/task";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
 import { Toast } from "primereact/toast";
 import React, { useRef } from "react";
 import { BsFillBookmarkFill } from "react-icons/bs";
@@ -14,30 +12,22 @@ export default function TaskBookmarkButton({
   isBookmarked,
 }: TaskBookmarkButtonProps) {
   const toast = useRef<Toast>(null);
-  const queryClient = useQueryClient();
 
-  const { mutate: bookmarkRequest } = useMutation(
-    ["update-task"],
-    () => updateTask(taskId, { isBookmarked: !isBookmarked }),
-    {
-      onSuccess: (res) => {
-        queryClient.invalidateQueries(QueryKeys.getAllTasks());
-      },
-      onError: () => {
-        toast.current?.show({
-          severity: "error",
-          summary: "문제 발생",
-          detail: "북마크 중 문제가 발생했습니다.",
-        });
-      },
+  const { mutate: updateTaskRequest } = useUpdateTaskMutation(taskId, {
+    onError: () => {
+      toast.current?.show({
+        severity: "error",
+        summary: "문제 발생",
+        detail: "북마크 중 문제가 발생했습니다.",
+      });
     },
-  );
+  });
 
   return (
     <>
       <Toast ref={toast} />
       <button
-        onClick={() => bookmarkRequest()}
+        onClick={() => updateTaskRequest({ isBookmarked: !isBookmarked })}
         className="absolute right-8px top-0 px-8px pb-8px"
       >
         <BsFillBookmarkFill

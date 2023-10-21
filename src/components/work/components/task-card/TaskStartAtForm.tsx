@@ -1,10 +1,8 @@
 import CalendarModal from "@/components/work/components/CalendarModal";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
-import { QueryKeys } from "@/utils/common/query-keys";
-import { updateTask } from "@/utils/services/task";
+import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
 import { Task } from "@/utils/types/task";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Toast } from "primereact/toast";
 import { useRef } from "react";
@@ -15,25 +13,17 @@ interface TaskStartAtFormProps {
 export default function TaskStartAtForm({ task }: TaskStartAtFormProps) {
   const { id, startAt, endAt } = task;
   const toast = useRef<Toast>(null);
-  const queryClient = useQueryClient();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { mutate: updateStartAt } = useMutation(
-    ["update-task"],
-    (startAt: Date) => updateTask(id, { startAt }),
-    {
-      onSuccess: (res) => {
-        queryClient.invalidateQueries(QueryKeys.getAllTasks());
-      },
-      onError: () => {
-        toast.current?.show({
-          severity: "error",
-          summary: "문제 발생",
-          detail: "시작일 수정 중 문제가 발생했습니다.",
-        });
-      },
+  const { mutate: updateTaskRequest } = useUpdateTaskMutation(id, {
+    onError: () => {
+      toast.current?.show({
+        severity: "error",
+        summary: "문제 발생",
+        detail: "시작일 수정 중 문제가 발생했습니다.",
+      });
     },
-  );
+  });
 
   return (
     <>
@@ -58,7 +48,7 @@ export default function TaskStartAtForm({ task }: TaskStartAtFormProps) {
           isOpen={isOpen}
           date={startAt}
           onClose={onClose}
-          onUpdate={updateStartAt}
+          onUpdate={(startAt) => updateTaskRequest({ startAt })}
           maxDate={endAt}
         />
       </div>

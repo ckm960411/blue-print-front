@@ -1,10 +1,8 @@
 import Unicode from "@/components/components/Unicode";
-import { QueryKeys } from "@/utils/common/query-keys";
-import { updateTask } from "@/utils/services/task";
+import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
 import { Priority } from "@/utils/types";
 import { Task } from "@/utils/types/task";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
 
@@ -14,7 +12,6 @@ interface TaskPriorityFormProps {
 export default function TaskPriorityForm({ task }: TaskPriorityFormProps) {
   const { id, priority } = task;
   const toast = useRef<Toast>(null);
-  const queryClient = useQueryClient();
 
   const [editing, setEditing] = useState(false);
 
@@ -23,24 +20,17 @@ export default function TaskPriorityForm({ task }: TaskPriorityFormProps) {
   const handleOpen = () => setEditing(true);
   const handleClose = () => setEditing(false);
 
-  const { mutate: updatePriority } = useMutation(
-    ["update-priority"],
-    (priority: Priority) => updateTask(id, { priority }),
-    {
-      onSuccess: (res) => {
-        queryClient.invalidateQueries(QueryKeys.getAllTasks());
-        handleClose();
-      },
-      onError: () => {
-        toast.current?.show({
-          severity: "error",
-          summary: "문제 발생",
-          detail: "우선순위 수정 중 문제가 발생했습니다.",
-        });
-        handleClose();
-      },
+  const { mutate: updateTaskRequest } = useUpdateTaskMutation(id, {
+    onSuccess: handleClose,
+    onError: () => {
+      toast.current?.show({
+        severity: "error",
+        summary: "문제 발생",
+        detail: "우선순위 수정 중 문제가 발생했습니다.",
+      });
+      handleClose();
     },
-  );
+  });
 
   return (
     <>
@@ -64,7 +54,7 @@ export default function TaskPriorityForm({ task }: TaskPriorityFormProps) {
               {PRIORITIES.map((priority) => (
                 <PriorityButton
                   key={priority}
-                  onClick={() => updatePriority(priority)}
+                  onClick={() => updateTaskRequest({ priority })}
                   priority={priority}
                 />
               ))}

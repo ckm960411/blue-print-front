@@ -1,4 +1,4 @@
-import { Priority } from "@/utils/types";
+import { Priority, Progress } from "@/utils/types";
 
 export interface UpdateTaskReqDto {
   title?: string;
@@ -6,6 +6,7 @@ export interface UpdateTaskReqDto {
   content?: string;
   startAt?: Date;
   endAt?: Date;
+  progress?: Progress;
   priority?: Priority;
   isBookmarked?: boolean;
 }

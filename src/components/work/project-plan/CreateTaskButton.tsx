@@ -1,5 +1,5 @@
 import React from "react";
-import CreateTaskModal from "@/components/work/project-plan/CreateTaskModal";
+import CreateUpdateTaskModal from "@/components/work/project-plan/CreateUpdateTaskModal";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { AiOutlinePlus } from "react-icons/ai";
 
@@ -17,7 +17,7 @@ export default function CreateTaskButton({}: CreateTaskButtonProps) {
         추가하기
       </button>
 
-      <CreateTaskModal isOpen={isOpen} onClose={onClose} />
+      <CreateUpdateTaskModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 }

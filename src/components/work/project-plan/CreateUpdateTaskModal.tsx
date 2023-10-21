@@ -18,18 +18,18 @@ import React, { useRef, useState } from "react";
 
 const PlainEditor = dynamic(() => import("../components/PlainEditor"));
 
-interface CreateTaskModalProps {
+interface CreateUpdateTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
   task?: Task;
   type?: "create" | "update";
 }
-export default function CreateTaskModal({
+export default function CreateUpdateTaskModal({
   isOpen,
   onClose,
   task,
   type = "create",
-}: CreateTaskModalProps) {
+}: CreateUpdateTaskModalProps) {
   const toast = useRef<Toast>(null);
   const queryClient = useQueryClient();
 

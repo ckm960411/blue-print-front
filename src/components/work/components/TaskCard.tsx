@@ -5,7 +5,7 @@ import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm"
 import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorityForm";
 import TaskStartAtForm from "@/components/work/components/task-card/TaskStartAtForm";
 import TaskTags from "@/components/work/components/task-card/TaskTags";
-import CreateTaskModal from "@/components/work/project-plan/CreateTaskModal";
+import CreateUpdateTaskModal from "@/components/work/project-plan/CreateUpdateTaskModal";
 import { Task } from "@/utils/types/task";
 import { useDisclosure } from "@chakra-ui/hooks";
 import {
@@ -32,7 +32,7 @@ export default function TaskCard({ task }: TaskCardProps) {
 
   return (
     <>
-      <CreateTaskModal
+      <CreateUpdateTaskModal
         task={task}
         isOpen={isOpen}
         onClose={onClose}

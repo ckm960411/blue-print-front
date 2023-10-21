@@ -1,4 +1,5 @@
 import { DateTime, Link, Priority, Progress } from "@/utils/types";
+import { Memo } from "@/utils/types/memo";
 import { Tag } from "@/utils/types/tag.index";
 import { Task } from "@/utils/types/task";
 
@@ -19,5 +20,6 @@ export interface Milestone {
   tags: Tag[];
   links: Link[];
   tasks: Task[];
+  memos: Memo[];
   projectId?: number;
 }

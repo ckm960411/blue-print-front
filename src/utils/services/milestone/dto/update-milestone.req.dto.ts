@@ -7,7 +7,7 @@ export interface UpdateMilestoneReqDto {
   unicode?: string;
   classification?: string;
   priority?: 1 | 2 | 3 | 4 | 5;
-  progress: Progress;
+  progress?: Progress;
   isClosed?: boolean;
   isBookmarked?: boolean;
 }

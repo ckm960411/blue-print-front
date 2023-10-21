@@ -9,7 +9,7 @@ interface TaskTagsProps {
 }
 export default function TaskTags({ task }: TaskTagsProps) {
   return (
-    <div className="flex flex-wrap items-center gap-8px">
+    <div className="flex flex-wrap items-center gap-8px pr-24px">
       {task.tags.map((tag) => (
         <CreateUpdateTagForm
           key={tag.id}

@@ -1,5 +1,6 @@
 import { QueryKeys } from "@/utils/common/query-keys";
-import { createTask } from "@/utils/services/task";
+import { createTask, updateTask } from "@/utils/services/task";
+import { UpdateTaskReqDto } from "@/utils/services/task/dto/update-task.req.dto";
 import { Task } from "@/utils/types/task";
 import {
   Modal,
@@ -37,33 +38,45 @@ export default function CreateUpdateTaskModal({
   const [description, setDescription] = useState(() => task?.description ?? "");
   const [content, setContent] = useState(() => task?.content ?? "");
 
+  const onSuccess = () => {
+    toast.current?.show({
+      severity: "success",
+      summary: "할일 작성 완료",
+      detail: "할일이 추가되었습니다.",
+    });
+    queryClient.invalidateQueries({ queryKey: QueryKeys.getAllTasks() });
+    onClose();
+    if (type === "create") {
+      setTitle("");
+      setDescription("");
+    }
+  };
+
+  const onError = (e?: any) => {
+    const error = e as AxiosError<{ message: string[] }>;
+    toast.current?.show({
+      severity: "error",
+      summary: "문제 발생",
+      detail:
+        error?.response?.data?.message?.join?.(". ") ??
+        `할일 ${
+          type === "create" ? "추가" : "수정"
+        } 중 문제가 발생했습니다. 다시 시도해주세요.`,
+    });
+    onClose();
+  };
+
   const { mutate: createTaskRequest } = useMutation(
     ["create-task"],
     () => createTask({ title, description, content }),
-    {
-      onSuccess: () => {
-        toast.current?.show({
-          severity: "success",
-          summary: "할일 작성 완료",
-          detail: "할일이 추가되었습니다.",
-        });
-        setTitle("");
-        setDescription("");
-        queryClient.invalidateQueries({ queryKey: QueryKeys.getAllTasks() });
-        onClose();
-      },
-      onError: (e) => {
-        const error = e as AxiosError<{ message: string[] }>;
-        toast.current?.show({
-          severity: "error",
-          summary: "문제 발생",
-          detail:
-            error?.response?.data?.message?.join?.(". ") ??
-            "할일 추가 중 문제가 발생했습니다. 다시 시도해주세요.",
-        });
-        onClose();
-      },
-    },
+    { onSuccess, onError },
+  );
+
+  const { mutate: updateTaskRequest } = useMutation(
+    ["update-task"],
+    (updateTaskReqDto: UpdateTaskReqDto) =>
+      updateTask(task!.id, updateTaskReqDto),
+    { onSuccess, onError },
   );
 
   const handleConfirm = () => {
@@ -71,6 +84,8 @@ export default function CreateUpdateTaskModal({
       createTaskRequest();
     } else {
       // update
+      if (!task) return onError();
+      updateTaskRequest({ title, description, content });
     }
   };
 
@@ -104,7 +119,7 @@ export default function CreateUpdateTaskModal({
             />
             <PlainEditor
               type={type}
-              content={content}
+              value={content}
               onChange={(v) => setContent(v)}
             />
           </ModalBody>

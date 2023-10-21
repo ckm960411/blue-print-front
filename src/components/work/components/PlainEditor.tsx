@@ -5,13 +5,13 @@ import React, { useRef } from "react";
 
 interface PlainEditorProps {
   type?: "create" | "update";
-  content?: string;
+  value?: string;
   onChange: (value: string) => void;
   hideModeSwitch?: boolean;
 }
 export default function PlainEditor({
   type = "create",
-  content,
+  value,
   onChange,
   hideModeSwitch = true,
 }: PlainEditorProps) {
@@ -23,7 +23,7 @@ export default function PlainEditor({
         ref={editor}
         height="160px"
         placeholder="메모를 입력하세요"
-        initialValue={type === "update" ? content : " "}
+        initialValue={type === "update" ? value || " " : " "}
         language="ko-kr"
         initialEditType="wysiwyg"
         useCommandShortcut={true}

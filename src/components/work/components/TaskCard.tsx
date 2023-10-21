@@ -10,6 +10,7 @@ interface TaskCardProps {
 }
 export default function TaskCard({ task }: TaskCardProps) {
   const [contentExpanded, setContentExpanded] = useState(false);
+  const [showExpandButton, setShowExpandButton] = useState(false);
 
   return (
     <div className="relative flex flex-col gap-8px bg-white p-16px shadow-md duration-200 hover:shadow-lg">
@@ -31,17 +32,24 @@ export default function TaskCard({ task }: TaskCardProps) {
       {task.content && (
         <div className="relative">
           <div
+            ref={(ref) =>
+              setShowExpandButton(
+                ref?.children?.length ? ref?.children?.length > 3 : false,
+              )
+            }
             className={`text-14px leading-[150%] text-gray-800 ${
               contentExpanded ? "" : "truncate-3-lines"
             }`}
             dangerouslySetInnerHTML={{ __html: task.content }}
           />
-          <button
-            onClick={() => setContentExpanded((prev) => !prev)}
-            className="absolute bottom-0 right-0 text-14px text-gray-800"
-          >
-            {contentExpanded ? "접기" : "펼치기"}
-          </button>
+          {showExpandButton && (
+            <button
+              onClick={() => setContentExpanded((prev) => !prev)}
+              className="absolute bottom-0 right-0 text-14px text-gray-800"
+            >
+              {contentExpanded ? "접기" : "펼치기"}
+            </button>
+          )}
         </div>
       )}
 

@@ -1,4 +1,4 @@
-import { get, patch, post } from "@/app/api/axios";
+import { deleteCall, get, patch, post } from "@/app/api/axios";
 import { CreateTaskReqDto } from "@/utils/services/task/dto/create-task.req.dto";
 import { UpdateTaskReqDto } from "@/utils/services/task/dto/update-task.req.dto";
 import { Progress } from "@/utils/types";
@@ -19,5 +19,10 @@ export const updateTask = async (
   updateTaskReqDto: UpdateTaskReqDto,
 ) => {
   const { data } = await patch(`task/${id}`, updateTaskReqDto);
+  return data;
+};
+
+export const deleteTask = async (id: number) => {
+  const { data } = await deleteCall(`task/${id}`);
   return data;
 };

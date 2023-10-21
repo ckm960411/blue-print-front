@@ -2,12 +2,15 @@ import MilestoneCloseSideTabButton from "@/components/work/project-plan/tooltip-
 import MilestoneFullPageButton from "@/components/work/project-plan/tooltip-button/MilestoneFullPageButton";
 import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
 import MilestoenBookmarkButton from "@/components/work/project-plan/tooltip-button/MilestoenBookmarkButton";
+import { Milestone } from "@/utils/types/milestone";
 import React from "react";
 
 interface MilestoneDrawerButtonGroupProps {
+  milestone: Milestone;
   onClose: () => void;
 }
 export default function MilestoneDrawerButtonGroup({
+  milestone,
   onClose,
 }: MilestoneDrawerButtonGroupProps) {
   return (
@@ -18,7 +21,7 @@ export default function MilestoneDrawerButtonGroup({
       </div>
       <div className="flex items-center gap-8px p-8px">
         <MilestoneEditButton />
-        <MilestoenBookmarkButton />
+        <MilestoenBookmarkButton milestone={milestone} />
       </div>
     </div>
   );

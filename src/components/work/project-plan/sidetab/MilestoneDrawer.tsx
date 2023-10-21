@@ -20,14 +20,6 @@ export default function MilestoneDrawer({
 }: MilestoneDrawerProps) {
   const UNDER_768PX = useMediaQuery({ query: "(max-width: 767px)" });
 
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
-
-  const handleChangeDate = (type: "startDate" | "endDate") => (date: Date) => {
-    if (type === "startDate") return setStartDate(date);
-    else return setEndDate(date);
-  };
-
   return (
     <Drawer
       onClose={onClose}
@@ -35,16 +27,11 @@ export default function MilestoneDrawer({
       size={UNDER_768PX ? "full" : "md"}
     >
       <DrawerContent className="flex flex-col">
-        <MilestoneDrawerButtonGroup onClose={onClose} />
+        <MilestoneDrawerButtonGroup milestone={milestone} onClose={onClose} />
         <div className="grow overflow-y-scroll">
           <div className="flex flex-col gap-24px p-16px">
             <MilestoneCardHeader milestone={milestone} />
-            <MilestoneCardSummary
-              milestone={milestone}
-              startDate={startDate}
-              endDate={endDate}
-              onChangeDate={handleChangeDate}
-            />
+            <MilestoneCardSummary milestone={milestone} />
           </div>
           <SpaceY height={16} />
           <MilestoneDrawerTabs />

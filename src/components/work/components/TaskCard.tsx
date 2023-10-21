@@ -15,7 +15,6 @@ import {
 import { differenceInDays, format, startOfToday } from "date-fns";
 import React, { useState } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { GoComment } from "react-icons/go";
 import { HiLink } from "react-icons/hi";
 
 interface TaskCardProps {
@@ -77,14 +76,22 @@ export default function TaskCard({ task }: TaskCardProps) {
           <AccordionButton className="p-0 hover:bg-transparent">
             <div className="flex-between w-full">
               <div className="mt-8px flex items-center gap-8px">
-                <button className="flex-center gap-4px text-14px text-gray-600">
-                  <GoComment />
-                  <span>n</span>
-                </button>
-                <button className="flex-center gap-4px text-14px text-gray-600">
-                  <HiLink />
-                  <span>n</span>
-                </button>
+                {task.priority === 5 && (
+                  <div className="rounded-full border border-red-500 px-8px py-4px text-14px font-bold text-red-500">
+                    매우 중요
+                  </div>
+                )}
+                {task.priority === 4 && (
+                  <div className="rounded-full border border-orange-500 px-8px py-4px text-14px font-bold text-orange-500">
+                    중요
+                  </div>
+                )}
+                {task.links.length > 0 && (
+                  <button className="flex-center gap-4px text-14px text-gray-600">
+                    <HiLink />
+                    <span>{task.links.length}</span>
+                  </button>
+                )}
               </div>
               {leftDays && (
                 <p

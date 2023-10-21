@@ -20,7 +20,7 @@ export default function MilestoneCardSummary({
       <MilestoneStartAtForm milestone={milestone} />
       <MilestoneEndAtForm milestone={milestone} />
       <MilestoneClassification />
-      <MilestonePriorityForm />
+      <MilestonePriorityForm milestone={milestone} />
       <MilestoneProgress />
       <MilestoneTags />
       <MilestoneLinks />

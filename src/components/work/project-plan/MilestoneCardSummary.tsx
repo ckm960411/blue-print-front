@@ -1,5 +1,6 @@
 "use client";
 
+import MilestoneStartAtForm from "@/components/work/project-plan/MilestoneStartAtForm";
 import MilestoneStartDate from "@/components/work/project-plan/MilestoneStartDate";
 import MilestoneEndDate from "@/components/work/project-plan/MilestoneEndDate";
 import MilestoneClassification from "@/components/work/project-plan/MilestoneClassification";
@@ -23,6 +24,7 @@ export default function MilestoneCardSummary({
 }: MilestoneCardSummaryProps) {
   return (
     <div className="flex flex-col gap-16px">
+      <MilestoneStartAtForm milestone={milestone} />
       <MilestoneStartDate
         startDate={startDate}
         endDate={endDate}

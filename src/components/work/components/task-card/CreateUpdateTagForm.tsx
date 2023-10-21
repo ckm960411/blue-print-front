@@ -1,6 +1,6 @@
 import { ColorKey, Colors } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
-import { createTag } from "@/utils/services/tag";
+import { createTag, updateTag } from "@/utils/services/tag";
 import { CreateTagReqDto } from "@/utils/services/tag/dto/create-tag.req.dto";
 import { Tag } from "@/utils/types/tag.index";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
@@ -45,6 +45,17 @@ export default function CreateUpdateTagForm({
     },
   );
 
+  const { mutate: updateTagRequest } = useMutation(
+    ["update-tag"],
+    (data: Partial<CreateTagReqDto>) => updateTag(tag!.id, data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+      },
+      onError: console.error,
+    },
+  );
+
   const handleConfirm = () => {
     if (!tagName.trim()) return;
 
@@ -55,7 +66,12 @@ export default function CreateUpdateTagForm({
         color: tagColor,
       });
     } else {
-      //   update
+      if (!tag) return;
+      updateTagRequest({
+        [parentIdType]: parentId,
+        name: tagName,
+        color: tagColor,
+      });
     }
 
     handleClose();
@@ -113,7 +129,7 @@ export default function CreateUpdateTagForm({
             onClick={handleConfirm}
             className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50"
           >
-            확인
+            {type === "create" ? "확인" : "수정"}
           </button>
         </div>
       </PopoverContent>

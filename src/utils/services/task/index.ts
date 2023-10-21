@@ -9,6 +9,11 @@ export const getAllTask = async (params?: { progress: Progress }) => {
   return data;
 };
 
+export const getAllUrgenttTasks = async () => {
+  const { data } = await get<Task[]>(`task/urgent`);
+  return data;
+};
+
 export const createTask = async (createTaskReqDto: CreateTaskReqDto) => {
   const { data } = await post(`task`, createTaskReqDto);
   return data;

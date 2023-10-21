@@ -1,6 +1,6 @@
 import { ColorKey, Colors } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
-import { createTag, updateTag } from "@/utils/services/tag";
+import { createTag, deleteTag, updateTag } from "@/utils/services/tag";
 import { CreateTagReqDto } from "@/utils/services/tag/dto/create-tag.req.dto";
 import { Tag } from "@/utils/types/tag.index";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
@@ -56,6 +56,17 @@ export default function CreateUpdateTagForm({
     },
   );
 
+  const { mutate: deleteTagRequest } = useMutation(
+    ["delete-tag"],
+    (id: number) => deleteTag(id),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+      },
+      onError: console.error,
+    },
+  );
+
   const handleConfirm = () => {
     if (!tagName.trim()) return;
 
@@ -75,6 +86,11 @@ export default function CreateUpdateTagForm({
     }
 
     handleClose();
+  };
+
+  const handleDelete = () => {
+    if (!tag) return;
+    deleteTagRequest(tag.id);
   };
 
   return (
@@ -115,7 +131,10 @@ export default function CreateUpdateTagForm({
         </div>
         <div className="flex items-center justify-end gap-8px">
           {type === "update" && (
-            <button className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50">
+            <button
+              onClick={handleDelete}
+              className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50"
+            >
               삭제
             </button>
           )}

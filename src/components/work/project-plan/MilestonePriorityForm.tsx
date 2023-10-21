@@ -2,8 +2,8 @@ import Unicode from "@/components/components/Unicode";
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 
-interface MilestonePriorityProps {}
-export default function MilestonePriority({}: MilestonePriorityProps) {
+interface MilestonePriorityFormProps {}
+export default function MilestonePriorityForm({}: MilestonePriorityFormProps) {
   const [priority, setPriority] = useState(3);
   const [editing, setEditing] = useState(false);
 

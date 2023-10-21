@@ -3,7 +3,7 @@
 import MilestoneEndAtForm from "@/components/work/project-plan/MilestoneEndAtForm";
 import MilestoneStartAtForm from "@/components/work/project-plan/MilestoneStartAtForm";
 import MilestoneClassification from "@/components/work/project-plan/MilestoneClassification";
-import MilestonePriority from "@/components/work/project-plan/MilestonePriority";
+import MilestonePriorityForm from "@/components/work/project-plan/MilestonePriorityForm";
 import MilestoneProgress from "@/components/work/project-plan/MilestoneProgress";
 import MilestoneTags from "@/components/work/project-plan/MilestoneTags";
 import MilestoneLinks from "@/components/work/project-plan/MilestoneLinks";
@@ -20,7 +20,7 @@ export default function MilestoneCardSummary({
       <MilestoneStartAtForm milestone={milestone} />
       <MilestoneEndAtForm milestone={milestone} />
       <MilestoneClassification />
-      <MilestonePriority />
+      <MilestonePriorityForm />
       <MilestoneProgress />
       <MilestoneTags />
       <MilestoneLinks />

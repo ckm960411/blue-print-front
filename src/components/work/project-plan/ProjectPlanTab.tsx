@@ -1,3 +1,4 @@
+import MilestoneContainer from "@/components/work/project-plan/MilestoneContainer";
 import React from "react";
 import { TabPanel } from "@chakra-ui/tabs";
 import ProjectPlanTabHeader from "@/components/work/project-plan/ProjectPlanTabHeader";
@@ -11,10 +12,7 @@ export default function ProjectPlanTab({}: ProjectPlanTabProps) {
 
       <hr className="my-16px" />
 
-      <div className="flex flex-col gap-16px">
-        <MilestoneCard openContent={true} />
-        <MilestoneCard openContent={false} />
-      </div>
+      <MilestoneContainer />
     </TabPanel>
   );
 }

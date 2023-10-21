@@ -2,7 +2,7 @@ import { DateTime } from "@/utils/types";
 import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/modal";
 import { Calendar } from "primereact/calendar";
 
-interface TaskCalendarModalProps {
+interface CalendarModalProps {
   isOpen: boolean;
   date: DateTime | null;
   onClose: () => void;
@@ -10,14 +10,14 @@ interface TaskCalendarModalProps {
   minDate?: DateTime | null;
   maxDate?: DateTime | null;
 }
-export default function TaskCalendarModal({
+export default function CalendarModal({
   isOpen,
   date,
   onUpdate,
   onClose,
   minDate,
   maxDate,
-}: TaskCalendarModalProps) {
+}: CalendarModalProps) {
   return (
     <Modal
       isCentered

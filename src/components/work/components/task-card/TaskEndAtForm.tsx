@@ -1,4 +1,4 @@
-import TaskCalendarModal from "@/components/work/components/task-card/TaskCalendarModal";
+import CalendarModal from "@/components/work/components/CalendarModal";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { updateTask } from "@/utils/services/task";
@@ -55,7 +55,7 @@ export default function TaskEndAtForm({ task }: TaskEndAtFormProps) {
             : "클릭하여 설정해주세요"}
         </button>
 
-        <TaskCalendarModal
+        <CalendarModal
           isOpen={isOpen}
           date={endAt}
           onClose={onClose}

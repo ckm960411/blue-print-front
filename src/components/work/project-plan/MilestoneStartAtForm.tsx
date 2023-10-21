@@ -1,11 +1,8 @@
 import CalendarModal from "@/components/work/components/CalendarModal";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
-import { QueryKeys } from "@/utils/common/query-keys";
-import { updateMilestone } from "@/utils/services/milestone";
-import { UpdateMilestoneReqDto } from "@/utils/services/milestone/dto/update-milestone.req.dto";
+import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
 import { Milestone } from "@/utils/types/milestone";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Toast } from "primereact/toast";
 import { useRef } from "react";
@@ -18,26 +15,17 @@ export default function MilestoneStartAtForm({
 }: MilestoneStartAtFormProps) {
   const { id, startAt, endAt } = milestone;
   const toast = useRef<Toast>(null);
-  const queryClient = useQueryClient();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { mutate: updateMilestoneRequest } = useMutation(
-    ["update-task"],
-    (updateMilestoneReqDto: UpdateMilestoneReqDto) =>
-      updateMilestone(id, updateMilestoneReqDto),
-    {
-      onSuccess: (res) => {
-        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
-      },
-      onError: () => {
-        toast.current?.show({
-          severity: "error",
-          summary: "문제 발생",
-          detail: "시작일 수정 중 문제가 발생했습니다.",
-        });
-      },
+  const { mutate: updateMilestoneRequest } = useUpdateMilestoneMutation(id, {
+    onError: () => {
+      toast.current?.show({
+        severity: "error",
+        summary: "문제 발생",
+        detail: "시작일 수정 중 문제가 발생했습니다.",
+      });
     },
-  );
+  });
 
   return (
     <>
@@ -58,13 +46,13 @@ export default function MilestoneStartAtForm({
             : "클릭하여 설정해주세요"}
         </button>
 
-        {/*<CalendarModal*/}
-        {/*  isOpen={isOpen}*/}
-        {/*  date={startAt}*/}
-        {/*  onClose={onClose}*/}
-        {/*  onUpdate={updateStartAt}*/}
-        {/*  maxDate={endAt}*/}
-        {/*/>*/}
+        <CalendarModal
+          isOpen={isOpen}
+          date={startAt}
+          onClose={onClose}
+          onUpdate={(startAt) => updateMilestoneRequest({ startAt })}
+          maxDate={endAt}
+        />
       </div>
     </>
   );

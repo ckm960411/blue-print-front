@@ -1,6 +1,7 @@
 import TaskEndAtForm from "@/components/work/components/task-card/TaskEndAtForm";
 import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm";
 import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorityForm";
+import TaskProgressForm from "@/components/work/components/task-card/TaskProgressForm";
 import TaskStartAtForm from "@/components/work/components/task-card/TaskStartAtForm";
 import { Task } from "@/utils/types/task";
 import {
@@ -30,6 +31,7 @@ export default function TaskCardDetailAccordion({
       <AccordionItem style={{ border: "unset" }}>
         <AccordionPanel className="px-0">
           <div className="flex flex-col gap-16px border-t border-gray-200 pt-16px">
+            <TaskProgressForm task={task} />
             <TaskStartAtForm task={task} />
             <TaskEndAtForm task={task} />
             <TaskPriorityForm task={task} />

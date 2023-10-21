@@ -8,8 +8,8 @@ export interface MilestoneLink {
   name: string;
   href: string;
 }
-interface MilestoneLinksProps {}
-export default function MilestoneLinks({}: MilestoneLinksProps) {
+interface MilestoneLinksFormProps {}
+export default function MilestoneLinksForm({}: MilestoneLinksFormProps) {
   const [links, setLinks] = useState<MilestoneLink[]>([]);
   const [editing, setEditing] = useState(false);
   const [tempLinkName, setTempLinkName] = useState("");

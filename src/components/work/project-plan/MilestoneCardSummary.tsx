@@ -6,7 +6,7 @@ import MilestoneClassification from "@/components/work/project-plan/MilestoneCla
 import MilestonePriorityForm from "@/components/work/project-plan/MilestonePriorityForm";
 import MilestoneProgress from "@/components/work/project-plan/MilestoneProgress";
 import MilestoneTags from "@/components/work/project-plan/MilestoneTags";
-import MilestoneLinks from "@/components/work/project-plan/MilestoneLinks";
+import MilestoneLinksForm from "@/components/work/project-plan/MilestoneLinksForm";
 import { Milestone } from "@/utils/types/milestone";
 
 interface MilestoneCardSummaryProps {
@@ -22,7 +22,7 @@ export default function MilestoneCardSummary({
       <MilestoneClassification />
       <MilestonePriorityForm milestone={milestone} />
       <MilestoneProgress />
-      <MilestoneLinks />
+      <MilestoneLinksForm />
       <MilestoneTags milestone={milestone} />
     </div>
   );

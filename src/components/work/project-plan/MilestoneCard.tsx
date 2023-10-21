@@ -16,8 +16,6 @@ export default function MilestoneCard({
   milestone,
   openContent = false,
 }: ProjectMilestoneCardProps) {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
   const [toggleOpened, setToggleOpened] = useState(() => openContent);
 
   const {
@@ -27,11 +25,6 @@ export default function MilestoneCard({
   } = useDisclosure();
 
   const handleToggleOpen = () => setToggleOpened((prev) => !prev);
-
-  const handleChangeDate = (type: "startDate" | "endDate") => (date: Date) => {
-    if (type === "startDate") return setStartDate(date);
-    else return setEndDate(date);
-  };
 
   return (
     <div className="relative flex flex-col gap-24px rounded-10px border border-gray-200 px-16px py-20px">
@@ -43,14 +36,7 @@ export default function MilestoneCard({
       />
 
       <MilestoneCardHeader milestone={milestone} toggleOpened={toggleOpened} />
-      {toggleOpened && (
-        <MilestoneCardSummary
-          milestone={milestone}
-          startDate={startDate}
-          endDate={endDate}
-          onChangeDate={handleChangeDate}
-        />
-      )}
+      {toggleOpened && <MilestoneCardSummary milestone={milestone} />}
 
       <MilestoneDrawer
         milestone={milestone}

@@ -10,6 +10,7 @@ import {
   AccordionPanel,
 } from "@chakra-ui/react";
 import { differenceInDays, startOfToday } from "date-fns";
+import { isNil } from "lodash";
 import React from "react";
 import { HiLink } from "react-icons/hi";
 
@@ -36,7 +37,7 @@ export default function TaskCardDetailAccordion({
         </AccordionPanel>
         <AccordionButton className="p-0 hover:bg-transparent">
           <div className="flex-between w-full">
-            <div className="mt-8px flex items-center gap-8px">
+            <div className="flex items-center gap-8px">
               {task.priority === 5 && (
                 <div className="rounded-full border border-red-500 px-8px py-4px text-14px font-bold text-red-500">
                   매우 중요
@@ -54,7 +55,7 @@ export default function TaskCardDetailAccordion({
                 </button>
               )}
             </div>
-            {leftDays && (
+            {isNil(leftDays) || (
               <p
                 className={`text-12px ${
                   leftDays <= 2 ? "font-bold text-red-500" : "text-gray-600"

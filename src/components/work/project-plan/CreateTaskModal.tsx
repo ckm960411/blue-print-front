@@ -1,5 +1,6 @@
 import { QueryKeys } from "@/utils/common/query-keys";
 import { createTask } from "@/utils/services/task";
+import { Task } from "@/utils/types/task";
 import {
   Modal,
   ModalBody,
@@ -22,17 +23,21 @@ const MilestoneMemoEditor = dynamic(
 interface CreateTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
+  task?: Task;
+  type?: "create" | "update";
 }
 export default function CreateTaskModal({
   isOpen,
   onClose,
+  task,
+  type = "create",
 }: CreateTaskModalProps) {
   const toast = useRef<Toast>(null);
   const queryClient = useQueryClient();
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState(() => task?.title ?? "");
+  const [description, setDescription] = useState(() => task?.description ?? "");
+  const [content, setContent] = useState(() => task?.content ?? "");
 
   const { mutate: createTaskRequest } = useMutation(
     ["create-task"],
@@ -91,7 +96,11 @@ export default function CreateTaskModal({
               placeholder="할일의 간단한 설명을 입력하세요"
               className="w-full rounded-md border border-gray-200 px-16px py-12px text-16px focus:bg-blue-50"
             />
-            <MilestoneMemoEditor onChange={(v) => setContent(v)} />
+            <MilestoneMemoEditor
+              type={type}
+              content={content}
+              onChange={(v) => setContent(v)}
+            />
           </ModalBody>
           <ModalFooter>
             <div className="flex items-center gap-8px">

@@ -22,8 +22,8 @@ export default function MilestoneCardSummary({
       <MilestoneClassification />
       <MilestonePriorityForm milestone={milestone} />
       <MilestoneProgress />
-      <MilestoneTags />
       <MilestoneLinks />
+      <MilestoneTags milestone={milestone} />
     </div>
   );
 }

@@ -34,7 +34,11 @@ export default function CreateUpdateTagForm({
   );
 
   const onSuccess = () => {
-    queryClient.invalidateQueries(QueryKeys.getAllTasks());
+    queryClient.invalidateQueries(
+      parentIdType === "taskId"
+        ? QueryKeys.getAllTasks()
+        : QueryKeys.getAllMilestones(),
+    );
     if (type === "create") {
       setTagName(tag?.name ?? "");
       setTagColor(tag?.color ?? "slate");

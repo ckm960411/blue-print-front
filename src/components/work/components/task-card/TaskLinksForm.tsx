@@ -14,7 +14,7 @@ interface TaskLinksFormProps {
   task: Task;
 }
 export default function TaskLinksForm({ task }: TaskLinksFormProps) {
-  const { id, links = [] } = task;
+  const { id, links } = task;
   const queryClient = useQueryClient();
   const toast = useRef<Toast>(null);
 

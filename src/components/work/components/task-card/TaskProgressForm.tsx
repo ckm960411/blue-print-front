@@ -1,14 +1,19 @@
 import MilestoneTagButton from "@/components/work/project-plan/components/MilestoneTagButton";
 import { Colors } from "@/utils/common/color";
+import { QueryKeys } from "@/utils/common/query-keys";
+import { updateTask } from "@/utils/services/task";
+import { UpdateTaskReqDto } from "@/utils/services/task/dto/update-task.req.dto";
 import { Progress } from "@/utils/types";
 import { Task } from "@/utils/types/task";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 interface TaskProgressFormProps {
   task: Task;
 }
 export default function TaskProgressForm({ task }: TaskProgressFormProps) {
+  const queryClient = useQueryClient();
   const [editing, setEditing] = useState(false);
 
   const progresses = [
@@ -23,7 +28,20 @@ export default function TaskProgressForm({ task }: TaskProgressFormProps) {
   const handleOpen = () => setEditing(true);
   const handleClose = () => setEditing(false);
 
+  const { mutate: updateTskRequest } = useMutation(
+    ["update-task"],
+    (updateTaskReqDto: UpdateTaskReqDto) =>
+      updateTask(task.id, updateTaskReqDto),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+      },
+      onError: console.error,
+    },
+  );
+
   const handleClick = (progress: Progress) => {
+    updateTskRequest({ progress });
     handleClose();
   };
 

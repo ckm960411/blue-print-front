@@ -1,6 +1,6 @@
 import { QueryKeys } from "@/utils/common/query-keys";
+import { updateMilestone } from "@/utils/services/milestone";
 import { UpdateMilestoneReqDto } from "@/utils/services/milestone/dto/update-milestone.req.dto";
-import { updateTask } from "@/utils/services/task";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useUpdateMilestoneMutation = (
@@ -15,7 +15,7 @@ export const useUpdateMilestoneMutation = (
   const mutationResult = useMutation(
     ["update-milestone"],
     (updateMilestoneReqDto: UpdateMilestoneReqDto) =>
-      updateTask(milestoneId, updateMilestoneReqDto),
+      updateMilestone(milestoneId, updateMilestoneReqDto),
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries(QueryKeys.getAllMilestones());

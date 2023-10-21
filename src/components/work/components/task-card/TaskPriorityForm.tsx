@@ -1,4 +1,5 @@
 import Unicode from "@/components/components/Unicode";
+import PriorityButton from "@/components/work/components/PriorityButton";
 import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
 import { Priority } from "@/utils/types";
 import { Task } from "@/utils/types/task";
@@ -65,22 +66,3 @@ export default function TaskPriorityForm({ task }: TaskPriorityFormProps) {
     </>
   );
 }
-
-const PriorityButton = ({
-  priority,
-  onClick,
-}: {
-  priority: Priority;
-  onClick?: () => void;
-}) => {
-  return (
-    <button
-      onClick={onClick}
-      className="flex items-center gap-4px rounded-md bg-purple-50 px-8px py-4px text-14px font-medium"
-    >
-      {Array.from({ length: priority }).map((_, i) => (
-        <Unicode key={i} value="2b50" className="text-12px" />
-      ))}
-    </button>
-  );
-};

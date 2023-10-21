@@ -12,6 +12,7 @@ import {
   AccordionItem,
   AccordionPanel,
 } from "@chakra-ui/react";
+import { differenceInDays, format, startOfToday } from "date-fns";
 import React, { useState } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { GoComment } from "react-icons/go";
@@ -22,6 +23,10 @@ interface TaskCardProps {
 }
 export default function TaskCard({ task }: TaskCardProps) {
   const [contentExpanded, setContentExpanded] = useState(false);
+
+  const leftDays = task.endAt
+    ? differenceInDays(new Date(task.endAt), startOfToday())
+    : null;
 
   return (
     <div className="relative flex flex-col gap-8px bg-white p-16px shadow-md duration-200 hover:shadow-lg">
@@ -81,7 +86,19 @@ export default function TaskCard({ task }: TaskCardProps) {
                   <span>n</span>
                 </button>
               </div>
-              <p className="text-12px text-gray-600">n일 남음</p>
+              {leftDays && (
+                <p
+                  className={`text-12px ${
+                    leftDays <= 2 ? "font-bold text-red-500" : "text-gray-600"
+                  }`}
+                >
+                  {leftDays > 0
+                    ? `${leftDays}일 남음`
+                    : leftDays < 0
+                    ? `${-leftDays}일 지남`
+                    : "오늘"}
+                </p>
+              )}
             </div>
           </AccordionButton>
         </AccordionItem>

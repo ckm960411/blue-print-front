@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { Milestone } from "@/utils/types/milestone";
+import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { Colors } from "@/utils/common/color";
 import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
@@ -7,54 +9,38 @@ export interface MileStoneClassficiationType {
   name: string;
   color: string;
 }
-interface MilestoneClassificationProps {}
-export default function MilestoneClassification({}: MilestoneClassificationProps) {
-  const [milestoneType, setMilestoneype] =
-    useState<MileStoneClassficiationType | null>(null);
+interface MilestoneClassificationProps {
+  milestone: Milestone;
+}
+export default function MilestoneClassification({
+  milestone,
+}: MilestoneClassificationProps) {
   const [editing, setEditing] = useState(false);
-  const [tempName, setTempName] = useState("");
-  const [tempColor, setTempColor] = useState<string>();
 
-  const buttonExamples: MileStoneClassficiationType[] = [
+  const { mutate: updateMilestoneRequest } = useUpdateMilestoneMutation(
+    milestone.id,
+  );
+
+  const exampleTags: MileStoneClassficiationType[] = [
     { name: "Feature", color: Colors.blue[50] },
     { name: "Chore", color: Colors.yellow[50] },
+    { name: "Refactor", color: Colors.green[50] },
     { name: "Hotfix", color: Colors.red[50] },
     { name: "OKR", color: Colors.teal[50] },
+    { name: "etc", color: Colors.purple[50] },
   ];
 
-  const resetState = () => {
-    setTempName("");
-    setTempColor(undefined);
-  };
+  const currentTag = exampleTags.find(
+    (tag) => tag.name === milestone.classification,
+  );
 
-  const handleOpen = () => {
-    setEditing(true);
-  };
+  const handleOpen = () => setEditing(true);
+  const handleClose = () => setEditing(false);
 
-  const handleClose = () => {
-    resetState();
-    setEditing(false);
-  };
-
-  const handleConfirm = () => {
-    if (!tempName.trim() || !tempColor) {
-      return alert("태그명과 색상을 모두 입력해주세요.");
-    }
-    setMilestoneype({ name: tempName.trim(), color: tempColor });
+  const handleConfirm = (name: string) => {
+    updateMilestoneRequest({ classification: name });
     handleClose();
   };
-
-  const handleClickExample = (data: MileStoneClassficiationType) => {
-    setMilestoneype(data);
-    handleClose();
-  };
-
-  useEffect(() => {
-    if (editing && milestoneType) {
-      setTempName(milestoneType.name);
-      setTempColor(milestoneType.color);
-    }
-  }, [editing]);
 
   return (
     <div className="flex h-14px items-center gap-8px">
@@ -63,9 +49,9 @@ export default function MilestoneClassification({}: MilestoneClassificationProps
       </p>
       <Popover isOpen={editing} onClose={handleClose} placement="bottom-start">
         <PopoverTrigger>
-          {milestoneType ? (
+          {currentTag ? (
             <div className="flex items-center gap-12px">
-              <Tag color={milestoneType.color}>{milestoneType.name}</Tag>
+              <Tag color={currentTag.color}>{currentTag.name}</Tag>
               <MilestoneEditButton
                 onClick={handleOpen}
                 w={24}
@@ -83,57 +69,12 @@ export default function MilestoneClassification({}: MilestoneClassificationProps
           )}
         </PopoverTrigger>
         <PopoverContent className="w-270px">
-          <div className="flex flex-col gap-16px p-16px">
-            <div>
-              <input
-                value={tempName}
-                onChange={(e) => setTempName(e.target.value)}
-                placeholder="분류 설정"
-                className="w-full px-8px py-4px text-14px"
-              />
-            </div>
-            <div className="flex flex-wrap items-center gap-8px">
-              {Object.values(Colors).map((colors, i) => (
-                <button
-                  key={i}
-                  onClick={() => setTempColor(colors[50])}
-                  className="h-20px w-20px flex-shrink-0 rounded-full border"
-                  style={{
-                    backgroundColor: colors[50],
-                    borderColor:
-                      tempColor === colors[50] ? colors[500] : Colors.gray[200],
-                  }}
-                />
-              ))}
-            </div>
-            <div className="flex flex-col gap-8px">
-              <p className="text-12px text-gray-600">ex)</p>
-              <div className="flex-items-center flex flex-wrap gap-8px">
-                {buttonExamples.map(({ name, color }, i) => (
-                  <Tag
-                    key={i}
-                    color={color}
-                    onClick={() => handleClickExample({ name, color })}
-                  >
-                    {name}
-                  </Tag>
-                ))}
-              </div>
-            </div>
-            <div className="flex items-center justify-end gap-8px">
-              <button
-                onClick={handleClose}
-                className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50"
-              >
-                취소
-              </button>
-              <button
-                onClick={handleConfirm}
-                className="rounded-md px-8px py-6px text-14px font-medium text-gray-600 hover:bg-gray-50"
-              >
-                확인
-              </button>
-            </div>
+          <div className="flex-items-center flex flex-wrap gap-8px p-16px">
+            {exampleTags.map(({ name, color }, i) => (
+              <Tag key={i} color={color} onClick={() => handleConfirm(name)}>
+                {name}
+              </Tag>
+            ))}
           </div>
         </PopoverContent>
       </Popover>

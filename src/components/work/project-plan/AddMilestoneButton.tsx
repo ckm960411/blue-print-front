@@ -1,17 +1,22 @@
 "use client";
 
+import { QueryKeys } from "@/utils/common/query-keys";
 import { createMilestone } from "@/utils/services/milestone";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 interface AddMilestoneButtonProps {}
 export default function AddMilestoneButton({}: AddMilestoneButtonProps) {
+  const queryClient = useQueryClient();
+
   const { mutate: createMilestoneRequest } = useMutation(
     ["create-milestone"],
     () => createMilestone(),
     {
-      onSuccess: console.log,
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+      },
       onError: console.error,
     },
   );

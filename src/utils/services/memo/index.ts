@@ -3,11 +3,11 @@ import { CreateMemoReqDto } from "@/utils/services/memo/dto/create-memo.req.dto"
 import { Memo } from "@/utils/types/memo";
 
 export interface GetAllMemosReqDto {
+  milestoneId?: number;
   checked?: boolean;
 }
 export const getAllMemos = async (params?: GetAllMemosReqDto) => {
-  const checked = !!params?.checked;
-  const { data } = await get<Memo[]>(`memo?checked=${checked}`);
+  const { data } = await get<Memo[]>(`memo`, { params });
   return data;
 };
 

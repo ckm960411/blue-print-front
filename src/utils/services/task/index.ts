@@ -4,7 +4,10 @@ import { UpdateTaskReqDto } from "@/utils/services/task/dto/update-task.req.dto"
 import { Progress } from "@/utils/types";
 import { Task } from "@/utils/types/task";
 
-export const getAllTask = async (params?: { progress: Progress }) => {
+export const getAllTask = async (params?: {
+  progress?: Progress;
+  milestoneId?: number;
+}) => {
   const { data } = await get<Task[]>(`task`, { params });
   return data;
 };

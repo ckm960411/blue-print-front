@@ -1,11 +1,16 @@
+import { Milestone } from "@/utils/types/milestone";
 import { Tab, TabList, TabPanels, Tabs } from "@chakra-ui/tabs";
 import React from "react";
 import MilestoneDrawerBoardTab from "@/components/work/project-plan/sidetab/MilestoneDrawerBoardTab";
 import MilestoneDrawerTaskTab from "@/components/work/project-plan/sidetab/task/MilestoneDrawerTaskTab";
 import MilestoneDrawerMemoTab from "@/components/work/project-plan/sidetab/MilestoneDrawerMemoTab";
 
-interface MilestoneDrawerTabsProps {}
-export default function MilestoneDrawerTabs({}: MilestoneDrawerTabsProps) {
+interface MilestoneDrawerTabsProps {
+  milestone: Milestone;
+}
+export default function MilestoneDrawerTabs({
+  milestone,
+}: MilestoneDrawerTabsProps) {
   return (
     <Tabs id="work-project-tabs" variant="enclosed">
       <TabList>
@@ -16,7 +21,7 @@ export default function MilestoneDrawerTabs({}: MilestoneDrawerTabsProps) {
 
       <TabPanels>
         <MilestoneDrawerBoardTab />
-        <MilestoneDrawerTaskTab />
+        <MilestoneDrawerTaskTab milestone={milestone} />
         <MilestoneDrawerMemoTab />
       </TabPanels>
     </Tabs>

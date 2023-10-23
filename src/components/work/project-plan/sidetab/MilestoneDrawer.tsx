@@ -34,7 +34,7 @@ export default function MilestoneDrawer({
             <MilestoneCardSummary milestone={milestone} />
           </div>
           <SpaceY height={16} />
-          <MilestoneDrawerTabs />
+          <MilestoneDrawerTabs milestone={milestone} />
         </div>
       </DrawerContent>
     </Drawer>

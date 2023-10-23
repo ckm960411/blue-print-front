@@ -24,12 +24,14 @@ interface CreateUpdateTaskModalProps {
   onClose: () => void;
   task?: Task;
   type?: "create" | "update";
+  milestoneId?: number;
 }
 export default function CreateUpdateTaskModal({
   isOpen,
   onClose,
   task,
   type = "create",
+  milestoneId,
 }: CreateUpdateTaskModalProps) {
   const toast = useRef<Toast>(null);
   const queryClient = useQueryClient();
@@ -68,7 +70,7 @@ export default function CreateUpdateTaskModal({
 
   const { mutate: createTaskRequest } = useMutation(
     ["create-task"],
-    () => createTask({ title, description, content }),
+    () => createTask({ title, description, content, milestoneId }),
     { onSuccess, onError },
   );
 
@@ -85,7 +87,7 @@ export default function CreateUpdateTaskModal({
     } else {
       // update
       if (!task) return onError();
-      updateTaskRequest({ title, description, content });
+      updateTaskRequest({ title, description, content, milestoneId });
     }
   };
 

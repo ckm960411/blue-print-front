@@ -1,21 +1,23 @@
 import MemoCard from "@/components/work/components/MemoCard";
 import { QueryKeys } from "@/utils/common/query-keys";
-import { getAllMemos, GetAllMemosReqDto } from "@/utils/services/memo";
+import { getAllMemos } from "@/utils/services/memo";
 import { useQuery } from "@tanstack/react-query";
 import { Toast } from "primereact/toast";
 import React, { useRef } from "react";
 
 interface WorkSideMemoContainerProps {
+  milestoneId?: number;
   showChecked: boolean;
 }
 export default function WorkSideMemoContainer({
+  milestoneId,
   showChecked,
 }: WorkSideMemoContainerProps) {
   const toast = useRef<Toast | null>(null);
 
   const { data: memos = [] } = useQuery(
-    QueryKeys.getAllMemos(showChecked),
-    () => getAllMemos({ checked: showChecked }),
+    QueryKeys.getAllMemos(showChecked, milestoneId),
+    () => getAllMemos({ checked: showChecked, milestoneId }),
     {
       onError: () =>
         toast.current?.show({

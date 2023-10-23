@@ -1,7 +1,7 @@
 "use client";
 
 import MilestoneDrawerMemoTabHeader from "@/components/work/project-plan/sidetab/MilestoneDrawerMemoTabHeader";
-import MemoCard from "@/components/work/components/MemoCard";
+import WorkSideMemoContainer from "@/components/work/side/WorkSideMemoContainer";
 import { Milestone } from "@/utils/types/milestone";
 import { TabPanel } from "@chakra-ui/tabs";
 import React, { useState } from "react";
@@ -22,11 +22,10 @@ export default function MilestoneDrawerMemoTab({
         onToggleCheck={() => setShowChecked((prev) => !prev)}
       />
 
-      <div className="flex flex-col gap-16px">
-        {/*<MemoCard />*/}
-        {/*<MemoCard />*/}
-        {/*<MemoCard />*/}
-      </div>
+      <WorkSideMemoContainer
+        milestoneId={milestone.id}
+        showChecked={showChecked}
+      />
     </TabPanel>
   );
 }

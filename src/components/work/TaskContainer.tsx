@@ -6,8 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
 
-interface TaskContainerProps {}
-export default function TaskContainer({}: TaskContainerProps) {
+interface TaskContainerProps {
+  milestoneId?: number;
+}
+export default function TaskContainer({ milestoneId }: TaskContainerProps) {
   const toast = useRef<Toast>(null);
   const [progress, setProgress] = useState<Progress>(Progress.ToDo);
 
@@ -27,8 +29,8 @@ export default function TaskContainer({}: TaskContainerProps) {
   ];
 
   const { data: tasks } = useQuery(
-    QueryKeys.getAllTasks(progress),
-    () => getAllTask({ progress }),
+    QueryKeys.getAllTasks(progress, milestoneId),
+    () => getAllTask({ progress, milestoneId }),
     {
       onError: () => {
         toast.current?.show({

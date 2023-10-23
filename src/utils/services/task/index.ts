@@ -12,8 +12,8 @@ export const getAllTask = async (params?: {
   return data;
 };
 
-export const getAllUrgenttTasks = async () => {
-  const { data } = await get<Task[]>(`task/urgent`);
+export const getAllUrgenttTasks = async (params?: { milestoneId?: number }) => {
+  const { data } = await get<Task[]>(`task/urgent`, { params });
   return data;
 };
 

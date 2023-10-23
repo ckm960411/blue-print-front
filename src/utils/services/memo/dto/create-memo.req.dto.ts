@@ -4,4 +4,5 @@ export interface CreateMemoReqDto {
   title: string;
   content: string;
   color?: ColorKey;
+  milestoneId?: number;
 }

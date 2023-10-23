@@ -22,7 +22,7 @@ export default function MilestoneDrawerTabs({
       <TabPanels>
         <MilestoneDrawerBoardTab />
         <MilestoneDrawerTaskTab milestone={milestone} />
-        <MilestoneDrawerMemoTab />
+        <MilestoneDrawerMemoTab milestone={milestone} />
       </TabPanels>
     </Tabs>
   );

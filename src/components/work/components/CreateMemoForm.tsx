@@ -10,6 +10,7 @@ import React, { useState } from "react";
 const PlainEditor = dynamic(() => import("../components/PlainEditor"));
 
 interface CreateMemoFormProps {
+  milestoneId?: number;
   onClose?: () => void;
   onSuccess?: () => void;
   onError?: () => void;
@@ -17,6 +18,7 @@ interface CreateMemoFormProps {
   hideModeSwitch?: boolean;
 }
 export default function CreateMemoForm({
+  milestoneId,
   onClose,
   onSuccess,
   onError,
@@ -51,7 +53,7 @@ export default function CreateMemoForm({
       return onFail?.();
     }
 
-    mutate({ title, content, color });
+    mutate({ title, content, color, milestoneId });
   };
 
   return (

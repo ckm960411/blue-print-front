@@ -43,6 +43,7 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllTasks());
+        queryClient.invalidateQueries(QueryKeys.getAllMemos());
       },
       onError: (e: any) => {
         toast.current?.show({

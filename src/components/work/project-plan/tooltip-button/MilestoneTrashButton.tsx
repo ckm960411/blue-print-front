@@ -1,7 +1,7 @@
 import { QueryKeys } from "@/utils/common/query-keys";
 import { deleteMilestone } from "@/utils/services/milestone";
 import { Milestone } from "@/utils/types/milestone";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Query, useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import {
   Popover,
@@ -27,6 +27,8 @@ export default function MilestoneTrashButton({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+        queryClient.invalidateQueries(QueryKeys.getAllMemos());
       },
       onError: console.error,
     },

@@ -1,18 +1,27 @@
 "use client";
 
 import MilestoneCard from "@/components/work/project-plan/MilestoneCard";
+import { MilestoneStatus } from "@/components/work/project-plan/ProjectPlanTab";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { getAllMilestones } from "@/utils/services/milestone";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 
-interface MilestoneContainerProps {}
-export default function MilestoneContainer({}: MilestoneContainerProps) {
-  const { data: milestones = [] } = useQuery(
-    QueryKeys.getAllMilestones(),
-    getAllMilestones,
+interface MilestoneContainerProps {
+  status: MilestoneStatus;
+}
+export default function MilestoneContainer({
+  status,
+}: MilestoneContainerProps) {
+  const { data: milestones = [], refetch } = useQuery(
+    QueryKeys.getAllMilestones(status),
+    () => getAllMilestones({ progress: status === "ALL" ? undefined : status }),
     { onError: console.error },
   );
+
+  useEffect(() => {
+    refetch();
+  }, [status]);
 
   return (
     <div className="flex flex-col gap-16px">

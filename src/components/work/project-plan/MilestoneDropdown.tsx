@@ -1,36 +1,44 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import { Progress } from "@/utils/types";
+import { useDisclosure } from "@chakra-ui/hooks";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
-import { useBoolean, useOnClickOutside } from "usehooks-ts";
+import { useOnClickOutside } from "usehooks-ts";
 
-enum MilestoneStatus {
-  ALL = "ALL",
-  TO_DO = "TO_DO",
-  IN_PROGRESS = "IN_PROGRESS",
-  DONE = "DONE",
+type MilestoneStatus = Progress | "ALL";
+interface MilestoneDropdownProps {
+  status: MilestoneStatus;
+  setStatus: Dispatch<SetStateAction<MilestoneStatus>>;
 }
-interface MilestoneDropdownProps {}
-export default function MilestoneDropdown({}: MilestoneDropdownProps) {
-  const { ALL, TO_DO, IN_PROGRESS, DONE } = MilestoneStatus;
+export default function MilestoneDropdown({
+  status,
+  setStatus,
+}: MilestoneDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const [status, setStatus] = useState<MilestoneStatus>(ALL);
 
   const {
-    value: dropdownOpened,
-    setTrue: openDropdown,
-    setFalse: closeDropdown,
-  } = useBoolean(false);
+    isOpen: dropdownOpened,
+    onOpen: openDropdown,
+    onClose: closeDropdown,
+  } = useDisclosure();
   useOnClickOutside(dropdownRef, closeDropdown);
 
-  const milestones = Object.keys(MilestoneStatus) as MilestoneStatus[];
-  const getKoreanMilestoneStatus = (milestone: MilestoneStatus) => {
+  const milestones: { id: MilestoneStatus; title: string }[] = [
+    { id: "ALL", title: "전체보기" },
+    { id: Progress.ToDo, title: "시작 전" },
+    { id: Progress.InProgress, title: "진행 중" },
+    { id: Progress.Review, title: "리뷰 중" },
+    { id: Progress.Completed, title: "완료" },
+  ];
+  const getKoreanMilestoneStatus = (id: MilestoneStatus) => {
     return {
       ALL: "전체보기",
-      TO_DO: "시작 전",
-      IN_PROGRESS: "진행 중",
-      DONE: "완료",
-    }[milestone];
+      [Progress.ToDo]: "시작 전",
+      [Progress.InProgress]: "진행 중",
+      [Progress.Review]: "리뷰 중",
+      [Progress.Completed]: "완료",
+    }[id];
   };
 
   const handleClick = (status: MilestoneStatus) => {
@@ -52,18 +60,18 @@ export default function MilestoneDropdown({}: MilestoneDropdownProps) {
       {dropdownOpened && (
         <div
           ref={dropdownRef}
-          className="absolute left-0 top-[calc(100%+8px)] z-10 max-h-[138px] w-102px overflow-y-scroll rounded-10px border border-gray-200 bg-white py-8px shadow-md"
+          className="absolute left-0 top-[calc(100%+8px)] z-10 w-102px overflow-y-scroll rounded-10px border border-gray-200 bg-white py-8px shadow-md"
         >
-          {milestones.map((milestoneStatus) => {
+          {milestones.map(({ id, title }) => {
             return (
               <div
-                key={milestoneStatus}
-                onClick={() => handleClick(milestoneStatus)}
+                key={id}
+                onClick={() => handleClick(id)}
                 className={`w-full cursor-pointer bg-white p-8px text-14px hover:bg-gray-50 ${
-                  status === milestoneStatus ? "bg-gray-50" : "bg-white"
+                  id === status ? "bg-gray-50" : "bg-white"
                 }`}
               >
-                {getKoreanMilestoneStatus(milestoneStatus)}
+                {getKoreanMilestoneStatus(id)}
               </div>
             );
           })}

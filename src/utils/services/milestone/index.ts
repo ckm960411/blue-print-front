@@ -1,9 +1,10 @@
 import { deleteCall, get, patch, post } from "@/app/api/axios";
 import { UpdateMilestoneReqDto } from "@/utils/services/milestone/dto/update-milestone.req.dto";
+import { Progress } from "@/utils/types";
 import { Milestone } from "@/utils/types/milestone";
 
-export const getAllMilestones = async () => {
-  const { data } = await get<Milestone[]>(`milestone`);
+export const getAllMilestones = async (params?: { progress?: Progress }) => {
+  const { data } = await get<Milestone[]>(`milestone`, { params });
   return data;
 };
 

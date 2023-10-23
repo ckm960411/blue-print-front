@@ -1,18 +1,24 @@
+"use client";
+
 import MilestoneContainer from "@/components/work/project-plan/MilestoneContainer";
-import React from "react";
+import { Progress } from "@/utils/types";
+import React, { useState } from "react";
 import { TabPanel } from "@chakra-ui/tabs";
 import ProjectPlanTabHeader from "@/components/work/project-plan/ProjectPlanTabHeader";
-import MilestoneCard from "@/components/work/project-plan/MilestoneCard";
+
+export type MilestoneStatus = Progress | "ALL";
 
 interface ProjectPlanTabProps {}
 export default function ProjectPlanTab({}: ProjectPlanTabProps) {
+  const [status, setStatus] = useState<MilestoneStatus>("ALL");
+
   return (
     <TabPanel>
-      <ProjectPlanTabHeader />
+      <ProjectPlanTabHeader status={status} setStatus={setStatus} />
 
       <hr className="my-16px" />
 
-      <MilestoneContainer />
+      <MilestoneContainer status={status} />
     </TabPanel>
   );
 }

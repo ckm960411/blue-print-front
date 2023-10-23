@@ -1,28 +1,38 @@
 import MilestoneTagButton from "@/components/work/project-plan/components/MilestoneTagButton";
 import { Colors } from "@/utils/common/color";
+import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { Progress } from "@/utils/types";
+import { Milestone } from "@/utils/types/milestone";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useState } from "react";
 
-enum MilestoneProgressStatus {
-  BEFORE = "BEFORE",
-  IN_PROGRESS = "IN PROGRESS",
-  DONE = "DONE",
+interface MilestoneProgressProps {
+  milestone: Milestone;
 }
-interface MilestoneProgressProps {}
-export default function MilestoneProgress({}: MilestoneProgressProps) {
-  const { BEFORE, IN_PROGRESS, DONE } = MilestoneProgressStatus;
-
-  const [progress, setProgres] = useState<{
-    status: MilestoneProgressStatus;
-    color: string;
-  }>({
-    status: BEFORE,
-    color: Colors.blue[50],
-  });
+export default function MilestoneProgress({
+  milestone,
+}: MilestoneProgressProps) {
+  const { id, progress } = milestone;
   const [editing, setEditing] = useState(false);
+
+  const progresses = [
+    { id: Progress.ToDo, title: "To Do", color: Colors.orange[50] },
+    { id: Progress.InProgress, title: "In Progress", color: Colors.blue[50] },
+    { id: Progress.Review, title: "Review", color: Colors.purple[50] },
+    { id: Progress.Completed, title: "Completed", color: Colors.green[50] },
+  ];
+
+  const currentProgress = progresses.find((p) => p.id === progress)!;
+
+  const { mutate: updateMilestoneRequest } = useUpdateMilestoneMutation(id);
 
   const handleOpen = () => setEditing(true);
   const handleClose = () => setEditing(false);
+
+  const handleClick = (progress: Progress) => {
+    updateMilestoneRequest({ progress });
+    handleClose();
+  };
 
   return (
     <div className="flex h-14px items-center gap-8px">
@@ -33,38 +43,22 @@ export default function MilestoneProgress({}: MilestoneProgressProps) {
         <PopoverTrigger>
           <div>
             <MilestoneTagButton
-              name={progress.status}
-              color={progress.color}
+              name={currentProgress.title}
+              color={currentProgress.color}
               onClick={handleOpen}
             />
           </div>
         </PopoverTrigger>
         <PopoverContent>
           <div className="flex flex-col items-start gap-8px p-16px">
-            <MilestoneTagButton
-              name={BEFORE}
-              color={Colors.blue[50]}
-              onClick={() => {
-                setProgres({ status: BEFORE, color: Colors.blue[50] });
-                handleClose();
-              }}
-            />
-            <MilestoneTagButton
-              name={IN_PROGRESS}
-              color={Colors.purple[50]}
-              onClick={() => {
-                setProgres({ status: IN_PROGRESS, color: Colors.purple[50] });
-                handleClose();
-              }}
-            />
-            <MilestoneTagButton
-              name={DONE}
-              color={Colors.gray[100]}
-              onClick={() => {
-                setProgres({ status: DONE, color: Colors.gray[100] });
-                handleClose();
-              }}
-            />
+            {progresses.map(({ id, title, color }) => (
+              <MilestoneTagButton
+                key={id}
+                name={title}
+                color={color}
+                onClick={() => handleClick(id)}
+              />
+            ))}
           </div>
         </PopoverContent>
       </Popover>

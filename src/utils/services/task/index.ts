@@ -17,6 +17,14 @@ export const getAllUrgenttTasks = async (params?: { milestoneId?: number }) => {
   return data;
 };
 
+export const getThisMonthTasks = async (params?: {
+  year?: number;
+  month?: number;
+}) => {
+  const { data } = await get<Task[]>(`task/month`, { params });
+  return data;
+};
+
 export const createTask = async (createTaskReqDto: CreateTaskReqDto) => {
   const { data } = await post(`task`, createTaskReqDto);
   return data;

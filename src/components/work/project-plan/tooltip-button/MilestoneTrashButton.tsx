@@ -1,7 +1,7 @@
 import { QueryKeys } from "@/utils/common/query-keys";
 import { deleteMilestone } from "@/utils/services/milestone";
 import { Milestone } from "@/utils/types/milestone";
-import { Query, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import {
   Popover,

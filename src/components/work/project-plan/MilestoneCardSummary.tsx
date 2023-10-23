@@ -17,11 +17,11 @@ export default function MilestoneCardSummary({
 }: MilestoneCardSummaryProps) {
   return (
     <div className="flex flex-col gap-16px">
+      <MilestoneClassification milestone={milestone} />
+      <MilestoneProgress milestone={milestone} />
+      <MilestonePriorityForm milestone={milestone} />
       <MilestoneStartAtForm milestone={milestone} />
       <MilestoneEndAtForm milestone={milestone} />
-      <MilestoneClassification milestone={milestone} />
-      <MilestonePriorityForm milestone={milestone} />
-      <MilestoneProgress milestone={milestone} />
       <MilestoneLinksForm milestone={milestone} />
       <MilestoneTags milestone={milestone} />
     </div>

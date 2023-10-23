@@ -23,7 +23,7 @@ export default function MilestoneCardButtons({
     <div className="absolute right-16px top-16px flex items-center gap-8px">
       <MilestoneFullPageButton />
       <MilestoenSideTabButton onClick={onDrawerOpen} />
-      <MilestoneTrashButton />
+      <MilestoneTrashButton milestone={milestone} />
       <MilestoenBookmarkButton milestone={milestone} />
       <IconButton onClick={onToggleOpen}>
         <FiChevronDown

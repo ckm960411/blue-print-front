@@ -1,4 +1,4 @@
-import { get, patch, post } from "@/app/api/axios";
+import { deleteCall, get, patch, post } from "@/app/api/axios";
 import { UpdateMilestoneReqDto } from "@/utils/services/milestone/dto/update-milestone.req.dto";
 import { Milestone } from "@/utils/types/milestone";
 
@@ -19,5 +19,10 @@ export const updateMilestone = async (
   updateMilestoneReqDto: UpdateMilestoneReqDto,
 ) => {
   const { data } = await patch(`milestone/${id}`, updateMilestoneReqDto);
+  return data;
+};
+
+export const deleteMilestone = async (id: number) => {
+  const { data } = await deleteCall(`milestone/${id}`);
   return data;
 };

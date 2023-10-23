@@ -4,11 +4,15 @@ import { getAllUrgenttTasks } from "@/utils/services/task";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
-interface UrgentTaskContainerProps {}
-export default function UrgentTaskContainer({}: UrgentTaskContainerProps) {
+interface UrgentTaskContainerProps {
+  milestoneId?: number;
+}
+export default function UrgentTaskContainer({
+  milestoneId,
+}: UrgentTaskContainerProps) {
   const { data: tasks = [] } = useQuery(
-    QueryKeys.getAllTasks("urgent"),
-    getAllUrgenttTasks,
+    QueryKeys.getAllTasks("urgent", milestoneId),
+    () => getAllUrgenttTasks({ milestoneId }),
     { onError: console.error },
   );
 

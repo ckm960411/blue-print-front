@@ -87,8 +87,7 @@ export const addTimeline = (tasks: Task[]) => {
     .forEach((task) => {
       const from = new Date(task.startAt!);
       const to = new Date(task.endAt!);
-      // const differenceBetweenFromTo = differenceInDays(to, from) + 1
-      const differenceBetweenFromTo = differenceInDays(to, from);
+      const differenceBetweenFromTo = differenceInDays(to, from) + 1;
       const color = getRandomColorKey();
 
       // 각 task 의 시작일부터 끝나는 날까지 동작 반복 수행

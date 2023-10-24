@@ -1,9 +1,11 @@
 import CalendarModal from "@/components/work/components/CalendarModal";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
+import { QueryKeys } from "@/utils/common/query-keys";
 import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
 import { Task } from "@/utils/types/task";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { format } from "date-fns";
+import { useQueryClient } from "@tanstack/react-query";
+import { format, startOfDay } from "date-fns";
 import { Toast } from "primereact/toast";
 import { useRef } from "react";
 
@@ -14,8 +16,12 @@ export default function TaskStartAtForm({ task }: TaskStartAtFormProps) {
   const { id, startAt, endAt } = task;
   const toast = useRef<Toast>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const queryClient = useQueryClient();
 
   const { mutate: updateTaskRequest } = useUpdateTaskMutation(id, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(QueryKeys.getThisMonthTasks());
+    },
     onError: () => {
       toast.current?.show({
         severity: "error",
@@ -38,7 +44,7 @@ export default function TaskStartAtForm({ task }: TaskStartAtFormProps) {
         >
           {startAt
             ? format(
-                new Date(startAt),
+                startOfDay(new Date(startAt)),
                 `yyyy년 M월 d일 (${getDayByAsiaSeoulFormat(startAt)})`,
               )
             : "클릭하여 설정해주세요"}

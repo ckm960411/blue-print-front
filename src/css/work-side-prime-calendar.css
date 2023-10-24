@@ -11,12 +11,17 @@ div#work-side-prime-calendar td {
 div#work-side-prime-calendar td.task-td {
   padding: 2px 0;
 }
-div#work-side-prime-calendar .p-datepicker table td.p-datepicker-today > span {
-  background: unset !important;
-}
-div#work-side-prime-calendar .p-datepicker table td:not(.task-td) span:not(.p-highlight) {
+div#work-side-prime-calendar .p-datepicker table td:not(.task-td) span {
   width: 100%;
-  background: unset !important;
+  background: unset;
+}
+div#work-side-prime-calendar .p-datepicker:not(.p-disabled) table td span:not(.p-highlight):not(.p-disabled):focus {
+  box-shadow: 0 0 0 0.1rem #bfdbfe;
+}
+div#work-side-prime-calendar .p-datepicker table td.p-datepicker-today > span {
+  background: #eff6ff !important;
+  color: #001487;
+  font-weight: 600;
 }
 div#work-side-prime-calendar .p-datepicker table td > span.tableDataSpan {
   border-radius: unset;

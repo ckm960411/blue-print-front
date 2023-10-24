@@ -1,3 +1,5 @@
+"use client";
+
 import { Task } from "@/utils/types/task";
 import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
 import { isNil } from "lodash";
@@ -29,10 +31,14 @@ function TaskCalendar({
           if (isNil(value)) return;
           pipe(
             filter((task: Task) => {
-              return isWithinInterval(value, {
-                start: startOfDay(new Date(task.startAt!)),
-                end: endOfDay(new Date(task.endAt!)),
-              });
+              return (
+                !!task.startAt &&
+                !!task.endAt &&
+                isWithinInterval(new Date(value), {
+                  start: startOfDay(new Date(task.startAt)),
+                  end: endOfDay(new Date(task.endAt)),
+                })
+              );
             }),
             setMatchedTasks,
           )(tasks);

@@ -2,12 +2,14 @@ import CalendarModal from "@/components/work/components/CalendarModal";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
+import { projectState } from "@/utils/recoil/store";
 import { Task } from "@/utils/types/task";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useQueryClient } from "@tanstack/react-query";
 import { endOfDay, format } from "date-fns";
 import { Toast } from "primereact/toast";
 import { useRef } from "react";
+import { useRecoilValue } from "recoil";
 
 interface TaskEndAtFormProps {
   task: Task;
@@ -18,6 +20,7 @@ export default function TaskEndAtForm({ task }: TaskEndAtFormProps) {
   const toast = useRef<Toast>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const queryClient = useQueryClient();
+  const project = useRecoilValue(projectState);
 
   const { mutate: updateTaskRequest } = useUpdateTaskMutation(id, {
     onSuccess: () => {
@@ -55,7 +58,9 @@ export default function TaskEndAtForm({ task }: TaskEndAtFormProps) {
           isOpen={isOpen}
           date={endAt}
           onClose={onClose}
-          onUpdate={(endAt) => updateTaskRequest({ endAt })}
+          onUpdate={(endAt) =>
+            updateTaskRequest({ endAt, projectId: project?.id })
+          }
           minDate={startAt}
         />
       </div>

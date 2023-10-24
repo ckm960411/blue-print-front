@@ -1,15 +1,18 @@
 import MilestoneTagButton from "@/components/work/project-plan/components/MilestoneTagButton";
 import { Colors } from "@/utils/common/color";
 import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
+import { projectState } from "@/utils/recoil/store";
 import { Progress } from "@/utils/types";
 import { Task } from "@/utils/types/task";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 
 interface TaskProgressFormProps {
   task: Task;
 }
 export default function TaskProgressForm({ task }: TaskProgressFormProps) {
+  const project = useRecoilValue(projectState);
   const [editing, setEditing] = useState(false);
 
   const progresses = [
@@ -27,7 +30,7 @@ export default function TaskProgressForm({ task }: TaskProgressFormProps) {
   const { mutate: updateTaskRequest } = useUpdateTaskMutation(task.id);
 
   const handleClick = (progress: Progress) => {
-    updateTaskRequest({ progress });
+    updateTaskRequest({ progress, projectId: project?.id });
     handleClose();
   };
 

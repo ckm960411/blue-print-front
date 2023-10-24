@@ -1,11 +1,13 @@
 import Unicode from "@/components/components/Unicode";
 import PriorityButton from "@/components/work/components/PriorityButton";
 import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
+import { projectState } from "@/utils/recoil/store";
 import { Priority } from "@/utils/types";
 import { Task } from "@/utils/types/task";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
+import { useRecoilValue } from "recoil";
 
 interface TaskPriorityFormProps {
   task: Task;
@@ -14,6 +16,7 @@ export default function TaskPriorityForm({ task }: TaskPriorityFormProps) {
   const { id, priority } = task;
   const toast = useRef<Toast>(null);
 
+  const project = useRecoilValue(projectState);
   const [editing, setEditing] = useState(false);
 
   const PRIORITIES: Priority[] = [1, 2, 3, 4, 5];
@@ -55,7 +58,9 @@ export default function TaskPriorityForm({ task }: TaskPriorityFormProps) {
               {PRIORITIES.map((priority) => (
                 <PriorityButton
                   key={priority}
-                  onClick={() => updateTaskRequest({ priority })}
+                  onClick={() =>
+                    updateTaskRequest({ priority, projectId: project?.id })
+                  }
                   priority={priority}
                 />
               ))}

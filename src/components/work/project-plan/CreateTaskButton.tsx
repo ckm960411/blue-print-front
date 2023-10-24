@@ -1,3 +1,4 @@
+import CreateButton from "@/components/work/components/CreateButton";
 import React from "react";
 import CreateUpdateTaskModal from "@/components/work/project-plan/CreateUpdateTaskModal";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -9,14 +10,7 @@ export default function CreateTaskButton({}: CreateTaskButtonProps) {
 
   return (
     <>
-      <button
-        onClick={onOpen}
-        className="flex-center gap-8px rounded-md px-8px py-6px text-14px font-medium duration-200 hover:bg-gray-50"
-      >
-        <AiOutlinePlus />
-        추가하기
-      </button>
-
+      <CreateButton onClick={onOpen} />
       <CreateUpdateTaskModal isOpen={isOpen} onClose={onClose} />
     </>
   );

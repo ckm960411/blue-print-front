@@ -10,4 +10,5 @@ export interface UpdateTaskReqDto {
   priority?: Priority;
   isBookmarked?: boolean;
   milestoneId?: number;
+  projectId?: number;
 }

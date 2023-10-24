@@ -1,4 +1,5 @@
 import { QueryKeys } from "@/utils/common/query-keys";
+import { projectState } from "@/utils/recoil/store";
 import { createTask, updateTask } from "@/utils/services/task";
 import { UpdateTaskReqDto } from "@/utils/services/task/dto/update-task.req.dto";
 import { Task } from "@/utils/types/task";
@@ -16,6 +17,7 @@ import { AxiosError } from "axios";
 import dynamic from "next/dynamic";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
+import { useRecoilValue } from "recoil";
 
 const PlainEditor = dynamic(() => import("../components/PlainEditor"));
 
@@ -36,6 +38,7 @@ export default function CreateUpdateTaskModal({
   const toast = useRef<Toast>(null);
   const queryClient = useQueryClient();
 
+  const project = useRecoilValue(projectState);
   const [title, setTitle] = useState(() => task?.title ?? "");
   const [description, setDescription] = useState(() => task?.description ?? "");
   const [content, setContent] = useState(() => task?.content ?? "");
@@ -70,7 +73,14 @@ export default function CreateUpdateTaskModal({
 
   const { mutate: createTaskRequest } = useMutation(
     ["create-task"],
-    () => createTask({ title, description, content, milestoneId }),
+    () =>
+      createTask({
+        title,
+        description,
+        content,
+        milestoneId,
+        projectId: project?.id,
+      }),
     { onSuccess, onError },
   );
 
@@ -87,7 +97,13 @@ export default function CreateUpdateTaskModal({
     } else {
       // update
       if (!task) return onError();
-      updateTaskRequest({ title, description, content, milestoneId });
+      updateTaskRequest({
+        title,
+        description,
+        content,
+        milestoneId,
+        projectId: project?.id,
+      });
     }
   };
 

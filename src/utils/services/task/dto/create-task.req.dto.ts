@@ -3,4 +3,5 @@ export interface CreateTaskReqDto {
   description?: string;
   content?: string;
   milestoneId?: number;
+  projectId?: number;
 }

@@ -1,3 +1,4 @@
+import { Project } from "@/utils/types/project";
 import { atom } from "recoil";
 
 export const sideBarOpenState = atom({
@@ -8,4 +9,9 @@ export const sideBarOpenState = atom({
 export const imageDetailsState = atom<string[] | null>({
   key: "imageDetails",
   default: null,
+});
+
+export const projectState = atom<Project | undefined>({
+  key: "project",
+  default: undefined,
 });

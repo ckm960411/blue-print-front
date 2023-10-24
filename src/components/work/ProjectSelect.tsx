@@ -5,7 +5,7 @@ import { projectState } from "@/utils/recoil/store";
 import { getAllProjects } from "@/utils/services/project";
 import { useQuery } from "@tanstack/react-query";
 import { find } from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { useRecoilState } from "recoil";
 import { useBoolean, useOnClickOutside } from "usehooks-ts";

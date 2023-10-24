@@ -1,6 +1,7 @@
 import { Task } from "@/utils/types/task";
 import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
 import { isNil } from "lodash";
+import { pipe, filter } from "lodash/fp";
 import { Calendar as PrimeCalendar } from "primereact/calendar";
 import { Nullable } from "primereact/ts-helpers";
 import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
@@ -26,17 +27,15 @@ function TaskCalendar({
         value={date}
         onChange={({ originalEvent, value }) => {
           if (isNil(value)) return;
-          const foundTasks = tasks.filter((task) => {
-            return (
-              task.startAt &&
-              task.endAt &&
-              isWithinInterval(value, {
-                start: startOfDay(new Date(task.startAt)),
-                end: endOfDay(new Date(task.endAt)),
-              })
-            );
-          });
-          setMatchedTasks(foundTasks);
+          pipe(
+            filter((task: Task) => {
+              return isWithinInterval(value, {
+                start: startOfDay(new Date(task.startAt!)),
+                end: endOfDay(new Date(task.endAt!)),
+              });
+            }),
+            setMatchedTasks,
+          )(tasks);
         }}
         inline
         showWeek

@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import { QueryKeys } from "@/utils/common/query-keys";
+import { projectState } from "@/utils/recoil/store";
+import { getAllProjects } from "@/utils/services/project";
+import { useQuery } from "@tanstack/react-query";
+import { find } from "lodash";
+import React, { useEffect, useRef, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
+import { useRecoilState } from "recoil";
 import { useBoolean, useOnClickOutside } from "usehooks-ts";
 import { useMediaQuery } from "react-responsive";
-
-const projects = ["프로젝트1", "프로젝트2", "프로젝트3", "프로젝트4"];
 
 interface ProjectSelectProps {}
 export default function ProjectSelect({}: ProjectSelectProps) {
@@ -16,14 +20,29 @@ export default function ProjectSelect({}: ProjectSelectProps) {
     setTrue: openDropdown,
     setFalse: closeDropdown,
   } = useBoolean(false);
-  const [project, setProject] = useState(projects[0]);
+  const [project, setProject] = useRecoilState(projectState);
   const UNDER_380PX = useMediaQuery({ query: "(max-width: 379px)" });
   useOnClickOutside(dropdownRef, closeDropdown);
 
-  const handleClick = (prj: string) => {
-    setProject(prj);
+  const { data: projects = [] } = useQuery(
+    QueryKeys.getAllProjects(),
+    getAllProjects,
+    {
+      onError: console.error,
+    },
+  );
+
+  const handleClick = (prjId: number) => {
+    const found = find(projects, (project) => project.id === prjId);
+    if (found) setProject(found);
     closeDropdown();
   };
+
+  useEffect(() => {
+    if (projects.length > 0) setProject(projects[0]);
+  }, [projects]);
+
+  if (!project) return <></>;
 
   return (
     <div className="relative">
@@ -32,7 +51,7 @@ export default function ProjectSelect({}: ProjectSelectProps) {
         className="flex items-center justify-between gap-8px rounded-10px bg-white p-8px hover:bg-gray-50"
       >
         <span className="truncate-1-lines w-100px text-left text-14px">
-          {project}
+          {project.title}
         </span>
         <FiChevronDown />
       </button>
@@ -47,12 +66,12 @@ export default function ProjectSelect({}: ProjectSelectProps) {
             return (
               <div
                 key={i}
-                onClick={() => handleClick(prj)}
+                onClick={() => handleClick(prj.id)}
                 className={`w-full cursor-pointer bg-white p-8px text-14px hover:bg-gray-50 ${
                   prj === project ? "bg-gray-50" : "bg-white"
                 }`}
               >
-                {prj}
+                {prj.title}
               </div>
             );
           })}

@@ -27,6 +27,7 @@ export interface UpdateMemoReqDto {
   isChecked?: boolean;
   isBookmarked?: boolean;
   color?: string;
+  projectId?: number;
 }
 export const updateMemo = async (
   id: number,

@@ -3,9 +3,11 @@
 import { ColorKey, Colors } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { useMemoMutation } from "@/utils/hooks/memo/useMemoMutation";
+import { projectState } from "@/utils/recoil/store";
 import { useQueryClient } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 
 const PlainEditor = dynamic(() => import("../components/PlainEditor"));
 
@@ -28,6 +30,7 @@ export default function CreateMemoForm({
   const DEFAULT_COLOR: ColorKey = "yellow";
   const queryClient = useQueryClient();
 
+  const project = useRecoilValue(projectState);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [color, setColor] = useState<ColorKey>(DEFAULT_COLOR);
@@ -53,7 +56,7 @@ export default function CreateMemoForm({
       return onFail?.();
     }
 
-    mutate({ title, content, color, milestoneId });
+    mutate({ title, content, color, milestoneId, projectId: project?.id });
   };
 
   return (

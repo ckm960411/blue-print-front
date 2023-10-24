@@ -2,6 +2,7 @@ import IconButton from "@/components/components/IconButton";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
 import { GET_ALL_MEMOS, QueryKeys } from "@/utils/common/query-keys";
+import { projectState } from "@/utils/recoil/store";
 import {
   deleteMemo,
   updateMemo,
@@ -19,6 +20,7 @@ import {
   BsFillBookmarkFill,
   BsTrash,
 } from "react-icons/bs";
+import { useRecoilValue } from "recoil";
 
 interface MemoCardProps {
   memo: Memo;
@@ -33,6 +35,7 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
   const toast = useRef<Toast | null>(null);
   const queryClient = useQueryClient();
 
+  const project = useRecoilValue(projectState);
   const [openPopup, setOpenPopup] = useState(false);
 
   const { mutate: updateMemoRequest } = useMutation(
@@ -93,7 +96,11 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
           <div className="flex items-center gap-8px">
             <IconButton
               onClick={() =>
-                updateMemoRequest({ id: memo.id, isChecked: !isChecked })
+                updateMemoRequest({
+                  id: memo.id,
+                  isChecked: !isChecked,
+                  projectId: project?.id,
+                })
               }
               className="rounded-md bg-transparent text-16px hover:bg-transparent"
               w={24}
@@ -104,7 +111,11 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
             </IconButton>
             <IconButton
               onClick={() =>
-                updateMemoRequest({ id: memo.id, isBookmarked: !isBookmarked })
+                updateMemoRequest({
+                  id: memo.id,
+                  isBookmarked: !isBookmarked,
+                  projectId: project?.id,
+                })
               }
               className="rounded-md bg-transparent text-16px hover:bg-transparent"
               w={24}

@@ -10,4 +10,5 @@ export interface UpdateMilestoneReqDto {
   progress?: Progress;
   isClosed?: boolean;
   isBookmarked?: boolean;
+  projectId?: number;
 }

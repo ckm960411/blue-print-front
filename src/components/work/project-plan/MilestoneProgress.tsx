@@ -1,10 +1,12 @@
 import MilestoneTagButton from "@/components/work/project-plan/components/MilestoneTagButton";
 import { Colors } from "@/utils/common/color";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { projectState } from "@/utils/recoil/store";
 import { Progress } from "@/utils/types";
 import { Milestone } from "@/utils/types/milestone";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
 
 interface MilestoneProgressProps {
   milestone: Milestone;
@@ -14,6 +16,7 @@ export default function MilestoneProgress({
 }: MilestoneProgressProps) {
   const { id, progress } = milestone;
   const [editing, setEditing] = useState(false);
+  const project = useRecoilValue(projectState);
 
   const progresses = [
     { id: Progress.ToDo, title: "To Do", color: Colors.orange[50] },
@@ -30,7 +33,7 @@ export default function MilestoneProgress({
   const handleClose = () => setEditing(false);
 
   const handleClick = (progress: Progress) => {
-    updateMilestoneRequest({ progress });
+    updateMilestoneRequest({ progress, projectId: project?.id });
     handleClose();
   };
 

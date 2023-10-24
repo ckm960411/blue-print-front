@@ -1,10 +1,12 @@
 import PriorityButton from "@/components/work/components/PriorityButton";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { projectState } from "@/utils/recoil/store";
 import { Priority } from "@/utils/types";
 import { Milestone } from "@/utils/types/milestone";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+import { useRecoilValue } from "recoil";
 
 interface MilestonePriorityFormProps {
   milestone: Milestone;
@@ -15,6 +17,7 @@ export default function MilestonePriorityForm({
   const { id, priority } = milestone;
   const toast = useRef<Toast>(null);
 
+  const project = useRecoilValue(projectState);
   const [editing, setEditing] = useState(false);
 
   const PRIORITIES: Priority[] = [1, 2, 3, 4, 5];
@@ -56,7 +59,9 @@ export default function MilestonePriorityForm({
               {PRIORITIES.map((priority) => (
                 <PriorityButton
                   key={priority}
-                  onClick={() => updateMilestoneRequest({ priority })}
+                  onClick={() =>
+                    updateMilestoneRequest({ priority, projectId: project?.id })
+                  }
                   priority={priority}
                 />
               ))}

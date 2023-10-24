@@ -8,10 +8,10 @@ export const getAllMilestones = async (params?: { progress?: Progress }) => {
   return data;
 };
 
-export const createMilestone = async () => {
+export const createMilestone = async (projectId?: number) => {
   const { data } = await post<
     Omit<Milestone, "tags" | "links" | "tasks" | "memos">
-  >(`milestone`, "");
+  >(`milestone`, { projectId });
   return data;
 };
 

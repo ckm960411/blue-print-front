@@ -1,8 +1,10 @@
 import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilestoneEmoji";
 import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { projectState } from "@/utils/recoil/store";
 import { Milestone } from "@/utils/types/milestone";
 import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 
 interface MilestoneCardHeaderProps {
   milestone: Milestone;
@@ -13,6 +15,7 @@ export default function MilestoneCardHeader({
   toggleOpened = true,
 }: MilestoneCardHeaderProps) {
   const { id, title, priority } = milestone;
+  const project = useRecoilValue(projectState);
 
   const [tempTitle, setTempTitle] = useState(() => title ?? "");
   const [editing, setEditing] = useState(false);
@@ -23,7 +26,7 @@ export default function MilestoneCardHeader({
 
   const handleEdit = () => {
     if (editing) {
-      updateMilestoneRequest({ title: tempTitle });
+      updateMilestoneRequest({ title: tempTitle, projectId: project?.id });
       setEditing(false);
     } else {
       setEditing(true);

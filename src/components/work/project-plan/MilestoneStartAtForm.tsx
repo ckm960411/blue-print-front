@@ -1,11 +1,13 @@
 import CalendarModal from "@/components/work/components/CalendarModal";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { projectState } from "@/utils/recoil/store";
 import { Milestone } from "@/utils/types/milestone";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { format } from "date-fns";
 import { Toast } from "primereact/toast";
 import { useRef } from "react";
+import { useRecoilValue } from "recoil";
 
 interface MilestoneStartAtFormProps {
   milestone: Milestone;
@@ -16,6 +18,7 @@ export default function MilestoneStartAtForm({
   const { id, startAt, endAt } = milestone;
   const toast = useRef<Toast>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const project = useRecoilValue(projectState);
 
   const { mutate: updateMilestoneRequest } = useUpdateMilestoneMutation(id, {
     onError: () => {
@@ -50,7 +53,9 @@ export default function MilestoneStartAtForm({
           isOpen={isOpen}
           date={startAt}
           onClose={onClose}
-          onUpdate={(startAt) => updateMilestoneRequest({ startAt })}
+          onUpdate={(startAt) =>
+            updateMilestoneRequest({ startAt, projectId: project?.id })
+          }
           maxDate={endAt}
         />
       </div>

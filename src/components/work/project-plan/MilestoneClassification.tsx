@@ -1,9 +1,11 @@
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { projectState } from "@/utils/recoil/store";
 import { Milestone } from "@/utils/types/milestone";
 import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { Colors } from "@/utils/common/color";
 import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
+import { useRecoilValue } from "recoil";
 
 export interface MileStoneClassficiationType {
   name: string;
@@ -16,6 +18,7 @@ export default function MilestoneClassification({
   milestone,
 }: MilestoneClassificationProps) {
   const [editing, setEditing] = useState(false);
+  const project = useRecoilValue(projectState);
 
   const { mutate: updateMilestoneRequest } = useUpdateMilestoneMutation(
     milestone.id,
@@ -38,7 +41,7 @@ export default function MilestoneClassification({
   const handleClose = () => setEditing(false);
 
   const handleConfirm = (name: string) => {
-    updateMilestoneRequest({ classification: name });
+    updateMilestoneRequest({ classification: name, projectId: project?.id });
     handleClose();
   };
 

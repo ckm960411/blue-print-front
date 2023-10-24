@@ -1,9 +1,11 @@
 import IconButton from "@/components/components/IconButton";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { projectState } from "@/utils/recoil/store";
 import { Milestone } from "@/utils/types/milestone";
 import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { Tooltip } from "@chakra-ui/react";
 import React from "react";
+import { useRecoilValue } from "recoil";
 
 interface MilestoenBookmarkButtonProps {
   milestone: Milestone;
@@ -14,6 +16,7 @@ export default function MilestoenBookmarkButton({
   onClick,
 }: MilestoenBookmarkButtonProps) {
   const { id, isBookmarked } = milestone;
+  const project = useRecoilValue(projectState);
 
   const { mutate: updateMilestoneRequest } = useUpdateMilestoneMutation(id);
 
@@ -25,7 +28,10 @@ export default function MilestoenBookmarkButton({
       <span>
         <IconButton
           onClick={() =>
-            updateMilestoneRequest({ isBookmarked: !isBookmarked })
+            updateMilestoneRequest({
+              isBookmarked: !isBookmarked,
+              projectId: project?.id,
+            })
           }
         >
           {isBookmarked ? (

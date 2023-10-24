@@ -2,10 +2,12 @@
 
 import Unicode, { EmojiType } from "@/components/components/Unicode";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { projectState } from "@/utils/recoil/store";
 import { Milestone } from "@/utils/types/milestone";
 import React, { useState } from "react";
 import PickerWrapper from "@/components/components/PickerWrapper";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+import { useRecoilValue } from "recoil";
 
 interface ProjectMilestoneEmojiProps {
   milestone: Milestone;
@@ -15,6 +17,7 @@ export default function ProjectMilestoneEmoji({
   milestone,
   className,
 }: ProjectMilestoneEmojiProps) {
+  const project = useRecoilValue(projectState);
   const [showPicker, setShowPicker] = useState(false);
 
   const { mutate: updateMilestoneRequest } = useUpdateMilestoneMutation(
@@ -25,7 +28,7 @@ export default function ProjectMilestoneEmoji({
   const handleClose = () => setShowPicker(false);
 
   const handleEmojiSelect = ({ unified: unicode }: EmojiType) => {
-    updateMilestoneRequest({ unicode });
+    updateMilestoneRequest({ unicode, projectId: project?.id });
     handleClose();
   };
 

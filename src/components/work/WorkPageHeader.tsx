@@ -1,8 +1,7 @@
-import IconButton from "@/components/components/IconButton";
 import CreateProjectButton from "@/components/work/CreateProjectButton";
+import DeleteProjectButton from "@/components/work/DeleteProjectButton";
 import React from "react";
 import ProjectSelect from "@/components/work/ProjectSelect";
-import { BsTrash } from "react-icons/bs";
 
 interface WorkPageHeaderProps {}
 export default function WorkPageHeader({}: WorkPageHeaderProps) {
@@ -15,12 +14,7 @@ export default function WorkPageHeader({}: WorkPageHeaderProps) {
         </div>
         <div className="flex-center gap-8px">
           <CreateProjectButton />
-          <IconButton
-            className="rounded-md bg-transparent text-18px hover:bg-gray-100"
-            w={24}
-          >
-            <BsTrash />
-          </IconButton>
+          <DeleteProjectButton />
         </div>
       </div>
       <p className="text-14px text-gray-600">

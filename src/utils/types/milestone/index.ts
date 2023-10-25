@@ -1,3 +1,4 @@
+import { ColorKey } from "@/utils/common/color";
 import { DateTime, Link, Priority, Progress } from "@/utils/types";
 import { Memo } from "@/utils/types/memo";
 import { Tag } from "@/utils/types/tag.index";
@@ -17,6 +18,7 @@ export interface Milestone {
   progress: Progress;
   isClosed: boolean;
   isBookmarked: boolean;
+  color: ColorKey;
   tags: Tag[];
   links: Link[];
   tasks: Task[];

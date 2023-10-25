@@ -1,3 +1,4 @@
+import { ColorKey } from "@/utils/common/color";
 import { Progress } from "@/utils/types";
 
 export interface UpdateMilestoneReqDto {
@@ -10,5 +11,6 @@ export interface UpdateMilestoneReqDto {
   progress?: Progress;
   isClosed?: boolean;
   isBookmarked?: boolean;
+  color?: ColorKey;
   projectId?: number;
 }

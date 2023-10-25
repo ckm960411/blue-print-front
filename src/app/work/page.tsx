@@ -1,6 +1,5 @@
 import React from "react";
 import WorkPageHeader from "@/components/work/WorkPageHeader";
-import WorkTabs from "@/components/work/WorkTabs";
 import WorkPageContent from "@/components/work/WorkPageContent";
 
 export default function WorkPage() {

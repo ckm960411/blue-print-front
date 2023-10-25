@@ -55,6 +55,8 @@ export default function UpdateProjectForm({}: UpdateProjectFormProps) {
     closeUpdateModal();
   };
 
+  if (!project) return <></>;
+
   return (
     <>
       <MilestoneEditButton

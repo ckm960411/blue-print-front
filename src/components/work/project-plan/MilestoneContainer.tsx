@@ -2,12 +2,8 @@
 
 import MilestoneCard from "@/components/work/project-plan/MilestoneCard";
 import { MilestoneStatus } from "@/components/work/project-plan/ProjectPlanTab";
-import { QueryKeys } from "@/utils/common/query-keys";
-import { projectState } from "@/utils/recoil/store";
-import { getAllMilestones } from "@/utils/services/milestone";
-import { useQuery } from "@tanstack/react-query";
+import { useMilestonesQuery } from "@/utils/hooks/react-query/useMilestonesQuery";
 import React, { useEffect } from "react";
-import { useRecoilValue } from "recoil";
 
 interface MilestoneContainerProps {
   status: MilestoneStatus;
@@ -15,17 +11,7 @@ interface MilestoneContainerProps {
 export default function MilestoneContainer({
   status,
 }: MilestoneContainerProps) {
-  const project = useRecoilValue(projectState);
-
-  const { data: milestones = [], refetch } = useQuery(
-    QueryKeys.getAllMilestones(status, project?.id),
-    () =>
-      getAllMilestones({
-        progress: status === "ALL" ? undefined : status,
-        projectId: project?.id,
-      }),
-    { onError: console.error },
-  );
+  const { data: milestones = [], refetch } = useMilestonesQuery(status);
 
   useEffect(() => {
     refetch();

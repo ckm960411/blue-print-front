@@ -18,7 +18,7 @@ export default function MilestoneContainer({
   const project = useRecoilValue(projectState);
 
   const { data: milestones = [], refetch } = useQuery(
-    QueryKeys.getAllMilestones(status),
+    QueryKeys.getAllMilestones(status, project?.id),
     () =>
       getAllMilestones({
         progress: status === "ALL" ? undefined : status,

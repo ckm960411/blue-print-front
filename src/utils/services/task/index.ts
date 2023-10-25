@@ -7,6 +7,7 @@ import { Task } from "@/utils/types/task";
 export const getAllTask = async (params?: {
   progress?: Progress;
   milestoneId?: number;
+  projectId?: number;
 }) => {
   const { data } = await get<Task[]>(`task`, { params });
   return data;

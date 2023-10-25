@@ -1,6 +1,7 @@
 "use client";
 
-import { ColorKey, Colors } from "@/utils/common/color";
+import ColorPicker from "@/components/components/ColorPicker";
+import { ColorKey } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { useMemoMutation } from "@/utils/hooks/memo/useMemoMutation";
 import { projectState } from "@/utils/recoil/store";
@@ -69,25 +70,7 @@ export default function CreateMemoForm({
           className="w-full bg-transparent font-bold text-gray-800 placeholder:font-medium"
         />
       </div>
-      <div className="flex flex-wrap items-center gap-8px">
-        {Object.keys(Colors).map((c: string, i) => {
-          const colorName = c as ColorKey;
-          return (
-            <button
-              key={i}
-              onClick={() => setColor(colorName)}
-              className="h-20px w-20px flex-shrink-0 rounded-full border"
-              style={{
-                backgroundColor: Colors[colorName][50],
-                borderColor:
-                  color === colorName
-                    ? Colors[colorName][500]
-                    : Colors.gray[200],
-              }}
-            />
-          );
-        })}
-      </div>
+      <ColorPicker color={color} onClick={(color) => setColor(color)} />
       <PlainEditor
         onChange={handleChangeMemo}
         hideModeSwitch={hideModeSwitch}

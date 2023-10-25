@@ -1,4 +1,5 @@
-import { ColorKey, Colors } from "@/utils/common/color";
+import ColorPicker from "@/components/components/ColorPicker";
+import { ColorKey } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { createTag, deleteTag, updateTag } from "@/utils/services/tag";
 import { CreateTagReqDto } from "@/utils/services/tag/dto/create-tag.req.dto";
@@ -122,22 +123,10 @@ export default function CreateUpdateTagForm({
           </div>
           <div className="flex items-start gap-12px">
             <span className="flex-shrink-0">색상: </span>
-            <div className="flex flex-wrap items-center gap-8px">
-              {(Object.keys(Colors) as ColorKey[]).map((colorKey, i) => (
-                <button
-                  key={i}
-                  onClick={() => setTagColor(colorKey)}
-                  className="h-20px w-20px flex-shrink-0 rounded-full border"
-                  style={{
-                    backgroundColor: Colors[colorKey][50],
-                    borderColor:
-                      tagColor === colorKey
-                        ? Colors[colorKey][500]
-                        : Colors.gray[200],
-                  }}
-                />
-              ))}
-            </div>
+            <ColorPicker
+              color={tagColor}
+              onClick={(color) => setTagColor(color)}
+            />
           </div>
           <div className="flex items-center justify-end gap-8px">
             {type === "update" && (

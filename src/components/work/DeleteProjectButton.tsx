@@ -40,6 +40,8 @@ export default function DeleteProjectButton({}: DeleteProjectButtonProps) {
     closeDeletePopup();
   };
 
+  if (!project) return <></>;
+
   return (
     <Popover isOpen={isDeletePopupOpen} placement="bottom-end">
       <PopoverTrigger>

@@ -3,7 +3,10 @@ import { UpdateMilestoneReqDto } from "@/utils/services/milestone/dto/update-mil
 import { Progress } from "@/utils/types";
 import { Milestone } from "@/utils/types/milestone";
 
-export const getAllMilestones = async (params?: { progress?: Progress }) => {
+export const getAllMilestones = async (params?: {
+  progress?: Progress;
+  projectId?: number;
+}) => {
   const { data } = await get<Milestone[]>(`milestone`, { params });
   return data;
 };

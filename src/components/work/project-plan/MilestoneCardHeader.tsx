@@ -1,3 +1,4 @@
+import MilestoneColorForm from "@/components/work/project-plan/MilestoneColorForm";
 import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilestoneEmoji";
 import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
@@ -53,13 +54,16 @@ export default function MilestoneCardHeader({
             className="max-w-[300px] grow rounded-md border border-gray-200 px-12px py-6px text-16px font-semibold text-gray-700"
           />
         ) : (
-          <p
-            className={`font-bold leading-[150%] text-gray-700 duration-200 ${
-              toggleOpened ? "text-22px" : "text-16px"
-            }`}
-          >
-            {title}
-          </p>
+          <div className="flex items-center gap-8px">
+            {toggleOpened && <MilestoneColorForm milestone={milestone} />}
+            <p
+              className={`font-bold leading-[150%] text-gray-700 duration-200 ${
+                toggleOpened ? "text-22px" : "text-16px"
+              }`}
+            >
+              {title}
+            </p>
+          </div>
         )}
 
         {toggleOpened && (

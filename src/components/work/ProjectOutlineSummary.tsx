@@ -59,7 +59,6 @@ export default function ProjectOutlineSummary({}: ProjectOutlineSummaryProps) {
 
   const okrMilestones = getMilestones(true);
   const normalMilestones = getMilestones(false);
-  const totalMilestones = [...okrMilestones, ...normalMilestones].splice(0, 4);
 
   const okrMilestonesAverage = getMilestonesAverage(okrMilestones);
   const normalMilestonesAverage = getMilestonesAverage(normalMilestones);
@@ -119,7 +118,7 @@ export default function ProjectOutlineSummary({}: ProjectOutlineSummaryProps) {
       </div>
       <div className="py-16px">
         <div className="grid grid-cols-4">
-          {totalMilestones.map(({ title, percentage, color }, index) => (
+          {okrMilestones.map(({ title, percentage, color }, index) => (
             <div key={index} className="flex-center flex-col gap-12px">
               <div
                 className={`flex-center flex w-full ${

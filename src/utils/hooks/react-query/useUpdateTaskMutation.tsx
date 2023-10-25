@@ -19,6 +19,7 @@ export const useUpdateTaskMutation = (
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries(QueryKeys.getAllTasks());
+        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
         options?.onSuccess?.();
       },
       onError: (e: any) => {

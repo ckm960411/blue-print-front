@@ -120,7 +120,9 @@ export default function CreateUpdateTaskModal({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>태스크 추가</ModalHeader>
+          <ModalHeader>
+            태스크 {type === "create" ? "추가" : "수정"}
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody className="flex flex-col gap-16px">
             <input

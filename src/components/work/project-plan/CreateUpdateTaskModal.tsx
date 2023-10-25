@@ -50,6 +50,7 @@ export default function CreateUpdateTaskModal({
       detail: "할일이 추가되었습니다.",
     });
     queryClient.invalidateQueries({ queryKey: QueryKeys.getAllTasks() });
+    queryClient.invalidateQueries(QueryKeys.getAllMilestones());
     onClose();
     if (type === "create") {
       setTitle("");

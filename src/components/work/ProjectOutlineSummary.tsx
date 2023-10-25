@@ -152,7 +152,7 @@ export default function ProjectOutlineSummary({}: ProjectOutlineSummaryProps) {
 
             return (
               <div key={i} className="flex items-center gap-8px">
-                <p className="w-32px flex-shrink-0 text-12px text-gray-600">
+                <p className="w-42px flex-shrink-0 text-12px text-gray-600">
                   {percentage}%
                 </p>
                 <p className="truncate-1-lines grow text-14px font-medium text-gray-700">

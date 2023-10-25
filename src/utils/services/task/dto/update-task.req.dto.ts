@@ -1,3 +1,4 @@
+import { ColorKey } from "@/utils/common/color";
 import { Priority, Progress } from "@/utils/types";
 
 export interface UpdateTaskReqDto {
@@ -9,6 +10,7 @@ export interface UpdateTaskReqDto {
   progress?: Progress;
   priority?: Priority;
   isBookmarked?: boolean;
+  color?: ColorKey;
   milestoneId?: number;
   projectId?: number;
 }

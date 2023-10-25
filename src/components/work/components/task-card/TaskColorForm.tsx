@@ -1,9 +1,10 @@
 import ColorPicker from "@/components/components/ColorPicker";
-import { Colors } from "@/utils/common/color";
+import { ColorKey, Colors } from "@/utils/common/color";
+import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
 import { Task } from "@/utils/types/task";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 
 interface TaskColorFormProps {
   task: Task;
@@ -15,6 +16,15 @@ export default function TaskColorForm({ task }: TaskColorFormProps) {
     onClose: closeColorPicker,
   } = useDisclosure();
 
+  const [color, setColor] = useState<ColorKey>(() => task.color ?? "gray");
+
+  const { mutate: updateTaskRequest } = useUpdateTaskMutation(task.id);
+
+  const handleUpdate = () => {
+    updateTaskRequest({ color });
+    closeColorPicker();
+  };
+
   return (
     <Popover isOpen={isColorPickerOpen} placement="bottom-start">
       <PopoverTrigger>
@@ -25,7 +35,7 @@ export default function TaskColorForm({ task }: TaskColorFormProps) {
         />
       </PopoverTrigger>
       <PopoverContent className="max-w-[168px] p-16px">
-        <ColorPicker color={task.color} onClick={() => {}} />
+        <ColorPicker color={color} onClick={(color) => setColor(color)} />
         <div className="mt-16px flex items-center justify-end gap-8px">
           <button
             onClick={closeColorPicker}
@@ -34,7 +44,7 @@ export default function TaskColorForm({ task }: TaskColorFormProps) {
             취소
           </button>
           <button
-            // onClick={handleDelete}
+            onClick={handleUpdate}
             className="rounded-md px-8px py-4px text-14px hover:bg-gray-100"
           >
             확인

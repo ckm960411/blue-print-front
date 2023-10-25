@@ -1,10 +1,12 @@
 import MilestoneTagButton from "@/components/work/project-plan/components/MilestoneTagButton";
 import { Colors } from "@/utils/common/color";
+import { QueryKeys } from "@/utils/common/query-keys";
 import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
 import { projectState } from "@/utils/recoil/store";
 import { Progress } from "@/utils/types";
 import { Task } from "@/utils/types/task";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 
@@ -12,6 +14,8 @@ interface TaskProgressFormProps {
   task: Task;
 }
 export default function TaskProgressForm({ task }: TaskProgressFormProps) {
+  const queryClient = useQueryClient();
+
   const project = useRecoilValue(projectState);
   const [editing, setEditing] = useState(false);
 
@@ -27,7 +31,11 @@ export default function TaskProgressForm({ task }: TaskProgressFormProps) {
   const handleOpen = () => setEditing(true);
   const handleClose = () => setEditing(false);
 
-  const { mutate: updateTaskRequest } = useUpdateTaskMutation(task.id);
+  const { mutate: updateTaskRequest } = useUpdateTaskMutation(task.id, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(QueryKeys.getThisMonthTasks());
+    },
+  });
 
   const handleClick = (progress: Progress) => {
     updateTaskRequest({ progress, projectId: project?.id });

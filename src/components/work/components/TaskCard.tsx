@@ -2,6 +2,7 @@ import TaskBookmarkButton from "@/components/work/components/task-card/TaskBookm
 import TaskCardDetailAccordion from "@/components/work/components/task-card/TaskCardDetailAccordion";
 import TaskCardDropdown from "@/components/work/components/task-card/TaskCardDropdown";
 import TaskTags from "@/components/work/components/task-card/TaskTags";
+import { Colors } from "@/utils/common/color";
 import { Task } from "@/utils/types/task";
 import React, { useState } from "react";
 
@@ -13,13 +14,21 @@ export default function TaskCard({ task }: TaskCardProps) {
   const [showExpandButton, setShowExpandButton] = useState(false);
 
   return (
-    <div className="relative flex flex-col gap-8px bg-white p-16px shadow-md duration-200 hover:shadow-lg">
+    <div className="relative flex flex-col gap-8px rounded-10px bg-white p-16px shadow-md duration-200 hover:shadow-lg">
       <TaskBookmarkButton taskId={task.id} isBookmarked={task.isBookmarked} />
 
       <TaskTags task={task} />
 
       <div className="flex-between gap-12px">
-        <div className="truncate-1-lines text-16px font-bold">{task.title}</div>
+        <div className="flex items-center gap-8px">
+          <div
+            className="h-16px w-16px rounded-full"
+            style={{ backgroundColor: Colors[task.color][500] }}
+          />
+          <div className="truncate-1-lines text-16px font-bold">
+            {task.title}
+          </div>
+        </div>
         <TaskCardDropdown task={task} />
       </div>
 

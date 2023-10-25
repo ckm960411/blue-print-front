@@ -1,3 +1,4 @@
+import { ColorKey } from "@/utils/common/color";
 import { DateTime, Link, Priority, Progress } from "@/utils/types";
 import { Tag } from "@/utils/types/tag.index";
 
@@ -14,6 +15,7 @@ export interface Task {
   priority: Priority;
   isBookmarked: boolean;
   progress: Progress;
+  color: ColorKey;
   links: Link[];
   tags: Tag[];
   projectId: number | null;

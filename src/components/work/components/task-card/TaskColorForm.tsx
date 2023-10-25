@@ -1,9 +1,11 @@
 import ColorPicker from "@/components/components/ColorPicker";
 import { ColorKey, Colors } from "@/utils/common/color";
+import { QueryKeys } from "@/utils/common/query-keys";
 import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
 import { Task } from "@/utils/types/task";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+import { useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 
 interface TaskColorFormProps {
@@ -15,10 +17,15 @@ export default function TaskColorForm({ task }: TaskColorFormProps) {
     onOpen: openColorPicker,
     onClose: closeColorPicker,
   } = useDisclosure();
+  const queryClient = useQueryClient();
 
   const [color, setColor] = useState<ColorKey>(() => task.color ?? "gray");
 
-  const { mutate: updateTaskRequest } = useUpdateTaskMutation(task.id);
+  const { mutate: updateTaskRequest } = useUpdateTaskMutation(task.id, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(QueryKeys.getThisMonthTasks());
+    },
+  });
 
   const handleUpdate = () => {
     updateTaskRequest({ color });

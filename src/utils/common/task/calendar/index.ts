@@ -13,30 +13,6 @@ import {
 import { forEach } from "lodash";
 
 /**
- * Colors 에의 key 를 중복없이 랜덤으로 추출하는 함수
- */
-const getRandomColorKey = () => {
-  let keys = Object.keys(Colors) as ColorKey[];
-  let usedKeys = [] as ColorKey[];
-
-  return (() => {
-    if (keys.length === 0) {
-      keys = [...usedKeys];
-      usedKeys = [];
-    }
-
-    const randomIndex = Math.floor(Math.random() * keys.length);
-    const key = keys[randomIndex];
-
-    // Remove the selected key from the 'keys' array and add it to the 'usedKeys' array.
-    keys.splice(randomIndex, 1);
-    usedKeys.push(key);
-
-    return key;
-  })();
-};
-
-/**
  * date 에 해당하는 달력의 연, 월, week 인덱스, 일자를 가져오는 함수
  */
 type DateInfo = {
@@ -88,7 +64,6 @@ export const addTimeline = (tasks: Task[]) => {
       const from = new Date(task.startAt!);
       const to = new Date(task.endAt!);
       const differenceBetweenFromTo = differenceInDays(to, from) + 1;
-      const color = getRandomColorKey();
 
       // 각 task 의 시작일부터 끝나는 날까지 동작 반복 수행
       forEach(Array.from({ length: differenceBetweenFromTo }), (_, i) => {
@@ -116,7 +91,7 @@ export const addTimeline = (tasks: Task[]) => {
           // 이미 해당 task.id 의 colorTaskTr 이 있는 경우 일치하는 Td의 span 에 컬러를 입힘
           const td = colorTaskTr.children[currentDayIndex];
           const tableDataSpan = td.children[0] as HTMLElement;
-          tableDataSpan.style.backgroundColor = Colors[color][200];
+          tableDataSpan.style.backgroundColor = Colors[task.color][200];
         } else {
           // 해당 task.id 의 colorTaskTr 이 없는 경우 새로 생성하고 task.id 를 주입
           const newColorTaskTr = document.createElement("tr");
@@ -129,7 +104,7 @@ export const addTimeline = (tasks: Task[]) => {
             tdSpan.className = `tableDataSpan w-full h-4px`;
             // 그리고 해당 날짜는 컬러를 추가
             if (currentDayIndex === dayIndex) {
-              tdSpan.style.backgroundColor = `${Colors[color][200]}`;
+              tdSpan.style.backgroundColor = `${Colors[task.color][200]}`;
             }
             // td 에 span 을 주입하고 td 는 다시 tr 에 주입
             newTd.appendChild(tdSpan);

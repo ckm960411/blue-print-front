@@ -1,4 +1,5 @@
 import CircularProgressWrapper from "@/components/components/CircularProgressWrapper";
+import { ColorKey, Colors } from "@/utils/common/color";
 import { useMilestonesQuery } from "@/utils/hooks/react-query/useMilestonesQuery";
 import { DateTime, Progress } from "@/utils/types";
 import { Milestone, MilestoneClassification } from "@/utils/types/milestone";
@@ -7,7 +8,7 @@ import { filter, pipe, map } from "lodash/fp";
 
 interface MilestoneOutline {
   title: string;
-  color: string;
+  color: ColorKey;
   taskCount: number;
   endAt: DateTime | null;
   percentage: number;
@@ -144,7 +145,7 @@ export default function ProjectOutlineSummary({}: ProjectOutlineSummaryProps) {
       <div className="flex flex-col gap-12px">
         <p className="text-14px font-medium text-gray-600">오늘 업무 진행도</p>
         <div className="flex flex-col gap-8px">
-          {normalMilestones.map(({ title, percentage, endAt }, i) => {
+          {normalMilestones.map(({ title, percentage, endAt, color }, i) => {
             const remainDays = endAt
               ? differenceInDays(new Date(endAt), new Date()) + 1
               : null;
@@ -159,8 +160,11 @@ export default function ProjectOutlineSummary({}: ProjectOutlineSummaryProps) {
                 </p>
                 <div className="h-8px w-120px flex-shrink-0 overflow-hidden rounded-md bg-gray-200">
                   <div
-                    className="h-full rounded-md bg-main"
-                    style={{ width: `${percentage}%` }}
+                    className="h-full rounded-md"
+                    style={{
+                      width: `${percentage}%`,
+                      backgroundColor: Colors[color][500],
+                    }}
                   />
                 </div>
                 {remainDays ? (

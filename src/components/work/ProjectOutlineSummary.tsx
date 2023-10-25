@@ -1,13 +1,15 @@
 import CircularProgressWrapper from "@/components/components/CircularProgressWrapper";
 import { useMilestonesQuery } from "@/utils/hooks/react-query/useMilestonesQuery";
-import { Progress } from "@/utils/types";
+import { DateTime, Progress } from "@/utils/types";
 import { Milestone, MilestoneClassification } from "@/utils/types/milestone";
+import { differenceInDays } from "date-fns";
 import { filter, pipe, map } from "lodash/fp";
 
 interface MilestoneOutline {
   title: string;
   color: string;
   taskCount: number;
+  endAt: DateTime | null;
   percentage: number;
 }
 
@@ -37,6 +39,7 @@ export default function ProjectOutlineSummary({}: ProjectOutlineSummaryProps) {
           title: milestone.title,
           color: milestone.color,
           taskCount: tasks.length,
+          endAt: milestone.endAt,
           percentage: completedTasks.length > 0 ? getPercentage(percentage) : 0,
         };
       }),
@@ -136,6 +139,46 @@ export default function ProjectOutlineSummary({}: ProjectOutlineSummaryProps) {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+      <div className="flex flex-col gap-12px">
+        <p className="text-14px font-medium text-gray-600">오늘 업무 진행도</p>
+        <div className="flex flex-col gap-8px">
+          {normalMilestones.map(({ title, percentage, endAt }, i) => {
+            const remainDays = endAt
+              ? differenceInDays(new Date(endAt), new Date()) + 1
+              : null;
+
+            return (
+              <div key={i} className="flex items-center gap-8px">
+                <p className="w-32px flex-shrink-0 text-12px text-gray-600">
+                  {percentage}%
+                </p>
+                <p className="truncate-1-lines grow text-14px font-medium text-gray-700">
+                  {title}
+                </p>
+                <div className="h-8px w-120px flex-shrink-0 overflow-hidden rounded-md bg-gray-200">
+                  <div
+                    className="h-full rounded-md bg-main"
+                    style={{ width: `${percentage}%` }}
+                  />
+                </div>
+                {remainDays ? (
+                  <p
+                    className={`w-48px flex-shrink-0 text-right text-12px ${
+                      remainDays <= 2
+                        ? "font-medium text-red-500"
+                        : "text-gray-600"
+                    }`}
+                  >
+                    D{remainDays * -1}일
+                  </p>
+                ) : (
+                  <div className="h-2px w-48px" />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

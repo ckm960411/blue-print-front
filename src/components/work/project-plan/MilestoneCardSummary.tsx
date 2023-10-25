@@ -2,7 +2,7 @@
 
 import MilestoneEndAtForm from "@/components/work/project-plan/MilestoneEndAtForm";
 import MilestoneStartAtForm from "@/components/work/project-plan/MilestoneStartAtForm";
-import MilestoneClassification from "@/components/work/project-plan/MilestoneClassification";
+import MilestoneClassificationForm from "@/components/work/project-plan/MilestoneClassificationForm";
 import MilestonePriorityForm from "@/components/work/project-plan/MilestonePriorityForm";
 import MilestoneProgress from "@/components/work/project-plan/MilestoneProgress";
 import MilestoneTags from "@/components/work/project-plan/MilestoneTags";
@@ -17,7 +17,7 @@ export default function MilestoneCardSummary({
 }: MilestoneCardSummaryProps) {
   return (
     <div className="flex flex-col gap-16px">
-      <MilestoneClassification milestone={milestone} />
+      <MilestoneClassificationForm milestone={milestone} />
       <MilestoneProgress milestone={milestone} />
       <MilestonePriorityForm milestone={milestone} />
       <MilestoneStartAtForm milestone={milestone} />

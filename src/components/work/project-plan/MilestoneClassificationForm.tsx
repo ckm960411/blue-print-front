@@ -1,6 +1,6 @@
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
 import { projectState } from "@/utils/recoil/store";
-import { Milestone } from "@/utils/types/milestone";
+import { MilestoneClassification, Milestone } from "@/utils/types/milestone";
 import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { Colors } from "@/utils/common/color";
@@ -8,15 +8,15 @@ import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/M
 import { useRecoilValue } from "recoil";
 
 export interface MileStoneClassficiationType {
-  name: string;
+  name: MilestoneClassification;
   color: string;
 }
-interface MilestoneClassificationProps {
+interface MilestoneClassificationFormProps {
   milestone: Milestone;
 }
-export default function MilestoneClassification({
+export default function MilestoneClassificationForm({
   milestone,
-}: MilestoneClassificationProps) {
+}: MilestoneClassificationFormProps) {
   const [editing, setEditing] = useState(false);
   const project = useRecoilValue(projectState);
 
@@ -25,12 +25,12 @@ export default function MilestoneClassification({
   );
 
   const exampleTags: MileStoneClassficiationType[] = [
-    { name: "Feature", color: Colors.blue[50] },
-    { name: "Chore", color: Colors.yellow[50] },
-    { name: "Refactor", color: Colors.green[50] },
-    { name: "Hotfix", color: Colors.red[50] },
-    { name: "OKR", color: Colors.teal[50] },
-    { name: "etc", color: Colors.purple[50] },
+    { name: MilestoneClassification.Feature, color: Colors.blue[50] },
+    { name: MilestoneClassification.Chore, color: Colors.yellow[50] },
+    { name: MilestoneClassification.Refactor, color: Colors.green[50] },
+    { name: MilestoneClassification.Hotfix, color: Colors.red[50] },
+    { name: MilestoneClassification.OKR, color: Colors.teal[50] },
+    { name: MilestoneClassification.etc, color: Colors.purple[50] },
   ];
 
   const currentTag = exampleTags.find(

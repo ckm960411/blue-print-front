@@ -25,3 +25,12 @@ export interface Milestone {
   memos: Memo[];
   projectId?: number;
 }
+
+export enum MilestoneClassification {
+  Feature = "Feature",
+  Chore = "Chore",
+  Refactor = "Refactor",
+  Hotfix = "Hotfix",
+  OKR = "OKR",
+  etc = "etc",
+}

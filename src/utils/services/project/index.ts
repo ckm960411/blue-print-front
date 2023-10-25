@@ -1,4 +1,5 @@
-import { deleteCall, get, post } from "@/app/api/axios";
+import { deleteCall, get, patch, post } from "@/app/api/axios";
+import { CreateProjectReqDto } from "@/utils/services/project/dto/create-project.req.dto";
 import { Project } from "@/utils/types/project";
 
 export const createProject = async () => {
@@ -8,6 +9,14 @@ export const createProject = async () => {
 
 export const getAllProjects = async () => {
   const { data } = await get<Project[]>(`project`);
+  return data;
+};
+
+export const updateProject = async (
+  id: number,
+  updateProjectReqDto: Partial<CreateProjectReqDto>,
+) => {
+  const { data } = await patch<Project>(`project/${id}`, updateProjectReqDto);
   return data;
 };
 

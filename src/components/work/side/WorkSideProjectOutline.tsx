@@ -1,4 +1,3 @@
-import ProjectQuarter from "@/components/work/ProjectQuarter";
 import ProjectOutlineSummary from "@/components/work/ProjectOutlineSummary";
 import ProjectOutlineOKRs from "@/components/work/ProjectOutlineOKRs";
 import ProjectOutlineToDoContainer from "@/components/work/ProjectOutlineToDoContainer";
@@ -9,7 +8,6 @@ export default function WorkSideProjectOutline({}: WorkSideProjectOutlineProps) 
     <div>
       <div className="flex-between border-b border-gray-200 pb-16px">
         <p className="text-18px font-bold">Project Outline</p>
-        <ProjectQuarter />
       </div>
       <ProjectOutlineSummary />
       <ProjectOutlineOKRs />

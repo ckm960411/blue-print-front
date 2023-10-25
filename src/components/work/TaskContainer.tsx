@@ -1,9 +1,7 @@
 import TaskCard from "@/components/work/components/TaskCard";
-import { QueryKeys } from "@/utils/common/query-keys";
+import { useTasksQuery } from "@/utils/hooks/react-query/useTasksQuery";
 import { projectState } from "@/utils/recoil/store";
-import { getAllTask } from "@/utils/services/task";
 import { Progress } from "@/utils/types";
-import { useQuery } from "@tanstack/react-query";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -32,9 +30,8 @@ export default function TaskContainer({ milestoneId }: TaskContainerProps) {
 
   const project = useRecoilValue(projectState);
 
-  const { data: tasks } = useQuery(
-    QueryKeys.getAllTasks(progress, milestoneId, project?.id),
-    () => getAllTask({ progress, milestoneId, projectId: project?.id }),
+  const { data: tasks } = useTasksQuery(
+    { progress, milestoneId },
     {
       onError: () => {
         toast.current?.show({
@@ -45,7 +42,6 @@ export default function TaskContainer({ milestoneId }: TaskContainerProps) {
       },
     },
   );
-
   return (
     <>
       <Toast ref={toast} />

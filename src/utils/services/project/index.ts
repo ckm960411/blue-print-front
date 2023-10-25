@@ -1,4 +1,4 @@
-import { get, post } from "@/app/api/axios";
+import { deleteCall, get, post } from "@/app/api/axios";
 import { Project } from "@/utils/types/project";
 
 export const createProject = async () => {
@@ -8,5 +8,10 @@ export const createProject = async () => {
 
 export const getAllProjects = async () => {
   const { data } = await get<Project[]>(`project`);
+  return data;
+};
+
+export const deleteProject = async (id: number) => {
+  const { data } = await deleteCall(`project/${id}`);
   return data;
 };

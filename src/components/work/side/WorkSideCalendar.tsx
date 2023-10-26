@@ -40,7 +40,7 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
   }, [date, tasks]);
 
   return (
-    <div>
+    <div className="mx-auto max-w-[400px]">
       <TaskCalendar
         tasks={tasks}
         date={date}

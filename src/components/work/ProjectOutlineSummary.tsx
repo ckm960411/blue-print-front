@@ -4,6 +4,7 @@ import { useMilestonesQuery } from "@/utils/hooks/react-query/useMilestonesQuery
 import { DateTime, Progress } from "@/utils/types";
 import { Milestone, MilestoneClassification } from "@/utils/types/milestone";
 import { differenceInDays } from "date-fns";
+import { isNil } from "lodash";
 import { filter, pipe, map } from "lodash/fp";
 
 interface MilestoneOutline {
@@ -167,7 +168,13 @@ export default function ProjectOutlineSummary({}: ProjectOutlineSummaryProps) {
                     }}
                   />
                 </div>
-                {remainDays ? (
+                {isNil(remainDays) ? (
+                  <div className="h-2px w-48px flex-shrink-0" />
+                ) : remainDays === 0 ? (
+                  <div className="w-48px flex-shrink-0 text-right text-12px font-semibold text-red-500">
+                    오늘
+                  </div>
+                ) : (
                   <p
                     className={`w-48px flex-shrink-0 text-right text-12px ${
                       remainDays <= 2
@@ -175,10 +182,8 @@ export default function ProjectOutlineSummary({}: ProjectOutlineSummaryProps) {
                         : "text-gray-600"
                     }`}
                   >
-                    D{remainDays * -1}일
+                    {`D${remainDays < 0 ? "+" : "-"}${Math.abs(remainDays)}일`}
                   </p>
-                ) : (
-                  <div className="h-2px w-48px" />
                 )}
               </div>
             );

@@ -3,6 +3,7 @@ import { CreateMemoReqDto } from "@/utils/services/memo/dto/create-memo.req.dto"
 import { Memo } from "@/utils/types/memo";
 
 export interface GetAllMemosReqDto {
+  projectId?: number;
   milestoneId?: number;
   checked?: boolean;
 }

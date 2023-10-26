@@ -1,9 +1,11 @@
 import MemoCard from "@/components/work/components/MemoCard";
 import { QueryKeys } from "@/utils/common/query-keys";
+import { projectState } from "@/utils/recoil/store";
 import { getAllMemos } from "@/utils/services/memo";
 import { useQuery } from "@tanstack/react-query";
 import { Toast } from "primereact/toast";
 import React, { useRef } from "react";
+import { useRecoilValue } from "recoil";
 
 interface WorkSideMemoContainerProps {
   milestoneId?: number;
@@ -14,10 +16,16 @@ export default function WorkSideMemoContainer({
   showChecked,
 }: WorkSideMemoContainerProps) {
   const toast = useRef<Toast | null>(null);
+  const project = useRecoilValue(projectState);
 
   const { data: memos = [] } = useQuery(
-    QueryKeys.getAllMemos(showChecked, milestoneId),
-    () => getAllMemos({ checked: showChecked, milestoneId }),
+    QueryKeys.getAllMemos(showChecked, milestoneId, project?.id),
+    () =>
+      getAllMemos({
+        checked: showChecked,
+        milestoneId,
+        projectId: project?.id,
+      }),
     {
       onError: () =>
         toast.current?.show({

@@ -15,9 +15,7 @@ export default function WorkPageContent({}: WorkPageContentProps) {
   if (!project) return <></>;
 
   return (
-    <div
-      className={`flex grow ${UNDER_840PX ? "flex-col gap-32px" : "flex-row"}`}
-    >
+    <div className={`flex grow ${UNDER_840PX ? "flex-col" : "flex-row"}`}>
       <div
         className={
           UNDER_840PX ? "w-full" : "max-w-[400px] border-r border-gray-200"
@@ -27,7 +25,7 @@ export default function WorkPageContent({}: WorkPageContentProps) {
       </div>
       <div
         className={`grow bg-white ${
-          UNDER_840PX ? "" : "relative bottom-42px min-w-[400px]"
+          UNDER_840PX ? "sticky top-80px" : "relative bottom-42px min-w-[400px]"
         }`}
       >
         <WorkTabs />

@@ -27,7 +27,10 @@ export default function MilestoneCard({
   const handleToggleOpen = () => setToggleOpened((prev) => !prev);
 
   return (
-    <div className="relative flex flex-col gap-24px rounded-10px border border-gray-200 px-16px py-20px">
+    <div
+      className="relative flex flex-col gap-24px overflow-hidden rounded-10px border border-gray-200 px-16px py-20px"
+      style={{ height: toggleOpened ? "auto" : "66px" }}
+    >
       <MilestoneCardButtons
         milestone={milestone}
         toggleOpened={toggleOpened}
@@ -36,7 +39,7 @@ export default function MilestoneCard({
       />
 
       <MilestoneCardHeader milestone={milestone} toggleOpened={toggleOpened} />
-      {toggleOpened && <MilestoneCardSummary milestone={milestone} />}
+      <MilestoneCardSummary milestone={milestone} />
 
       <MilestoneDrawer
         milestone={milestone}

@@ -18,7 +18,9 @@ export default function WorkPageContent({}: WorkPageContentProps) {
     <div className={`flex grow ${UNDER_840PX ? "flex-col" : "flex-row"}`}>
       <div
         className={
-          UNDER_840PX ? "w-full" : "max-w-[400px] border-r border-gray-200"
+          UNDER_840PX
+            ? "w-full"
+            : "w-full max-w-[400px] border-r border-gray-200"
         }
       >
         <WorkSideContent />

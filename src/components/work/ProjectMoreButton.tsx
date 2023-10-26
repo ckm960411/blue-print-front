@@ -44,7 +44,6 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
           detail: "프로젝트 생성이 완료되었습니다.",
         });
         closeDropdown();
-        setProject(project);
       },
       onError: console.error,
     },

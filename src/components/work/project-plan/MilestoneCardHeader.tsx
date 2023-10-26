@@ -37,7 +37,7 @@ export default function MilestoneCardHeader({
 
   return (
     <div
-      className={`flex duration-200 ${
+      className={`flex grow duration-200 ${
         toggleOpened ? "flex-col items-start gap-8px" : "items-center gap-8px"
       }`}
     >
@@ -57,7 +57,7 @@ export default function MilestoneCardHeader({
           <div className="flex items-center gap-8px">
             {toggleOpened && <MilestoneColorForm milestone={milestone} />}
             <p
-              className={`font-bold leading-[150%] text-gray-700 duration-200 ${
+              className={`truncate-1-lines font-bold leading-[150%] text-gray-700 duration-200 ${
                 toggleOpened ? "text-22px" : "text-16px"
               }`}
             >

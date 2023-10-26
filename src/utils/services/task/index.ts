@@ -19,6 +19,7 @@ export const getAllUrgenttTasks = async (params?: { milestoneId?: number }) => {
 };
 
 export const getThisMonthTasks = async (params?: {
+  projectId?: number;
   year?: number;
   month?: number;
 }) => {

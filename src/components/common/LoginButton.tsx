@@ -49,6 +49,12 @@ export default function LoginButton({}: LoginButtonProps) {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem(WEB_STORAGE_KEY.TOKEN);
+    setMe(undefined);
+    resetAndClose();
+  };
+
   useEffect(() => {
     const token = localStorage.getItem(WEB_STORAGE_KEY.TOKEN);
     if (token) {
@@ -68,29 +74,37 @@ export default function LoginButton({}: LoginButtonProps) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>로그인</ModalHeader>
+          <ModalHeader>{me ? "로그아웃" : "로그인"}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody className="flex flex-col gap-16px">
-            <div>
-              <p className="text-18px font-bold text-gray-800">이메일</p>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="이메일을 입력하세요"
-                className="mt-8px w-full rounded-md border border-gray-200 px-8px py-12px text-16px"
-              />
-            </div>
-            <div>
-              <p className="text-18px font-bold text-gray-800">패스워드</p>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="패스워드를 입력하세요"
-                className="mt-8px w-full rounded-md border border-gray-200 px-8px py-12px text-16px"
-              />
-            </div>
+          <ModalBody>
+            {me ? (
+              <div className="text-16px font-medium text-gray-800">
+                정말 로그아웃 하시겠습니까?
+              </div>
+            ) : (
+              <div className="flex flex-col gap-16px">
+                <div>
+                  <p className="text-18px font-bold text-gray-800">이메일</p>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="이메일을 입력하세요"
+                    className="mt-8px w-full rounded-md border border-gray-200 px-8px py-12px text-16px"
+                  />
+                </div>
+                <div>
+                  <p className="text-18px font-bold text-gray-800">패스워드</p>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="패스워드를 입력하세요"
+                    className="mt-8px w-full rounded-md border border-gray-200 px-8px py-12px text-16px"
+                  />
+                </div>
+              </div>
+            )}
           </ModalBody>
 
           <ModalFooter className="gap-16px">
@@ -101,10 +115,10 @@ export default function LoginButton({}: LoginButtonProps) {
               취소
             </button>
             <button
-              onClick={handleLogin}
+              onClick={me ? handleLogout : handleLogin}
               className="rounded-md px-12px py-8px text-16px font-semibold duration-200 hover:bg-main hover:text-white"
             >
-              로그인
+              {me ? "로그아웃" : "로그인"}
             </button>
           </ModalFooter>
         </ModalContent>

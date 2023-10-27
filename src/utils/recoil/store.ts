@@ -15,3 +15,8 @@ export const projectState = atom<Project | undefined>({
   key: "project",
   default: undefined,
 });
+
+export const meState = atom<Me | undefined>({
+  key: "me",
+  default: undefined,
+});

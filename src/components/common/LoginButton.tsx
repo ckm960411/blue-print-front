@@ -35,10 +35,14 @@ export default function LoginButton({}: LoginButtonProps) {
     onClose();
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (type?: "guest") => {
     if (!email.trim() || !password.trim()) return;
+    const isGuest = type === "guest";
     try {
-      await loginRequest({ email, password }).then(({ accessToken }) => {
+      await loginRequest({
+        email: isGuest ? process.env.NEXT_PUBLIC_GUEST_EMAIL! : email,
+        password: isGuest ? process.env.NEXT_PUBLIC_GUEST_PASSWORD! : password,
+      }).then(({ accessToken }) => {
         localStorage.setItem(WEB_STORAGE_KEY.TOKEN, accessToken);
       });
       const meData = await getMe();
@@ -107,19 +111,27 @@ export default function LoginButton({}: LoginButtonProps) {
             )}
           </ModalBody>
 
-          <ModalFooter className="gap-16px">
+          <ModalFooter className="justify-between gap-16px">
             <button
-              onClick={onClose}
-              className="rounded-md px-12px py-8px text-16px font-semibold duration-200 hover:bg-gray-100"
+              onClick={() => handleLogin("guest")}
+              className="text-14px font-medium underline duration-200 hover:text-main"
             >
-              취소
+              게스트 계정으로 로그인
             </button>
-            <button
-              onClick={me ? handleLogout : handleLogin}
-              className="rounded-md px-12px py-8px text-16px font-semibold duration-200 hover:bg-main hover:text-white"
-            >
-              {me ? "로그아웃" : "로그인"}
-            </button>
+            <div className="flex items-center gap-16px">
+              <button
+                onClick={onClose}
+                className="rounded-md px-12px py-8px text-16px font-semibold duration-200 hover:bg-gray-100"
+              >
+                취소
+              </button>
+              <button
+                onClick={me ? handleLogout : () => handleLogin()}
+                className="rounded-md px-12px py-8px text-16px font-semibold duration-200 hover:bg-main hover:text-white"
+              >
+                {me ? "로그아웃" : "로그인"}
+              </button>
+            </div>
           </ModalFooter>
         </ModalContent>
       </Modal>

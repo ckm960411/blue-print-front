@@ -1,5 +1,6 @@
-'use client';
+"use client";
 
+import LoginButton from "@/components/common/LoginButton";
 import { Z_INDEX } from "@/utils/common";
 import React from "react";
 import { BiSearch } from "react-icons/bi";
@@ -30,9 +31,7 @@ export default function Header() {
           <button className="flex-center h-42px w-42px rounded-10px border border-gray-200 text-gray-800 duration-200 hover:bg-main hover:text-white hover:shadow-lg md:hidden">
             <BiSearch className="h-20px w-20px" />
           </button>
-          <button className="h-42px w-76px rounded-10px border border-gray-200 text-16px font-medium duration-200 hover:bg-main hover:text-white hover:shadow-lg">
-            로그인
-          </button>
+          <LoginButton />
         </div>
       </div>
     </header>

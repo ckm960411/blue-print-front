@@ -8,8 +8,8 @@ import { BsJournalBookmark } from "react-icons/bs";
 import { PiHamburgerLight } from "react-icons/pi";
 import { MdWorkOutline } from "react-icons/md";
 import { useMediaQuery } from "react-responsive";
-import { useRecoilState } from "recoil";
-import { sideBarOpenState } from "@/utils/recoil/store";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { meState, sideBarOpenState } from "@/utils/recoil/store";
 import { getNotionSections } from "@/utils/services/notion";
 import { CategorySection } from "@/utils/types/study";
 
@@ -20,6 +20,7 @@ export default function SideBar() {
   const UNDER_1024PX = useMediaQuery({ query: "(max-width: 1023px)" });
   const UNDER_480PX = useMediaQuery({ query: "(max-width: 479px)" });
 
+  const me = useRecoilValue(meState);
   const [isSpreaded, setIsSpreaded] = useRecoilState(sideBarOpenState);
   const [studySections, setStudySections] = useState<CategorySection[]>();
 
@@ -78,12 +79,14 @@ export default function SideBar() {
               isSpreaded={isSpreaded}
               sections={studySections}
             />
-            <SideBarLink
-              title="WORK"
-              icon={<MdWorkOutline className="text-22px" />}
-              href="/work"
-              isSpreaded={isSpreaded}
-            />
+            {me && (
+              <SideBarLink
+                title="WORK"
+                icon={<MdWorkOutline className="text-22px" />}
+                href="/work"
+                isSpreaded={isSpreaded}
+              />
+            )}
           </ul>
         </div>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { WEB_STORAGE_KEY } from "@/utils/common/constant";
 import { meState } from "@/utils/recoil/store";
 import { getMe, login, LoginReqDto } from "@/utils/services/user";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -38,7 +39,7 @@ export default function LoginButton({}: LoginButtonProps) {
     if (!email.trim() || !password.trim()) return;
     try {
       await loginRequest({ email, password }).then(({ accessToken }) => {
-        localStorage.setItem("token", accessToken);
+        localStorage.setItem(WEB_STORAGE_KEY.TOKEN, accessToken);
       });
       const meData = await getMe();
       setMe(meData);
@@ -49,7 +50,7 @@ export default function LoginButton({}: LoginButtonProps) {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem(WEB_STORAGE_KEY.TOKEN);
     if (token) {
       getMe().then(setMe).catch(console.error);
     }

@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/modal";
 import { Modal, ModalFooter } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
 interface LoginButtonProps {}
@@ -47,6 +47,13 @@ export default function LoginButton({}: LoginButtonProps) {
       resetAndClose();
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      getMe().then(setMe).catch(console.error);
+    }
+  }, []);
 
   return (
     <>

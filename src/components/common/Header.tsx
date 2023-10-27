@@ -13,16 +13,17 @@ export default function Header() {
     >
       <div className="flex h-full w-full items-center gap-16px px-24px">
         <div className="grow">
-          <div className="hidden w-360px items-center gap-12px rounded-10px border border-gray-200 bg-gray-50 px-16px py-6px md:flex">
-            <BiSearch className="h-20px w-20px text-gray-800" />
-            <input
-              placeholder="원하는 키워드로 검색해보세요!"
-              className="grow bg-gray-50 placeholder:text-14px"
-            />
-            <button className="rounded-10px border border-gray-200 p-8px text-14px text-gray-600 duration-200 hover:bg-main hover:text-white hover:shadow-lg">
-              검색
-            </button>
-          </div>
+          {/* TODO: 검색바 구현 */}
+          {/*<div className="hidden w-360px items-center gap-12px rounded-10px border border-gray-200 bg-gray-50 px-16px py-6px md:flex">*/}
+          {/*  <BiSearch className="h-20px w-20px text-gray-800" />*/}
+          {/*  <input*/}
+          {/*    placeholder="원하는 키워드로 검색해보세요!"*/}
+          {/*    className="grow bg-gray-50 placeholder:text-14px"*/}
+          {/*  />*/}
+          {/*  <button className="rounded-10px border border-gray-200 p-8px text-14px text-gray-600 duration-200 hover:bg-main hover:text-white hover:shadow-lg">*/}
+          {/*    검색*/}
+          {/*  </button>*/}
+          {/*</div>*/}
           <div className="block text-24px font-bold text-gray-800 md:hidden">
             <span className="text-main">BluePrint</span>.Dev
           </div>

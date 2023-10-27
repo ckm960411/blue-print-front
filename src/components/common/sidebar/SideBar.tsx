@@ -66,12 +66,13 @@ export default function SideBar() {
         </div>
         <div className="px-16px py-32px">
           <ul className="flex flex-col gap-12px">
-            <SideBarLink
-              title="TECH"
-              icon={<AiOutlineLaptop className="text-22px" />}
-              href="/tech"
-              isSpreaded={isSpreaded}
-            />
+            {/* TODO: TECH 탭 구현 */}
+            {/*<SideBarLink*/}
+            {/*  title="TECH"*/}
+            {/*  icon={<AiOutlineLaptop className="text-22px" />}*/}
+            {/*  href="/tech"*/}
+            {/*  isSpreaded={isSpreaded}*/}
+            {/*/>*/}
             <SideBarLink
               title="STUDY"
               icon={<BsJournalBookmark className="text-20px" />}

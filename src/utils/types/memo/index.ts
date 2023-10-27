@@ -8,10 +8,6 @@ export interface Memo {
   isChecked: boolean;
   isBookmarked: boolean;
   color?: string;
-  // TODO: Link 타입 필요
-  // link         ?: Link[],
-  // Milestone    ?: Milestone[],
   milestoneId: number | null;
-  // Project      ?: Project,
   projectId: number | null;
 }

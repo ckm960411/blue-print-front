@@ -87,11 +87,13 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
       title: "추가하기",
       Icon: () => <BsPencil />,
       onClick: handleCreate,
+      show: true,
     },
     {
       title: "삭제하기",
       Icon: () => <BsTrash />,
       onClick: handleDelete,
+      show: !!project,
     },
   ];
 
@@ -133,16 +135,18 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
             ref={dropdownRef}
             className="absolute right-0 top-full z-10 w-100px rounded-10px border border-gray-200 bg-white py-8px shadow-md"
           >
-            {menus.map(({ title, Icon, onClick }, i) => (
-              <div
-                key={i}
-                onClick={onClick}
-                className="flex-center w-full cursor-pointer gap-8px bg-white p-8px text-14px hover:bg-gray-50"
-              >
-                <Icon />
-                <span>{title}</span>
-              </div>
-            ))}
+            {menus
+              .filter((menu) => menu.show)
+              .map(({ title, Icon, onClick }, i) => (
+                <div
+                  key={i}
+                  onClick={onClick}
+                  className="flex-center w-full cursor-pointer gap-8px bg-white p-8px text-14px hover:bg-gray-50"
+                >
+                  <Icon />
+                  <span>{title}</span>
+                </div>
+              ))}
           </div>
         )}
       </div>

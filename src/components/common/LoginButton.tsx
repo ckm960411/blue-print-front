@@ -1,5 +1,6 @@
 "use client";
 
+import { login, LoginReqDto } from "@/utils/services/user";
 import { useDisclosure } from "@chakra-ui/hooks";
 import {
   ModalBody,
@@ -9,6 +10,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/modal";
 import { Button, Modal, ModalFooter } from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
 
 interface LoginButtonProps {}
@@ -18,10 +20,23 @@ export default function LoginButton({}: LoginButtonProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // TODO: 로그인
+  const { mutate: loginRequest } = useMutation(
+    ["login", email, password],
+    (loginReqDto: LoginReqDto) => login(loginReqDto),
+    {
+      onSuccess: ({ accessToken }) => {
+        localStorage.setItem("token", accessToken);
+        setEmail("");
+        setPassword("");
+        onClose();
+      },
+      onError: console.error,
+    },
+  );
 
-    onClose();
+  const handleLogin = () => {
+    if (!email.trim() || !password.trim()) return;
+    loginRequest({ email, password });
   };
 
   return (

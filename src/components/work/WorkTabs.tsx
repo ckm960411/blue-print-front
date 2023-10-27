@@ -9,13 +9,13 @@ export default function WorkTabs({}: WorkTabsProps) {
   return (
     <Tabs id="work-project-tabs" variant="enclosed" className="grow">
       <TabList>
-        <Tab>Dashboard</Tab>
+        {/*<Tab>Dashboard</Tab>*/}
         <Tab>Project Plan</Tab>
         <Tab>Task List</Tab>
       </TabList>
 
       <TabPanels>
-        <DashBoardTab />
+        {/*<DashBoardTab />*/}
         <ProjectPlanTab />
         <TaskListTab />
       </TabPanels>

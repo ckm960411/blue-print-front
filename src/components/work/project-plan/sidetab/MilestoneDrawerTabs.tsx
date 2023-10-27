@@ -14,13 +14,13 @@ export default function MilestoneDrawerTabs({
   return (
     <Tabs id="work-project-tabs" variant="enclosed">
       <TabList>
-        <Tab>Board</Tab>
+        {/*<Tab>Board</Tab>*/}
         <Tab>Task</Tab>
         <Tab>Memo</Tab>
       </TabList>
 
       <TabPanels>
-        <MilestoneDrawerBoardTab />
+        {/*<MilestoneDrawerBoardTab />*/}
         <MilestoneDrawerTaskTab milestone={milestone} />
         <MilestoneDrawerMemoTab milestone={milestone} />
       </TabPanels>

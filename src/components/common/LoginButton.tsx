@@ -1,6 +1,7 @@
 "use client";
 
-import { login, LoginReqDto } from "@/utils/services/user";
+import { meState } from "@/utils/recoil/store";
+import { getMe, login, LoginReqDto } from "@/utils/services/user";
 import { useDisclosure } from "@chakra-ui/hooks";
 import {
   ModalBody,
@@ -9,34 +10,42 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal";
-import { Button, Modal, ModalFooter } from "@chakra-ui/react";
+import { Modal, ModalFooter } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { useRecoilState } from "recoil";
 
 interface LoginButtonProps {}
 export default function LoginButton({}: LoginButtonProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const [me, setMe] = useRecoilState(meState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { mutate: loginRequest } = useMutation(
+  const { mutateAsync: loginRequest } = useMutation(
     ["login", email, password],
     (loginReqDto: LoginReqDto) => login(loginReqDto),
-    {
-      onSuccess: ({ accessToken }) => {
-        localStorage.setItem("token", accessToken);
-        setEmail("");
-        setPassword("");
-        onClose();
-      },
-      onError: console.error,
-    },
   );
 
-  const handleLogin = () => {
+  const resetAndClose = () => {
+    setEmail("");
+    setPassword("");
+    onClose();
+  };
+
+  const handleLogin = async () => {
     if (!email.trim() || !password.trim()) return;
-    loginRequest({ email, password });
+    try {
+      await loginRequest({ email, password }).then(({ accessToken }) => {
+        localStorage.setItem("token", accessToken);
+      });
+      const meData = await getMe();
+      setMe(meData);
+      resetAndClose();
+    } catch {
+      resetAndClose();
+    }
   };
 
   return (
@@ -45,7 +54,7 @@ export default function LoginButton({}: LoginButtonProps) {
         onClick={onOpen}
         className="h-42px w-76px rounded-10px border border-gray-200 text-16px font-medium duration-200 hover:bg-main hover:text-white hover:shadow-lg"
       >
-        로그인
+        {me ? "로그아웃" : "로그인"}
       </button>
 
       <Modal isOpen={isOpen} onClose={onClose}>

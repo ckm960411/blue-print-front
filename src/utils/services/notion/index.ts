@@ -1,24 +1,20 @@
+import { get } from "@/app/api/axios";
 import { GetBlockListResDto, GetPageResDto } from "@/utils/types/notion";
 import { CategorySection } from "@/utils/types/study";
-import { API_ROUTE_BASE_URL } from "..";
 
 export const getNotionSections = async () => {
-  const data = await fetch(`${API_ROUTE_BASE_URL}/api/notion/pages`).then(
-    (res) => res.json(),
-  );
-  return data as CategorySection[];
+  const { data } = await get<CategorySection[]>(`notion/study`);
+  return data;
 };
 
 export const getNotionPageById = async (pageId: string) => {
-  const data = await fetch(`${API_ROUTE_BASE_URL}/api/notion/pages/${pageId}`)
-    .then((res) => res.json())
-    .catch(console.error);
-  return data as GetPageResDto;
+  const { data } = await get<GetPageResDto>(`notion/pages/${pageId}`);
+  return data;
 };
 
 export const getNotionBlockList = async (blockId: string) => {
-  const data = await fetch(
-    `${API_ROUTE_BASE_URL}/api/notion/blocks/${blockId}`,
-  ).then((res) => res.json());
-  return data as GetBlockListResDto;
+  const { data } = await get<GetBlockListResDto>(
+    `notion/blocks/${blockId}/children`,
+  );
+  return data;
 };

@@ -1,4 +1,4 @@
-import { API_ROUTE_BASE_URL } from "..";
+import { get } from "@/app/api/axios";
 
 export interface MetaData {
   faviconLink: string | null;
@@ -6,10 +6,8 @@ export interface MetaData {
 }
 export const getMetaDataByUrl = async (url: string) => {
   try {
-    const data = await fetch(
-      `${API_ROUTE_BASE_URL}/api/crawling?url=${url}`,
-    ).then((res) => res.json());
-    return data as MetaData;
+    const { data } = await get<MetaData>("notion/meta", { params: { url } });
+    return data;
   } catch (error) {
     console.error(error);
   }

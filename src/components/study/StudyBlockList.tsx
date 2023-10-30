@@ -1,16 +1,20 @@
 import { getNotionBlockList } from "@/utils/services/notion";
-import React from "react";
+import { Block } from "@/utils/types/notion";
+import React, { useEffect, useState } from "react";
 import NotionBlock from "../notion/NotionBlock";
 
 interface StudyBlockListProps {
   pageId: string;
   depth?: number;
 }
-export default async function StudyBlockList({
-  pageId,
-  depth,
-}: StudyBlockListProps) {
-  const { results: blocks } = await getNotionBlockList(pageId);
+export default function StudyBlockList({ pageId, depth }: StudyBlockListProps) {
+  const [blocks, setBlocks] = useState<Block[]>([]);
+
+  useEffect(() => {
+    getNotionBlockList(pageId)
+      .then((data) => setBlocks(data.results))
+      .catch(console.error);
+  }, []);
 
   if (!blocks) return <></>;
 

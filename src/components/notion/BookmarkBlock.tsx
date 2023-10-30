@@ -1,21 +1,28 @@
 import { Block } from "@/utils/types/notion";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Caption from "./Caption";
-import { getMetaDataByUrl } from "@/utils/services/crawling";
+import { getMetaDataByUrl, MetaData } from "@/utils/services/crawling";
 import Image from "next/image";
 import Link from "next/link";
 
 interface BookmarkBlockProps {
   block: Block;
 }
-export default async function BookmarkBlock({ block }: BookmarkBlockProps) {
+export default function BookmarkBlock({ block }: BookmarkBlockProps) {
   const {
     bookmark: { caption, url },
   } = block;
 
-  if (!url) return <></>;
+  const [metaData, setMetaData] = useState<MetaData>();
 
-  const metaData = await getMetaDataByUrl(url);
+  useEffect(() => {
+    if (!url) return;
+    getMetaDataByUrl(url)
+      .then((data) => setMetaData(data))
+      .catch(console.error);
+  }, []);
+
+  if (!url) return <></>;
 
   if (!metaData) return <></>;
 

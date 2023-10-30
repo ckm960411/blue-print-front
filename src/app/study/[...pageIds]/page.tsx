@@ -1,42 +1,36 @@
-import React from "react";
+"use client";
+
+import { post } from "@/app/api/axios";
+import { GetPageResDto } from "@/utils/types/notion";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { getNotionPageById } from "@/utils/services/notion";
 import StudyBlockList from "@/components/study/StudyBlockList";
 import BreadCrumb from "@/components/study/BreadCrumb";
 
 interface CategoryPageProps {
   params: { pageIds: string[] };
 }
-export async function generateMetadata({
-  params: { pageIds },
-}: CategoryPageProps) {
-  const pageId = pageIds.at(-1);
-  if (!pageId) {
-    return {
-      title: "KMin의 개발노트 이모저모",
-      description: "경민의 노고지리딘딘이 가득 들어간 개발노트입니다.",
-    };
-  }
-
-  const pageData = await getNotionPageById(pageId);
-  const title = pageData?.properties?.title?.title?.[0]?.text?.content;
-  return {
-    title: title ?? "KMin의 개발노트 이모저모",
-    description: title ?? "경민의 노고지리딘딘이 가득 들어간 개발노트입니다.",
-  };
-}
-export default async function CategoryPage({
+export default function CategoryPage({
   params: { pageIds },
 }: CategoryPageProps) {
   const pageId = pageIds.at(-1);
 
-  if (!pageId) return <></>;
+  const [pageDatas, setPageDatas] = useState<GetPageResDto[]>();
 
-  const pageDatas = await Promise.all(
-    pageIds.map((pageId) => getNotionPageById(pageId)),
-  );
+  useEffect(() => {
+    if (!pageId) return;
+    (async () => {
+      try {
+        post(`notion/pages`, { ids: pageIds })
+          .then(({ data }) => setPageDatas(data))
+          .catch(console.error);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [pageId]);
 
-  if (!pageDatas) return <></>;
+  if (!pageId || !pageDatas) return <></>;
 
   const currentPageData = pageDatas.at(-1);
 

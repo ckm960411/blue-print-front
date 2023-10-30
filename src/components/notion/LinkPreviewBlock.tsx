@@ -1,22 +1,27 @@
-import { getMetaDataByUrl } from "@/utils/services/crawling";
+import { getMetaDataByUrl, MetaData } from "@/utils/services/crawling";
 import { Block } from "@/utils/types/notion";
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface LinkPreviewBlockProps {
   block: Block;
 }
-export default async function LinkPreviewBlock({
-  block,
-}: LinkPreviewBlockProps) {
+export default function LinkPreviewBlock({ block }: LinkPreviewBlockProps) {
   const {
     link_preview: { url },
   } = block;
 
-  if (!url) return <></>;
+  const [metaData, setMetaData] = useState<MetaData>();
 
-  const metaData = await getMetaDataByUrl(url);
+  useEffect(() => {
+    if (!url) return;
+    getMetaDataByUrl(url)
+      .then((data) => setMetaData(data))
+      .catch(console.error);
+  }, []);
+
+  if (!url) return <></>;
 
   if (!metaData) return <></>;
 

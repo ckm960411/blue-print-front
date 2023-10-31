@@ -27,10 +27,7 @@ export default function MilestoneCard({
   const handleToggleOpen = () => setToggleOpened((prev) => !prev);
 
   return (
-    <div
-      className="relative flex flex-col gap-24px overflow-hidden rounded-10px border border-gray-200 px-16px py-20px"
-      style={{ height: toggleOpened ? "auto" : "66px" }}
-    >
+    <div className="relative flex flex-col gap-24px rounded-10px border border-gray-200 px-16px py-20px">
       <div className="flex items-start justify-between">
         <MilestoneCardHeader
           milestone={milestone}

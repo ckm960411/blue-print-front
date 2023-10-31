@@ -44,6 +44,7 @@ export default function MilestoneCardHeader({
       <ProjectMilestoneEmoji
         milestone={milestone}
         className={`duration-200 ${toggleOpened ? "text-32px" : "text-22px"}`}
+        canEdit={toggleOpened}
       />
       <div className="flex w-full items-center gap-8px">
         {editing ? (

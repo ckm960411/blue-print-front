@@ -44,7 +44,7 @@ export default function MilestoneCard({
         />
       </div>
 
-      <MilestoneCardSummary milestone={milestone} />
+      {toggleOpened && <MilestoneCardSummary milestone={milestone} />}
 
       <MilestoneDrawer
         milestone={milestone}

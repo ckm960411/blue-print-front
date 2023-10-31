@@ -112,12 +112,14 @@ export default function LoginButton({}: LoginButtonProps) {
           </ModalBody>
 
           <ModalFooter className="justify-between gap-16px">
-            <button
-              onClick={() => handleLogin("guest")}
-              className="text-14px font-medium underline duration-200 hover:text-main"
-            >
-              게스트 계정으로 로그인
-            </button>
+            {!!me || (
+              <button
+                onClick={() => handleLogin("guest")}
+                className="text-14px font-medium underline duration-200 hover:text-main"
+              >
+                게스트 계정으로 로그인
+              </button>
+            )}
             <div className="flex items-center gap-16px">
               <button
                 onClick={onClose}

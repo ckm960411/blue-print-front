@@ -76,7 +76,7 @@ export default function MilestoneCardHeader({
           />
         )}
         {priority === 5 && (
-          <div className="rounded-full border border-red-500 px-8px py-4px text-12px text-red-500">
+          <div className="flex-shrink-0 rounded-full border border-red-500 px-8px py-4px text-12px text-red-500">
             긴급
           </div>
         )}

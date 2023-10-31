@@ -20,10 +20,18 @@ export default function MilestoneCardButtons({
   onDrawerOpen,
 }: MilestoneCardButtonsProps) {
   return (
-    <div className="flex items-center gap-8px">
-      <MilestoneFullPageButton />
-      <MilestoenSideTabButton onClick={onDrawerOpen} />
-      <MilestoneTrashButton milestone={milestone} />
+    <div
+      className={`flex items-center gap-8px ${
+        toggleOpened ? "absolute right-16px top-20px" : ""
+      }`}
+    >
+      {toggleOpened && (
+        <>
+          <MilestoneFullPageButton />
+          <MilestoenSideTabButton onClick={onDrawerOpen} />
+          <MilestoneTrashButton milestone={milestone} />
+        </>
+      )}
       <MilestoenBookmarkButton milestone={milestone} />
       <IconButton onClick={onToggleOpen}>
         <FiChevronDown

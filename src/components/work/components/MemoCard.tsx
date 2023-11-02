@@ -21,6 +21,7 @@ import {
   BsTrash,
 } from "react-icons/bs";
 import { useRecoilValue } from "recoil";
+import { useOnClickOutside } from "usehooks-ts";
 
 interface MemoCardProps {
   memo: Memo;
@@ -33,10 +34,13 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
   const theme: ColorKey = (color as ColorKey) ?? DEFAULT_COLOR;
 
   const toast = useRef<Toast | null>(null);
+  const deletePopupRef = useRef<HTMLDivElement | null>(null);
   const queryClient = useQueryClient();
 
   const project = useRecoilValue(projectState);
   const [openPopup, setOpenPopup] = useState(false);
+
+  useOnClickOutside(deletePopupRef, () => setOpenPopup(false));
 
   const { mutate: updateMemoRequest } = useMutation(
     ["update-memo"],
@@ -83,7 +87,7 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
     <>
       <Toast ref={toast} />
       <div
-        className="flex w-full flex-col gap-8px rounded-r-[10px] border-l-4 border-green-500 bg-green-50 p-16px"
+        className="relative flex w-full flex-col gap-8px rounded-r-[10px] border-l-4 border-green-500 bg-green-50 p-16px"
         style={{
           borderColor: Colors[theme][500],
           backgroundColor: Colors[theme][50],
@@ -126,34 +130,13 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
                 <BsBookmark className="text-gray-800" />
               )}
             </IconButton>
-            <Popover isOpen={openPopup} placement="bottom-end">
-              <PopoverTrigger>
-                <IconButton
-                  onClick={() => setOpenPopup(true)}
-                  className="rounded-md bg-transparent text-18px hover:bg-transparent"
-                  w={24}
-                >
-                  <BsTrash />
-                </IconButton>
-              </PopoverTrigger>
-              <PopoverContent className="max-w-[240px] p-16px text-14px font-medium text-gray-800">
-                <div>정말 이 메모를 삭제할까요?</div>
-                <div className="mt-16px flex items-center justify-end gap-8px">
-                  <button
-                    onClick={() => setOpenPopup(false)}
-                    className="rounded-md px-8px py-4px hover:bg-gray-100"
-                  >
-                    취소
-                  </button>
-                  <button
-                    onClick={handleDelete}
-                    className="rounded-md px-8px py-4px hover:bg-gray-100"
-                  >
-                    확인
-                  </button>
-                </div>
-              </PopoverContent>
-            </Popover>
+            <IconButton
+              onClick={() => setOpenPopup(true)}
+              className="rounded-md bg-transparent text-18px hover:bg-transparent"
+              w={24}
+            >
+              <BsTrash />
+            </IconButton>
           </div>
         </div>
         <div
@@ -164,6 +147,29 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
           {format(new Date(createdAt), "yyyy.MM.dd")} (
           {getDayByAsiaSeoulFormat(new Date(createdAt))})
         </p>
+
+        {openPopup && (
+          <div
+            ref={deletePopupRef}
+            className="absolute right-0 top-0 w-240px rounded-10px bg-white p-16px text-14px font-medium text-gray-800 shadow-lg"
+          >
+            <div>정말 이 메모를 삭제할까요?</div>
+            <div className="mt-16px flex items-center justify-end gap-8px">
+              <button
+                onClick={() => setOpenPopup(false)}
+                className="rounded-md px-8px py-4px hover:bg-gray-100"
+              >
+                취소
+              </button>
+              <button
+                onClick={handleDelete}
+                className="rounded-md px-8px py-4px hover:bg-gray-100"
+              >
+                확인
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

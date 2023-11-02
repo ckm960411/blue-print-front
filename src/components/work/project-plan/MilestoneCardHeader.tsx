@@ -10,10 +10,12 @@ import { useRecoilValue } from "recoil";
 interface MilestoneCardHeaderProps {
   milestone: Milestone;
   toggleOpened?: boolean;
+  isDetail?: boolean;
 }
 export default function MilestoneCardHeader({
   milestone,
   toggleOpened = true,
+  isDetail = false,
 }: MilestoneCardHeaderProps) {
   const { id, title, priority } = milestone;
   const project = useRecoilValue(projectState);
@@ -37,9 +39,9 @@ export default function MilestoneCardHeader({
 
   return (
     <div
-      className={`flex grow duration-200 ${
+      className={`flex duration-200 ${
         toggleOpened ? "flex-col items-start gap-8px" : "items-center gap-8px"
-      }`}
+      } ${isDetail ? "" : "grow"}`}
     >
       <ProjectMilestoneEmoji
         milestone={milestone}

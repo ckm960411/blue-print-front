@@ -17,7 +17,7 @@ export default function MilestoneDrawerButtonGroup({
     <div className="flex-between">
       <div className="flex items-center gap-8px p-8px">
         <MilestoneCloseSideTabButton onClick={onClose} />
-        <MilestoneFullPageButton />
+        <MilestoneFullPageButton milestoneId={milestone.id} />
       </div>
       <div className="flex items-center gap-8px p-8px">
         <MilestoneEditButton />

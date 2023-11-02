@@ -27,7 +27,7 @@ export default function MilestoneCardButtons({
     >
       {toggleOpened && (
         <>
-          <MilestoneFullPageButton />
+          <MilestoneFullPageButton milestoneId={milestone.id} />
           <MilestoenSideTabButton onClick={onDrawerOpen} />
           <MilestoneTrashButton milestone={milestone} />
         </>

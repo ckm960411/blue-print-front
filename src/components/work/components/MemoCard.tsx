@@ -141,7 +141,7 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
         </div>
         <div
           dangerouslySetInnerHTML={{ __html: content }}
-          className="text-14px leading-[150%] text-gray-700"
+          className="break-all text-14px leading-[150%] text-gray-700"
         />
         <p className="text-14px text-gray-600">
           {format(new Date(createdAt), "yyyy.MM.dd")} (

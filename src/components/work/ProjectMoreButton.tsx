@@ -1,20 +1,21 @@
-import IconButton from "@/components/components/IconButton";
-import { QueryKeys } from "@/utils/common/query-keys";
-import { projectState } from "@/utils/recoil/store";
-import { createProject, deleteProject } from "@/utils/services/project";
-import { useDisclosure } from "@chakra-ui/hooks";
-import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Toast } from "primereact/toast";
 import React, { useRef } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import { useRecoilState } from "recoil";
 import { useBoolean, useOnClickOutside } from "usehooks-ts";
+import { Toast } from "primereact/toast";
+import { useDisclosure } from "@chakra-ui/hooks";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+import { QueryKeys } from "@/utils/common/query-keys";
+import { projectState } from "@/utils/recoil/store";
+import { createProject, deleteProject } from "@/utils/services/project";
+import IconButton from "@/components/components/IconButton";
 
 interface ProjectMoreButtonProps {}
 export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const deletePopupRef = useRef<HTMLDivElement | null>(null);
   const toast = useRef<Toast>(null);
   const queryClient = useQueryClient();
 
@@ -29,6 +30,7 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
     onClose: closeDeletePopup,
   } = useDisclosure();
   useOnClickOutside(dropdownRef, closeDropdown);
+  useOnClickOutside(deletePopupRef, closeDeletePopup);
 
   const [project, setProject] = useRecoilState(projectState);
 
@@ -102,33 +104,12 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
       <Toast ref={toast} />
 
       <div className="absolute right-16px top-16px">
-        <Popover isOpen={isDeletePopupOpen} placement="bottom-end">
-          <PopoverTrigger>
-            <IconButton
-              onClick={openDropdown}
-              className="bg-white hover:bg-gray-50"
-            >
-              <BiDotsVerticalRounded />
-            </IconButton>
-          </PopoverTrigger>
-          <PopoverContent className="max-w-[240px] p-16px text-14px font-medium text-gray-800">
-            <div>정말 이 프로젝트를 삭제할까요?</div>
-            <div className="mt-16px flex items-center justify-end gap-8px">
-              <button
-                onClick={closeDeletePopup}
-                className="rounded-md px-8px py-4px hover:bg-gray-100"
-              >
-                취소
-              </button>
-              <button
-                onClick={handleDeleteProject}
-                className="rounded-md px-8px py-4px hover:bg-gray-100"
-              >
-                확인
-              </button>
-            </div>
-          </PopoverContent>
-        </Popover>
+        <IconButton
+          onClick={openDropdown}
+          className="bg-white hover:bg-gray-50"
+        >
+          <BiDotsVerticalRounded />
+        </IconButton>
 
         {dropdownOpened && (
           <div
@@ -147,6 +128,29 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
                   <span>{title}</span>
                 </div>
               ))}
+          </div>
+        )}
+
+        {isDeletePopupOpen && (
+          <div
+            ref={deletePopupRef}
+            className="absolute right-0 top-0 w-240px rounded-10px bg-white p-16px text-14px font-medium text-gray-800 shadow-lg"
+          >
+            <div>정말 이 프로젝트를 삭제할까요?</div>
+            <div className="mt-16px flex items-center justify-end gap-8px">
+              <button
+                onClick={closeDeletePopup}
+                className="rounded-md px-8px py-4px hover:bg-gray-100"
+              >
+                취소
+              </button>
+              <button
+                onClick={handleDeleteProject}
+                className="rounded-md px-8px py-4px hover:bg-gray-100"
+              >
+                확인
+              </button>
+            </div>
           </div>
         )}
       </div>

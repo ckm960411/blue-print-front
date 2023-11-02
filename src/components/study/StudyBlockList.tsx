@@ -1,22 +1,17 @@
-import { getNotionBlockList } from "@/utils/services/notion";
-import { Block } from "@/utils/types/notion";
-import React, { useEffect, useState } from "react";
-import NotionBlock from "../notion/NotionBlock";
+import React from "react";
+import { useNotionBlockList } from "@/utils/hooks/react-query/useNotionBlockList";
+import NotionBlock from "@/components/notion/NotionBlock";
 
 interface StudyBlockListProps {
   pageId: string;
   depth?: number;
 }
 export default function StudyBlockList({ pageId, depth }: StudyBlockListProps) {
-  const [blocks, setBlocks] = useState<Block[]>([]);
+  const { data } = useNotionBlockList(pageId);
 
-  useEffect(() => {
-    getNotionBlockList(pageId)
-      .then((data) => setBlocks(data.results))
-      .catch(console.error);
-  }, []);
+  if (!data) return <></>;
 
-  if (!blocks) return <></>;
+  const { results: blocks } = data;
 
   return (
     <div className="mx-auto w-full max-w-screen-xl">

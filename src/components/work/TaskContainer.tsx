@@ -4,6 +4,7 @@ import { projectState } from "@/utils/recoil/store";
 import { Progress } from "@/utils/types";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import { useRecoilValue } from "recoil";
 
 interface TaskContainerProps {
@@ -11,6 +12,7 @@ interface TaskContainerProps {
 }
 export default function TaskContainer({ milestoneId }: TaskContainerProps) {
   const toast = useRef<Toast>(null);
+  const UNDER_410PX = useMediaQuery({ query: "(max-width: 409px)" });
   const [progress, setProgress] = useState<Progress>(Progress.ToDo);
 
   const tabs = [
@@ -51,11 +53,11 @@ export default function TaskContainer({ milestoneId }: TaskContainerProps) {
             <button
               key={index}
               onClick={() => setProgress(tab.id)}
-              className={`border-b-[3px] py-4px ${tab.borderColor} ${
+              className={`border-b-[3px] py-8px ${tab.borderColor} ${
                 progress === tab.id
                   ? "font-semibold text-gray-800"
                   : "text-gray-400"
-              }`}
+              } ${UNDER_410PX ? "text-12px" : "text-16px"}`}
             >
               {tab.title}
             </button>

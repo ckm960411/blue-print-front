@@ -11,6 +11,11 @@ export const getAllMilestones = async (params?: {
   return data;
 };
 
+export const getMilestoneById = async (id: number) => {
+  const { data } = await get<Milestone>(`milestone/${id}`);
+  return data;
+};
+
 export const createMilestone = async (projectId?: number) => {
   const { data } = await post<
     Omit<Milestone, "tags" | "links" | "tasks" | "memos">

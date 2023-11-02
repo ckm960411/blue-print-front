@@ -1,9 +1,9 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import SideBarLink from "./SideBarLink";
-import { AiOutlineLaptop } from "react-icons/ai";
 import { BsJournalBookmark } from "react-icons/bs";
 import { PiHamburgerLight } from "react-icons/pi";
 import { MdWorkOutline } from "react-icons/md";
@@ -11,7 +11,6 @@ import { useMediaQuery } from "react-responsive";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { meState, sideBarOpenState } from "@/utils/recoil/store";
 import { getNotionSections } from "@/utils/services/notion";
-import { CategorySection } from "@/utils/types/study";
 
 export const CLOSED_SIDE_BAR_WIDTH = 88;
 export const OPENED_SIDE_BAR_WIDTH = 240;
@@ -22,17 +21,16 @@ export default function SideBar() {
 
   const me = useRecoilValue(meState);
   const [isSpreaded, setIsSpreaded] = useRecoilState(sideBarOpenState);
-  const [studySections, setStudySections] = useState<CategorySection[]>();
 
   useEffect(() => {
     setIsSpreaded(!UNDER_1024PX);
   }, [UNDER_1024PX]);
 
-  useEffect(() => {
-    getNotionSections()
-      .then((data) => setStudySections(data))
-      .catch(console.error);
-  }, []);
+  const { data: studySections = [] } = useQuery(
+    ["get-notion-sections"],
+    getNotionSections,
+    { onError: console.error },
+  );
 
   if (UNDER_480PX) return <></>;
 

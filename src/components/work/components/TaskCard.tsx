@@ -3,7 +3,6 @@ import TaskCardDetailAccordion from "@/components/work/components/task-card/Task
 import TaskCardDropdown from "@/components/work/components/task-card/TaskCardDropdown";
 import TaskColorForm from "@/components/work/components/task-card/TaskColorForm";
 import TaskTags from "@/components/work/components/task-card/TaskTags";
-import { Colors } from "@/utils/common/color";
 import { Task } from "@/utils/types/task";
 import React, { useState } from "react";
 

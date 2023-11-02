@@ -23,16 +23,16 @@ export default function BottomNavigation() {
       className="sticky bottom-0 w-full flex-shrink-0 rounded-t-xl px-16px py-4px"
       style={{ backgroundColor: "#fafafa" }}
     >
-      <div className="grid grid-cols-3 gap-8px">
-        <Link
-          href="/tech"
-          className={`flex-center flex-col gap-4px p-8px font-medium ${
-            isActive("/tech") ? "text-main" : ""
-          }`}
-        >
-          <AiOutlineLaptop className="text-22px" />
-          <span>TECH</span>
-        </Link>
+      <div className="grid grid-cols-2 gap-8px">
+        {/*<Link*/}
+        {/*  href="/tech"*/}
+        {/*  className={`flex-center flex-col gap-4px p-8px font-medium ${*/}
+        {/*    isActive("/tech") ? "text-main" : ""*/}
+        {/*  }`}*/}
+        {/*>*/}
+        {/*  <AiOutlineLaptop className="text-22px" />*/}
+        {/*  <span>TECH</span>*/}
+        {/*</Link>*/}
         <Link
           href="/study"
           className={`flex-center flex-col gap-4px p-8px font-medium ${

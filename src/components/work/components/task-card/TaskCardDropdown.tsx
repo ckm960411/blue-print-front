@@ -4,7 +4,6 @@ import { QueryKeys } from "@/utils/common/query-keys";
 import { deleteTask } from "@/utils/services/task";
 import { Task } from "@/utils/types/task";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Toast } from "primereact/toast";
 import React, { useRef } from "react";
@@ -17,9 +16,10 @@ interface TaskCardDropdownProps {
 }
 export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const deletePopupRef = useRef<HTMLDivElement | null>(null);
   const toast = useRef<Toast>(null);
-
   const queryClient = useQueryClient();
+
   const {
     value: dropdownOpened,
     setTrue: openDropdown,
@@ -36,6 +36,7 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
     onClose: closeModal,
   } = useDisclosure();
   useOnClickOutside(dropdownRef, closeDropdown);
+  useOnClickOutside(deletePopupRef, closeDeletePopup);
 
   const { mutate: deleteTaskRequest } = useMutation(
     ["delete-task"],
@@ -92,33 +93,12 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
       />
 
       <div className="relative">
-        <Popover isOpen={isDeletePopupOpen} placement="bottom-end">
-          <PopoverTrigger>
-            <IconButton
-              onClick={openDropdown}
-              className="bg-white hover:bg-gray-50"
-            >
-              <BiDotsVerticalRounded />
-            </IconButton>
-          </PopoverTrigger>
-          <PopoverContent className="max-w-[240px] p-16px text-14px font-medium text-gray-800">
-            <div>정말 이 태스크를 삭제할까요?</div>
-            <div className="mt-16px flex items-center justify-end gap-8px">
-              <button
-                onClick={closeDeletePopup}
-                className="rounded-md px-8px py-4px hover:bg-gray-100"
-              >
-                취소
-              </button>
-              <button
-                onClick={() => deleteTaskRequest(task.id)}
-                className="rounded-md px-8px py-4px hover:bg-gray-100"
-              >
-                확인
-              </button>
-            </div>
-          </PopoverContent>
-        </Popover>
+        <IconButton
+          onClick={openDropdown}
+          className="bg-white hover:bg-gray-50"
+        >
+          <BiDotsVerticalRounded />
+        </IconButton>
 
         {dropdownOpened && (
           <div
@@ -135,6 +115,29 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
                 <span>{title}</span>
               </div>
             ))}
+          </div>
+        )}
+
+        {isDeletePopupOpen && (
+          <div
+            ref={deletePopupRef}
+            className="absolute right-0 top-0 w-240px rounded-10px bg-white p-16px text-14px font-medium text-gray-800 shadow-lg"
+          >
+            <div>정말 이 태스크를 삭제할까요?</div>
+            <div className="mt-16px flex items-center justify-end gap-8px">
+              <button
+                onClick={closeDeletePopup}
+                className="rounded-md px-8px py-4px hover:bg-gray-100"
+              >
+                취소
+              </button>
+              <button
+                onClick={() => deleteTaskRequest(task.id)}
+                className="rounded-md px-8px py-4px hover:bg-gray-100"
+              >
+                확인
+              </button>
+            </div>
           </div>
         )}
       </div>

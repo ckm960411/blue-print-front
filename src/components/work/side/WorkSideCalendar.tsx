@@ -31,7 +31,8 @@ export default function WorkSideCalendar() {
         month: date ? getMonth(date) + 1 : undefined,
       }),
     {
-      onSuccess: (tasks) => setTimeout(() => addTimeline(tasks, date!), 0),
+      onSuccess: (tasks) =>
+        setTimeout(() => addTimeline(tasks, date ?? new Date()), 0),
       onError: console.error,
     },
   );

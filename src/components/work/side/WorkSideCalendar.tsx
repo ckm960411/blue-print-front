@@ -1,22 +1,21 @@
 "use client";
 
 import TaskCalendar from "@/components/work/side/TaskCalendar";
+import WorkSideDayTaskPopup from "@/components/work/side/WorkSideDayTaskPopup";
 import { addTimeline } from "@/utils/common/task/calendar";
 import { projectState } from "@/utils/recoil/store";
 import { getThisMonthTasks } from "@/utils/services/task";
 import { Task } from "@/utils/types/task";
 import { useQuery } from "@tanstack/react-query";
-import { differenceInDays, getMonth, getYear, startOfToday } from "date-fns";
-import { ConfirmPopup } from "primereact/confirmpopup";
+import { getMonth, getYear } from "date-fns";
 import { Nullable } from "primereact/ts-helpers";
 import React, { useEffect, useRef, useState } from "react";
 import { Calendar as PrimeCalendar } from "primereact/calendar";
-
-import "../../../css/work-side-prime-calendar.css";
 import { useRecoilValue } from "recoil";
 
-interface WorkSideCalendarProps {}
-export default function WorkSideCalendar({}: WorkSideCalendarProps) {
+import "../../../css/work-side-prime-calendar.css";
+
+export default function WorkSideCalendar() {
   const calendar = useRef<PrimeCalendar>();
 
   const project = useRecoilValue(projectState);
@@ -37,13 +36,6 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
     },
   );
 
-  const handleClosePopup = () => setMatchedTasks([]);
-
-  const getRemainDaysText = (remainDays: number) => {
-    if (remainDays === 0) return "오늘";
-    return remainDays > 0 ? `${remainDays}일 남음` : `${-remainDays}일 지남`;
-  };
-
   useEffect(() => {
     date && tasks && addTimeline(tasks, date);
   }, [date, tasks, project?.id]);
@@ -57,56 +49,9 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
         calendar={calendar}
         setMatchedTasks={setMatchedTasks}
       />
-      <ConfirmPopup
-        target={calendar.current?.getElement()}
-        visible={matchedTasks.length > 0}
-        onHide={handleClosePopup}
-        icon="pi pi-exclamation-triangle"
-        className="w-full max-w-[367px]"
-        message={
-          <div className="flex w-full flex-col gap-16px">
-            {matchedTasks.map((task) => {
-              const remainDays = differenceInDays(
-                new Date(task.endAt!),
-                startOfToday(),
-              );
-              const remainDaysText = getRemainDaysText(remainDays);
-              return (
-                <div key={task.id} className="flex w-full flex-col gap-8px">
-                  <div className="flex items-center gap-8px">
-                    {task.priority === 5 && (
-                      <div className="rounded-full border border-red-500 px-8px py-4px text-12px font-bold text-red-500">
-                        긴급
-                      </div>
-                    )}
-                    <div
-                      className={`text-14px ${
-                        remainDays <= 2
-                          ? "font-bold text-red-500"
-                          : "text-gray-600"
-                      }`}
-                    >
-                      {remainDaysText}
-                    </div>
-                  </div>
-                  <p className="truncate-1-lines text-16px font-semibold">
-                    {task.title}
-                  </p>
-                  {task.description && (
-                    <p className="truncate-1-lines text-14px leading-[140%] text-gray-600">
-                      {task.description}
-                    </p>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        }
-        acceptLabel="닫기"
-        accept={handleClosePopup}
-        acceptClassName="border border-gray-200 rounded-md py-4px px-8px"
-        rejectClassName="hidden"
-        pt={{ message: { className: "w-full" } }}
+      <WorkSideDayTaskPopup
+        matchedTasks={matchedTasks}
+        onClose={() => setMatchedTasks([])}
       />
     </div>
   );

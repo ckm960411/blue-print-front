@@ -13,8 +13,7 @@ import { projectState } from "@/utils/recoil/store";
 import { createProject, deleteProject } from "@/utils/services/project";
 import IconButton from "@/components/components/IconButton";
 
-interface ProjectMoreButtonProps {}
-export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
+export default function ProjectMoreButton() {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const deletePopupRef = useRef<HTMLDivElement | null>(null);
   const toast = useRef<Toast>(null);

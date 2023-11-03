@@ -11,9 +11,13 @@ const PlainEditor = dynamic(() => import("../../components/PlainEditor"));
 
 interface CreateCommentFormProps {
   milestoneId: number;
+  showChecked: boolean;
+  onToggleCheck: () => void;
 }
 export default function CreateCommentForm({
   milestoneId,
+  showChecked,
+  onToggleCheck,
 }: Readonly<CreateCommentFormProps>) {
   const toast = useRef<Toast | null>(null);
 
@@ -75,7 +79,7 @@ export default function CreateCommentForm({
         </>
       ) : (
         <div className="flex-between">
-          <ToggleCheckOnly checked={false} onClick={() => {}} />
+          <ToggleCheckOnly checked={showChecked} onClick={onToggleCheck} />
           <CreateButton onClick={() => setShowForm(true)} />
         </div>
       )}

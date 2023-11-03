@@ -134,7 +134,7 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
         {isDeletePopupOpen && (
           <div
             ref={deletePopupRef}
-            className="absolute right-0 top-0 w-240px rounded-10px bg-white p-16px text-14px font-medium text-gray-800 shadow-lg"
+            className="absolute right-0 top-0 z-10 w-240px rounded-10px bg-white p-16px text-14px font-medium text-gray-800 shadow-lg"
           >
             <div>정말 이 프로젝트를 삭제할까요?</div>
             <div className="mt-16px flex items-center justify-end gap-8px">

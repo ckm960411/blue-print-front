@@ -39,6 +39,11 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
 
   const handleClosePopup = () => setMatchedTasks([]);
 
+  const getRemainDaysText = (remainDays: number) => {
+    if (remainDays === 0) return "오늘";
+    return remainDays > 0 ? `${remainDays}일 남음` : `${-remainDays}일 지남`;
+  };
+
   useEffect(() => {
     date && tasks && addTimeline(tasks);
   }, [date, tasks, project?.id]);
@@ -65,12 +70,7 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
                 new Date(task.endAt!),
                 startOfToday(),
               );
-              const remainDaysText =
-                remainDays > 0
-                  ? `${remainDays}일 남음`
-                  : remainDays < 0
-                  ? `${-remainDays}일 지남`
-                  : "오늘";
+              const remainDaysText = getRemainDaysText(remainDays);
               return (
                 <div key={task.id} className="flex w-full flex-col gap-8px">
                   <div className="flex items-center gap-8px">

@@ -1,3 +1,5 @@
+import CommentList from "@/components/work/project-plan/milestone/CommentList";
+import CreateCommentForm from "@/components/work/project-plan/milestone/CreateCommentForm";
 import { Milestone } from "@/utils/types/milestone";
 
 interface MilestoneCommentContainerProps {
@@ -6,5 +8,10 @@ interface MilestoneCommentContainerProps {
 export default function MilestoneCommentContainer({
   milestone,
 }: Readonly<MilestoneCommentContainerProps>) {
-  return <div>MilestoneCommentContainer</div>;
+  return (
+    <div>
+      <CreateCommentForm />
+      <CommentList />
+    </div>
+  );
 }

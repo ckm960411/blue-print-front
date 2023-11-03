@@ -10,17 +10,17 @@ interface MilestoneDrawerTabsProps {
 }
 export default function MilestoneDrawerTabs({
   milestone,
-}: MilestoneDrawerTabsProps) {
+}: Readonly<MilestoneDrawerTabsProps>) {
   return (
     <Tabs id="work-project-tabs" variant="enclosed">
       <TabList>
-        {/*<Tab>Board</Tab>*/}
+        <Tab>Board</Tab>
         <Tab>Task</Tab>
         <Tab>Memo</Tab>
       </TabList>
 
       <TabPanels>
-        {/*<MilestoneDrawerBoardTab />*/}
+        <MilestoneDrawerBoardTab milestone={milestone} />
         <MilestoneDrawerTaskTab milestone={milestone} />
         <MilestoneDrawerMemoTab milestone={milestone} />
       </TabPanels>

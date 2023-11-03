@@ -32,7 +32,7 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
         month: date ? getMonth(date) + 1 : undefined,
       }),
     {
-      onSuccess: (data) => setTimeout(() => addTimeline(data), 0),
+      onSuccess: (tasks) => setTimeout(() => addTimeline(tasks, date!), 0),
       onError: console.error,
     },
   );
@@ -45,7 +45,7 @@ export default function WorkSideCalendar({}: WorkSideCalendarProps) {
   };
 
   useEffect(() => {
-    date && tasks && addTimeline(tasks);
+    date && tasks && addTimeline(tasks, date);
   }, [date, tasks, project?.id]);
 
   return (

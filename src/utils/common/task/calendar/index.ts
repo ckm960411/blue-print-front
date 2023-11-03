@@ -3,11 +3,14 @@ import { Task } from "@/utils/types/task";
 import {
   addDays,
   differenceInDays,
+  endOfMonth,
   format,
   getDate,
   getDay,
   getMonth,
   getYear,
+  isAfter,
+  isBefore,
   startOfMonth,
 } from "date-fns";
 import { forEach } from "lodash";
@@ -57,12 +60,25 @@ const getSiblingElement = (el: Element, count: number): Element => {
   return getSiblingElement(sibling, count - 1);
 };
 
-export const addTimeline = (tasks: Task[]) => {
+export const addTimeline = (tasks: Task[], date: Date) => {
   tasks
     .filter((task) => task.startAt && task.endAt)
     .forEach((task) => {
-      const from = new Date(task.startAt!);
-      const to = new Date(task.endAt!);
+      // 원래 task 의 시작일 종료일
+      const originalStartAt = new Date(task.startAt!);
+      const originalEndAt = new Date(task.endAt!);
+      // 현재 월의 시작일 종료일
+      const startOfThisMonth = startOfMonth(date);
+      const endOfThisMonth = endOfMonth(date);
+
+      // task 의 시작일이 이번달 1일보다 앞설 경우 이번달 1일부터 계산
+      const from = isBefore(originalStartAt, startOfThisMonth)
+        ? startOfThisMonth
+        : originalStartAt;
+      // task 의 종료일이 이번달 말일보다 뒤일 경우 이번달 말일까지 계산
+      const to = isAfter(originalEndAt, endOfThisMonth)
+        ? endOfThisMonth
+        : originalEndAt;
       const differenceBetweenFromTo = differenceInDays(to, from) + 1;
 
       // 각 task 의 시작일부터 끝나는 날까지 동작 반복 수행

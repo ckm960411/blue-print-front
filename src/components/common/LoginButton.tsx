@@ -16,8 +16,7 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
-interface LoginButtonProps {}
-export default function LoginButton({}: LoginButtonProps) {
+export default function LoginButton() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [me, setMe] = useRecoilState(meState);

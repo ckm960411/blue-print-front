@@ -1,3 +1,4 @@
+import { keyDownEventWrapper } from "@/utils/common/etc/keyDownEventWrapper";
 import React, { useRef } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPencil, BsTrash } from "react-icons/bs";
@@ -12,8 +13,7 @@ import { projectState } from "@/utils/recoil/store";
 import { createProject, deleteProject } from "@/utils/services/project";
 import IconButton from "@/components/components/IconButton";
 
-interface ProjectMoreButtonProps {}
-export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
+export default function ProjectMoreButton() {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const deletePopupRef = useRef<HTMLDivElement | null>(null);
   const toast = useRef<Toast>(null);
@@ -86,18 +86,20 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
 
   const menus = [
     {
+      id: 0,
       title: "추가하기",
-      Icon: () => <BsPencil />,
+      Icon: BsPencil,
       onClick: handleCreate,
       show: true,
     },
     {
+      id: 1,
       title: "삭제하기",
-      Icon: () => <BsTrash />,
+      Icon: BsTrash,
       onClick: handleDelete,
       show: !!project,
     },
-  ];
+  ] as const;
 
   return (
     <>
@@ -118,10 +120,11 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
           >
             {menus
               .filter((menu) => menu.show)
-              .map(({ title, Icon, onClick }, i) => (
+              .map(({ id, title, Icon, onClick }) => (
                 <div
-                  key={i}
+                  key={id}
                   onClick={onClick}
+                  onKeyDown={keyDownEventWrapper(onClick)}
                   className="flex-center w-full cursor-pointer gap-8px bg-white p-8px text-14px hover:bg-gray-50"
                 >
                   <Icon />
@@ -134,7 +137,7 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
         {isDeletePopupOpen && (
           <div
             ref={deletePopupRef}
-            className="absolute right-0 top-0 w-240px rounded-10px bg-white p-16px text-14px font-medium text-gray-800 shadow-lg"
+            className="absolute right-0 top-0 z-10 w-240px rounded-10px bg-white p-16px text-14px font-medium text-gray-800 shadow-lg"
           >
             <div>정말 이 프로젝트를 삭제할까요?</div>
             <div className="mt-16px flex items-center justify-end gap-8px">

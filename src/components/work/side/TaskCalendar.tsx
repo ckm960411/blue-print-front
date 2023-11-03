@@ -21,7 +21,7 @@ function TaskCalendar({
   setDate,
   setMatchedTasks,
   calendar,
-}: TaskCalendarProps) {
+}: Readonly<TaskCalendarProps>) {
   return (
     <div id="work-side-prime-calendar">
       <PrimeCalendar

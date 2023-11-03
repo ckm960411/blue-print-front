@@ -16,8 +16,7 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
-interface LoginButtonProps {}
-export default function LoginButton({}: LoginButtonProps) {
+export default function LoginButton() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [me, setMe] = useRecoilState(meState);
@@ -36,8 +35,10 @@ export default function LoginButton({}: LoginButtonProps) {
   };
 
   const handleLogin = async (type?: "guest") => {
-    if (!email.trim() || !password.trim()) return;
     const isGuest = type === "guest";
+
+    if (!isGuest && (!email.trim() || !password.trim())) return;
+
     try {
       await loginRequest({
         email: isGuest ? process.env.NEXT_PUBLIC_GUEST_EMAIL! : email,

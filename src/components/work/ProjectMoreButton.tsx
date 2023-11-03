@@ -86,18 +86,20 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
 
   const menus = [
     {
+      id: 0,
       title: "추가하기",
       Icon: () => <BsPencil />,
       onClick: handleCreate,
       show: true,
     },
     {
+      id: 1,
       title: "삭제하기",
       Icon: () => <BsTrash />,
       onClick: handleDelete,
       show: !!project,
     },
-  ];
+  ] as const;
 
   return (
     <>
@@ -118,9 +120,9 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
           >
             {menus
               .filter((menu) => menu.show)
-              .map(({ title, Icon, onClick }, i) => (
+              .map(({ id, title, Icon, onClick }) => (
                 <div
-                  key={i}
+                  key={id}
                   onClick={onClick}
                   className="flex-center w-full cursor-pointer gap-8px bg-white p-8px text-14px hover:bg-gray-50"
                 >

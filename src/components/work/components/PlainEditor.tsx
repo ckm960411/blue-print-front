@@ -8,13 +8,15 @@ interface PlainEditorProps {
   value?: string;
   onChange: (value: string) => void;
   hideModeSwitch?: boolean;
+  placeholder?: string;
 }
 export default function PlainEditor({
   type = "create",
   value,
   onChange,
+  placeholder = "",
   hideModeSwitch = true,
-}: PlainEditorProps) {
+}: Readonly<PlainEditorProps>) {
   const editor = useRef<any>();
 
   return (
@@ -22,7 +24,7 @@ export default function PlainEditor({
       <Editor
         ref={editor}
         height="160px"
-        placeholder="메모를 입력하세요"
+        placeholder={placeholder}
         initialValue={type === "update" ? value || " " : " "}
         language="ko-kr"
         initialEditType="wysiwyg"

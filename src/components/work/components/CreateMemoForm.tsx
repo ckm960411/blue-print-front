@@ -72,6 +72,7 @@ export default function CreateMemoForm({
       </div>
       <ColorPicker color={color} onClick={(color) => setColor(color)} />
       <PlainEditor
+        placeholder="메모를 입력하세요"
         onChange={handleChangeMemo}
         hideModeSwitch={hideModeSwitch}
       />

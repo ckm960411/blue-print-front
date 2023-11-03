@@ -9,6 +9,7 @@ interface PlainEditorProps {
   onChange: (value: string) => void;
   hideModeSwitch?: boolean;
   placeholder?: string;
+  height?: string;
 }
 export default function PlainEditor({
   type = "create",
@@ -16,6 +17,7 @@ export default function PlainEditor({
   onChange,
   placeholder = "",
   hideModeSwitch = true,
+  height = "160px",
 }: Readonly<PlainEditorProps>) {
   const editor = useRef<any>();
 
@@ -23,7 +25,7 @@ export default function PlainEditor({
     <div id="plain-editor">
       <Editor
         ref={editor}
-        height="160px"
+        height={height}
         placeholder={placeholder}
         initialValue={type === "update" ? value || " " : " "}
         language="ko-kr"

@@ -10,7 +10,7 @@ export default function MilestoneCommentContainer({
 }: Readonly<MilestoneCommentContainerProps>) {
   return (
     <div>
-      <CreateCommentForm />
+      <CreateCommentForm milestoneId={milestone.id} />
       <CommentList />
     </div>
   );

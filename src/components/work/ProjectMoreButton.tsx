@@ -1,3 +1,4 @@
+import { keyDownEventWrapper } from "@/utils/common/etc/keyDownEventWrapper";
 import React, { useRef } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPencil, BsTrash } from "react-icons/bs";
@@ -124,6 +125,7 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
                 <div
                   key={id}
                   onClick={onClick}
+                  onKeyDown={keyDownEventWrapper(onClick)}
                   className="flex-center w-full cursor-pointer gap-8px bg-white p-8px text-14px hover:bg-gray-50"
                 >
                   <Icon />

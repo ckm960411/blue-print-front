@@ -36,8 +36,10 @@ export default function LoginButton({}: LoginButtonProps) {
   };
 
   const handleLogin = async (type?: "guest") => {
-    if (!email.trim() || !password.trim()) return;
     const isGuest = type === "guest";
+
+    if (!isGuest && (!email.trim() || !password.trim())) return;
+
     try {
       await loginRequest({
         email: isGuest ? process.env.NEXT_PUBLIC_GUEST_EMAIL! : email,

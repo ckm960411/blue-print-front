@@ -88,14 +88,14 @@ export default function ProjectMoreButton({}: ProjectMoreButtonProps) {
     {
       id: 0,
       title: "추가하기",
-      Icon: () => <BsPencil />,
+      Icon: BsPencil,
       onClick: handleCreate,
       show: true,
     },
     {
       id: 1,
       title: "삭제하기",
-      Icon: () => <BsTrash />,
+      Icon: BsTrash,
       onClick: handleDelete,
       show: !!project,
     },

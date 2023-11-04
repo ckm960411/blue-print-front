@@ -2,6 +2,7 @@ import IconButton from "@/components/components/IconButton";
 import DeletePopup from "@/components/work/components/DeletePopup";
 import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
 import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
+import CommentCardCheck from "@/components/work/project-plan/milestone/CommentCardCheck";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { useUpdateCommentMutation } from "@/utils/hooks/react-query/useUpdateCommentMutation";
 import { Comment } from "@/utils/types/comment";
@@ -10,7 +11,6 @@ import { format } from "date-fns";
 import React from "react";
 import {
   BsBookmark,
-  BsCheckLg,
   BsFillBookmarkFill,
   BsPencil,
   BsTrash,
@@ -78,17 +78,10 @@ export default function CommentCard({ comment }: CommentCardProps) {
       <div className="flex items-center justify-between">
         <div className="text-14px font-bold">댓글</div>
         <div className="relative flex flex-shrink-0 items-center justify-end gap-8px">
-          <IconButton
-            onClick={() => {
-              updateCommentRequest({ isChecked: !comment.isChecked });
-            }}
-            className="rounded-md bg-transparent text-16px hover:bg-transparent"
-            w={24}
-          >
-            <BsCheckLg
-              className={comment.isChecked ? "text-green-500" : "text-gray-800"}
-            />
-          </IconButton>
+          <CommentCardCheck
+            commentId={comment.id}
+            isChecked={comment.isChecked}
+          />
           <IconButton
             onClick={() => {
               updateCommentRequest({ isBookmarked: !comment.isBookmarked });

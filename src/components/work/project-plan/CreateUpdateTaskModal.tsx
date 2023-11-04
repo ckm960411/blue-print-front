@@ -132,7 +132,7 @@ export default function CreateUpdateTaskModal({
           />
           <PlainEditor
             type={type}
-            placeholder="메모를 입력하세요"
+            placeholder="할일을 입력하세요"
             value={content}
             onChange={(v) => setContent(v)}
           />

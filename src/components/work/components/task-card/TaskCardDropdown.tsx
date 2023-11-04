@@ -1,4 +1,5 @@
 import IconButton from "@/components/components/IconButton";
+import DeletePopup from "@/components/work/components/DeletePopup";
 import CreateUpdateTaskModal from "@/components/work/project-plan/CreateUpdateTaskModal";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { deleteTask } from "@/utils/services/task";
@@ -16,7 +17,6 @@ interface TaskCardDropdownProps {
 }
 export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const deletePopupRef = useRef<HTMLDivElement | null>(null);
   const toast = useRef<Toast>(null);
   const queryClient = useQueryClient();
 
@@ -36,7 +36,6 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
     onClose: closeModal,
   } = useDisclosure();
   useOnClickOutside(dropdownRef, closeDropdown);
-  useOnClickOutside(deletePopupRef, closeDeletePopup);
 
   const { mutate: deleteTaskRequest } = useMutation(
     ["delete-task"],
@@ -118,28 +117,12 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
           </div>
         )}
 
-        {isDeletePopupOpen && (
-          <div
-            ref={deletePopupRef}
-            className="absolute right-0 top-0 w-240px rounded-10px bg-white p-16px text-14px font-medium text-gray-800 shadow-lg"
-          >
-            <div>정말 이 태스크를 삭제할까요?</div>
-            <div className="mt-16px flex items-center justify-end gap-8px">
-              <button
-                onClick={closeDeletePopup}
-                className="rounded-md px-8px py-4px hover:bg-gray-100"
-              >
-                취소
-              </button>
-              <button
-                onClick={() => deleteTaskRequest(task.id)}
-                className="rounded-md px-8px py-4px hover:bg-gray-100"
-              >
-                확인
-              </button>
-            </div>
-          </div>
-        )}
+        <DeletePopup
+          open={isDeletePopupOpen}
+          title="정말 이 태스크를 삭제할까요?"
+          onClose={closeDeletePopup}
+          onComplete={() => deleteTaskRequest(task.id)}
+        />
       </div>
     </>
   );

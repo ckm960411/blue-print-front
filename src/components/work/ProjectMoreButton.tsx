@@ -1,3 +1,4 @@
+import DeletePopup from "@/components/work/components/DeletePopup";
 import { keyDownEventWrapper } from "@/utils/common/etc/keyDownEventWrapper";
 import React, { useRef } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
@@ -15,7 +16,6 @@ import IconButton from "@/components/components/IconButton";
 
 export default function ProjectMoreButton() {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const deletePopupRef = useRef<HTMLDivElement | null>(null);
   const toast = useRef<Toast>(null);
   const queryClient = useQueryClient();
 
@@ -30,7 +30,6 @@ export default function ProjectMoreButton() {
     onClose: closeDeletePopup,
   } = useDisclosure();
   useOnClickOutside(dropdownRef, closeDropdown);
-  useOnClickOutside(deletePopupRef, closeDeletePopup);
 
   const [project, setProject] = useRecoilState(projectState);
 
@@ -134,28 +133,12 @@ export default function ProjectMoreButton() {
           </div>
         )}
 
-        {isDeletePopupOpen && (
-          <div
-            ref={deletePopupRef}
-            className="absolute right-0 top-0 z-10 w-240px rounded-10px bg-white p-16px text-14px font-medium text-gray-800 shadow-lg"
-          >
-            <div>정말 이 프로젝트를 삭제할까요?</div>
-            <div className="mt-16px flex items-center justify-end gap-8px">
-              <button
-                onClick={closeDeletePopup}
-                className="rounded-md px-8px py-4px hover:bg-gray-100"
-              >
-                취소
-              </button>
-              <button
-                onClick={handleDeleteProject}
-                className="rounded-md px-8px py-4px hover:bg-gray-100"
-              >
-                확인
-              </button>
-            </div>
-          </div>
-        )}
+        <DeletePopup
+          open={isDeletePopupOpen}
+          title="정말 이 프로젝트를 삭제할까요?"
+          onClose={closeDeletePopup}
+          onComplete={handleDeleteProject}
+        />
       </div>
     </>
   );

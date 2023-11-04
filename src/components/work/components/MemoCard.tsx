@@ -1,4 +1,5 @@
 import IconButton from "@/components/components/IconButton";
+import DeletePopup from "@/components/work/components/DeletePopup";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
 import { GET_ALL_MEMOS, QueryKeys } from "@/utils/common/query-keys";
@@ -9,11 +10,11 @@ import {
   UpdateMemoReqDto,
 } from "@/utils/services/memo";
 import { Memo } from "@/utils/types/memo";
-import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/hooks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Toast } from "primereact/toast";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
   BsBookmark,
   BsCheckLg,
@@ -21,7 +22,6 @@ import {
   BsTrash,
 } from "react-icons/bs";
 import { useRecoilValue } from "recoil";
-import { useOnClickOutside } from "usehooks-ts";
 
 interface MemoCardProps {
   memo: Memo;
@@ -34,13 +34,15 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
   const theme: ColorKey = (color as ColorKey) ?? DEFAULT_COLOR;
 
   const toast = useRef<Toast | null>(null);
-  const deletePopupRef = useRef<HTMLDivElement | null>(null);
   const queryClient = useQueryClient();
 
   const project = useRecoilValue(projectState);
-  const [openPopup, setOpenPopup] = useState(false);
 
-  useOnClickOutside(deletePopupRef, () => setOpenPopup(false));
+  const {
+    isOpen: isDeletePopupOpen,
+    onOpen: openDeletePopup,
+    onClose: closeDeletePopup,
+  } = useDisclosure();
 
   const { mutate: updateMemoRequest } = useMutation(
     ["update-memo"],
@@ -79,7 +81,7 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
   );
 
   const handleDelete = () => {
-    setOpenPopup(false);
+    closeDeletePopup();
     deleteMemoRequest(memo.id);
   };
 
@@ -131,7 +133,7 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
               )}
             </IconButton>
             <IconButton
-              onClick={() => setOpenPopup(true)}
+              onClick={openDeletePopup}
               className="rounded-md bg-transparent text-18px hover:bg-transparent"
               w={24}
             >
@@ -148,28 +150,12 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
           {getDayByAsiaSeoulFormat(new Date(createdAt))})
         </p>
 
-        {openPopup && (
-          <div
-            ref={deletePopupRef}
-            className="absolute right-0 top-0 w-240px rounded-10px bg-white p-16px text-14px font-medium text-gray-800 shadow-lg"
-          >
-            <div>정말 이 메모를 삭제할까요?</div>
-            <div className="mt-16px flex items-center justify-end gap-8px">
-              <button
-                onClick={() => setOpenPopup(false)}
-                className="rounded-md px-8px py-4px hover:bg-gray-100"
-              >
-                취소
-              </button>
-              <button
-                onClick={handleDelete}
-                className="rounded-md px-8px py-4px hover:bg-gray-100"
-              >
-                확인
-              </button>
-            </div>
-          </div>
-        )}
+        <DeletePopup
+          open={isDeletePopupOpen}
+          title="정말 이 메모를 삭제할까요?"
+          onClose={closeDeletePopup}
+          onComplete={handleDelete}
+        />
       </div>
     </>
   );

@@ -12,7 +12,7 @@ export default function MilestoneCommentContainer({
   const [showChecked, setShowChecked] = useState(false);
 
   return (
-    <div>
+    <div className="flex flex-col gap-16px">
       <CreateCommentForm
         milestoneId={milestone.id}
         showChecked={showChecked}

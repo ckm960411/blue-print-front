@@ -1,9 +1,9 @@
 import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
+import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
 import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useBoolean, useOnClickOutside } from "usehooks-ts";
+import { useBoolean } from "usehooks-ts";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import { useRecoilState } from "recoil";
 
@@ -12,7 +12,6 @@ import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { createProject, deleteProject } from "@/utils/services/project";
 
-import IconButton from "@/components/components/IconButton";
 import DeletePopup from "@/components/work/components/DeletePopup";
 
 export default function ProjectMoreButton() {
@@ -100,12 +99,7 @@ export default function ProjectMoreButton() {
   return (
     <>
       <div className="absolute right-16px top-16px">
-        <IconButton
-          onClick={openDropdown}
-          className="bg-white hover:bg-gray-50"
-        >
-          <BiDotsVerticalRounded />
-        </IconButton>
+        <VerticalDotsButton onClick={openDropdown} />
 
         <DropdownMenu
           open={dropdownOpened}

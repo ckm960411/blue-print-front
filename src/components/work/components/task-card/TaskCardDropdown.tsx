@@ -1,8 +1,8 @@
 import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
+import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
 import React from "react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import { useBoolean } from "usehooks-ts";
 
@@ -11,7 +11,6 @@ import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { deleteTask } from "@/utils/services/task";
 import { Task } from "@/utils/types/task";
 
-import IconButton from "@/components/components/IconButton";
 import DeletePopup from "@/components/work/components/DeletePopup";
 import CreateUpdateTaskModal from "@/components/work/project-plan/CreateUpdateTaskModal";
 
@@ -92,12 +91,7 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
       />
 
       <div className="relative">
-        <IconButton
-          onClick={openDropdown}
-          className="bg-white hover:bg-gray-50"
-        >
-          <BiDotsVerticalRounded />
-        </IconButton>
+        <VerticalDotsButton onClick={openDropdown} />
 
         <DropdownMenu
           open={dropdownOpened}

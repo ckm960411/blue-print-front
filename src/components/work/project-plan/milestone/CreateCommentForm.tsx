@@ -1,8 +1,9 @@
 import CreateButton from "@/components/work/components/CreateButton";
 import ToggleCheckOnly from "@/components/work/components/ToggleCheckOnly";
+import { QueryKeys } from "@/utils/common/query-keys";
 import { createComment } from "@/utils/services/comment";
 import { CreateCommentReqDto } from "@/utils/services/comment/dto/create-comment.req.dto";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import { Toast } from "primereact/toast";
 import React, { useRef, useState } from "react";
@@ -20,6 +21,7 @@ export default function CreateCommentForm({
   onToggleCheck,
 }: Readonly<CreateCommentFormProps>) {
   const toast = useRef<Toast | null>(null);
+  const queryClient = useQueryClient();
 
   const [showForm, setShowForm] = useState(false);
   const [content, setContent] = useState("");
@@ -36,6 +38,7 @@ export default function CreateCommentForm({
           summary: "댓글 작성 완료",
           detail: "댓글 작성이 완료됐습니다.",
         });
+        queryClient.invalidateQueries(QueryKeys.getAllComments());
       },
       onError: console.error,
     },

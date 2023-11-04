@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
+import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useBoolean, useOnClickOutside } from "usehooks-ts";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -6,7 +7,6 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import { useRecoilState } from "recoil";
 
-import { keyDownEventWrapper } from "@/utils/common/etc/keyDownEventWrapper";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
@@ -16,7 +16,6 @@ import IconButton from "@/components/components/IconButton";
 import DeletePopup from "@/components/work/components/DeletePopup";
 
 export default function ProjectMoreButton() {
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
   const { openToast } = useToastMessage();
   const queryClient = useQueryClient();
 
@@ -30,7 +29,6 @@ export default function ProjectMoreButton() {
     onOpen: openDeletePopup,
     onClose: closeDeletePopup,
   } = useDisclosure();
-  useOnClickOutside(dropdownRef, closeDropdown);
 
   const [project, setProject] = useRecoilState(projectState);
 
@@ -86,18 +84,18 @@ export default function ProjectMoreButton() {
     {
       id: 0,
       title: "추가하기",
-      Icon: BsPencil,
+      icon: <BsPencil />,
       onClick: handleCreate,
       show: true,
     },
     {
       id: 1,
       title: "삭제하기",
-      Icon: BsTrash,
+      icon: <BsTrash />,
       onClick: handleDelete,
       show: !!project,
     },
-  ] as const;
+  ];
 
   return (
     <>
@@ -109,26 +107,11 @@ export default function ProjectMoreButton() {
           <BiDotsVerticalRounded />
         </IconButton>
 
-        {dropdownOpened && (
-          <div
-            ref={dropdownRef}
-            className="absolute right-0 top-full z-10 w-100px rounded-10px border border-gray-200 bg-white py-8px shadow-md"
-          >
-            {menus
-              .filter((menu) => menu.show)
-              .map(({ id, title, Icon, onClick }) => (
-                <div
-                  key={id}
-                  onClick={onClick}
-                  onKeyDown={keyDownEventWrapper(onClick)}
-                  className="flex-center w-full cursor-pointer gap-8px bg-white p-8px text-14px hover:bg-gray-50"
-                >
-                  <Icon />
-                  <span>{title}</span>
-                </div>
-              ))}
-          </div>
-        )}
+        <DropdownMenu
+          open={dropdownOpened}
+          menus={menus}
+          onClose={closeDropdown}
+        />
 
         <DeletePopup
           open={isDeletePopupOpen}

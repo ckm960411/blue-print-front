@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
+import React from "react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPencil, BsTrash } from "react-icons/bs";
-import { useBoolean, useOnClickOutside } from "usehooks-ts";
+import { useBoolean } from "usehooks-ts";
 
 import { QueryKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
@@ -18,7 +19,6 @@ interface TaskCardDropdownProps {
   task: Task;
 }
 export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
   const { openToast } = useToastMessage();
   const queryClient = useQueryClient();
 
@@ -37,7 +37,6 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
     onOpen: openModal,
     onClose: closeModal,
   } = useDisclosure();
-  useOnClickOutside(dropdownRef, closeDropdown);
 
   const { mutate: deleteTaskRequest } = useMutation(
     ["delete-task"],
@@ -73,12 +72,12 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
   const menus = [
     {
       title: "수정하기",
-      Icon: () => <BsPencil />,
+      icon: <BsPencil />,
       onClick: handleUpdate,
     },
     {
       title: "삭제하기",
-      Icon: () => <BsTrash />,
+      icon: <BsTrash />,
       onClick: handleDelete,
     },
   ];
@@ -100,23 +99,11 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
           <BiDotsVerticalRounded />
         </IconButton>
 
-        {dropdownOpened && (
-          <div
-            ref={dropdownRef}
-            className="absolute right-0 top-full z-10 w-100px rounded-10px border border-gray-200 bg-white py-8px shadow-md"
-          >
-            {menus.map(({ title, Icon, onClick }, i) => (
-              <div
-                key={i}
-                onClick={onClick}
-                className="flex-center w-full cursor-pointer gap-8px bg-white p-8px text-14px hover:bg-gray-50"
-              >
-                <Icon />
-                <span>{title}</span>
-              </div>
-            ))}
-          </div>
-        )}
+        <DropdownMenu
+          open={dropdownOpened}
+          menus={menus}
+          onClose={closeDropdown}
+        />
 
         <DeletePopup
           open={isDeletePopupOpen}

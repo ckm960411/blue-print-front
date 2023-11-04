@@ -4,8 +4,12 @@ import VerticalDotsButton from "@/components/work/components/VerticalDotsButton"
 import CommentCardBookmark from "@/components/work/project-plan/milestone/CommentCardBookmark";
 import CommentCardCheck from "@/components/work/project-plan/milestone/CommentCardCheck";
 import CommentUpdateModal from "@/components/work/project-plan/milestone/CommentUpdateModal";
+import { QueryKeys } from "@/utils/common/query-keys";
+import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
+import { deleteComment } from "@/utils/services/comment";
 import { Comment } from "@/utils/types/comment";
 import { useDisclosure } from "@chakra-ui/hooks";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import React from "react";
 import { BsPencil, BsTrash } from "react-icons/bs";
@@ -15,6 +19,9 @@ interface CommentCardProps {
   comment: Comment;
 }
 export default function CommentCard({ comment }: CommentCardProps) {
+  const { openToast } = useToastMessage();
+  const queryClient = useQueryClient();
+
   const {
     value: dropdownOpened,
     setTrue: openDropdown,
@@ -30,6 +37,24 @@ export default function CommentCard({ comment }: CommentCardProps) {
     onOpen: openModal,
     onClose: closeModal,
   } = useDisclosure();
+
+  const { mutate: deleteCommentRequest } = useMutation(
+    ["delete-comment"],
+    deleteComment,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllComments());
+      },
+      onError: (e: any) => {
+        openToast({
+          status: "error",
+          title: "문제 발생",
+          description:
+            e?.response?.data?.message || "댓글 삭제 중 문제가 발생했습니다.",
+        });
+      },
+    },
+  );
 
   const handleUpdate = () => {
     closeDropdown();
@@ -88,7 +113,7 @@ export default function CommentCard({ comment }: CommentCardProps) {
               open={isDeletePopupOpen}
               title="정말 이 프로젝트를 삭제할까요?"
               onClose={closeDeletePopup}
-              onComplete={() => {}}
+              onComplete={() => deleteCommentRequest(comment.id)}
             />
           </div>
         </div>

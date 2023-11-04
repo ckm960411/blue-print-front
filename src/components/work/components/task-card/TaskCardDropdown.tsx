@@ -1,23 +1,25 @@
-import IconButton from "@/components/components/IconButton";
-import DeletePopup from "@/components/work/components/DeletePopup";
-import CreateUpdateTaskModal from "@/components/work/project-plan/CreateUpdateTaskModal";
-import { QueryKeys } from "@/utils/common/query-keys";
-import { deleteTask } from "@/utils/services/task";
-import { Task } from "@/utils/types/task";
+import React, { useRef } from "react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Toast } from "primereact/toast";
-import React, { useRef } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import { useBoolean, useOnClickOutside } from "usehooks-ts";
+
+import { QueryKeys } from "@/utils/common/query-keys";
+import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
+import { deleteTask } from "@/utils/services/task";
+import { Task } from "@/utils/types/task";
+
+import IconButton from "@/components/components/IconButton";
+import DeletePopup from "@/components/work/components/DeletePopup";
+import CreateUpdateTaskModal from "@/components/work/project-plan/CreateUpdateTaskModal";
 
 interface TaskCardDropdownProps {
   task: Task;
 }
 export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const toast = useRef<Toast>(null);
+  const { openToast } = useToastMessage();
   const queryClient = useQueryClient();
 
   const {
@@ -47,10 +49,10 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
         queryClient.invalidateQueries(QueryKeys.getThisMonthTasks());
       },
       onError: (e: any) => {
-        toast.current?.show({
-          severity: "error",
-          summary: "문제 발생",
-          detail:
+        openToast({
+          status: "error",
+          title: "문제 발생",
+          description:
             e?.response?.data?.message ||
             "태스크 삭제 중 문제가 발생했습니다. 다시 시도해주세요.",
         });
@@ -83,7 +85,6 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
 
   return (
     <>
-      <Toast ref={toast} />
       <CreateUpdateTaskModal
         task={task}
         isOpen={isModalOpen}

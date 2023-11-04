@@ -1,13 +1,13 @@
-import CalendarModal from "@/components/work/components/CalendarModal";
+import { useRecoilValue } from "recoil";
+import { useDisclosure } from "@chakra-ui/hooks";
+import { format } from "date-fns";
+
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
+import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
 import { projectState } from "@/utils/recoil/store";
 import { Milestone } from "@/utils/types/milestone";
-import { useDisclosure } from "@chakra-ui/hooks";
-import { format } from "date-fns";
-import { Toast } from "primereact/toast";
-import { useRef } from "react";
-import { useRecoilValue } from "recoil";
+import CalendarModal from "@/components/work/components/CalendarModal";
 
 interface MilestoneStartAtFormProps {
   milestone: Milestone;
@@ -16,23 +16,22 @@ export default function MilestoneStartAtForm({
   milestone,
 }: MilestoneStartAtFormProps) {
   const { id, startAt, endAt } = milestone;
-  const toast = useRef<Toast>(null);
+  const { openToast } = useToastMessage();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const project = useRecoilValue(projectState);
 
   const { mutate: updateMilestoneRequest } = useUpdateMilestoneMutation(id, {
     onError: () => {
-      toast.current?.show({
-        severity: "error",
-        summary: "문제 발생",
-        detail: "시작일 수정 중 문제가 발생했습니다.",
+      openToast({
+        status: "error",
+        title: "문제 발생",
+        description: "시작일 수정 중 문제가 발생했습니다.",
       });
     },
   });
 
   return (
     <>
-      <Toast ref={toast} />
       <div className="flex h-14px items-center gap-8px">
         <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
           시작일

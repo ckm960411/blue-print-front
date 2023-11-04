@@ -1,8 +1,19 @@
-import IconButton from "@/components/components/IconButton";
-import DeletePopup from "@/components/work/components/DeletePopup";
+import React from "react";
+import { useRecoilValue } from "recoil";
+import { useDisclosure } from "@chakra-ui/hooks";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { format } from "date-fns";
+import {
+  BsBookmark,
+  BsCheckLg,
+  BsFillBookmarkFill,
+  BsTrash,
+} from "react-icons/bs";
+
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
-import { GET_ALL_MEMOS, QueryKeys } from "@/utils/common/query-keys";
+import { GET_ALL_MEMOS } from "@/utils/common/query-keys";
+import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
 import {
   deleteMemo,
@@ -10,18 +21,9 @@ import {
   UpdateMemoReqDto,
 } from "@/utils/services/memo";
 import { Memo } from "@/utils/types/memo";
-import { useDisclosure } from "@chakra-ui/hooks";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { format } from "date-fns";
-import { Toast } from "primereact/toast";
-import React, { useRef } from "react";
-import {
-  BsBookmark,
-  BsCheckLg,
-  BsFillBookmarkFill,
-  BsTrash,
-} from "react-icons/bs";
-import { useRecoilValue } from "recoil";
+
+import IconButton from "@/components/components/IconButton";
+import DeletePopup from "@/components/work/components/DeletePopup";
 
 interface MemoCardProps {
   memo: Memo;
@@ -33,7 +35,7 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
 
   const theme: ColorKey = (color as ColorKey) ?? DEFAULT_COLOR;
 
-  const toast = useRef<Toast | null>(null);
+  const { openToast } = useToastMessage();
   const queryClient = useQueryClient();
 
   const project = useRecoilValue(projectState);
@@ -52,11 +54,13 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
       onSuccess: () => {
         queryClient.invalidateQueries([GET_ALL_MEMOS]);
       },
-      onError: () => {
-        toast.current?.show({
-          severity: "error",
-          summary: "문제 발생",
-          detail: "메모 업데이트 중 문제가 발생했습니다. 다시 시도해 주세요.",
+      onError: (e: any) => {
+        openToast({
+          status: "error",
+          title: "문제 발생",
+          description:
+            e?.response?.data?.message ||
+            "메모 업데이트 중 문제가 발생했습니다. 다시 시도해 주세요.",
         });
       },
     },
@@ -70,11 +74,13 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
         queryClient.invalidateQueries([GET_ALL_MEMOS]);
         onDelete?.();
       },
-      onError: () => {
-        toast.current?.show({
-          severity: "error",
-          summary: "문제 발생",
-          detail: "메모 삭제 중 문제가 발생했습니다. 다시 시도해 주세요.",
+      onError: (e: any) => {
+        openToast({
+          status: "error",
+          title: "문제 발생",
+          description:
+            e?.response?.data?.message ||
+            "메모 삭제 중 문제가 발생했습니다. 다시 시도해 주세요.",
         });
       },
     },
@@ -87,7 +93,6 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
 
   return (
     <>
-      <Toast ref={toast} />
       <div
         className="relative flex w-full flex-col gap-8px rounded-r-[10px] border-l-4 border-green-500 bg-green-50 p-16px"
         style={{

@@ -1,22 +1,23 @@
-import DeletePopup from "@/components/work/components/DeletePopup";
-import { keyDownEventWrapper } from "@/utils/common/etc/keyDownEventWrapper";
 import React, { useRef } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useBoolean, useOnClickOutside } from "usehooks-ts";
+import { useDisclosure } from "@chakra-ui/hooks";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import { useRecoilState } from "recoil";
-import { useBoolean, useOnClickOutside } from "usehooks-ts";
-import { Toast } from "primereact/toast";
-import { useDisclosure } from "@chakra-ui/hooks";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { keyDownEventWrapper } from "@/utils/common/etc/keyDownEventWrapper";
+import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { createProject, deleteProject } from "@/utils/services/project";
+
 import IconButton from "@/components/components/IconButton";
+import DeletePopup from "@/components/work/components/DeletePopup";
 
 export default function ProjectMoreButton() {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const toast = useRef<Toast>(null);
+  const { openToast } = useToastMessage();
   const queryClient = useQueryClient();
 
   const {
@@ -39,10 +40,9 @@ export default function ProjectMoreButton() {
     {
       onSuccess: (project) => {
         queryClient.invalidateQueries(QueryKeys.getAllProjects());
-        toast.current?.show({
-          severity: "success",
-          summary: "생성 완료",
-          detail: "프로젝트 생성이 완료되었습니다.",
+        openToast({
+          title: "생성 완료",
+          description: "프로젝트 생성이 완료되었습니다.",
         });
         closeDropdown();
       },
@@ -56,10 +56,9 @@ export default function ProjectMoreButton() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllProjects());
-        toast.current?.show({
-          severity: "success",
-          summary: "삭제 완료",
-          detail: "프로젝트가 삭제되었습니다.",
+        openToast({
+          title: "삭제 완료",
+          description: "프로젝트가 삭제되었습니다.",
         });
         setProject(undefined);
         closeDeletePopup();
@@ -102,8 +101,6 @@ export default function ProjectMoreButton() {
 
   return (
     <>
-      <Toast ref={toast} />
-
       <div className="absolute right-16px top-16px">
         <IconButton
           onClick={openDropdown}

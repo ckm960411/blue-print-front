@@ -1,6 +1,6 @@
 import { get, post } from "@/app/api/axios";
 import { CreateCommentReqDto } from "@/utils/services/comment/dto/create-comment.req.dto";
-
+import { Comment } from "@/utils/types/comment";
 export const createComment = async (
   createCommentReqDto: CreateCommentReqDto,
 ) => {

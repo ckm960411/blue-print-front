@@ -2,6 +2,8 @@ import IconButton from "@/components/components/IconButton";
 import DeletePopup from "@/components/work/components/DeletePopup";
 import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
 import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
+import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
+import { useUpdateCommentMutation } from "@/utils/hooks/react-query/useUpdateCommentMutation";
 import { Comment } from "@/utils/types/comment";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { format } from "date-fns";
@@ -19,6 +21,8 @@ interface CommentCardProps {
   comment: Comment;
 }
 export default function CommentCard({ comment }: CommentCardProps) {
+  const { openToast } = useToastMessage();
+
   const {
     value: dropdownOpened,
     setTrue: openDropdown,
@@ -29,6 +33,20 @@ export default function CommentCard({ comment }: CommentCardProps) {
     onOpen: openDeletePopup,
     onClose: closeDeletePopup,
   } = useDisclosure();
+
+  const { mutate: updateCommentRequest } = useUpdateCommentMutation(
+    comment.id,
+    {
+      onError: (e) => {
+        openToast({
+          status: "error",
+          title: "문제 발생",
+          description:
+            e?.response?.data?.message || "댓글 수정 중 문제가 발생했습니다.",
+        });
+      },
+    },
+  );
 
   const handleUpdate = () => {
     closeDropdown();
@@ -61,7 +79,9 @@ export default function CommentCard({ comment }: CommentCardProps) {
         <div className="text-14px font-bold">댓글</div>
         <div className="relative flex flex-shrink-0 items-center justify-end gap-8px">
           <IconButton
-            onClick={() => {}}
+            onClick={() => {
+              updateCommentRequest({ isChecked: !comment.isChecked });
+            }}
             className="rounded-md bg-transparent text-16px hover:bg-transparent"
             w={24}
           >
@@ -70,7 +90,9 @@ export default function CommentCard({ comment }: CommentCardProps) {
             />
           </IconButton>
           <IconButton
-            onClick={() => {}}
+            onClick={() => {
+              updateCommentRequest({ isBookmarked: !comment.isBookmarked });
+            }}
             className="rounded-md bg-transparent text-16px hover:bg-transparent"
             w={24}
           >

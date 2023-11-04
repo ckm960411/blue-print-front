@@ -1,4 +1,4 @@
-import { get, patch, post } from "@/app/api/axios";
+import { deleteCall, get, patch, post } from "@/app/api/axios";
 import { CreateCommentReqDto } from "@/utils/services/comment/dto/create-comment.req.dto";
 import { UpdateCommentReqDto } from "@/utils/services/comment/dto/update-comment.req.dto";
 import { Comment } from "@/utils/types/comment";
@@ -20,4 +20,8 @@ export const updateComment = async (
 ) => {
   const { data } = await patch<Comment>(`comment/${id}`, updateCommentReqDto);
   return data;
+};
+
+export const deleteComment = async (id: number) => {
+  await deleteCall(`comment/${id}`);
 };

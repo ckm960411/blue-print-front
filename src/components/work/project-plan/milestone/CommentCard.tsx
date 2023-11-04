@@ -3,6 +3,7 @@ import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
 import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
 import CommentCardBookmark from "@/components/work/project-plan/milestone/CommentCardBookmark";
 import CommentCardCheck from "@/components/work/project-plan/milestone/CommentCardCheck";
+import CommentUpdateModal from "@/components/work/project-plan/milestone/CommentUpdateModal";
 import { Comment } from "@/utils/types/comment";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { format } from "date-fns";
@@ -24,9 +25,15 @@ export default function CommentCard({ comment }: CommentCardProps) {
     onOpen: openDeletePopup,
     onClose: closeDeletePopup,
   } = useDisclosure();
+  const {
+    isOpen: isModalOpen,
+    onOpen: openModal,
+    onClose: closeModal,
+  } = useDisclosure();
 
   const handleUpdate = () => {
     closeDropdown();
+    openModal();
   };
 
   const handleDelete = () => {
@@ -48,43 +55,51 @@ export default function CommentCard({ comment }: CommentCardProps) {
   ];
 
   return (
-    <div
-      key={comment.id}
-      className="relative flex flex-col gap-12px rounded-10px p-16px shadow-md duration-200 hover:shadow-lg"
-    >
-      <div className="flex items-center justify-between">
-        <div className="text-14px font-bold">댓글</div>
-        <div className="relative flex flex-shrink-0 items-center justify-end gap-8px">
-          <CommentCardCheck
-            commentId={comment.id}
-            isChecked={comment.isChecked}
-          />
-          <CommentCardBookmark
-            commentId={comment.id}
-            isBookmarked={comment.isBookmarked}
-          />
-          <VerticalDotsButton onClick={openDropdown} />
-
-          <DropdownMenu
-            open={dropdownOpened}
-            menus={menus}
-            onClose={closeDropdown}
-          />
-          <DeletePopup
-            open={isDeletePopupOpen}
-            title="정말 이 프로젝트를 삭제할까요?"
-            onClose={closeDeletePopup}
-            onComplete={() => {}}
-          />
-        </div>
-      </div>
-      <div
-        dangerouslySetInnerHTML={{ __html: comment.content }}
-        className="grow break-all text-14px leading-[140%] text-gray-800"
+    <>
+      <CommentUpdateModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        comment={comment}
       />
-      <p className="text-12px font-medium text-gray-600">
-        {format(new Date(comment.createdAt), "yyyy.MM.dd HH:mm")}
-      </p>
-    </div>
+
+      <div
+        key={comment.id}
+        className="relative flex flex-col gap-12px rounded-10px p-16px shadow-md duration-200 hover:shadow-lg"
+      >
+        <div className="flex items-center justify-between">
+          <div className="text-14px font-bold">댓글</div>
+          <div className="relative flex flex-shrink-0 items-center justify-end gap-8px">
+            <CommentCardCheck
+              commentId={comment.id}
+              isChecked={comment.isChecked}
+            />
+            <CommentCardBookmark
+              commentId={comment.id}
+              isBookmarked={comment.isBookmarked}
+            />
+            <VerticalDotsButton onClick={openDropdown} />
+
+            <DropdownMenu
+              open={dropdownOpened}
+              menus={menus}
+              onClose={closeDropdown}
+            />
+            <DeletePopup
+              open={isDeletePopupOpen}
+              title="정말 이 프로젝트를 삭제할까요?"
+              onClose={closeDeletePopup}
+              onComplete={() => {}}
+            />
+          </div>
+        </div>
+        <div
+          dangerouslySetInnerHTML={{ __html: comment.content }}
+          className="grow break-all text-14px leading-[140%] text-gray-800"
+        />
+        <p className="text-12px font-medium text-gray-600">
+          {format(new Date(comment.createdAt), "yyyy.MM.dd HH:mm")}
+        </p>
+      </div>
+    </>
   );
 }

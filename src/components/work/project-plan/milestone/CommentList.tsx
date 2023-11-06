@@ -6,11 +6,15 @@ import React from "react";
 
 interface CommentListProps {
   milestoneId: number;
+  showChecked: boolean;
 }
-export default function CommentList({ milestoneId }: CommentListProps) {
+export default function CommentList({
+  milestoneId,
+  showChecked,
+}: CommentListProps) {
   const { data: comments = [] } = useQuery(
-    QueryKeys.getAllComments(milestoneId),
-    () => getAllComments(milestoneId),
+    QueryKeys.getAllComments(milestoneId, showChecked),
+    () => getAllComments(milestoneId, showChecked),
     { onError: console.error },
   );
 

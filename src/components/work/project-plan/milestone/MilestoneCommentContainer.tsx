@@ -18,7 +18,7 @@ export default function MilestoneCommentContainer({
         showChecked={showChecked}
         onToggleCheck={() => setShowChecked((prev) => !prev)}
       />
-      <CommentList milestoneId={milestone.id} />
+      <CommentList milestoneId={milestone.id} showChecked={showChecked} />
     </div>
   );
 }

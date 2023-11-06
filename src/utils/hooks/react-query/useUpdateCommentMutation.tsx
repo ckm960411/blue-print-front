@@ -1,10 +1,10 @@
 import { QueryKeys } from "@/utils/common/query-keys";
-import { updateMilestone } from "@/utils/services/milestone";
-import { UpdateMilestoneReqDto } from "@/utils/services/milestone/dto/update-milestone.req.dto";
+import { updateComment } from "@/utils/services/comment";
+import { UpdateCommentReqDto } from "@/utils/services/comment/dto/update-comment.req.dto";
 import { useMutation, useQueryClient } from "react-query";
 
-export const useUpdateMilestoneMutation = (
-  milestoneId: number,
+export const useUpdateCommentMutation = (
+  commentId: number,
   options?: {
     onSuccess?: () => void;
     onError?: (e?: any) => void;
@@ -13,12 +13,12 @@ export const useUpdateMilestoneMutation = (
   const queryClient = useQueryClient();
 
   const mutationResult = useMutation(
-    ["update-milestone"],
-    (updateMilestoneReqDto: UpdateMilestoneReqDto) =>
-      updateMilestone(milestoneId, updateMilestoneReqDto),
+    ["update-comment"],
+    (updateCommentReqDto: UpdateCommentReqDto) =>
+      updateComment(commentId, updateCommentReqDto),
     {
-      onSuccess: (res) => {
-        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllComments());
         options?.onSuccess?.();
       },
       onError: (e: any) => {

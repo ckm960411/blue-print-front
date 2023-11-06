@@ -1,8 +1,9 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { CategorySection } from "@/utils/types/study";
+import { useQuery } from "react-query";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SideBarLink from "./SideBarLink";
 import { BsJournalBookmark } from "react-icons/bs";
 import { PiHamburgerLight } from "react-icons/pi";
@@ -21,6 +22,7 @@ export default function SideBar() {
 
   const me = useRecoilValue(meState);
   const [isSpreaded, setIsSpreaded] = useRecoilState(sideBarOpenState);
+  // const [studySections, setStudySections] = useState<CategorySection[]>([]);
 
   useEffect(() => {
     setIsSpreaded(!UNDER_1024PX);
@@ -31,6 +33,12 @@ export default function SideBar() {
     getNotionSections,
     { onError: console.error },
   );
+
+  // useEffect(() => {
+  //   getNotionSections()
+  //     .then((data) => setStudySections(data))
+  //     .catch(console.error);
+  // }, []);
 
   if (UNDER_480PX) return <></>;
 

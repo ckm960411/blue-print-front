@@ -1,11 +1,17 @@
+import MilestoneCommentContainer from "@/components/work/project-plan/milestone/MilestoneCommentContainer";
+import { Milestone } from "@/utils/types/milestone";
 import { TabPanel } from "@chakra-ui/tabs";
 import React from "react";
 
-interface MilestoneDrawerBoardTabProps {}
-export default function MilestoneDrawerBoardTab({}: MilestoneDrawerBoardTabProps) {
+interface MilestoneDrawerBoardTabProps {
+  milestone: Milestone;
+}
+export default function MilestoneDrawerBoardTab({
+  milestone,
+}: Readonly<MilestoneDrawerBoardTabProps>) {
   return (
     <TabPanel>
-      <p>MilestoneDrawerBoardTab</p>
+      <MilestoneCommentContainer milestone={milestone} />
     </TabPanel>
   );
 }

@@ -1,7 +1,7 @@
 import { QueryKeys } from "@/utils/common/query-keys";
 import { updateTask } from "@/utils/services/task";
 import { UpdateTaskReqDto } from "@/utils/services/task/dto/update-task.req.dto";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 export const useUpdateTaskMutation = (
   taskId: number,

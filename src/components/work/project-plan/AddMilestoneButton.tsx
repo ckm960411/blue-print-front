@@ -3,7 +3,7 @@
 import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { createMilestone } from "@/utils/services/milestone";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "react-query";
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useRecoilValue } from "recoil";

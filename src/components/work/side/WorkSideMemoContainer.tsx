@@ -1,11 +1,12 @@
-import MemoCard from "@/components/work/components/MemoCard";
+import React from "react";
+import { useRecoilValue } from "recoil";
+import { useQuery } from "react-query";
+
 import { QueryKeys } from "@/utils/common/query-keys";
+import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
 import { getAllMemos } from "@/utils/services/memo";
-import { useQuery } from "@tanstack/react-query";
-import { Toast } from "primereact/toast";
-import React, { useRef } from "react";
-import { useRecoilValue } from "recoil";
+import MemoCard from "@/components/work/components/MemoCard";
 
 interface WorkSideMemoContainerProps {
   milestoneId?: number;
@@ -15,7 +16,7 @@ export default function WorkSideMemoContainer({
   milestoneId,
   showChecked,
 }: WorkSideMemoContainerProps) {
-  const toast = useRef<Toast | null>(null);
+  const { openToast } = useToastMessage();
   const project = useRecoilValue(projectState);
 
   const { data: memos = [] } = useQuery(
@@ -28,32 +29,29 @@ export default function WorkSideMemoContainer({
       }),
     {
       onError: () =>
-        toast.current?.show({
-          severity: "error",
-          summary: "에러 발생",
-          detail: "메모를 불러오던 중 문제가 발생했습니다.",
+        openToast({
+          status: "error",
+          title: "에러 발생",
+          description: "메모를 불러오던 중 문제가 발생했습니다.",
         }),
     },
   );
 
   return (
-    <>
-      <Toast ref={toast} />
-      <div className="flex flex-col gap-16px">
-        {memos.map((memo) => (
-          <MemoCard
-            key={memo.id}
-            memo={memo}
-            onDelete={() =>
-              toast.current?.show({
-                severity: "success",
-                summary: "메모 삭제 완료",
-                detail: "메모 삭제가 완료되었습니다.",
-              })
-            }
-          />
-        ))}
-      </div>
-    </>
+    <div className="flex flex-col gap-16px">
+      {memos.map((memo) => (
+        <MemoCard
+          key={memo.id}
+          memo={memo}
+          onDelete={() =>
+            openToast({
+              status: "success",
+              title: "메모 삭제 완료",
+              description: "메모 삭제가 완료되었습니다.",
+            })
+          }
+        />
+      ))}
+    </div>
   );
 }

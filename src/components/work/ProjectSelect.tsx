@@ -3,7 +3,7 @@
 import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllProjects } from "@/utils/services/project";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { find } from "lodash";
 import React, { useEffect, useRef } from "react";
 import { FiChevronDown } from "react-icons/fi";

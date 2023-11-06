@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 
 import { QueryKeys } from "@/utils/common/query-keys";
 import { getMilestoneById } from "@/utils/services/milestone";

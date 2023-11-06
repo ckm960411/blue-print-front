@@ -12,7 +12,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/modal";
 import { Modal, ModalFooter } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "react-query";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 

@@ -13,12 +13,17 @@ const getMilestoneById = (id: number) => ["get-milestone-by-id", id];
 
 const getAllProjects = (...args: any[]) => ["get-all-projects", ...args];
 
+const getAllComments = (...args: any[]) => ["get-all-comments", args];
+
 export const QueryKeys = {
   // MEMO
   getAllMemos,
 
   // TASK
   getAllTasks,
+
+  // COMMENT
+  getAllComments,
 
   // this month tasks
   getThisMonthTasks,

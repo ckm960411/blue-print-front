@@ -1,7 +1,7 @@
 import { QueryKeys } from "@/utils/common/query-keys";
 import { updateMilestone } from "@/utils/services/milestone";
 import { UpdateMilestoneReqDto } from "@/utils/services/milestone/dto/update-milestone.req.dto";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 export const useUpdateMilestoneMutation = (
   milestoneId: number,

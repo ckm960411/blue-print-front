@@ -1,7 +1,7 @@
 import CommentCard from "@/components/work/project-plan/milestone/CommentCard";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { getAllComments } from "@/utils/services/comment";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import React from "react";
 
 interface CommentListProps {

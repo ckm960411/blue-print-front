@@ -4,7 +4,7 @@ import { QueryKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { createComment } from "@/utils/services/comment";
 import { CreateCommentReqDto } from "@/utils/services/comment/dto/create-comment.req.dto";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "react-query";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 

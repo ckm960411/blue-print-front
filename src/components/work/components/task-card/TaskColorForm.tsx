@@ -5,7 +5,7 @@ import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMu
 import { Task } from "@/utils/types/task";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "react-query";
 import React, { useState } from "react";
 
 interface TaskColorFormProps {

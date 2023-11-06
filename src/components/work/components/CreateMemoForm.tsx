@@ -5,7 +5,7 @@ import { ColorKey } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { useMemoMutation } from "@/utils/hooks/memo/useMemoMutation";
 import { projectState } from "@/utils/recoil/store";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "react-query";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";

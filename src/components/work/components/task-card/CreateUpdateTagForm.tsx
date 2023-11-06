@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 import { ColorKey } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";

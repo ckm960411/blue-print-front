@@ -6,7 +6,7 @@ import { addTimeline } from "@/utils/common/task/calendar";
 import { projectState } from "@/utils/recoil/store";
 import { getThisMonthTasks } from "@/utils/services/task";
 import { Task } from "@/utils/types/task";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { getMonth, getYear } from "date-fns";
 import { Nullable } from "primereact/ts-helpers";
 import React, { useEffect, useRef, useState } from "react";

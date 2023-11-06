@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "react-query";
 import { endOfDay, format } from "date-fns";
 
 import { getDayByAsiaSeoulFormat } from "@/utils/common";

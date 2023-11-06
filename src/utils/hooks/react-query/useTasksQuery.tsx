@@ -2,7 +2,7 @@ import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllTask } from "@/utils/services/task";
 import { Progress } from "@/utils/types";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
 export const useTasksQuery = (

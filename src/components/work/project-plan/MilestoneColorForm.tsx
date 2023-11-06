@@ -5,7 +5,7 @@ import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateM
 import { Milestone } from "@/utils/types/milestone";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "react-query";
 import React, { useState } from "react";
 
 interface MilestoneColorFormProps {

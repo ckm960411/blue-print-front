@@ -10,7 +10,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 
 import { QueryKeys } from "@/utils/common/query-keys";

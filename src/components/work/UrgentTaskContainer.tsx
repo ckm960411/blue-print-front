@@ -1,7 +1,7 @@
 import TaskCard from "@/components/work/components/TaskCard";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { getAllUrgenttTasks } from "@/utils/services/task";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import React from "react";
 
 interface UrgentTaskContainerProps {

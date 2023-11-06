@@ -9,7 +9,7 @@ import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { deleteComment } from "@/utils/services/comment";
 import { Comment } from "@/utils/types/comment";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { format } from "date-fns";
 import React from "react";
 import { BsPencil, BsTrash } from "react-icons/bs";

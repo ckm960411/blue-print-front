@@ -1,7 +1,7 @@
 import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
 import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
 import React from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useBoolean } from "usehooks-ts";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { BsPencil, BsTrash } from "react-icons/bs";

@@ -2,7 +2,7 @@ import { MilestoneStatus } from "@/components/work/project-plan/ProjectPlanTab";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllMilestones } from "@/utils/services/milestone";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
 export const useMilestonesQuery = (status?: MilestoneStatus) => {

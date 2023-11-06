@@ -6,7 +6,7 @@ import { projectState } from "@/utils/recoil/store";
 import { Progress } from "@/utils/types";
 import { Task } from "@/utils/types/task";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "react-query";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 

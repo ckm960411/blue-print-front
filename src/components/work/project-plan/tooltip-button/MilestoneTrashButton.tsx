@@ -2,7 +2,7 @@ import React from "react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { BsTrash } from "react-icons/bs";
 import { Tooltip } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 import { QueryKeys } from "@/utils/common/query-keys";
 import { deleteMilestone } from "@/utils/services/milestone";

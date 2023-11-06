@@ -1,7 +1,7 @@
 import { QueryKeys } from "@/utils/common/query-keys";
 import { updateComment } from "@/utils/services/comment";
 import { UpdateCommentReqDto } from "@/utils/services/comment/dto/update-comment.req.dto";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 export const useUpdateCommentMutation = (
   commentId: number,

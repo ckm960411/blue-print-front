@@ -11,7 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "react-query";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 

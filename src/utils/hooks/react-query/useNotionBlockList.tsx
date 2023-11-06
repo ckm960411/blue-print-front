@@ -1,5 +1,5 @@
 import { getNotionBlockList } from "@/utils/services/notion";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 
 export const useNotionBlockList = (blockId: string) => {
   const queryResult = useQuery(

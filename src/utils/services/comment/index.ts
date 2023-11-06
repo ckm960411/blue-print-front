@@ -9,8 +9,13 @@ export const createComment = async (
   return data;
 };
 
-export const getAllComments = async (milestoneId: number) => {
-  const { data } = await get<Comment[]>(`comment`, { params: { milestoneId } });
+export const getAllComments = async (
+  milestoneId: number,
+  isChecked = false,
+) => {
+  const { data } = await get<Comment[]>(`comment`, {
+    params: { milestoneId, isChecked },
+  });
   return data;
 };
 

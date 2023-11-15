@@ -46,7 +46,7 @@ export default function SidebarV2() {
           isSidebarOpen={isOpen}
         />
       </div>
-      <SidebarBottom />
+      <SidebarBottom isSidebarOpen={isOpen} />
     </div>
   );
 }

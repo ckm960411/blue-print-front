@@ -15,8 +15,14 @@ import { Modal, ModalFooter } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useRecoilState } from "recoil";
+import { MdLogout, MdLogin } from "react-icons/md";
 
-export default function LoginButton() {
+interface LoginButtonProps {
+  isSidebarOpen: boolean;
+}
+export default function LoginButton({
+  isSidebarOpen,
+}: Readonly<LoginButtonProps>) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [me, setMe] = useRecoilState(meState);
@@ -71,9 +77,12 @@ export default function LoginButton() {
     <>
       <button
         onClick={onOpen}
-        className="rounded-md border border-gray-200 px-12px py-8px text-14px font-medium duration-200 hover:bg-main hover:text-white hover:shadow-lg"
+        className="flex-center gap-8px rounded-md border border-gray-200 px-12px py-8px text-14px font-medium duration-200 hover:bg-main hover:text-white hover:shadow-lg"
       >
-        {me ? "로그아웃" : "로그인"}
+        {me ? <MdLogout /> : <MdLogin />}
+        <span className={isSidebarOpen ? "block" : "hidden"}>
+          {me ? "로그아웃" : "로그인"}
+        </span>
       </button>
 
       <Modal isOpen={isOpen} onClose={onClose}>

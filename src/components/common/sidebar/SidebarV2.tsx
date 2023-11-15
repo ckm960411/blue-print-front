@@ -6,7 +6,7 @@ import { GoSidebarExpand } from "react-icons/go";
 import { FiBook } from "react-icons/fi";
 import { MdOutlineLaptopChromebook } from "react-icons/md";
 
-import { SideLink } from "@/components/common/sidebar/index";
+import { SideLink, SidebarBottom } from "@/components/common/sidebar/index";
 
 export default function SidebarV2() {
   const [isOpen, setIsOpen] = useState(true);
@@ -15,8 +15,8 @@ export default function SidebarV2() {
 
   return (
     <div
-      className={`flex-shirnk-0 bg-sidebar border-r border-blue-100 duration-200 ${
-        isOpen ? "w-240px " : "flex w-60px flex-col items-center"
+      className={`flex-shirnk-0 bg-sidebar flex flex-col border-r border-blue-100 duration-200 ${
+        isOpen ? "w-240px " : "w-60px items-center"
       }`}
     >
       <div className="flex-between h-56px px-16px">
@@ -32,7 +32,7 @@ export default function SidebarV2() {
           <GoSidebarExpand />
         </button>
       </div>
-      <div className="flex flex-col gap-8px p-16px">
+      <div className="flex grow flex-col gap-8px p-16px">
         <SideLink
           title="Study"
           href="/study"
@@ -46,6 +46,7 @@ export default function SidebarV2() {
           isSidebarOpen={isOpen}
         />
       </div>
+      <SidebarBottom />
     </div>
   );
 }

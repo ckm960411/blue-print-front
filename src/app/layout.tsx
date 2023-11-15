@@ -4,7 +4,6 @@ import TanstackQueryProvider from "@/components/common/TanstackQueryProvider";
 import React from "react";
 import type { Metadata } from "next";
 import { pretendard } from "@/utils/fonts";
-import Header from "@/components/common/Header";
 import { ChakraUIProvider } from "@/components/common/ChakraUIProvider";
 import BottomNavigation from "@/components/common/BottomNavigation";
 import ScrollToTop from "@/components/common/ScrollToTop";
@@ -37,7 +36,6 @@ export default function RootLayout({
                 <div className="relative flex grow">
                   <Sidebar />
                   <div className="flex grow flex-col">
-                    <Header />
                     <main className="grow">
                       <ImageDetailProvider>{children}</ImageDetailProvider>
                     </main>

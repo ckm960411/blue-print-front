@@ -4,9 +4,9 @@ import WorkTabMenu from "@/components/work/WorkTabMenu";
 import React, { useState } from "react";
 
 export enum WorkTab {
-  Milestone,
-  Task,
-  Memo,
+  Milestone = "Milestone",
+  Task = "Task",
+  Memo = "Memo",
 }
 
 export default function WorkPage() {

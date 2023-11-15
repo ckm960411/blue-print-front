@@ -1,6 +1,7 @@
 "use client";
 
 import WorkTabMenu from "@/components/work/WorkTabMenu";
+import WorkTabs from "@/components/work/WorkTabs";
 import React, { useState } from "react";
 
 export enum WorkTab {
@@ -15,6 +16,7 @@ export default function WorkPage() {
   return (
     <div className="">
       <WorkTabMenu workTab={workTab} setWorkTab={setWorkTab} />
+      <WorkTabs workTab={workTab} />
     </div>
   );
 }

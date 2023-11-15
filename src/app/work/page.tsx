@@ -1,5 +1,6 @@
 "use client";
 
+import WorkPageHeader from "@/components/work/WorkPageHeader";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -13,5 +14,9 @@ export default function WorkPage() {
     }
   }, []);
 
-  return <div className="">WorkPage</div>;
+  return (
+    <div className="">
+      <WorkPageHeader />
+    </div>
+  );
 }

@@ -1,5 +1,5 @@
 import PrimeReactUIProvider from "@/components/common/PrimeReactUIProvider";
-import Sidebar from "@/components/common/SidebarV2";
+import { Sidebar } from "@/components/common/sidebar";
 import TanstackQueryProvider from "@/components/common/TanstackQueryProvider";
 import React from "react";
 import type { Metadata } from "next";

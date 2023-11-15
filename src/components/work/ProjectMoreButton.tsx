@@ -1,3 +1,5 @@
+"use client";
+
 import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
 import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
 import React from "react";

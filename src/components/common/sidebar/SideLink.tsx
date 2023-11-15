@@ -8,11 +8,13 @@ interface SideLinkProps {
   title: string;
   href: string;
   icon: ReactNode;
+  isSidebarOpen: boolean;
 }
 export default function SideLink({
   title,
   href,
   icon,
+  isSidebarOpen,
 }: Readonly<SideLinkProps>) {
   const pathname = usePathname();
 
@@ -26,7 +28,7 @@ export default function SideLink({
       }`}
     >
       {icon}
-      <span>{title}</span>
+      {isSidebarOpen && <span>{title}</span>}
     </Link>
   );
 }

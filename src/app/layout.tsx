@@ -1,10 +1,10 @@
 import PrimeReactUIProvider from "@/components/common/PrimeReactUIProvider";
+import Sidebar from "@/components/common/SidebarV2";
 import TanstackQueryProvider from "@/components/common/TanstackQueryProvider";
 import React from "react";
 import type { Metadata } from "next";
 import { pretendard } from "@/utils/fonts";
 import Header from "@/components/common/Header";
-import SideBar from "@/components/common/sidebar/SideBar";
 import { ChakraUIProvider } from "@/components/common/ChakraUIProvider";
 import BottomNavigation from "@/components/common/BottomNavigation";
 import ScrollToTop from "@/components/common/ScrollToTop";
@@ -35,7 +35,7 @@ export default function RootLayout({
             <PrimeReactUIProvider>
               <ChakraUIProvider>
                 <div className="relative flex grow">
-                  <SideBar />
+                  <Sidebar />
                   <div className="flex grow flex-col">
                     <Header />
                     <main className="grow">

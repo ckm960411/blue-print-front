@@ -11,7 +11,7 @@ export default function SidebarV2() {
     <div className="flex-shirnk-0 bg-sidebar w-240px">
       <div className="flex-between h-56px px-16px">
         <Link href="/" className="text-22px font-semibold text-gray-800">
-          <span className="text-main">BluePrint</span>.Dev
+          <span className="pl-8px text-main">BluePrint</span>.Dev
         </Link>
         <button className="flex-center h-24px w-24px text-18px duration-200 hover:text-main">
           <GoSidebarExpand />

@@ -10,6 +10,13 @@ input {
   outline: none;
 }
 
+.bg-sidebar {
+  background-color: #F6F8FF;
+}
+.bg-sidebar-active {
+  background-color: #E8EDFF;
+}
+
 .flex-center {
   display: flex;
   justify-content: center;

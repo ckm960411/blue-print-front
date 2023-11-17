@@ -1,10 +1,16 @@
-import { ProgressChecked } from "@/components/work/milestone/MilestoneTab";
+import { Milestone } from "@/utils/types/milestone";
 
 interface MilestoneListProps {
-  progressChecked: ProgressChecked;
+  milestones: Milestone[];
 }
 export default function MilestoneList({
-  progressChecked,
+  milestones,
 }: Readonly<MilestoneListProps>) {
-  return <div>MilestoneList</div>;
+  return (
+    <div>
+      {milestones.map((milestone) => (
+        <div key={milestone.id}>{milestone.title}</div>
+      ))}
+    </div>
+  );
 }

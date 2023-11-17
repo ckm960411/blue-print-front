@@ -3,8 +3,8 @@ import { Progress } from "@/utils/types";
 import CheckBox from "@/components/work/components/CheckBox";
 
 interface MilestoneTabCheckboxContainerProps {
-  progressChecked: Record<Progress, boolean>;
-  setProgressChecked: Dispatch<SetStateAction<Record<Progress, boolean>>>;
+  progressChecked: ProgressChecked;
+  setProgressChecked: Dispatch<SetStateAction<ProgressChecked>>;
 }
 export default function MilestoneTabCheckboxContainer({
   progressChecked,

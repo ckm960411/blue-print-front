@@ -1,7 +1,7 @@
-import { Progress } from "@/utils/types";
+import { ProgressChecked } from "@/components/work/milestone/MilestoneTab";
 
 interface MilestoneTabContentProps {
-  progressChecked: Record<Progress, boolean>;
+  progressChecked: ProgressChecked;
 }
 export default function MilestoneTabContent({
   progressChecked,

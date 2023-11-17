@@ -3,10 +3,10 @@ import MilestoneTabContent from "@/components/work/milestone/MilestoneTabContent
 import { Progress } from "@/utils/types";
 import { useState } from "react";
 
+export type ProgressChecked = Record<Progress, boolean>;
+
 export default function MilestoneTab() {
-  const [progressChecked, setProgressChecked] = useState<
-    Record<Progress, boolean>
-  >({
+  const [progressChecked, setProgressChecked] = useState<ProgressChecked>({
     [Progress.ToDo]: true,
     [Progress.InProgress]: false,
     [Progress.Review]: false,

@@ -1,10 +1,9 @@
 import IconButton from "@/components/components/IconButton";
+import MilestoneDetailNav from "@/components/work/milestone/detail/MilestoneDetailNav";
 import { Colors } from "@/utils/common/color";
 import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
 import { Milestone } from "@/utils/types/milestone";
 import React from "react";
-import { GrExpand } from "react-icons/gr";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import { HiLink } from "react-icons/hi";
 import { IoCalendarClearOutline } from "react-icons/io5";
 
@@ -20,14 +19,7 @@ export default function MilestoneDetail({
 
   return (
     <div className="h-full rounded-md border border-gray-200 shadow-md">
-      <div className="flex h-32px items-center justify-between px-16px">
-        <IconButton w={24}>
-          <GrExpand className="text-12px" />
-        </IconButton>
-        <IconButton w={24}>
-          <BiDotsVerticalRounded className="text-18px" />
-        </IconButton>
-      </div>
+      <MilestoneDetailNav milestone={milestone} />
       <div
         className="h-full px-32px py-40px"
         style={{

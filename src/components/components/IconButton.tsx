@@ -13,7 +13,7 @@ function IconButton(
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) {
   const mergedClassName = twMerge(
-    "flex-center flex rounded-10px bg-white duration-200 hover:bg-gray-50",
+    "flex-center flex rounded-md bg-white duration-200 hover:bg-gray-50",
     className,
   );
 

@@ -31,7 +31,9 @@ export default function MilestoneTabContent({
   );
 
   useEffect(() => {
-    setCurrentMilestoneId(milestones[0]?.id ?? null);
+    if (!currentMilestoneId) {
+      setCurrentMilestoneId(milestones[0]?.id ?? null);
+    }
   }, [milestones]);
 
   return (

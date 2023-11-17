@@ -1,3 +1,4 @@
+import MilestoneDetail from "@/components/work/milestone/MilestoneDetail";
 import MilestoneList from "@/components/work/milestone/MilestoneList";
 import { ProgressChecked } from "@/components/work/milestone/MilestoneTab";
 import { QueryKeys } from "@/utils/common/query-keys";
@@ -29,7 +30,9 @@ export default function MilestoneTabContent({
       <div className="col-span-1">
         <MilestoneList milestones={milestones} />
       </div>
-      <div className="col-span-2 bg-red-50">2</div>
+      <div className="col-span-2">
+        <MilestoneDetail />
+      </div>
     </div>
   );
 }

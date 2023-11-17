@@ -15,7 +15,12 @@ export default function MilestoneList({
   return (
     <div className="flex flex-col gap-8px">
       {milestones.map((milestone) => (
-        <MilestoneListCard key={milestone.id} milestone={milestone} />
+        <MilestoneListCard
+          key={milestone.id}
+          milestone={milestone}
+          isActive={milestone.id === currentMilestone?.id}
+          onClick={() => setCurrentMilestone(milestone)}
+        />
       ))}
     </div>
   );

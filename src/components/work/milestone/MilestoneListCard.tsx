@@ -9,14 +9,25 @@ import { GrTask } from "react-icons/gr";
 
 interface MilestoneListCardProps {
   milestone: Milestone;
+  isActive: boolean;
+  onClick?: () => void;
 }
 export default function MilestoneListCard({
   milestone,
+  isActive,
+  onClick,
 }: Readonly<MilestoneListCardProps>) {
   const remainDaysData = getRemainDaysText(milestone.endAt);
 
   return (
-    <div className="cursor-pointer rounded-md border border-gray-200 p-8px duration-200 hover:shadow-md">
+    <div
+      onClick={onClick}
+      onKeyDown={(e) => e.key === "Enter" && onClick?.()}
+      className="cursor-pointer rounded-md border p-8px duration-200 hover:shadow-md"
+      style={{
+        borderColor: isActive ? Colors[milestone.color][500] : Colors.gray[200],
+      }}
+    >
       <div className="flex flex-col gap-8px">
         <div className="flex items-center gap-8px">
           <div className="grow">

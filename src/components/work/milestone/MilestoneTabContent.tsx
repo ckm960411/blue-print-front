@@ -41,7 +41,7 @@ export default function MilestoneTabContent({
         />
       </div>
       <div className="col-span-2">
-        <MilestoneDetail currentMilestone={currentMilestone} />
+        <MilestoneDetail milestone={currentMilestone} />
       </div>
     </div>
   );

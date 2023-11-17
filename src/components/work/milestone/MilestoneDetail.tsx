@@ -1,10 +1,12 @@
 import { Milestone } from "@/utils/types/milestone";
 
 interface MilestoneDetailProps {
-  currentMilestone: Milestone | null;
+  milestone: Milestone | null;
 }
 export default function MilestoneDetail({
-  currentMilestone,
+  milestone,
 }: Readonly<MilestoneDetailProps>) {
-  return <div>MilestoneDetail</div>;
+  if (!milestone) return <></>;
+
+  return <div>{milestone.title}</div>;
 }

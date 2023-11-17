@@ -47,7 +47,7 @@ export default function MilestoneClassificationForm({
 
   return (
     <div className="flex h-14px items-center gap-8px">
-      <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
+      <p className="truncate-1-lines basis-[20%] text-14px font-medium text-gray-600">
         분류
       </p>
       <Popover isOpen={editing} onClose={handleClose} placement="bottom-start">

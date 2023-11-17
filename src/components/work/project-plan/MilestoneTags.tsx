@@ -19,7 +19,7 @@ export default function MilestoneTags({ milestone }: MilestoneTagsProps) {
           parentId={milestone.id}
         >
           <button
-            className="rounded-xl bg-orange-50 px-12px py-6px text-14px font-semibold text-orange-600"
+            className="rounded-md bg-orange-50 px-12px py-6px text-14px font-semibold text-orange-600"
             style={{
               backgroundColor: Colors[tag.color][50],
               color: Colors[tag.color][600],

@@ -33,7 +33,7 @@ export default function MilestoneStartAtForm({
   return (
     <>
       <div className="flex h-14px items-center gap-8px">
-        <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
+        <p className="truncate-1-lines basis-[20%] text-14px font-medium text-gray-600">
           시작일
         </p>
         <button

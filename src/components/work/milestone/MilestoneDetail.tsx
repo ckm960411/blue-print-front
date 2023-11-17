@@ -1,3 +1,4 @@
+import MilestoneDetailProperties from "@/components/work/milestone/detail/MilestoneDetailProperties";
 import React from "react";
 import { Milestone } from "@/utils/types/milestone";
 import MilestoneDetailNav from "@/components/work/milestone/detail/MilestoneDetailNav";
@@ -22,12 +23,7 @@ export default function MilestoneDetail({
         }}
       >
         <MilestoneDetailHeader milestone={milestone} />
-        <div>
-          <div>1</div>
-          <div>1</div>
-          <div>1</div>
-          <div>1</div>
-        </div>
+        <MilestoneDetailProperties milestone={milestone} />
       </div>
     </div>
   );

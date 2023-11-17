@@ -82,7 +82,7 @@ export default function MilestoneLinksForm({
 
   return (
     <div className="flex items-start gap-8px">
-      <p className="truncate-1-lines w-80px text-14px font-medium text-gray-600">
+      <p className="truncate-1-lines basis-[20%] text-14px font-medium text-gray-600">
         링크
       </p>
       <Popover isOpen={editing} onClose={handleClose} placement="bottom-start">

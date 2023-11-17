@@ -26,7 +26,7 @@ export default function MilestoneTabContent({
 
   return (
     <div className="mt-16px grid grid-cols-3 gap-16px">
-      <div className="col-span-1 bg-blue-50">
+      <div className="col-span-1">
         <MilestoneList milestones={milestones} />
       </div>
       <div className="col-span-2 bg-red-50">2</div>

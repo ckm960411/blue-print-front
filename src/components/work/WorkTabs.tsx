@@ -7,7 +7,7 @@ interface WorkTabsProps {
 }
 export default function WorkTabs({ workTab }: Readonly<WorkTabsProps>) {
   return (
-    <div className="mx-auto max-w-[1280px] p-16px">
+    <div className="mx-auto max-w-[1280px]">
       {workTab === WorkTab.Milestone && <MilestoneTab />}
       {workTab === WorkTab.Task && <div>Task Tab</div>}
       {workTab === WorkTab.Memo && <div>Memo Tab</div>}

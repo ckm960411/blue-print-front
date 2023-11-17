@@ -14,7 +14,7 @@ export default function MilestoneTab() {
   });
 
   return (
-    <div>
+    <div className="py-16px pl-16px pr-12px">
       <MilestoneTabCheckboxContainer
         progressChecked={progressChecked}
         setProgressChecked={setProgressChecked}

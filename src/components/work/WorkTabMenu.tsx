@@ -32,7 +32,7 @@ export default function WorkTabMenu({
   ];
 
   return (
-    <div className="border-b border-gray-200">
+    <div className="sticky top-0 border-b border-gray-200 bg-white">
       <div className="rounded-md px-16px py-8px">
         <div className="inline-flex items-center gap-4px rounded-md bg-gray-100 px-8px py-4px">
           {tabs.map(({ tab, Icon }) => {

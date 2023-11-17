@@ -5,7 +5,7 @@ import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllMilestones } from "@/utils/services/milestone";
 import { Milestone } from "@/utils/types/milestone";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
@@ -30,6 +30,10 @@ export default function MilestoneTabContent({
       }),
     { onError: console.error },
   );
+
+  useEffect(() => {
+    setCurrentMilestone(milestones[0] ?? null);
+  }, [milestones]);
 
   return (
     <div className="mt-16px grid grid-cols-3 gap-12px">

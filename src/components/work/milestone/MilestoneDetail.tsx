@@ -1,4 +1,5 @@
 import MilestoneDetailProperties from "@/components/work/milestone/detail/MilestoneDetailProperties";
+import MilestoneDrawerTabs from "@/components/work/project-plan/sidetab/MilestoneDrawerTabs";
 import React from "react";
 import { Milestone } from "@/utils/types/milestone";
 import MilestoneDetailNav from "@/components/work/milestone/detail/MilestoneDetailNav";
@@ -24,6 +25,9 @@ export default function MilestoneDetail({
       >
         <MilestoneDetailHeader milestone={milestone} />
         <MilestoneDetailProperties milestone={milestone} />
+        <div className="pt-24px">
+          <MilestoneDrawerTabs milestone={milestone} />
+        </div>
       </div>
     </div>
   );

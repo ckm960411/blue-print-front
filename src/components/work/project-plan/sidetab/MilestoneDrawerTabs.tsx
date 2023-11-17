@@ -14,9 +14,9 @@ export default function MilestoneDrawerTabs({
   return (
     <Tabs id="work-project-tabs" variant="enclosed">
       <TabList>
-        <Tab>Board</Tab>
-        <Tab>Task</Tab>
-        <Tab>Memo</Tab>
+        <Tab className="text-14px font-medium">Board</Tab>
+        <Tab className="text-14px font-medium">Task</Tab>
+        <Tab className="text-14px font-medium">Memo</Tab>
       </TabList>
 
       <TabPanels>

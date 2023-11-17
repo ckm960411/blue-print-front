@@ -1,8 +1,11 @@
+import React from "react";
+import { useQuery } from "react-query";
+
+import { QueryKeys } from "@/utils/common/query-keys";
+import { getMilestoneById } from "@/utils/services/milestone";
+
 import MilestoneDetailProperties from "@/components/work/milestone/detail/MilestoneDetailProperties";
 import MilestoneDrawerTabs from "@/components/work/project-plan/sidetab/MilestoneDrawerTabs";
-import { getMilestoneById } from "@/utils/services/milestone";
-import React, { useEffect, useState } from "react";
-import { Milestone } from "@/utils/types/milestone";
 import MilestoneDetailNav from "@/components/work/milestone/detail/MilestoneDetailNav";
 import MilestoneDetailHeader from "@/components/work/milestone/detail/MilestoneDetailHeader";
 
@@ -12,11 +15,11 @@ interface MilestoneDetailProps {
 export default function MilestoneDetail({
   milestoneId,
 }: Readonly<MilestoneDetailProps>) {
-  const [milestone, setMilestone] = useState<Milestone | null>(null);
-
-  useEffect(() => {
-    getMilestoneById(milestoneId).then(setMilestone).catch(console.error);
-  }, [milestoneId]);
+  const { data: milestone } = useQuery(
+    QueryKeys.getMilestoneById(milestoneId),
+    () => getMilestoneById(milestoneId),
+    { onError: console.error },
+  );
 
   if (!milestone) return <></>;
 

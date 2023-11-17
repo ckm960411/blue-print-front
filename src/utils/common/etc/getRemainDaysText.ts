@@ -1,7 +1,13 @@
 import { DateTime } from "@/utils/types";
 import { differenceInDays, startOfToday } from "date-fns";
 
-export const getRemainDaysText = (endAt: DateTime | null) => {
+export interface RemainDaysData {
+  remainDays: number;
+  remainDaysText: string;
+}
+export const getRemainDaysText = (
+  endAt: DateTime | null,
+): RemainDaysData | null => {
   if (!endAt) return null;
 
   const remainDays = differenceInDays(new Date(endAt), startOfToday());

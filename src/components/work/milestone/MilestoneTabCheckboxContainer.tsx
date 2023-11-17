@@ -1,17 +1,15 @@
-import CheckBox from "@/components/work/components/CheckBox";
+import { Dispatch, SetStateAction } from "react";
 import { Progress } from "@/utils/types";
-import { useState } from "react";
+import CheckBox from "@/components/work/components/CheckBox";
 
-export default function MilestoneTabCheckboxContainer() {
-  const [progressChecked, setProgressChecked] = useState<
-    Record<Progress, boolean>
-  >({
-    [Progress.ToDo]: true,
-    [Progress.InProgress]: false,
-    [Progress.Review]: false,
-    [Progress.Completed]: false,
-  });
-
+interface MilestoneTabCheckboxContainerProps {
+  progressChecked: Record<Progress, boolean>;
+  setProgressChecked: Dispatch<SetStateAction<Record<Progress, boolean>>>;
+}
+export default function MilestoneTabCheckboxContainer({
+  progressChecked,
+  setProgressChecked,
+}: Readonly<MilestoneTabCheckboxContainerProps>) {
   const progressWords = [
     {
       id: Progress.ToDo,

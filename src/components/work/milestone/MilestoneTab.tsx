@@ -19,7 +19,7 @@ export default function MilestoneTab() {
         progressChecked={progressChecked}
         setProgressChecked={setProgressChecked}
       />
-      <MilestoneTabContent />
+      <MilestoneTabContent progressChecked={progressChecked} />
     </div>
   );
 }

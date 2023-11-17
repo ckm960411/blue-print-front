@@ -4,7 +4,6 @@ import { ProgressChecked } from "@/components/work/milestone/MilestoneTab";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllMilestones } from "@/utils/services/milestone";
-import { Milestone } from "@/utils/types/milestone";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
@@ -15,7 +14,7 @@ interface MilestoneTabContentProps {
 export default function MilestoneTabContent({
   progressChecked,
 }: Readonly<MilestoneTabContentProps>) {
-  const [currentMilestone, setCurrentMilestone] = useState<Milestone | null>(
+  const [currentMilestoneId, setCurrentMilestoneId] = useState<number | null>(
     null,
   );
 
@@ -32,7 +31,7 @@ export default function MilestoneTabContent({
   );
 
   useEffect(() => {
-    setCurrentMilestone(milestones[0] ?? null);
+    setCurrentMilestoneId(milestones[0]?.id ?? null);
   }, [milestones]);
 
   return (
@@ -40,12 +39,14 @@ export default function MilestoneTabContent({
       <div className="col-span-1 max-h-[720px] overflow-y-auto">
         <MilestoneList
           milestones={milestones}
-          currentMilestone={currentMilestone}
-          setCurrentMilestone={setCurrentMilestone}
+          currentMilestoneId={currentMilestoneId}
+          setCurrentMilestoneId={setCurrentMilestoneId}
         />
       </div>
       <div className="col-span-2 min-h-[720px] overflow-y-auto px-4px pb-4px">
-        <MilestoneDetail milestone={currentMilestone} />
+        {currentMilestoneId && (
+          <MilestoneDetail milestoneId={currentMilestoneId} />
+        )}
       </div>
     </div>
   );

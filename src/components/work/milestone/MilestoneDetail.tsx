@@ -1,16 +1,23 @@
 import MilestoneDetailProperties from "@/components/work/milestone/detail/MilestoneDetailProperties";
 import MilestoneDrawerTabs from "@/components/work/project-plan/sidetab/MilestoneDrawerTabs";
-import React from "react";
+import { getMilestoneById } from "@/utils/services/milestone";
+import React, { useEffect, useState } from "react";
 import { Milestone } from "@/utils/types/milestone";
 import MilestoneDetailNav from "@/components/work/milestone/detail/MilestoneDetailNav";
 import MilestoneDetailHeader from "@/components/work/milestone/detail/MilestoneDetailHeader";
 
 interface MilestoneDetailProps {
-  milestone: Milestone | null;
+  milestoneId: number;
 }
 export default function MilestoneDetail({
-  milestone,
+  milestoneId,
 }: Readonly<MilestoneDetailProps>) {
+  const [milestone, setMilestone] = useState<Milestone | null>(null);
+
+  useEffect(() => {
+    getMilestoneById(milestoneId).then(setMilestone).catch(console.error);
+  }, [milestoneId]);
+
   if (!milestone) return <></>;
 
   return (

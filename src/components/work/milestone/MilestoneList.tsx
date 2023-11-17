@@ -4,13 +4,13 @@ import MilestoneListCard from "@/components/work/milestone/MilestoneListCard";
 
 interface MilestoneListProps {
   milestones: Milestone[];
-  currentMilestone: Milestone | null;
-  setCurrentMilestone: Dispatch<SetStateAction<Milestone | null>>;
+  currentMilestoneId: number | null;
+  setCurrentMilestoneId: Dispatch<SetStateAction<number | null>>;
 }
 export default function MilestoneList({
   milestones,
-  currentMilestone,
-  setCurrentMilestone,
+  currentMilestoneId,
+  setCurrentMilestoneId,
 }: Readonly<MilestoneListProps>) {
   return (
     <div className="flex flex-col gap-8px">
@@ -18,8 +18,8 @@ export default function MilestoneList({
         <MilestoneListCard
           key={milestone.id}
           milestone={milestone}
-          isActive={milestone.id === currentMilestone?.id}
-          onClick={() => setCurrentMilestone(milestone)}
+          isActive={milestone.id === currentMilestoneId}
+          onClick={() => setCurrentMilestoneId(milestone.id)}
         />
       ))}
     </div>

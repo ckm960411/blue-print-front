@@ -47,7 +47,25 @@ export default function TaskTabContent() {
                         {tasks.length}
                       </div>
                     </div>
-                    <div className="rounded-md bg-white p-16px">content</div>
+                    {tasks.map((task, index) => (
+                      <Draggable
+                        key={`${task.id}`}
+                        draggableId={`${task.id}`}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <div
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                            className="rounded-md bg-white p-16px"
+                          >
+                            {task.title}
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
                   </div>
                 )}
               </Droppable>

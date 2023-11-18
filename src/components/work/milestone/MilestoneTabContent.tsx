@@ -1,14 +1,16 @@
-import MilestoneDetail from "@/components/work/milestone/MilestoneDetail";
-import MilestoneList from "@/components/work/milestone/MilestoneList";
-import { ProgressChecked } from "@/components/work/milestone/MilestoneTab";
+import { useState } from "react";
+import { useQuery } from "react-query";
+import { useRecoilValue } from "recoil";
+import { filter, map, pipe } from "lodash/fp";
+
 import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllMilestonesV2 } from "@/utils/services/milestone";
 import { Progress } from "@/utils/types";
-import { filter, map, pipe } from "lodash/fp";
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import { useRecoilValue } from "recoil";
+
+import MilestoneDetail from "@/components/work/milestone/MilestoneDetail";
+import MilestoneList from "@/components/work/milestone/MilestoneList";
+import { ProgressChecked } from "@/components/work/milestone/MilestoneTab";
 
 interface MilestoneTabContentProps {
   progressChecked: ProgressChecked;
@@ -34,14 +36,23 @@ export default function MilestoneTabContent({
         progresses,
         projectId: project?.id,
       }),
-    { onError: console.error },
+    {
+      onSuccess: (milestones) => {
+        if (milestones.length === 0) setCurrentMilestoneId(null);
+        if (currentMilestoneId) {
+          const hasCurrnetMilestone = milestones.some(
+            (milestone) => milestone.id === currentMilestoneId,
+          );
+          setCurrentMilestoneId(
+            hasCurrnetMilestone ? currentMilestoneId : milestones[0].id,
+          );
+        } else {
+          setCurrentMilestoneId(milestones[0].id);
+        }
+      },
+      onError: console.error,
+    },
   );
-
-  useEffect(() => {
-    if (!currentMilestoneId) {
-      setCurrentMilestoneId(milestones[0]?.id ?? null);
-    }
-  }, [milestones]);
 
   return (
     <div className="mt-16px grid grid-cols-3 gap-12px">

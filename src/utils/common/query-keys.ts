@@ -1,5 +1,3 @@
-import { Progress } from "@/utils/types";
-
 export const GET_ALL_MEMOS = "getAllMemos";
 const getAllMemos = (...args: any[]) => [GET_ALL_MEMOS, ...args];
 

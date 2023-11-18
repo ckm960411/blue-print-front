@@ -3,7 +3,9 @@ import MilestoneList from "@/components/work/milestone/MilestoneList";
 import { ProgressChecked } from "@/components/work/milestone/MilestoneTab";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
-import { getAllMilestones } from "@/utils/services/milestone";
+import { getAllMilestonesV2 } from "@/utils/services/milestone";
+import { Progress } from "@/utils/types";
+import { filter, map, pipe } from "lodash/fp";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
@@ -20,11 +22,16 @@ export default function MilestoneTabContent({
 
   const project = useRecoilValue(projectState);
 
+  const progresses = pipe(
+    filter(([key, value]: [Progress, boolean]) => value),
+    map(([key]) => key),
+  )(Object.entries(progressChecked));
+
   const { data: milestones = [] } = useQuery(
-    QueryKeys.getAllMilestones(undefined, project?.id),
+    QueryKeys.getAllMilestones(progresses, project?.id),
     () =>
-      getAllMilestones({
-        progress: undefined,
+      getAllMilestonesV2({
+        progresses,
         projectId: project?.id,
       }),
     { onError: console.error },

@@ -12,7 +12,7 @@ export default function TaskListTab({}: TaskListTabProps) {
     <TabPanel className="flex flex-col gap-16px">
       <TaskListTabHeader />
       <UrgentTaskContainer />
-      <TaskContainer />
+      {/*<TaskContainer />*/}
     </TabPanel>
   );
 }

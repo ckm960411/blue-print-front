@@ -15,7 +15,7 @@ export default function MilestoneDrawerTaskTab({
     <TabPanel className="overflow-y-scroll">
       <DrawerTaskTabButtonGroup milestone={milestone} />
       <UrgentTaskContainer milestoneId={milestone.id} />
-      <TaskContainer milestoneId={milestone.id} />
+      {/*<TaskContainer milestoneId={milestone.id} />*/}
     </TabPanel>
   );
 }

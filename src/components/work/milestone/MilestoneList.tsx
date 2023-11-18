@@ -1,7 +1,12 @@
-import React, { Dispatch, SetStateAction } from "react";
+import IconButton from "@/components/components/IconButton";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { useQuery } from "react-query";
 import { filter, map, pipe } from "lodash/fp";
+import {
+  MdOutlineKeyboardArrowLeft,
+  MdOutlineKeyboardArrowRight,
+} from "react-icons/md";
 
 import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
@@ -22,6 +27,7 @@ export default function MilestoneList({
   setCurrentMilestoneId,
 }: Readonly<MilestoneListProps>) {
   const project = useRecoilValue(projectState);
+  const [page, setPage] = useState(1);
 
   const progresses = pipe(
     filter(([key, value]: [Progress, boolean]) => value),
@@ -29,11 +35,13 @@ export default function MilestoneList({
   )(Object.entries(progressChecked));
 
   const { data: milestoneListData } = useQuery(
-    QueryKeys.getAllMilestones(progresses, project?.id),
+    QueryKeys.getAllMilestones(project?.id, progresses, page),
     () =>
       getAllMilestonesV2({
         progresses,
         projectId: project?.id,
+        page,
+        pageSize: 10,
       }),
     {
       enabled: !!project?.id,
@@ -56,7 +64,7 @@ export default function MilestoneList({
 
   if (!milestoneListData) return <></>;
 
-  const milestones = milestoneListData.items;
+  const { items: milestones, hasPrev, hasNext } = milestoneListData;
 
   return (
     <div className="flex flex-col gap-8px">
@@ -68,6 +76,25 @@ export default function MilestoneList({
           onClick={() => setCurrentMilestoneId(milestone.id)}
         />
       ))}
+      <div className="flex-center gap-8px">
+        <IconButton
+          disabled={!hasPrev}
+          className="hover:bg-gray-50 disabled:bg-gray-50 disabled:text-gray-300"
+          onClick={() => setPage((prev) => prev - 1)}
+        >
+          <MdOutlineKeyboardArrowLeft />
+        </IconButton>
+        <div className="min-w-[16px] text-center text-16px font-medium">
+          {page}
+        </div>
+        <IconButton
+          disabled={!hasNext}
+          className="hover:bg-gray-50 disabled:bg-gray-50 disabled:text-gray-300"
+          onClick={() => setPage((prev) => prev + 1)}
+        >
+          <MdOutlineKeyboardArrowRight />
+        </IconButton>
+      </div>
     </div>
   );
 }

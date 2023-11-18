@@ -7,9 +7,10 @@ interface IconButtonProps {
   h?: number | string; // width
   className?: HTMLButtonElement["className"];
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
 }
 function IconButton(
-  { children, w = 32, h, className, onClick }: IconButtonProps,
+  { children, w = 32, h, className, onClick, disabled }: IconButtonProps,
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) {
   const mergedClassName = twMerge(
@@ -23,6 +24,7 @@ function IconButton(
       onClick={onClick}
       className={mergedClassName}
       style={{ width: w, height: h ?? w }}
+      disabled={disabled}
     >
       {children}
     </button>

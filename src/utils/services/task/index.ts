@@ -1,13 +1,18 @@
 import { deleteCall, get, patch, post } from "@/app/api/axios";
+import { ColorKey } from "@/utils/common/color";
 import { CreateTaskReqDto } from "@/utils/services/task/dto/create-task.req.dto";
 import { UpdateTaskReqDto } from "@/utils/services/task/dto/update-task.req.dto";
 import { Progress } from "@/utils/types";
 import { Task } from "@/utils/types/task";
 
+export type TaskWithMilestone = Task & {
+  milestoneTitle: string | null;
+  milestoneColor: ColorKey | null;
+};
 export const getAllTask = async (params?: { projectId: number }) => {
-  const { data } = await get<
-    Record<Progress, (Task & { milestoneTitle: string | null })[]>
-  >(`task`, { params });
+  const { data } = await get<Record<Progress, TaskWithMilestone[]>>(`task`, {
+    params,
+  });
   return data;
 };
 

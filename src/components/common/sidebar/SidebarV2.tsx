@@ -15,7 +15,7 @@ export default function SidebarV2() {
 
   return (
     <div
-      className={`flex-shirnk-0 bg-sidebar sticky top-0 flex h-screen flex-col border-r border-blue-100 duration-200 ${
+      className={`bg-sidebar sticky top-0 flex h-screen flex-shrink-0 flex-col border-r border-blue-100 duration-200 ${
         isOpen ? "w-240px " : "w-60px items-center"
       }`}
     >

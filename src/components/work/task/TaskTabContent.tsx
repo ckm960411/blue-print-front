@@ -1,3 +1,4 @@
+import TaskListCard from "@/components/work/task/TaskListCard";
 import {
   DragDropContext,
   Draggable,
@@ -64,7 +65,7 @@ export default function TaskTabContent() {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
-                    <div className="flex items-center gap-8px text-14px font-semibold">
+                    <div className="flex items-center gap-8px border-b border-gray-200 pb-8px text-14px font-semibold">
                       <div
                         className={`h-12px w-12px rounded-full ${progressColor}`}
                       />
@@ -84,9 +85,8 @@ export default function TaskTabContent() {
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}
-                            className="rounded-md bg-white p-16px"
                           >
-                            {task.title}
+                            <TaskListCard task={task} />
                           </div>
                         )}
                       </Draggable>

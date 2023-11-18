@@ -4,7 +4,7 @@ import { Memo } from "@/utils/types/memo";
 import { Tag } from "@/utils/types/tag.index";
 import { Task } from "@/utils/types/task";
 
-export interface Milestone {
+export type Milestone = {
   id: number;
   createdAt: DateTime;
   updatedAt: DateTime | null;
@@ -24,7 +24,15 @@ export interface Milestone {
   tasks: Task[];
   memos: Memo[];
   projectId?: number;
-}
+};
+
+export type MilestoneContentCount = {
+  commentCount: number;
+  taskCount: number;
+  memoCount: number;
+};
+
+export type MilestoneWithContentCount = Milestone & MilestoneContentCount;
 
 export enum MilestoneClassification {
   Feature = "Feature",

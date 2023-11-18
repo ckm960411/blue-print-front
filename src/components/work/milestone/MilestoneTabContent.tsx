@@ -29,7 +29,7 @@ export default function MilestoneTabContent({
     map(([key]) => key),
   )(Object.entries(progressChecked));
 
-  const { data: milestones = [] } = useQuery(
+  const { data: milestoneListData } = useQuery(
     QueryKeys.getAllMilestones(progresses, project?.id),
     () =>
       getAllMilestonesV2({
@@ -37,7 +37,8 @@ export default function MilestoneTabContent({
         projectId: project?.id,
       }),
     {
-      onSuccess: (milestones) => {
+      enabled: !!project?.id,
+      onSuccess: ({ items: milestones }) => {
         if (milestones.length === 0) setCurrentMilestoneId(null);
         if (currentMilestoneId) {
           const hasCurrnetMilestone = milestones.some(
@@ -53,6 +54,10 @@ export default function MilestoneTabContent({
       onError: console.error,
     },
   );
+
+  if (!milestoneListData) return <></>;
+
+  const milestones = milestoneListData.items;
 
   return (
     <div className="mt-16px grid grid-cols-3 gap-12px">

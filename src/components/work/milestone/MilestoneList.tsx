@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Milestone } from "@/utils/types/milestone";
+import { MilestoneWithContentCount } from "@/utils/types/milestone";
 import MilestoneListCard from "@/components/work/milestone/MilestoneListCard";
 
 interface MilestoneListProps {
-  milestones: Milestone[];
+  milestones: MilestoneWithContentCount[];
   currentMilestoneId: number | null;
   setCurrentMilestoneId: Dispatch<SetStateAction<number | null>>;
 }

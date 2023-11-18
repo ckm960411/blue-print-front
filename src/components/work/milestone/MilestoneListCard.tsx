@@ -1,14 +1,14 @@
 import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
 import { Colors } from "@/utils/common/color";
 import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
-import { Milestone } from "@/utils/types/milestone";
+import { MilestoneWithContentCount } from "@/utils/types/milestone";
 import React from "react";
 import { CiStar } from "react-icons/ci";
 import { FaRegStickyNote } from "react-icons/fa";
 import { GrTask } from "react-icons/gr";
 
 interface MilestoneListCardProps {
-  milestone: Milestone;
+  milestone: MilestoneWithContentCount;
   isActive: boolean;
   onClick?: () => void;
 }
@@ -70,13 +70,13 @@ export default function MilestoneListCard({
             <div className="inline-flex items-center gap-6px rounded-full border border-gray-200 px-6px py-4px text-16px">
               <GrTask className="text-10px" />
               <span className="text-12px font-medium">
-                {milestone.tasks.length}
+                {milestone.taskCount}
               </span>
             </div>
             <div className="inline-flex items-center gap-6px rounded-full border border-gray-200 px-6px py-4px text-16px">
               <FaRegStickyNote className="text-12px" />
               <span className="text-10px font-medium">
-                {milestone.memos.length}
+                {milestone.memoCount}
               </span>
             </div>
           </div>

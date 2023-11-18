@@ -15,3 +15,12 @@ export interface Link {
   href: string;
   taskId: number | null;
 }
+
+export interface Pagination<T> {
+  items: T[];
+  currentPage: number;
+  hasPrev: boolean;
+  hasNext: boolean;
+  totalCount: number;
+  totalPages: number;
+}

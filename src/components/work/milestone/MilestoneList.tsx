@@ -46,7 +46,8 @@ export default function MilestoneList({
     {
       enabled: !!project?.id,
       onSuccess: ({ items: milestones }) => {
-        if (milestones.length === 0) setCurrentMilestoneId(null);
+        console.log("milestones: ", milestones);
+        if (milestones.length === 0) return setCurrentMilestoneId(null);
         if (currentMilestoneId) {
           const hasCurrnetMilestone = milestones.some(
             (milestone) => milestone.id === currentMilestoneId,

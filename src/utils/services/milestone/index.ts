@@ -1,7 +1,7 @@
 import { deleteCall, get, patch, post } from "@/app/api/axios";
 import { UpdateMilestoneReqDto } from "@/utils/services/milestone/dto/update-milestone.req.dto";
-import { Progress } from "@/utils/types";
-import { Milestone } from "@/utils/types/milestone";
+import { Pagination, Progress } from "@/utils/types";
+import { Milestone, MilestoneWithContentCount } from "@/utils/types/milestone";
 
 export const getAllMilestones = async (params?: {
   progress?: Progress;
@@ -14,8 +14,13 @@ export const getAllMilestones = async (params?: {
 export const getAllMilestonesV2 = async (params?: {
   progresses?: Progress[];
   projectId?: number;
+  page?: number;
+  pageSize?: number;
 }) => {
-  const { data } = await get<Milestone[]>(`milestone`, { params });
+  const { data } = await get<Pagination<MilestoneWithContentCount>>(
+    `milestone`,
+    { params },
+  );
   return data;
 };
 

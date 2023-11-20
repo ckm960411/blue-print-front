@@ -42,7 +42,7 @@ export default function MilestoneColorForm({
       <PopoverTrigger>
         <button
           onClick={openColorPicker}
-          className="h-16px w-16px rounded-full"
+          className="h-12px w-12px rounded-full"
           style={{ backgroundColor: Colors[milestone.color][500] }}
         />
       </PopoverTrigger>

@@ -8,6 +8,7 @@ import { useClickOutside } from "primereact/hooks";
 import React, { useRef, useState } from "react";
 import PickerWrapper from "@/components/components/PickerWrapper";
 import { useRecoilValue } from "recoil";
+import { twMerge } from "tailwind-merge";
 
 interface ProjectMilestoneEmojiProps {
   milestone: Milestone;
@@ -18,7 +19,7 @@ export default function ProjectMilestoneEmoji({
   milestone,
   className,
   canEdit = false,
-}: ProjectMilestoneEmojiProps) {
+}: Readonly<ProjectMilestoneEmojiProps>) {
   const pickerWrapperRef = useRef<HTMLDivElement | null>(null);
   const project = useRecoilValue(projectState);
   const [showPicker, setShowPicker] = useState(false);
@@ -40,12 +41,14 @@ export default function ProjectMilestoneEmoji({
     handleClose();
   };
 
+  const mergedClassName = twMerge("cursor-pointer text-22px", className);
+
   return (
     <div className="relative">
       <Unicode
         value={milestone.unicode}
         onClick={handleOpen}
-        className={`cursor-pointer text-22px ${className}`}
+        className={mergedClassName}
       />
       {showPicker && (
         <div ref={pickerWrapperRef} className="absolute left-0 top-0 z-10">

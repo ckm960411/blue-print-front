@@ -1,6 +1,7 @@
 import IconButton from "@/components/components/IconButton";
 import DeletePopup from "@/components/work/components/DeletePopup";
 import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
+import MilestoneColorForm from "@/components/work/project-plan/MilestoneColorForm";
 
 import { QueryKeys } from "@/utils/common/query-keys";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
@@ -75,6 +76,7 @@ export default function MilestoneDetailNav({
         <GrExpand className="text-12px" />
       </IconButton>
       <div className="flex-center gap-4px">
+        <MilestoneColorForm milestone={milestone} />
         <IconButton
           w={24}
           onClick={() =>

@@ -1,4 +1,5 @@
 import IconButton from "@/components/components/IconButton";
+import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilestoneEmoji";
 import { Colors } from "@/utils/common/color";
 import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
 import { QueryKeys } from "@/utils/common/query-keys";
@@ -73,11 +74,12 @@ export default function MilestoneListCard({
             )}
           </IconButton>
         </div>
-        <div className="flex items-center gap-8px">
+        <div className="flex items-center gap-4px">
           <div className="inline-flex items-center gap-6px rounded-full border border-gray-200 px-6px py-4px text-16px">
             <CiStar />
             <span className="text-12px font-medium">{milestone.priority}</span>
           </div>
+          <ProjectMilestoneEmoji milestone={milestone} className="text-14px" />
           <p className="truncate-1-lines text-16px font-semibold">
             {milestone.title}
           </p>

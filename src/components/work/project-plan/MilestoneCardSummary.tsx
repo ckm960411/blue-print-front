@@ -14,7 +14,7 @@ interface MilestoneCardSummaryProps {
 }
 export default function MilestoneCardSummary({
   milestone,
-}: MilestoneCardSummaryProps) {
+}: Readonly<MilestoneCardSummaryProps>) {
   return (
     <div className="flex flex-col gap-16px">
       <MilestoneClassificationForm milestone={milestone} />

@@ -1,11 +1,15 @@
-import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
+import IconButton from "@/components/components/IconButton";
 import { Colors } from "@/utils/common/color";
 import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
+import { QueryKeys } from "@/utils/common/query-keys";
+import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
 import { MilestoneWithContentCount } from "@/utils/types/milestone";
 import React from "react";
+import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { CiStar } from "react-icons/ci";
 import { FaRegStickyNote } from "react-icons/fa";
 import { GrTask } from "react-icons/gr";
+import { useQueryClient } from "react-query";
 
 interface MilestoneListCardProps {
   milestone: MilestoneWithContentCount;
@@ -18,6 +22,18 @@ export default function MilestoneListCard({
   onClick,
 }: Readonly<MilestoneListCardProps>) {
   const remainDaysData = getRemainDaysText(milestone.endAt);
+  const queryClient = useQueryClient();
+
+  const { mutate: updateMilestoneRequest } = useUpdateMilestoneMutation(
+    milestone.id,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.invalidateQueries(QueryKeys.getMilestoneById(milestone.id));
+      },
+      onError: console.error,
+    },
+  );
 
   return (
     <div
@@ -41,7 +57,21 @@ export default function MilestoneListCard({
               {milestone.classification ?? "분류 추가"}
             </div>
           </div>
-          <VerticalDotsButton onClick={() => {}} />
+          <IconButton
+            w={24}
+            onClick={(e) => {
+              e?.stopPropagation();
+              updateMilestoneRequest({
+                isBookmarked: !milestone.isBookmarked,
+              });
+            }}
+          >
+            {milestone.isBookmarked ? (
+              <BsFillBookmarkFill className="text-14px text-red-500" />
+            ) : (
+              <BsBookmark className="text-14px" />
+            )}
+          </IconButton>
         </div>
         <div className="flex items-center gap-8px">
           <div className="inline-flex items-center gap-6px rounded-full border border-gray-200 px-6px py-4px text-16px">

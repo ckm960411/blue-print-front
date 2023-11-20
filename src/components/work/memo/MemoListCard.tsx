@@ -6,10 +6,22 @@ import IconButton from "@/components/components/IconButton";
 
 interface MemoListCardProps {
   memo: Memo;
+  isActive: boolean;
+  onClick: () => void;
 }
-export default function MemoListCard({ memo }: Readonly<MemoListCardProps>) {
+export default function MemoListCard({
+  memo,
+  isActive,
+  onClick,
+}: Readonly<MemoListCardProps>) {
   return (
-    <div className="flex cursor-pointer flex-col gap-6px border-b border-gray-200 p-8px duration-200 hover:bg-white">
+    <div
+      onClick={onClick}
+      onKeyDown={(e) => e.key === "Enter" && onClick()}
+      className={`flex cursor-pointer flex-col gap-6px border-b border-gray-200 p-8px duration-200 hover:bg-white ${
+        isActive ? "bg-white" : "bg-transparent"
+      }`}
+    >
       <div className="flex-between">
         <p className="truncate-1-lines grow text-14px font-semibold">
           {memo.title}

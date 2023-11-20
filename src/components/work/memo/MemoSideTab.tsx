@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { Memo } from "@/utils/types/memo";
+import { isUndefined } from "lodash";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
@@ -9,8 +11,14 @@ import { getAllMemos } from "@/utils/services/memo";
 import ToggleCheckOnly from "@/components/work/components/ToggleCheckOnly";
 import MemoListCard from "@/components/work/memo/MemoListCard";
 
-interface MemoSideTabProps {}
-export default function MemoSideTab({}: Readonly<MemoSideTabProps>) {
+interface MemoSideTabProps {
+  currentMemo: Memo | null;
+  setCurrentMemo: Dispatch<SetStateAction<Memo | null>>;
+}
+export default function MemoSideTab({
+  currentMemo,
+  setCurrentMemo,
+}: Readonly<MemoSideTabProps>) {
   const project = useRecoilValue(projectState);
   const [showChecked, setShowChecked] = useState(false);
 
@@ -22,6 +30,13 @@ export default function MemoSideTab({}: Readonly<MemoSideTabProps>) {
       onError: console.error,
     },
   );
+
+  useEffect(() => {
+    if (isUndefined(memos)) return;
+    if (memos.length > 0 && !currentMemo) {
+      setCurrentMemo(memos[0]);
+    }
+  }, [memos]);
 
   if (!memos) return <></>;
 
@@ -39,7 +54,12 @@ export default function MemoSideTab({}: Readonly<MemoSideTabProps>) {
       </div>
       <div className="flex flex-col border-t border-gray-200">
         {memos.map((memo) => (
-          <MemoListCard key={memo.id} memo={memo} />
+          <MemoListCard
+            key={memo.id}
+            memo={memo}
+            isActive={currentMemo?.id === memo.id}
+            onClick={() => setCurrentMemo(memo)}
+          />
         ))}
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 
 import { QueryKeys } from "@/utils/common/query-keys";
@@ -8,7 +8,6 @@ import { getMilestoneById } from "@/utils/services/milestone";
 
 import MilestoneCardHeader from "@/components/work/project-plan/MilestoneCardHeader";
 import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSummary";
-import { MilestoneStatus } from "@/components/work/project-plan/ProjectPlanTab";
 import MilestoneDrawerTabs from "@/components/work/project-plan/sidetab/MilestoneDrawerTabs";
 import MilestoenBookmarkButton from "@/components/work/project-plan/tooltip-button/MilestoenBookmarkButton";
 import MilestoneTrashButton from "@/components/work/project-plan/tooltip-button/MilestoneTrashButton";
@@ -18,18 +17,12 @@ interface MilestonePageProps {
 }
 export default function MilestonePage({
   params: { milestoneId },
-}: MilestonePageProps) {
-  const [status, setStatus] = useState<MilestoneStatus>("ALL");
-
+}: Readonly<MilestonePageProps>) {
   const { data: milestone } = useQuery(
     QueryKeys.getMilestoneById(milestoneId),
     () => getMilestoneById(milestoneId),
     { onError: console.error },
   );
-
-  useEffect(() => {
-    getMilestoneById(milestoneId).then(console.log).catch(console.error);
-  }, []);
 
   if (!milestone) return <></>;
 

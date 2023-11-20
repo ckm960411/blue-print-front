@@ -10,12 +10,12 @@ interface MilestoneDrawerTaskTabProps {
 }
 export default function MilestoneDrawerTaskTab({
   milestone,
-}: MilestoneDrawerTaskTabProps) {
+}: Readonly<MilestoneDrawerTaskTabProps>) {
   return (
     <TabPanel className="overflow-y-scroll">
       <DrawerTaskTabButtonGroup milestone={milestone} />
       <UrgentTaskContainer milestoneId={milestone.id} />
-      {/*<TaskContainer milestoneId={milestone.id} />*/}
+      <TaskContainer milestoneId={milestone.id} />
     </TabPanel>
   );
 }

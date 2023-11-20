@@ -16,7 +16,7 @@ interface MilestoneLinksFormProps {
 }
 export default function MilestoneLinksForm({
   milestone,
-}: MilestoneLinksFormProps) {
+}: Readonly<MilestoneLinksFormProps>) {
   const { id, links } = milestone;
   const queryClient = useQueryClient();
   const { openToast } = useToastMessage();
@@ -32,6 +32,7 @@ export default function MilestoneLinksForm({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.invalidateQueries(QueryKeys.getMilestoneById(milestone.id));
       },
       onError: (e: any) => {
         openToast({
@@ -50,6 +51,7 @@ export default function MilestoneLinksForm({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.invalidateQueries(QueryKeys.getMilestoneById(milestone.id));
       },
       onError: (e: any) => {
         openToast({

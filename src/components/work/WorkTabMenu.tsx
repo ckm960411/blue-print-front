@@ -2,7 +2,9 @@ import { Dispatch, SetStateAction } from "react";
 import { LuMilestone } from "react-icons/lu";
 import { GrTask } from "react-icons/gr";
 import { FaRegStickyNote } from "react-icons/fa";
+
 import { WorkTab } from "@/app/work/page";
+import WorkTabMenuPlusButton from "@/components/work/WorkTabMenuPlusButton";
 
 interface WorkTabMenuProps {
   workTab: WorkTab;
@@ -33,7 +35,7 @@ export default function WorkTabMenu({
 
   return (
     <div className="sticky top-0 border-b border-gray-200 bg-white">
-      <div className="rounded-md px-16px py-8px">
+      <div className="flex-between rounded-md px-16px py-8px">
         <div className="inline-flex items-center gap-4px rounded-md bg-gray-100 px-8px py-4px">
           {tabs.map(({ tab, Icon }) => {
             const isActive = tab === workTab;
@@ -56,6 +58,7 @@ export default function WorkTabMenu({
             );
           })}
         </div>
+        <WorkTabMenuPlusButton workTab={workTab} />
       </div>
     </div>
   );

@@ -2,11 +2,11 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { GrExpand } from "react-icons/gr";
-import { TaskWithMilestone } from "@/utils/services/task";
+import { Task } from "@/utils/types/task";
 import IconButton from "@/components/components/IconButton";
 
 interface TaskDetailNavProps {
-  task: TaskWithMilestone;
+  task: Task;
 }
 export default function TaskDetailNav({ task }: Readonly<TaskDetailNavProps>) {
   const router = useRouter();

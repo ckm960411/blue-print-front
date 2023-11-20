@@ -30,6 +30,11 @@ export const getThisMonthTasks = async (params?: {
   return data;
 };
 
+export const getOneTaskById = async (taskId: number) => {
+  const { data } = await get<Task>(`task/${taskId}`);
+  return data;
+};
+
 export const createTask = async (createTaskReqDto: CreateTaskReqDto) => {
   const { data } = await post(`task`, createTaskReqDto);
   return data;

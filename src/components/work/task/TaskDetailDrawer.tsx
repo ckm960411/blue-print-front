@@ -3,7 +3,7 @@ import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm"
 import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorityForm";
 import TaskProgressForm from "@/components/work/components/task-card/TaskProgressForm";
 import TaskStartAtForm from "@/components/work/components/task-card/TaskStartAtForm";
-import TaskTags from "@/components/work/components/task-card/TaskTags";
+import TaskDetailHeader from "@/components/work/task/TaskDetailHeader";
 import React from "react";
 import { Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/modal";
 import TaskDetailNav from "@/components/work/task/TaskDetailNav";
@@ -14,11 +14,13 @@ interface TaskDetailDrawerProps {
   taskId: number;
   isOpen: boolean;
   onClose: () => void;
+  milestoneTitle: string | null;
 }
 export default function TaskDetailDrawer({
   taskId,
   isOpen,
   onClose,
+  milestoneTitle,
 }: Readonly<TaskDetailDrawerProps>) {
   const { data: task } = useQuery(
     ["get-one-task", taskId],
@@ -43,22 +45,7 @@ export default function TaskDetailDrawer({
       <DrawerOverlay />
       <DrawerContent>
         <TaskDetailNav task={task} />
-        <div className="flex flex-col gap-16px p-24px">
-          {task.milestoneTitle && (
-            <p className="truncate-1-lines text-16px font-semibold text-gray-800">
-              {task.milestoneTitle}
-            </p>
-          )}
-          <p className="truncate-2-lines text-22px font-bold leading-[140%]">
-            {task.title}
-          </p>
-          {task.description && (
-            <p className="text-16px leading-[150%] text-gray-600">
-              {task.description}
-            </p>
-          )}
-          <TaskTags task={task} />
-        </div>
+        <TaskDetailHeader task={task} milestoneTitle={milestoneTitle} />
         <div className="flex flex-col gap-16px px-24px pt-16px">
           <TaskProgressForm task={task} />
           <TaskStartAtForm task={task} />

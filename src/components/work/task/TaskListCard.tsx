@@ -61,7 +61,12 @@ export default function TaskListCard({ task }: Readonly<TaskListCardProps>) {
         </div>
       </div>
 
-      <TaskDetailDrawer taskId={task.id} isOpen={isOpen} onClose={onClose} />
+      <TaskDetailDrawer
+        taskId={task.id}
+        isOpen={isOpen}
+        onClose={onClose}
+        milestoneTitle={task.milestoneTitle}
+      />
     </>
   );
 }

@@ -1,3 +1,6 @@
+import { projectState } from "@/utils/recoil/store";
+import { getWorkCountByProjectId } from "@/utils/services/work";
+import { isUndefined } from "lodash";
 import { Dispatch, SetStateAction } from "react";
 import { LuMilestone } from "react-icons/lu";
 import { GrTask } from "react-icons/gr";
@@ -5,6 +8,8 @@ import { FaRegStickyNote } from "react-icons/fa";
 
 import { WorkTab } from "@/app/work/page";
 import WorkTabMenuPlusButton from "@/components/work/WorkTabMenuPlusButton";
+import { useQuery } from "react-query";
+import { useRecoilValue } from "recoil";
 
 interface WorkTabMenuProps {
   workTab: WorkTab;
@@ -14,6 +19,8 @@ export default function WorkTabMenu({
   workTab,
   setWorkTab,
 }: Readonly<WorkTabMenuProps>) {
+  const project = useRecoilValue(projectState);
+
   const handleClickTab = (tab: WorkTab) => {
     setWorkTab(tab);
   };
@@ -32,6 +39,14 @@ export default function WorkTabMenu({
       Icon: FaRegStickyNote,
     },
   ];
+
+  const { data: workCount } = useQuery(
+    ["get-work-count", project?.id],
+    () => getWorkCountByProjectId(project?.id!),
+    { enabled: !!project, onError: console.error },
+  );
+
+  if (isUndefined(workCount)) return <></>;
 
   return (
     <div className="sticky top-0 border-b border-gray-200 bg-white">
@@ -52,7 +67,7 @@ export default function WorkTabMenu({
                 <span
                   className={`inline-flex items-center justify-center rounded-md bg-gray-200 p-4px text-10px font-medium`}
                 >
-                  nn
+                  {workCount[tab]}
                 </span>
               </button>
             );

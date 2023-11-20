@@ -14,12 +14,17 @@ import { projectState } from "@/utils/recoil/store";
 import { getAllTask } from "@/utils/services/task";
 import { Progress } from "@/utils/types";
 
-export default function TaskTabContent() {
+interface TaskTabContentProps {
+  milestoneId?: number;
+}
+export default function TaskTabContent({
+  milestoneId,
+}: Readonly<TaskTabContentProps>) {
   const project = useRecoilValue(projectState);
 
   const { data: taskData } = useQuery(
-    QueryKeys.getAllTasks(project?.id),
-    () => getAllTask({ projectId: project?.id! }),
+    QueryKeys.getAllTasks(project?.id, milestoneId),
+    () => getAllTask({ projectId: project?.id!, milestoneId }),
     { onError: console.error },
   );
 
@@ -40,8 +45,12 @@ export default function TaskTabContent() {
 
   return (
     <DragDropContext onDragEnd={handleUpdate}>
-      <div className="min-h-screen bg-gray-50 p-16px">
-        <div className="grid grid-cols-4 gap-8px">
+      <div className={`bg-gray-50 p-16px ${milestoneId ? "" : "min-h-screen"}`}>
+        <div
+          className={
+            milestoneId ? "flex flex-col gap-32px" : "grid grid-cols-4 gap-8px"
+          }
+        >
           {Object.entries(taskData).map(([key, value]) => {
             const taskName = {
               [Progress.ToDo]: "To Do",

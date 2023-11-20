@@ -1,19 +1,19 @@
+import ToggleCheckOnly from "@/components/work/components/ToggleCheckOnly";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllMemos } from "@/utils/services/memo";
-import { FaRegBookmark } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa6";
-import IconButton from "@/components/components/IconButton";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
 interface MemoSideTabProps {}
 export default function MemoSideTab({}: MemoSideTabProps) {
   const project = useRecoilValue(projectState);
+  const [showChecked, setShowChecked] = useState(false);
 
   const { data: memos } = useQuery(
-    QueryKeys.getAllMemos(project?.id),
-    () => getAllMemos({ projectId: project?.id, checked: false }),
+    QueryKeys.getAllMemos(project?.id, showChecked),
+    () => getAllMemos({ projectId: project?.id, checked: showChecked }),
     {
       enabled: !!project,
       onError: console.error,
@@ -28,18 +28,10 @@ export default function MemoSideTab({}: MemoSideTabProps) {
       <div className="flex-between p-16px">
         <p className="text-12px text-gray-500">{memos.length} Memos</p>
         <div className="flex-center gap-4px">
-          <IconButton
-            w={24}
-            className="h-16px bg-gray-50 text-gray-600 duration-200 hover:bg-gray-100 hover:text-main"
-          >
-            <FaCheck className="text-14px" />
-          </IconButton>
-          <IconButton
-            w={24}
-            className="h-16px bg-gray-50 text-gray-600 duration-200 hover:bg-gray-100 hover:text-main"
-          >
-            <FaRegBookmark className="text-14px" />
-          </IconButton>
+          <ToggleCheckOnly
+            checked={showChecked}
+            onClick={() => setShowChecked((prev) => !prev)}
+          />
         </div>
       </div>
       <div className="flex flex-col border-t border-gray-200">

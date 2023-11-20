@@ -32,8 +32,8 @@ export default function MemoSideTab({
   );
 
   useEffect(() => {
-    if (isUndefined(memos)) return;
-    if (memos.length > 0 && !currentMemo) {
+    if (isUndefined(memos) || memos.length === 0) return setCurrentMemo(null);
+    if (!currentMemo) {
       setCurrentMemo(memos[0]);
     }
   }, [memos]);

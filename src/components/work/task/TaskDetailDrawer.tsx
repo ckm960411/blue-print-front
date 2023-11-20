@@ -1,7 +1,8 @@
 import React from "react";
 import { Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/modal";
 import TaskDetailNav from "@/components/work/task/TaskDetailNav";
-import { TaskWithMilestone } from "@/utils/services/task";
+import { getOneTaskById, TaskWithMilestone } from "@/utils/services/task";
+import { useQuery } from "react-query";
 
 interface TaskDetailDrawerProps {
   task: TaskWithMilestone;
@@ -13,6 +14,16 @@ export default function TaskDetailDrawer({
   isOpen,
   onClose,
 }: Readonly<TaskDetailDrawerProps>) {
+  const { data } = useQuery(
+    ["get-one-task", task.id],
+    () => getOneTaskById(task.id),
+    {
+      enabled: isOpen,
+      onSuccess: console.log,
+      onError: console.error,
+    },
+  );
+
   return (
     <Drawer
       id="task-list-card-drawer"

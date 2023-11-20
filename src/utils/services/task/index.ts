@@ -9,7 +9,10 @@ export type TaskWithMilestone = Task & {
   milestoneTitle: string | null;
   milestoneColor: ColorKey | null;
 };
-export const getAllTask = async (params?: { projectId: number }) => {
+export const getAllTask = async (params?: {
+  projectId: number;
+  milestoneId?: number;
+}) => {
   const { data } = await get<Record<Progress, TaskWithMilestone[]>>(`task`, {
     params,
   });

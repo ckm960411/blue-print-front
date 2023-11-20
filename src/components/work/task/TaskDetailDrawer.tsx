@@ -14,7 +14,13 @@ export default function TaskDetailDrawer({
   onClose,
 }: Readonly<TaskDetailDrawerProps>) {
   return (
-    <Drawer placement="right" onClose={onClose} isOpen={isOpen} size="md">
+    <Drawer
+      id="task-list-card-drawer"
+      placement="right"
+      onClose={onClose}
+      isOpen={isOpen}
+      size="md"
+    >
       <DrawerOverlay />
       <DrawerContent>
         <TaskDetailNav task={task} />

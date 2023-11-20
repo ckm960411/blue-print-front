@@ -1,3 +1,4 @@
+import { ColorKey, Colors } from "@/utils/common/color";
 import React from "react";
 import { format } from "date-fns";
 import { FaRegBookmark } from "react-icons/fa";
@@ -18,9 +19,10 @@ export default function MemoListCard({
     <div
       onClick={onClick}
       onKeyDown={(e) => e.key === "Enter" && onClick()}
-      className={`flex cursor-pointer flex-col gap-6px border-b border-gray-200 p-8px duration-200 hover:bg-white ${
+      className={`flex cursor-pointer flex-col gap-6px border-l-4 border-gray-200 p-8px duration-200 hover:bg-white ${
         isActive ? "bg-white" : "bg-transparent"
       }`}
+      style={{ borderColor: Colors[memo.color as ColorKey][200] }}
     >
       <div className="flex-between">
         <p className="truncate-1-lines grow text-14px font-semibold">

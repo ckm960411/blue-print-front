@@ -1,6 +1,12 @@
 import { Memo } from "@/utils/types/memo";
 import { isUndefined } from "lodash";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  Fragment,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
@@ -54,12 +60,14 @@ export default function MemoSideTab({
       </div>
       <div className="flex flex-col border-t border-gray-200">
         {memos.map((memo) => (
-          <MemoListCard
-            key={memo.id}
-            memo={memo}
-            isActive={currentMemo?.id === memo.id}
-            onClick={() => setCurrentMemo(memo)}
-          />
+          <Fragment key={memo.id}>
+            <MemoListCard
+              memo={memo}
+              isActive={currentMemo?.id === memo.id}
+              onClick={() => setCurrentMemo(memo)}
+            />
+            <hr />
+          </Fragment>
         ))}
       </div>
     </div>

@@ -1,10 +1,11 @@
+import React from "react";
+import { useDisclosure } from "@chakra-ui/hooks";
+import { CiCalendar } from "react-icons/ci";
+
 import { Colors } from "@/utils/common/color";
 import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
 import { TaskWithMilestone } from "@/utils/services/task";
-import { useDisclosure } from "@chakra-ui/hooks";
-import { Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/modal";
-import React from "react";
-import { CiCalendar } from "react-icons/ci";
+import TaskDetailDrawer from "@/components/work/task/TaskDetailDrawer";
 
 interface TaskListCardProps {
   task: TaskWithMilestone;
@@ -60,16 +61,7 @@ export default function TaskListCard({ task }: Readonly<TaskListCardProps>) {
         </div>
       </div>
 
-      <Drawer
-        id="task-list-card-drawer"
-        placement="right"
-        onClose={onClose}
-        isOpen={isOpen}
-        size="sm"
-      >
-        <DrawerOverlay />
-        <DrawerContent className="p-16px">1</DrawerContent>
-      </Drawer>
+      <TaskDetailDrawer task={task} isOpen={isOpen} onClose={onClose} />
     </>
   );
 }

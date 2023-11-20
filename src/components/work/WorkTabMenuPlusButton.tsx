@@ -1,13 +1,16 @@
-import { WorkTab } from "@/app/work/page";
-import CreateUpdateTaskModal from "@/components/work/project-plan/CreateUpdateTaskModal";
-import { QueryKeys } from "@/utils/common/query-keys";
-import { projectState } from "@/utils/recoil/store";
-import { createMilestone } from "@/utils/services/milestone";
-import { useDisclosure } from "@chakra-ui/hooks";
 import React from "react";
-import { FaPlus } from "react-icons/fa6";
 import { useMutation, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
+import { useDisclosure } from "@chakra-ui/hooks";
+import { FaPlus } from "react-icons/fa6";
+
+import { QueryKeys } from "@/utils/common/query-keys";
+import { useMemoMutation } from "@/utils/hooks/memo/useMemoMutation";
+import { projectState } from "@/utils/recoil/store";
+import { createMilestone } from "@/utils/services/milestone";
+
+import { WorkTab } from "@/app/work/page";
+import CreateUpdateTaskModal from "@/components/work/project-plan/CreateUpdateTaskModal";
 
 interface WorkTabMenuPlusButtonProps {
   workTab: WorkTab;
@@ -34,6 +37,13 @@ export default function WorkTabMenuPlusButton({
     },
   );
 
+  const { mutate: createMemoRequest } = useMemoMutation({
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(QueryKeys.getAllMemos());
+    },
+    onError: console.error,
+  });
+
   const handleClick = () => {
     if (!project) return;
 
@@ -43,6 +53,15 @@ export default function WorkTabMenuPlusButton({
 
     if (workTab === WorkTab.Task) {
       openTaskPopup();
+    }
+
+    if (workTab === WorkTab.Memo) {
+      createMemoRequest({
+        title: "메모 제목",
+        content: "메모 내용",
+        color: "yellow",
+        projectId: project.id,
+      });
     }
   };
 

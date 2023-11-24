@@ -9,8 +9,12 @@ import TaskDetailDrawer from "@/components/work/task/TaskDetailDrawer";
 
 interface TaskListCardProps {
   task: TaskWithMilestone;
+  milestoneId?: number;
 }
-export default function TaskListCard({ task }: Readonly<TaskListCardProps>) {
+export default function TaskListCard({
+  task,
+  milestoneId,
+}: Readonly<TaskListCardProps>) {
   const remainDaysData = getRemainDaysText(task.endAt);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -66,6 +70,7 @@ export default function TaskListCard({ task }: Readonly<TaskListCardProps>) {
         isOpen={isOpen}
         onClose={onClose}
         milestoneTitle={task.milestoneTitle}
+        milestoneId={milestoneId}
       />
     </>
   );

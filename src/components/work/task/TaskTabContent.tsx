@@ -23,7 +23,7 @@ export default function TaskTabContent({
   const project = useRecoilValue(projectState);
 
   const { data: taskData } = useQuery(
-    taskKeys.list({ projectId: project?.id }),
+    taskKeys.list({ projectId: project?.id, milestoneId }),
     () => {
       if (!project) return Promise.reject("no project");
       return getAllTask({ projectId: project?.id!, milestoneId });
@@ -98,7 +98,10 @@ export default function TaskTabContent({
                             {...provided.dragHandleProps}
                             ref={provided.innerRef}
                           >
-                            <TaskListCard task={task} />
+                            <TaskListCard
+                              task={task}
+                              milestoneId={milestoneId}
+                            />
                           </div>
                         )}
                       </Draggable>

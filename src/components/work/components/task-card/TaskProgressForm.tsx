@@ -12,8 +12,12 @@ import { useRecoilValue } from "recoil";
 
 interface TaskProgressFormProps {
   task: Task;
+  milestoneId?: number;
 }
-export default function TaskProgressForm({ task }: TaskProgressFormProps) {
+export default function TaskProgressForm({
+  task,
+  milestoneId,
+}: TaskProgressFormProps) {
   const queryClient = useQueryClient();
 
   const project = useRecoilValue(projectState);
@@ -32,6 +36,7 @@ export default function TaskProgressForm({ task }: TaskProgressFormProps) {
   const handleClose = () => setEditing(false);
 
   const { mutate: updateTaskRequest } = useUpdateTaskMutation({
+    milestoneId,
     onSuccess: () => {
       queryClient.invalidateQueries(QueryKeys.getThisMonthTasks());
     },

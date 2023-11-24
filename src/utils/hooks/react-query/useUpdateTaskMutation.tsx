@@ -8,20 +8,24 @@ import { useMutation, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 
 export const useUpdateTaskMutation = (options?: {
+  milestoneId?: number;
   onSuccess?: () => void;
   onError?: (e?: any) => void;
 }) => {
   const project = useRecoilValue(projectState);
   const queryClient = useQueryClient();
 
-  const mutationResult = useMutation(
+  return useMutation(
     ["update-task"],
     (updateTaskReqDto: UpdateTaskReqDto & { taskId: number }) =>
       updateTask(updateTaskReqDto.taskId, omit(updateTaskReqDto, "taskId")),
     {
       onSuccess: (patchedTask) => {
         queryClient.invalidateQueries(
-          taskKeys.list({ projectId: project?.id }),
+          taskKeys.list({
+            projectId: project?.id,
+            milestoneId: options?.milestoneId,
+          }),
         );
         queryClient.setQueryData<Task | undefined>(
           taskKeys.detail({ taskId: patchedTask.id, projectId: project?.id }),
@@ -39,6 +43,4 @@ export const useUpdateTaskMutation = (options?: {
       },
     },
   );
-
-  return mutationResult;
 };

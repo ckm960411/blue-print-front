@@ -18,12 +18,14 @@ interface TaskDetailDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   milestoneTitle: string | null;
+  milestoneId?: number;
 }
 export default function TaskDetailDrawer({
   taskId,
   isOpen,
   onClose,
   milestoneTitle,
+  milestoneId,
 }: Readonly<TaskDetailDrawerProps>) {
   const project = useRecoilValue(projectState);
 
@@ -48,7 +50,7 @@ export default function TaskDetailDrawer({
         <TaskDetailNav task={task} />
         <TaskDetailHeader task={task} milestoneTitle={milestoneTitle} />
         <div className="flex flex-col gap-16px px-24px pt-16px">
-          <TaskProgressForm task={task} />
+          <TaskProgressForm task={task} milestoneId={milestoneId} />
           <TaskStartAtForm task={task} />
           <TaskEndAtForm task={task} />
           <TaskPriorityForm task={task} />

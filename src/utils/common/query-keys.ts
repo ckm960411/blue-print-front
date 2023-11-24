@@ -1,3 +1,5 @@
+import { omit } from "lodash";
+
 export const GET_ALL_MEMOS = "getAllMemos";
 const getAllMemos = (...args: any[]) => [GET_ALL_MEMOS, ...args];
 
@@ -47,4 +49,13 @@ export const milestoneKeys = {
     [...milestoneKeys.all(projectId), "detail"] as const,
   detail: (milestoneId: number, projectId?: number) =>
     [...milestoneKeys.details(projectId), milestoneId] as const,
+};
+
+type TaskKeysAllArgs = { projectId?: number; milestoneId?: number };
+export const taskKeys = {
+  all: (arg: TaskKeysAllArgs) => ["tasks", ...Object.values(arg)] as const,
+  list: (arg: TaskKeysAllArgs) => [...taskKeys.all(arg), "list"] as const,
+  details: (arg: TaskKeysAllArgs) => [...taskKeys.all(arg), "detail"] as const,
+  detail: ({ taskId, ...rest }: TaskKeysAllArgs & { taskId: number }) =>
+    [...taskKeys.details(omit(rest, "taskId")), taskId] as const,
 };

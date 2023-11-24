@@ -1,11 +1,12 @@
-import React from "react";
-import { useDisclosure } from "@chakra-ui/hooks";
-import { CiCalendar } from "react-icons/ci";
+import TaskDetailDrawer from "@/components/work/task/TaskDetailDrawer";
 
 import { Colors } from "@/utils/common/color";
 import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
 import { TaskWithMilestone } from "@/utils/services/task";
-import TaskDetailDrawer from "@/components/work/task/TaskDetailDrawer";
+import { Progress } from "@/utils/types";
+import { useDisclosure } from "@chakra-ui/hooks";
+import React from "react";
+import { CiCalendar } from "react-icons/ci";
 
 interface TaskListCardProps {
   task: TaskWithMilestone;
@@ -23,7 +24,11 @@ export default function TaskListCard({
       <div
         onClick={onOpen}
         onKeyDown={(e) => e.key === "Enter" && onOpen()}
-        className="flex flex-col gap-6px rounded-md bg-white p-8px font-medium shadow-sm duration-200 hover:shadow-md"
+        className={`flex flex-col gap-6px rounded-md bg-white p-8px font-medium shadow-sm duration-200 hover:shadow-md ${
+          task.priority === 5 && task.progress !== Progress.Completed
+            ? "border border-red-500"
+            : ""
+        }`}
       >
         {task.milestoneTitle && (
           <p

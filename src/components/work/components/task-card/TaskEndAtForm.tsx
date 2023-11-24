@@ -62,6 +62,13 @@ export default function TaskEndAtForm({
         isOpen={isOpen}
         date={endAt}
         onClose={onClose}
+        onDelete={() => {
+          updateTaskRequest({
+            taskId: id,
+            endAt: null,
+            projectId: project?.id,
+          });
+        }}
         onUpdate={(endAt) =>
           updateTaskRequest({ taskId: id, endAt, projectId: project?.id })
         }

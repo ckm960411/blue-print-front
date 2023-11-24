@@ -51,6 +51,9 @@ export default function MilestoneEndAtForm({
         isOpen={isOpen}
         date={endAt}
         onClose={onClose}
+        onDelete={() => {
+          updateMilestoneRequest({ endAt: null, projectId: project?.id });
+        }}
         onUpdate={(endAt) =>
           updateMilestoneRequest({ endAt, projectId: project?.id })
         }

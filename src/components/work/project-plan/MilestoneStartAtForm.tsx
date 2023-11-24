@@ -52,6 +52,9 @@ export default function MilestoneStartAtForm({
           isOpen={isOpen}
           date={startAt}
           onClose={onClose}
+          onDelete={() => {
+            updateMilestoneRequest({ startAt: null, projectId: project?.id });
+          }}
           onUpdate={(startAt) =>
             updateMilestoneRequest({ startAt, projectId: project?.id })
           }

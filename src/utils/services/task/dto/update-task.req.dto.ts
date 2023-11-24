@@ -5,8 +5,8 @@ export interface UpdateTaskReqDto {
   title?: string;
   description?: string;
   content?: string;
-  startAt?: Date;
-  endAt?: Date;
+  startAt?: Date | null;
+  endAt?: Date | null;
   progress?: Progress;
   priority?: Priority;
   isBookmarked?: boolean;

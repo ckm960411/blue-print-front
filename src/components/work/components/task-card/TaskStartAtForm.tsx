@@ -57,6 +57,13 @@ export default function TaskStartAtForm({ task }: TaskStartAtFormProps) {
         isOpen={isOpen}
         date={startAt}
         onClose={onClose}
+        onDelete={() => {
+          updateTaskRequest({
+            taskId: id,
+            startAt: null,
+            projectId: project?.id,
+          });
+        }}
         onUpdate={(startAt) =>
           updateTaskRequest({ taskId: id, startAt, projectId: project?.id })
         }

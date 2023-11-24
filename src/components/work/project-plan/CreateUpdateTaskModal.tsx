@@ -1,3 +1,4 @@
+import { Progress } from "@/utils/types";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -79,9 +80,8 @@ export default function CreateUpdateTaskModal({
       }),
     {
       onSuccess: (newTask) => {
-        queryClient.setQueryData<Task[] | undefined>(
+        queryClient.invalidateQueries(
           taskKeys.list({ projectId: project?.id, milestoneId }),
-          (prev) => (prev ? [...prev, newTask] : prev),
         );
         queryClient.invalidateQueries(milestoneKeys.list(project?.id));
         queryClient.invalidateQueries(QueryKeys.getWorkCount(project?.id));

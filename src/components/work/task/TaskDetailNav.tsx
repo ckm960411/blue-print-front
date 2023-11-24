@@ -35,6 +35,7 @@ export default function TaskDetailNav({
     (id: number) => deleteTask(id),
     {
       onSuccess: (deletedTask) => {
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
         queryClient.invalidateQueries(
           taskKeys.list({ projectId: project?.id, milestoneId }),
         );

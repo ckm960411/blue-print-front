@@ -1,5 +1,5 @@
 import { MilestoneStatus } from "@/components/work/project-plan/ProjectPlanTab";
-import { QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllMilestones } from "@/utils/services/milestone";
 import { useQuery } from "react-query";
@@ -8,8 +8,8 @@ import { useRecoilValue } from "recoil";
 export const useMilestonesQuery = (status?: MilestoneStatus) => {
   const project = useRecoilValue(projectState);
 
-  const queryResult = useQuery(
-    QueryKeys.getAllMilestones(status, project?.id),
+  return useQuery(
+    [...milestoneKeys.list(project?.id), status],
     () =>
       getAllMilestones({
         progress: status === "ALL" ? undefined : status,
@@ -17,6 +17,4 @@ export const useMilestonesQuery = (status?: MilestoneStatus) => {
       }),
     { onError: console.error },
   );
-
-  return queryResult;
 };

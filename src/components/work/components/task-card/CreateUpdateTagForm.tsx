@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "react-query";
+import { useRecoilValue } from "recoil";
 
 import { ColorKey } from "@/utils/common/color";
-import { QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { createTag, deleteTag, updateTag } from "@/utils/services/tag";
 import { CreateTagReqDto } from "@/utils/services/tag/dto/create-tag.req.dto";
+import { projectState } from "@/utils/recoil/store";
+import { Milestone } from "@/utils/types/milestone";
 import { Tag } from "@/utils/types/tag.index";
 import ColorPicker from "@/components/components/ColorPicker";
 
@@ -25,10 +28,11 @@ export default function CreateUpdateTagForm({
   type,
   parentIdType,
   parentId,
-}: CreateUpdateTagFormProps) {
+}: Readonly<CreateUpdateTagFormProps>) {
   const queryClient = useQueryClient();
   const { openToast } = useToastMessage();
 
+  const project = useRecoilValue(projectState);
   const [editing, setEditing] = useState(false);
   const [tagName, setTagName] = useState(() => tag?.name ?? "");
   const [tagColor, setTagColor] = useState<ColorKey>(
@@ -36,15 +40,19 @@ export default function CreateUpdateTagForm({
   );
 
   const onSuccess = () => {
-    queryClient.invalidateQueries(
-      parentIdType === "taskId"
-        ? QueryKeys.getAllTasks()
-        : QueryKeys.getAllMilestones(),
-    );
+    if (parentIdType === "taskId") {
+      queryClient.invalidateQueries(QueryKeys.getAllTasks());
+    } else {
+      queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+    }
     if (type === "create") {
       setTagName(tag?.name ?? "");
       setTagColor(tag?.color ?? "slate");
     }
+  };
+  const resetTag = () => {
+    setTagName(tag?.name ?? "");
+    setTagColor(tag?.color ?? "slate");
   };
 
   const onError = (e: any) => {
@@ -62,7 +70,37 @@ export default function CreateUpdateTagForm({
   const { mutate: createTagRequest } = useMutation(
     ["create-tag"],
     (data: CreateTagReqDto) => createTag(data),
-    { onSuccess, onError },
+    {
+      onSuccess: (newTag) => {
+        if (parentIdType === "taskId") {
+          queryClient.invalidateQueries(QueryKeys.getAllTasks());
+        } else {
+          resetTag();
+          queryClient.setQueryData<Milestone[] | undefined>(
+            milestoneKeys.list(project?.id),
+            (prev) => {
+              if (prev) {
+                return prev.map((milestone) =>
+                  milestone.id === parentId
+                    ? { ...milestone, tags: [...milestone.tags, newTag] }
+                    : milestone,
+                );
+              }
+              return prev;
+            },
+          );
+          queryClient.setQueryData<Milestone | undefined>(
+            milestoneKeys.detail(parentId, project?.id),
+            (prev) => {
+              return prev
+                ? { ...prev, tags: [...prev.tags, newTag] }
+                : undefined;
+            },
+          );
+        }
+      },
+      onError,
+    },
   );
 
   const { mutate: updateTagRequest } = useMutation(
@@ -106,9 +144,9 @@ export default function CreateUpdateTagForm({
   return (
     <Popover isOpen={editing} onClose={handleClose} placement="bottom-start">
       <PopoverTrigger>
-        <div onClick={handleEdit} className={chidlrenWrapperClassName}>
+        <button onClick={handleEdit} className={chidlrenWrapperClassName}>
           {children}
-        </div>
+        </button>
       </PopoverTrigger>
       <PopoverContent className="flex flex-col gap-12px p-16px text-14px">
         <div className="flex items-center gap-12px">

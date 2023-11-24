@@ -1,4 +1,5 @@
 import TaskTags from "@/components/work/components/task-card/TaskTags";
+import TaskTitleForm from "@/components/work/task/TaskTitleForm";
 import { Task } from "@/utils/types/task";
 import React from "react";
 
@@ -17,9 +18,7 @@ export default function TaskDetailHeader({
           {milestoneTitle}
         </p>
       )}
-      <p className="truncate-2-lines text-22px font-bold leading-[140%]">
-        {task.title}
-      </p>
+      <TaskTitleForm task={task} />
       {task.description && (
         <p className="text-16px leading-[150%] text-gray-600">
           {task.description}

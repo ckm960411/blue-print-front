@@ -49,12 +49,16 @@ export default function TaskDetailDrawer({
       <DrawerOverlay />
       <DrawerContent>
         <TaskDetailNav task={task} />
-        <TaskDetailHeader task={task} milestoneTitle={milestoneTitle} />
+        <TaskDetailHeader
+          task={task}
+          milestoneTitle={milestoneTitle}
+          milestoneId={milestoneId}
+        />
         <div className="flex flex-col gap-16px px-24px pt-16px">
           <TaskProgressForm task={task} milestoneId={milestoneId} />
           <TaskStartAtForm task={task} />
-          <TaskEndAtForm task={task} />
-          <TaskPriorityForm task={task} />
+          <TaskEndAtForm task={task} milestoneId={milestoneId} />
+          <TaskPriorityForm task={task} milestoneId={milestoneId} />
           <TaskLinksForm task={task} />
         </div>
         <hr className="my-16px" />

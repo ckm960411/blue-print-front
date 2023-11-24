@@ -7,9 +7,11 @@ import { useRecoilValue } from "recoil";
 
 interface TaskDescriptionFormProps {
   task: Task;
+  milestoneId?: number;
 }
 export default function TaskDescriptionForm({
   task,
+  milestoneId,
 }: TaskDescriptionFormProps) {
   const project = useRecoilValue(projectState);
 
@@ -18,7 +20,7 @@ export default function TaskDescriptionForm({
   );
   const [isEditing, setIsEditing] = useState(false);
 
-  const { mutate: updateTaskRequest } = useUpdateTaskMutation();
+  const { mutate: updateTaskRequest } = useUpdateTaskMutation({ milestoneId });
 
   const resetDescription = () => setTempDescription(task.description ?? "");
 

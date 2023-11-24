@@ -13,8 +13,12 @@ import CalendarModal from "@/components/work/components/CalendarModal";
 
 interface TaskEndAtFormProps {
   task: Task;
+  milestoneId?: number;
 }
-export default function TaskEndAtForm({ task }: TaskEndAtFormProps) {
+export default function TaskEndAtForm({
+  task,
+  milestoneId,
+}: TaskEndAtFormProps) {
   const { id, startAt, endAt } = task;
 
   const { openToast } = useToastMessage();
@@ -23,6 +27,7 @@ export default function TaskEndAtForm({ task }: TaskEndAtFormProps) {
   const project = useRecoilValue(projectState);
 
   const { mutate: updateTaskRequest } = useUpdateTaskMutation({
+    milestoneId,
     onSuccess: () => {
       queryClient.invalidateQueries(QueryKeys.getThisMonthTasks());
     },

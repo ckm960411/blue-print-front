@@ -11,8 +11,12 @@ import PriorityButton from "@/components/work/components/PriorityButton";
 
 interface TaskPriorityFormProps {
   task: Task;
+  milestoneId?: number;
 }
-export default function TaskPriorityForm({ task }: TaskPriorityFormProps) {
+export default function TaskPriorityForm({
+  task,
+  milestoneId,
+}: TaskPriorityFormProps) {
   const { id, priority } = task;
   const { openToast } = useToastMessage();
 
@@ -25,6 +29,7 @@ export default function TaskPriorityForm({ task }: TaskPriorityFormProps) {
   const handleClose = () => setEditing(false);
 
   const { mutate: updateTaskRequest } = useUpdateTaskMutation({
+    milestoneId,
     onSuccess: handleClose,
     onError: (e) => {
       openToast({

@@ -7,14 +7,18 @@ import { useRecoilValue } from "recoil";
 
 interface TaskTitleFormProps {
   task: Task;
+  milestoneId?: number;
 }
-export default function TaskTitleForm({ task }: TaskTitleFormProps) {
+export default function TaskTitleForm({
+  task,
+  milestoneId,
+}: TaskTitleFormProps) {
   const project = useRecoilValue(projectState);
 
   const [tempTitle, setTempTitle] = useState(() => task.title ?? "");
   const [isEditing, setIsEditing] = useState(false);
 
-  const { mutate: updateTaskRequest } = useUpdateTaskMutation();
+  const { mutate: updateTaskRequest } = useUpdateTaskMutation({ milestoneId });
 
   const resetTitle = () => setTempTitle(task.title ?? "");
 

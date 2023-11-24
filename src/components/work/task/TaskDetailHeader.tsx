@@ -7,10 +7,12 @@ import React from "react";
 interface TaskDetailHeaderProps {
   task: Task;
   milestoneTitle: string | null;
+  milestoneId?: number;
 }
 export default function TaskDetailHeader({
   task,
   milestoneTitle,
+  milestoneId,
 }: Readonly<TaskDetailHeaderProps>) {
   return (
     <div className="flex flex-col gap-16px p-24px">
@@ -19,8 +21,8 @@ export default function TaskDetailHeader({
           {milestoneTitle}
         </p>
       )}
-      <TaskTitleForm task={task} />
-      <TaskDescriptionForm task={task} />
+      <TaskTitleForm task={task} milestoneId={milestoneId} />
+      <TaskDescriptionForm task={task} milestoneId={milestoneId} />
       <TaskTags task={task} />
     </div>
   );

@@ -32,6 +32,7 @@ export default function TaskTabContent({
   );
 
   const { mutate: updateTaskRequest } = useUpdateTaskMutation({
+    milestoneId,
     onError: console.error,
   });
 

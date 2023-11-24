@@ -1,4 +1,4 @@
-import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { updateMilestone } from "@/utils/services/milestone";
 import { UpdateMilestoneReqDto } from "@/utils/services/milestone/dto/update-milestone.req.dto";
@@ -16,13 +16,25 @@ export const useUpdateMilestoneMutation = (
   const project = useRecoilValue(projectState);
   const queryClient = useQueryClient();
 
-  const mutationResult = useMutation(
+  return useMutation(
     ["update-milestone"],
     (updateMilestoneReqDto: UpdateMilestoneReqDto) =>
       updateMilestone(milestoneId, updateMilestoneReqDto),
     {
       onSuccess: (patchedMilestone) => {
-        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.setQueryData<Milestone[] | undefined>(
+          milestoneKeys.list(project?.id),
+          (prev) => {
+            if (prev) {
+              return prev.map((milestone) =>
+                milestone.id === patchedMilestone.id
+                  ? patchedMilestone
+                  : milestone,
+              );
+            }
+            return prev;
+          },
+        );
         queryClient.setQueryData<Milestone | undefined>(
           milestoneKeys.detail(milestoneId, project?.id),
           (prev) => (prev ? { ...prev, ...patchedMilestone } : undefined),
@@ -35,6 +47,4 @@ export const useUpdateMilestoneMutation = (
       },
     },
   );
-
-  return mutationResult;
 };

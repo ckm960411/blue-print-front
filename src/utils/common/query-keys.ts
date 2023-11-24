@@ -7,8 +7,6 @@ const getAllTasks = (...args: any[]) => ["get-all-tasks", ...args];
 
 const getThisMonthTasks = (...args: any[]) => ["get-this-month-tasks", ...args];
 
-const getAllMilestones = (...args: any[]) => ["get-all-milestones", ...args];
-
 const getAllProjects = (...args: any[]) => ["get-all-projects", ...args];
 
 const getAllComments = (...args: any[]) => ["get-all-comments", ...args];
@@ -30,9 +28,6 @@ export const QueryKeys = {
 
   // this month tasks
   getThisMonthTasks,
-
-  // MILESTONE
-  getAllMilestones,
 
   // PROJECTS
   getAllProjects,

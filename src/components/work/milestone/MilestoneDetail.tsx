@@ -1,13 +1,14 @@
+import { projectState } from "@/utils/recoil/store";
 import React from "react";
 import { useQuery } from "react-query";
-
-import { QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys } from "@/utils/common/query-keys";
 import { getMilestoneById } from "@/utils/services/milestone";
 
 import MilestoneDetailProperties from "@/components/work/milestone/detail/MilestoneDetailProperties";
 import MilestoneDrawerTabs from "@/components/work/project-plan/sidetab/MilestoneDrawerTabs";
 import MilestoneDetailNav from "@/components/work/milestone/detail/MilestoneDetailNav";
 import MilestoneDetailHeader from "@/components/work/milestone/detail/MilestoneDetailHeader";
+import { useRecoilValue } from "recoil";
 
 interface MilestoneDetailProps {
   milestoneId: number;
@@ -15,8 +16,10 @@ interface MilestoneDetailProps {
 export default function MilestoneDetail({
   milestoneId,
 }: Readonly<MilestoneDetailProps>) {
+  const project = useRecoilValue(projectState);
+
   const { data: milestone } = useQuery(
-    QueryKeys.getMilestoneById(milestoneId),
+    milestoneKeys.detail(milestoneId, project?.id),
     () => getMilestoneById(milestoneId),
     { onError: console.error },
   );

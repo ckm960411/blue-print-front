@@ -1,16 +1,20 @@
-import IconButton from "@/components/components/IconButton";
-import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilestoneEmoji";
-import { Colors } from "@/utils/common/color";
-import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
-import { QueryKeys } from "@/utils/common/query-keys";
-import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
-import { MilestoneWithContentCount } from "@/utils/types/milestone";
+import { projectState } from "@/utils/recoil/store";
 import React from "react";
+import { useQueryClient } from "react-query";
 import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { CiStar } from "react-icons/ci";
 import { FaRegStickyNote } from "react-icons/fa";
 import { GrTask } from "react-icons/gr";
-import { useQueryClient } from "react-query";
+
+import { Colors } from "@/utils/common/color";
+import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
+import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
+import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { Milestone, MilestoneWithContentCount } from "@/utils/types/milestone";
+
+import IconButton from "@/components/components/IconButton";
+import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilestoneEmoji";
+import { useRecoilValue } from "recoil";
 
 interface MilestoneListCardProps {
   milestone: MilestoneWithContentCount;
@@ -22,6 +26,7 @@ export default function MilestoneListCard({
   isActive,
   onClick,
 }: Readonly<MilestoneListCardProps>) {
+  const project = useRecoilValue(projectState);
   const remainDaysData = getRemainDaysText(milestone.endAt);
   const queryClient = useQueryClient();
 
@@ -30,7 +35,14 @@ export default function MilestoneListCard({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllMilestones());
-        queryClient.invalidateQueries(QueryKeys.getMilestoneById(milestone.id));
+        queryClient.setQueryData<Milestone | undefined>(
+          milestoneKeys.detail(milestone.id, project?.id),
+          (prev) => {
+            return prev
+              ? { ...prev, isBookmarked: !prev.isBookmarked }
+              : undefined;
+          },
+        );
       },
       onError: console.error,
     },
@@ -62,9 +74,7 @@ export default function MilestoneListCard({
             w={24}
             onClick={(e) => {
               e?.stopPropagation();
-              updateMilestoneRequest({
-                isBookmarked: !milestone.isBookmarked,
-              });
+              updateMilestoneRequest({ isBookmarked: !milestone.isBookmarked });
             }}
           >
             {milestone.isBookmarked ? (

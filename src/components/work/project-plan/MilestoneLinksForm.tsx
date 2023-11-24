@@ -1,15 +1,17 @@
+import { projectState } from "@/utils/recoil/store";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "react-query";
 import { BsTrash } from "react-icons/bs";
 
-import { QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { createLink, deleteLinkById } from "@/utils/services/link";
 import { CreateLinkReqDto } from "@/utils/services/link/dto/create-link.req.dto";
 import { Milestone } from "@/utils/types/milestone";
 import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
+import { useRecoilValue } from "recoil";
 
 interface MilestoneLinksFormProps {
   milestone: Milestone;
@@ -17,6 +19,7 @@ interface MilestoneLinksFormProps {
 export default function MilestoneLinksForm({
   milestone,
 }: Readonly<MilestoneLinksFormProps>) {
+  const project = useRecoilValue(projectState);
   const { id, links } = milestone;
   const queryClient = useQueryClient();
   const { openToast } = useToastMessage();
@@ -30,9 +33,16 @@ export default function MilestoneLinksForm({
     ({ name, href }: CreateLinkReqDto) =>
       createLink({ milestoneId: id, name, href }),
     {
-      onSuccess: () => {
+      onSuccess: (newLink) => {
         queryClient.invalidateQueries(QueryKeys.getAllMilestones());
-        queryClient.invalidateQueries(QueryKeys.getMilestoneById(milestone.id));
+        queryClient.setQueryData<Milestone | undefined>(
+          milestoneKeys.detail(milestone.id, project?.id),
+          (prev) => {
+            return prev
+              ? { ...prev, links: [...(prev.links ?? []), newLink] }
+              : undefined;
+          },
+        );
       },
       onError: (e: any) => {
         openToast({
@@ -49,9 +59,21 @@ export default function MilestoneLinksForm({
     ["delete-link"],
     (id: number) => deleteLinkById(id),
     {
-      onSuccess: () => {
+      onSuccess: (deletedLink) => {
         queryClient.invalidateQueries(QueryKeys.getAllMilestones());
-        queryClient.invalidateQueries(QueryKeys.getMilestoneById(milestone.id));
+        queryClient.setQueryData<Milestone | undefined>(
+          milestoneKeys.detail(milestone.id, project?.id),
+          (prev) => {
+            return prev
+              ? {
+                  ...prev,
+                  links: prev.links.filter(
+                    (link) => link.id !== deletedLink.id,
+                  ),
+                }
+              : undefined;
+          },
+        );
       },
       onError: (e: any) => {
         openToast({

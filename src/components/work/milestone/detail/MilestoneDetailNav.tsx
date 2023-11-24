@@ -3,8 +3,9 @@ import DeletePopup from "@/components/work/components/DeletePopup";
 import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
 import MilestoneColorForm from "@/components/work/project-plan/MilestoneColorForm";
 
-import { QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { projectState } from "@/utils/recoil/store";
 import { deleteMilestone } from "@/utils/services/milestone";
 import { Milestone } from "@/utils/types/milestone";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -14,6 +15,7 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { BsBookmark, BsFillBookmarkFill, BsTrash } from "react-icons/bs";
 import { GrExpand } from "react-icons/gr";
 import { useMutation, useQueryClient } from "react-query";
+import { useRecoilValue } from "recoil";
 import { useBoolean } from "usehooks-ts";
 
 interface MilestoneDetailNavProps {
@@ -22,6 +24,7 @@ interface MilestoneDetailNavProps {
 export default function MilestoneDetailNav({
   milestone,
 }: Readonly<MilestoneDetailNavProps>) {
+  const project = useRecoilValue(projectState);
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -41,7 +44,14 @@ export default function MilestoneDetailNav({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllMilestones());
-        queryClient.invalidateQueries(QueryKeys.getMilestoneById(milestone.id));
+        queryClient.setQueryData<Milestone | undefined>(
+          milestoneKeys.detail(milestone.id, project?.id),
+          (prev) => {
+            return prev
+              ? { ...prev, isBookmarked: !prev.isBookmarked }
+              : undefined;
+          },
+        );
       },
       onError: console.error,
     },

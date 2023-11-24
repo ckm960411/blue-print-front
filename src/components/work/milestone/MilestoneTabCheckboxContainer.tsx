@@ -1,3 +1,4 @@
+import { ProgressChecked } from "@/components/work/milestone/MilestoneTab";
 import { Dispatch, SetStateAction } from "react";
 import { Progress } from "@/utils/types";
 import CheckBox from "@/components/work/components/CheckBox";

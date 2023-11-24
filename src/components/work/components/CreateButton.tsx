@@ -1,10 +1,7 @@
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
-interface CreateButtonProps {
-  onClick?: () => void;
-}
-export default function CreateButton({ onClick }: CreateButtonProps) {
+export default function CreateButton({ onClick }: { onClick?: () => void }) {
   return (
     <button
       onClick={onClick}

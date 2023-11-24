@@ -1,4 +1,3 @@
-import TaskCard from "@/components/work/components/TaskCard";
 import { taskKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllUrgenttTasks } from "@/utils/services/task";
@@ -30,11 +29,7 @@ export default function UrgentTaskContainer({
       <p className="absolute -top-16px left-8px bg-white p-8px text-18px font-bold text-red-500">
         긴급한 태스크
       </p>
-      <div className="flex flex-col gap-16px">
-        {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
-      </div>
+      <div className="flex flex-col gap-16px"></div>
     </div>
   );
 }

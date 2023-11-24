@@ -59,3 +59,12 @@ export const taskKeys = {
   detail: ({ taskId, ...rest }: TaskKeysAllArgs & { taskId: number }) =>
     [...taskKeys.details(omit(rest, "taskId")), taskId] as const,
 };
+
+type MemoKeysAllArgs = { projectId?: number; milestoneId?: number };
+export const memoKeys = {
+  all: (arg: MemoKeysAllArgs) => ["memos", ...Object.values(arg)] as const,
+  list: (arg: MemoKeysAllArgs) => [...memoKeys.all(arg), "list"] as const,
+  details: (arg: MemoKeysAllArgs) => [...memoKeys.all(arg), "detail"] as const,
+  detail: ({ memoId, ...rest }: MemoKeysAllArgs & { memoId: number }) =>
+    [...memoKeys.details(rest), memoId] as const,
+};

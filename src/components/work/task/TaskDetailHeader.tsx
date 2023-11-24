@@ -1,4 +1,5 @@
 import TaskTags from "@/components/work/components/task-card/TaskTags";
+import TaskDescriptionForm from "@/components/work/task/TaskDescriptionForm";
 import TaskTitleForm from "@/components/work/task/TaskTitleForm";
 import { Task } from "@/utils/types/task";
 import React from "react";
@@ -19,11 +20,7 @@ export default function TaskDetailHeader({
         </p>
       )}
       <TaskTitleForm task={task} />
-      {task.description && (
-        <p className="text-16px leading-[150%] text-gray-600">
-          {task.description}
-        </p>
-      )}
+      <TaskDescriptionForm task={task} />
       <TaskTags task={task} />
     </div>
   );

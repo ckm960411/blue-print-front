@@ -30,11 +30,7 @@ export default function TaskDetailDrawer({
   const { data: task } = useQuery(
     taskKeys.detail({ taskId, projectId: project?.id }),
     () => getOneTaskById(taskId),
-    {
-      enabled: isOpen,
-      onSuccess: console.log,
-      onError: console.error,
-    },
+    { enabled: isOpen, onError: console.error },
   );
 
   if (!task) return <></>;

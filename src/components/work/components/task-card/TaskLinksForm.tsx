@@ -32,7 +32,6 @@ export default function TaskLinksForm({ task }: TaskLinksFormProps) {
       createLink({ taskId: id, name, href }),
     {
       onSuccess: (newLink) => {
-        console.log("hi");
         queryClient.setQueryData<Task | undefined>(
           taskKeys.detail({ taskId: task.id, projectId: project?.id }),
           (prev) => {
@@ -42,7 +41,6 @@ export default function TaskLinksForm({ task }: TaskLinksFormProps) {
         );
       },
       onError: (e: any) => {
-        console.log("hello");
         openToast({
           status: "error",
           title: "문제 발생",

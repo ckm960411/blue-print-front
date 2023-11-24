@@ -37,7 +37,6 @@ export default function CalendarModal({
               onClose();
             }}
             inline
-            showWeek
             minDate={minDate ? new Date(minDate) : undefined}
             maxDate={maxDate ? new Date(maxDate) : undefined}
           />

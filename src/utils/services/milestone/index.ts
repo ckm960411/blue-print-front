@@ -48,6 +48,6 @@ export const updateMilestone = async (
 };
 
 export const deleteMilestone = async (id: number) => {
-  const { data } = await deleteCall(`milestone/${id}`);
+  const { data } = await deleteCall<Milestone>(`milestone/${id}`);
   return data;
 };

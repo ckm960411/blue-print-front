@@ -1,6 +1,6 @@
 "use client";
 
-import { QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { createMilestone } from "@/utils/services/milestone";
 import { useMutation, useQueryClient } from "react-query";
@@ -8,8 +8,7 @@ import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useRecoilValue } from "recoil";
 
-interface AddMilestoneButtonProps {}
-export default function AddMilestoneButton({}: AddMilestoneButtonProps) {
+export default function AddMilestoneButton() {
   const queryClient = useQueryClient();
   const project = useRecoilValue(projectState);
 
@@ -18,7 +17,7 @@ export default function AddMilestoneButton({}: AddMilestoneButtonProps) {
     (projectId?: number) => createMilestone(projectId),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
       },
       onError: console.error,
     },

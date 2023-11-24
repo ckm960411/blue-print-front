@@ -8,7 +8,7 @@ import { GrTask } from "react-icons/gr";
 
 import { Colors } from "@/utils/common/color";
 import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
-import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys } from "@/utils/common/query-keys";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
 import { Milestone, MilestoneWithContentCount } from "@/utils/types/milestone";
 
@@ -34,7 +34,7 @@ export default function MilestoneListCard({
     milestone.id,
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
         queryClient.setQueryData<Milestone | undefined>(
           milestoneKeys.detail(milestone.id, project?.id),
           (prev) => {

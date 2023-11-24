@@ -22,19 +22,7 @@ export const useUpdateMilestoneMutation = (
       updateMilestone(milestoneId, updateMilestoneReqDto),
     {
       onSuccess: (patchedMilestone) => {
-        queryClient.setQueryData<Milestone[] | undefined>(
-          milestoneKeys.list(project?.id),
-          (prev) => {
-            if (prev) {
-              return prev.map((milestone) =>
-                milestone.id === patchedMilestone.id
-                  ? patchedMilestone
-                  : milestone,
-              );
-            }
-            return prev;
-          },
-        );
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
         queryClient.setQueryData<Milestone | undefined>(
           milestoneKeys.detail(milestoneId, project?.id),
           (prev) => (prev ? { ...prev, ...patchedMilestone } : undefined),

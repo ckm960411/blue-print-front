@@ -5,7 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "react-query";
 import { BsTrash } from "react-icons/bs";
 
-import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { createLink, deleteLinkById } from "@/utils/services/link";
 import { CreateLinkReqDto } from "@/utils/services/link/dto/create-link.req.dto";
@@ -34,7 +34,7 @@ export default function MilestoneLinksForm({
       createLink({ milestoneId: id, name, href }),
     {
       onSuccess: (newLink) => {
-        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
         queryClient.setQueryData<Milestone | undefined>(
           milestoneKeys.detail(milestone.id, project?.id),
           (prev) => {
@@ -60,7 +60,7 @@ export default function MilestoneLinksForm({
     (id: number) => deleteLinkById(id),
     {
       onSuccess: (deletedLink) => {
-        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
         queryClient.setQueryData<Milestone | undefined>(
           milestoneKeys.detail(milestone.id, project?.id),
           (prev) => {

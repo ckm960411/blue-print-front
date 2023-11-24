@@ -1,21 +1,24 @@
+import { projectState } from "@/utils/recoil/store";
 import React from "react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { BsTrash } from "react-icons/bs";
 import { Tooltip } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "react-query";
 
-import { QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
 import { deleteMilestone } from "@/utils/services/milestone";
 import { Milestone } from "@/utils/types/milestone";
 import IconButton from "@/components/components/IconButton";
 import DeletePopup from "@/components/work/components/DeletePopup";
+import { useRecoilValue } from "recoil";
 
 interface MilestoneTrashButtonProps {
   milestone: Milestone;
 }
 export default function MilestoneTrashButton({
   milestone,
-}: MilestoneTrashButtonProps) {
+}: Readonly<MilestoneTrashButtonProps>) {
+  const project = useRecoilValue(projectState);
   const queryClient = useQueryClient();
 
   const {
@@ -29,7 +32,7 @@ export default function MilestoneTrashButton({
     (id: number) => deleteMilestone(id),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
         queryClient.invalidateQueries(QueryKeys.getAllTasks());
         queryClient.invalidateQueries(QueryKeys.getAllMemos());
       },

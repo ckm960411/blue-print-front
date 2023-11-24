@@ -13,7 +13,7 @@ import {
 import { useMutation, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 
-import { QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
 import { createTask, updateTask } from "@/utils/services/task";
@@ -35,7 +35,7 @@ export default function CreateUpdateTaskModal({
   task,
   type = "create",
   milestoneId,
-}: CreateUpdateTaskModalProps) {
+}: Readonly<CreateUpdateTaskModalProps>) {
   const { openToast } = useToastMessage();
   const queryClient = useQueryClient();
 
@@ -47,7 +47,7 @@ export default function CreateUpdateTaskModal({
   const onSuccess = () => {
     openToast({ title: "할일 작성 완료" });
     queryClient.invalidateQueries({ queryKey: QueryKeys.getAllTasks() });
-    queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+    queryClient.invalidateQueries(milestoneKeys.list(project?.id));
     queryClient.invalidateQueries(QueryKeys.getWorkCount(project?.id));
     onClose();
     if (type === "create") {

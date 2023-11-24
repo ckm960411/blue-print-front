@@ -8,7 +8,7 @@ import {
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
 
-import { QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllMilestonesV2 } from "@/utils/services/milestone";
 import { Progress } from "@/utils/types";
@@ -35,7 +35,7 @@ export default function MilestoneList({
   )(Object.entries(progressChecked));
 
   const { data: milestoneListData } = useQuery(
-    QueryKeys.getAllMilestones(project?.id, progresses, page),
+    [...milestoneKeys.list(project?.id), progresses, page],
     () =>
       getAllMilestonesV2({
         progresses,

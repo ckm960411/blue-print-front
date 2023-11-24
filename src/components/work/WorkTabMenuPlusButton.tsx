@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { FaPlus } from "react-icons/fa6";
 
-import { QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
 import { useMemoMutation } from "@/utils/hooks/memo/useMemoMutation";
 import { projectState } from "@/utils/recoil/store";
 import { createMilestone } from "@/utils/services/milestone";
@@ -31,7 +31,7 @@ export default function WorkTabMenuPlusButton({
     (projectId?: number) => createMilestone(projectId),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
         queryClient.invalidateQueries(QueryKeys.getWorkCount(project?.id));
       },
       onError: console.error,

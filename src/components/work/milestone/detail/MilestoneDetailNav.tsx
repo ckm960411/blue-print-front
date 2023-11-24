@@ -3,7 +3,7 @@ import DeletePopup from "@/components/work/components/DeletePopup";
 import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
 import MilestoneColorForm from "@/components/work/project-plan/MilestoneColorForm";
 
-import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys } from "@/utils/common/query-keys";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
 import { projectState } from "@/utils/recoil/store";
 import { deleteMilestone } from "@/utils/services/milestone";
@@ -43,15 +43,7 @@ export default function MilestoneDetailNav({
     milestone.id,
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
-        queryClient.setQueryData<Milestone | undefined>(
-          milestoneKeys.detail(milestone.id, project?.id),
-          (prev) => {
-            return prev
-              ? { ...prev, isBookmarked: !prev.isBookmarked }
-              : undefined;
-          },
-        );
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
       },
       onError: console.error,
     },
@@ -61,8 +53,11 @@ export default function MilestoneDetailNav({
     ["delete-milestone"],
     (id: number) => deleteMilestone(id),
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+      onSuccess: (deletedMilestone) => {
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
+        queryClient.removeQueries(
+          milestoneKeys.detail(milestone.id, project?.id),
+        );
       },
       onError: console.error,
     },

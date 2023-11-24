@@ -39,7 +39,7 @@ export const getOneTaskById = async (taskId: number) => {
 };
 
 export const createTask = async (createTaskReqDto: CreateTaskReqDto) => {
-  const { data } = await post(`task`, createTaskReqDto);
+  const { data } = await post<Task>(`task`, createTaskReqDto);
   return data;
 };
 
@@ -47,7 +47,7 @@ export const updateTask = async (
   id: number,
   updateTaskReqDto: UpdateTaskReqDto,
 ) => {
-  const { data } = await patch(`task/${id}`, updateTaskReqDto);
+  const { data } = await patch<Task>(`task/${id}`, updateTaskReqDto);
   return data;
 };
 

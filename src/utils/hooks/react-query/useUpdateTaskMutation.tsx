@@ -1,7 +1,8 @@
-import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys, taskKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { updateTask } from "@/utils/services/task";
 import { UpdateTaskReqDto } from "@/utils/services/task/dto/update-task.req.dto";
+import { Task } from "@/utils/types/task";
 import { omit } from "lodash";
 import { useMutation, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
@@ -18,8 +19,17 @@ export const useUpdateTaskMutation = (options?: {
     (updateTaskReqDto: UpdateTaskReqDto & { taskId: number }) =>
       updateTask(updateTaskReqDto.taskId, omit(updateTaskReqDto, "taskId")),
     {
-      onSuccess: (res) => {
-        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+      onSuccess: (patchedTask) => {
+        queryClient.invalidateQueries(
+          taskKeys.list({ projectId: project?.id }),
+        );
+        queryClient.setQueryData<Task | undefined>(
+          taskKeys.detail({ taskId: patchedTask.id, projectId: project?.id }),
+          (prev) => {
+            if (!prev) return prev;
+            return { ...prev, ...patchedTask };
+          },
+        );
         queryClient.invalidateQueries(milestoneKeys.list(project?.id));
         options?.onSuccess?.();
       },

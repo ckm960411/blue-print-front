@@ -5,7 +5,7 @@ import { BsTrash } from "react-icons/bs";
 import { Tooltip } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "react-query";
 
-import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys, QueryKeys, taskKeys } from "@/utils/common/query-keys";
 import { deleteMilestone } from "@/utils/services/milestone";
 import { Milestone } from "@/utils/types/milestone";
 import IconButton from "@/components/components/IconButton";
@@ -33,7 +33,9 @@ export default function MilestoneTrashButton({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(milestoneKeys.list(project?.id));
-        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+        queryClient.invalidateQueries(
+          taskKeys.list({ projectId: project?.id }),
+        );
         queryClient.invalidateQueries(QueryKeys.getAllMemos());
       },
       onError: console.error,

@@ -1,10 +1,11 @@
+import { Task } from "@/utils/types/task";
 import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 
 import { ColorKey } from "@/utils/common/color";
-import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys, taskKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { createTag, deleteTag, updateTag } from "@/utils/services/tag";
 import { CreateTagReqDto } from "@/utils/services/tag/dto/create-tag.req.dto";
@@ -62,7 +63,13 @@ export default function CreateUpdateTagForm({
     {
       onSuccess: (newTag) => {
         if (parentIdType === "taskId") {
-          queryClient.invalidateQueries(QueryKeys.getAllTasks());
+          queryClient.setQueryData<Task | undefined>(
+            taskKeys.detail({ taskId: parentId, projectId: project?.id }),
+            (prev) => {
+              if (!prev) return prev;
+              return { ...prev, tags: [...prev.tags, newTag] };
+            },
+          );
         } else {
           resetTag();
           queryClient.setQueryData<Milestone[] | undefined>(
@@ -98,7 +105,18 @@ export default function CreateUpdateTagForm({
     {
       onSuccess: (patchedTag) => {
         if (parentIdType === "taskId") {
-          queryClient.invalidateQueries(QueryKeys.getAllTasks());
+          queryClient.setQueryData<Task | undefined>(
+            taskKeys.detail({ taskId: parentId, projectId: project?.id }),
+            (prev) => {
+              if (!prev) return prev;
+              return {
+                ...prev,
+                tags: prev.tags.map((tag) =>
+                  tag.id === patchedTag.id ? patchedTag : tag,
+                ),
+              };
+            },
+          );
         } else {
           queryClient.setQueryData<Milestone[] | undefined>(
             milestoneKeys.list(project?.id),
@@ -143,7 +161,16 @@ export default function CreateUpdateTagForm({
     {
       onSuccess: (deletedTag) => {
         if (parentIdType === "taskId") {
-          queryClient.invalidateQueries(QueryKeys.getAllTasks());
+          queryClient.setQueryData<Task | undefined>(
+            taskKeys.detail({ taskId: parentId, projectId: project?.id }),
+            (prev) => {
+              if (!prev) return prev;
+              return {
+                ...prev,
+                tags: prev.tags.filter((tag) => tag.id !== deletedTag.id),
+              };
+            },
+          );
         } else {
           queryClient.setQueryData<Milestone[] | undefined>(
             milestoneKeys.list(project?.id),

@@ -22,7 +22,7 @@ export default function TaskStartAtForm({ task }: TaskStartAtFormProps) {
   const queryClient = useQueryClient();
   const project = useRecoilValue(projectState);
 
-  const { mutate: updateTaskRequest } = useUpdateTaskMutation(id, {
+  const { mutate: updateTaskRequest } = useUpdateTaskMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(QueryKeys.getThisMonthTasks());
     },
@@ -58,7 +58,7 @@ export default function TaskStartAtForm({ task }: TaskStartAtFormProps) {
         date={startAt}
         onClose={onClose}
         onUpdate={(startAt) =>
-          updateTaskRequest({ startAt, projectId: project?.id })
+          updateTaskRequest({ taskId: id, startAt, projectId: project?.id })
         }
         maxDate={endAt}
       />

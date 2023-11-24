@@ -3,8 +3,6 @@ import { omit } from "lodash";
 export const GET_ALL_MEMOS = "getAllMemos";
 const getAllMemos = (...args: any[]) => [GET_ALL_MEMOS, ...args];
 
-const getAllTasks = (...args: any[]) => ["get-all-tasks", ...args];
-
 const getThisMonthTasks = (...args: any[]) => ["get-this-month-tasks", ...args];
 
 const getAllProjects = (...args: any[]) => ["get-all-projects", ...args];
@@ -19,9 +17,6 @@ export const QueryKeys = {
 
   // MEMO
   getAllMemos,
-
-  // TASK
-  getAllTasks,
 
   // COMMENT
   getAllComments,
@@ -57,6 +52,7 @@ export const taskKeys = {
   details: (arg: TaskKeysAllArgs) => [...taskKeys.all(arg), "detail"] as const,
   detail: ({ taskId, ...rest }: TaskKeysAllArgs & { taskId: number }) =>
     [...taskKeys.details(omit(rest, "taskId")), taskId] as const,
+  urgent: (arg: TaskKeysAllArgs) => [...taskKeys.all(arg), "urgent"] as const,
 };
 
 type MemoKeysAllArgs = { projectId?: number; milestoneId?: number };

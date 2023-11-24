@@ -1,12 +1,14 @@
 import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
 import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
+import { projectState } from "@/utils/recoil/store";
 import React from "react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useMutation, useQueryClient } from "react-query";
 import { BsPencil, BsTrash } from "react-icons/bs";
+import { useRecoilValue } from "recoil";
 import { useBoolean } from "usehooks-ts";
 
-import { QueryKeys } from "@/utils/common/query-keys";
+import { QueryKeys, taskKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { deleteTask } from "@/utils/services/task";
 import { Task } from "@/utils/types/task";
@@ -18,6 +20,7 @@ interface TaskCardDropdownProps {
   task: Task;
 }
 export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
+  const project = useRecoilValue(projectState);
   const { openToast } = useToastMessage();
   const queryClient = useQueryClient();
 
@@ -42,7 +45,9 @@ export default function TaskCardDropdown({ task }: TaskCardDropdownProps) {
     (id: number) => deleteTask(id),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+        queryClient.invalidateQueries(
+          taskKeys.list({ projectId: project?.id }),
+        );
         queryClient.invalidateQueries(QueryKeys.getAllMemos());
         queryClient.invalidateQueries(QueryKeys.getThisMonthTasks());
       },

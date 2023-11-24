@@ -4,11 +4,14 @@ import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorit
 import TaskProgressForm from "@/components/work/components/task-card/TaskProgressForm";
 import TaskStartAtForm from "@/components/work/components/task-card/TaskStartAtForm";
 import TaskDetailHeader from "@/components/work/task/TaskDetailHeader";
+import { taskKeys } from "@/utils/common/query-keys";
+import { projectState } from "@/utils/recoil/store";
 import React from "react";
 import { Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/modal";
 import TaskDetailNav from "@/components/work/task/TaskDetailNav";
 import { getOneTaskById } from "@/utils/services/task";
 import { useQuery } from "react-query";
+import { useRecoilValue } from "recoil";
 
 interface TaskDetailDrawerProps {
   taskId: number;
@@ -22,8 +25,10 @@ export default function TaskDetailDrawer({
   onClose,
   milestoneTitle,
 }: Readonly<TaskDetailDrawerProps>) {
+  const project = useRecoilValue(projectState);
+
   const { data: task } = useQuery(
-    ["get-one-task", taskId],
+    taskKeys.detail({ taskId, projectId: project?.id }),
     () => getOneTaskById(taskId),
     {
       enabled: isOpen,

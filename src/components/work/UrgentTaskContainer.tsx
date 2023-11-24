@@ -1,8 +1,10 @@
 import TaskCard from "@/components/work/components/TaskCard";
-import { QueryKeys } from "@/utils/common/query-keys";
+import { taskKeys } from "@/utils/common/query-keys";
+import { projectState } from "@/utils/recoil/store";
 import { getAllUrgenttTasks } from "@/utils/services/task";
 import { useQuery } from "react-query";
 import React from "react";
+import { useRecoilValue } from "recoil";
 
 interface UrgentTaskContainerProps {
   milestoneId?: number;
@@ -10,10 +12,15 @@ interface UrgentTaskContainerProps {
 export default function UrgentTaskContainer({
   milestoneId,
 }: UrgentTaskContainerProps) {
+  const project = useRecoilValue(projectState);
+
   const { data: tasks = [] } = useQuery(
-    QueryKeys.getAllTasks("urgent", milestoneId),
-    () => getAllUrgenttTasks({ milestoneId }),
-    { onError: console.error },
+    taskKeys.urgent({ projectId: project?.id, milestoneId: milestoneId }),
+    () => {
+      if (!project) return Promise.reject("no project");
+      return getAllUrgenttTasks({ milestoneId });
+    },
+    { enabled: !!project, onError: console.error },
   );
 
   if (tasks.length === 0) return <></>;

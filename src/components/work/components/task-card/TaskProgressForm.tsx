@@ -31,14 +31,14 @@ export default function TaskProgressForm({ task }: TaskProgressFormProps) {
   const handleOpen = () => setEditing(true);
   const handleClose = () => setEditing(false);
 
-  const { mutate: updateTaskRequest } = useUpdateTaskMutation(task.id, {
+  const { mutate: updateTaskRequest } = useUpdateTaskMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(QueryKeys.getThisMonthTasks());
     },
   });
 
   const handleClick = (progress: Progress) => {
-    updateTaskRequest({ progress, projectId: project?.id });
+    updateTaskRequest({ taskId: task.id, progress, projectId: project?.id });
     handleClose();
   };
 

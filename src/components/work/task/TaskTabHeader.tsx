@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
-import { QueryKeys } from "@/utils/common/query-keys";
+import { QueryKeys, taskKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllTask } from "@/utils/services/task";
 
@@ -8,9 +8,12 @@ export default function TaskTabHeader() {
   const project = useRecoilValue(projectState);
 
   const { data: taskData } = useQuery(
-    QueryKeys.getAllTasks(project?.id),
-    () => getAllTask({ projectId: project?.id! }),
-    { onError: console.error },
+    taskKeys.list({ projectId: project?.id }),
+    () => {
+      if (!project) return Promise.reject("no project");
+      return getAllTask({ projectId: project.id });
+    },
+    { enabled: !!project, onError: console.error },
   );
 
   if (!taskData) return <></>;

@@ -24,7 +24,7 @@ export default function TaskPriorityForm({ task }: TaskPriorityFormProps) {
   const handleOpen = () => setEditing(true);
   const handleClose = () => setEditing(false);
 
-  const { mutate: updateTaskRequest } = useUpdateTaskMutation(id, {
+  const { mutate: updateTaskRequest } = useUpdateTaskMutation({
     onSuccess: handleClose,
     onError: (e) => {
       openToast({
@@ -54,7 +54,11 @@ export default function TaskPriorityForm({ task }: TaskPriorityFormProps) {
               <PriorityButton
                 key={priority}
                 onClick={() =>
-                  updateTaskRequest({ priority, projectId: project?.id })
+                  updateTaskRequest({
+                    taskId: id,
+                    priority,
+                    projectId: project?.id,
+                  })
                 }
                 priority={priority}
               />

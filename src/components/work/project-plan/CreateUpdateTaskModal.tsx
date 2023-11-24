@@ -13,7 +13,7 @@ import {
 import { useMutation, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
 
-import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys, QueryKeys, taskKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
 import { createTask, updateTask } from "@/utils/services/task";
@@ -46,9 +46,6 @@ export default function CreateUpdateTaskModal({
 
   const onSuccess = () => {
     openToast({ title: "할일 작성 완료" });
-    queryClient.invalidateQueries({ queryKey: QueryKeys.getAllTasks() });
-    queryClient.invalidateQueries(milestoneKeys.list(project?.id));
-    queryClient.invalidateQueries(QueryKeys.getWorkCount(project?.id));
     onClose();
     if (type === "create") {
       setTitle("");
@@ -80,14 +77,41 @@ export default function CreateUpdateTaskModal({
         milestoneId,
         projectId: project?.id,
       }),
-    { onSuccess, onError },
+    {
+      onSuccess: (newTask) => {
+        queryClient.setQueryData<Task[] | undefined>(
+          taskKeys.list({ projectId: project?.id, milestoneId }),
+          (prev) => (prev ? [...prev, newTask] : prev),
+        );
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
+        queryClient.invalidateQueries(QueryKeys.getWorkCount(project?.id));
+        onSuccess();
+      },
+      onError,
+    },
   );
 
   const { mutate: updateTaskRequest } = useMutation(
     ["update-task"],
     (updateTaskReqDto: UpdateTaskReqDto) =>
       updateTask(task!.id, updateTaskReqDto),
-    { onSuccess, onError },
+    {
+      onSuccess: (patchedTask) => {
+        queryClient.setQueryData<Task[] | undefined>(
+          taskKeys.list({ projectId: project?.id, milestoneId }),
+          (prev) => {
+            if (!prev) return prev;
+            return prev.map((task) =>
+              task.id === patchedTask.id ? patchedTask : task,
+            );
+          },
+        );
+        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
+        queryClient.invalidateQueries(QueryKeys.getWorkCount(project?.id));
+        onSuccess();
+      },
+      onError,
+    },
   );
 
   const handleConfirm = () => {

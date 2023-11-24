@@ -1,20 +1,23 @@
+import { projectState } from "@/utils/recoil/store";
 import React, { useState } from "react";
 import Link from "next/link";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "react-query";
 import { BsTrash } from "react-icons/bs";
 
-import { QueryKeys } from "@/utils/common/query-keys";
+import { taskKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { CreateLinkReqDto } from "@/utils/services/link/dto/create-link.req.dto";
 import { createLink, deleteLinkById } from "@/utils/services/link";
 import { Task } from "@/utils/types/task";
 import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
+import { useRecoilValue } from "recoil";
 
 interface TaskLinksFormProps {
   task: Task;
 }
 export default function TaskLinksForm({ task }: TaskLinksFormProps) {
+  const project = useRecoilValue(projectState);
   const { id, links } = task;
   const queryClient = useQueryClient();
   const { openToast } = useToastMessage();
@@ -28,10 +31,18 @@ export default function TaskLinksForm({ task }: TaskLinksFormProps) {
     ({ name, href }: CreateLinkReqDto) =>
       createLink({ taskId: id, name, href }),
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+      onSuccess: (newLink) => {
+        console.log("hi");
+        queryClient.setQueryData<Task | undefined>(
+          taskKeys.detail({ taskId: task.id, projectId: project?.id }),
+          (prev) => {
+            if (!prev) return prev;
+            return { ...prev, links: [...prev.links, newLink] };
+          },
+        );
       },
       onError: (e: any) => {
+        console.log("hello");
         openToast({
           status: "error",
           title: "문제 발생",
@@ -46,8 +57,17 @@ export default function TaskLinksForm({ task }: TaskLinksFormProps) {
     ["delete-link"],
     (id: number) => deleteLinkById(id),
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries(QueryKeys.getAllTasks());
+      onSuccess: (deletedLink) => {
+        queryClient.setQueryData<Task | undefined>(
+          taskKeys.detail({ taskId: task.id, projectId: project?.id }),
+          (prev) => {
+            if (!prev) return prev;
+            return {
+              ...prev,
+              links: prev.links.filter((link) => link.id !== deletedLink.id),
+            };
+          },
+        );
       },
       onError: (e: any) => {
         openToast({

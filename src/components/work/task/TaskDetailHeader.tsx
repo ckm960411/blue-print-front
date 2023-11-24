@@ -1,4 +1,4 @@
-import TaskTags from "@/components/work/components/task-card/TaskTags";
+import TagsForm from "@/components/work/components/form/TagsForm";
 import TaskDescriptionForm from "@/components/work/task/TaskDescriptionForm";
 import TaskTitleForm from "@/components/work/task/TaskTitleForm";
 import { Task } from "@/utils/types/task";
@@ -23,7 +23,7 @@ export default function TaskDetailHeader({
       )}
       <TaskTitleForm task={task} milestoneId={milestoneId} />
       <TaskDescriptionForm task={task} milestoneId={milestoneId} />
-      <TaskTags task={task} />
+      <TagsForm tags={task.tags} parentId={task.id} parentIdType="taskId" />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getWorkCountByProjectId } from "@/utils/services/work";
 import { isUndefined } from "lodash";
@@ -41,7 +42,7 @@ export default function WorkTabMenu({
   ];
 
   const { data: workCount } = useQuery(
-    ["get-work-count", project?.id],
+    QueryKeys.getWorkCount(project?.id),
     () => getWorkCountByProjectId(project?.id!),
     { enabled: !!project, onError: console.error },
   );

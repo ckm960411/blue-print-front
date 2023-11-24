@@ -11,9 +11,14 @@ const getMilestoneById = (id: number) => ["get-milestone-by-id", id];
 
 const getAllProjects = (...args: any[]) => ["get-all-projects", ...args];
 
-const getAllComments = (...args: any[]) => ["get-all-comments", args];
+const getAllComments = (...args: any[]) => ["get-all-comments", ...args];
+
+const getWorkCount = (...args: any[]) => ["get-work-count", ...args];
 
 export const QueryKeys = {
+  // WORK
+  getWorkCount,
+
   // MEMO
   getAllMemos,
 

@@ -1,8 +1,7 @@
-import TaskEndAtForm from "@/components/work/components/task-card/TaskEndAtForm";
+import DateForm from "@/components/work/components/form/DateForm";
 import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm";
 import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorityForm";
 import TaskProgressForm from "@/components/work/components/task-card/TaskProgressForm";
-import TaskStartAtForm from "@/components/work/components/task-card/TaskStartAtForm";
 import TaskContentForm from "@/components/work/task/TaskContentForm";
 import TaskDetailHeader from "@/components/work/task/TaskDetailHeader";
 import { taskKeys } from "@/utils/common/query-keys";
@@ -56,8 +55,20 @@ export default function TaskDetailDrawer({
         />
         <div className="flex flex-col gap-16px px-24px pt-16px">
           <TaskProgressForm task={task} milestoneId={milestoneId} />
-          <TaskStartAtForm task={task} />
-          <TaskEndAtForm task={task} milestoneId={milestoneId} />
+          <DateForm
+            startAt={task.startAt}
+            endAt={task.endAt}
+            dateType="startAt"
+            parentType="task"
+            parentId={task.id}
+          />
+          <DateForm
+            startAt={task.startAt}
+            endAt={task.endAt}
+            dateType="endAt"
+            parentType="task"
+            parentId={task.id}
+          />
           <TaskPriorityForm task={task} milestoneId={milestoneId} />
           <TaskLinksForm task={task} />
         </div>

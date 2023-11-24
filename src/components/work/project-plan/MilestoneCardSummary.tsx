@@ -1,13 +1,13 @@
 "use client";
 
+import DateForm from "@/components/work/components/form/DateForm";
 import TagsForm from "@/components/work/components/form/TagsForm";
-import MilestoneEndAtForm from "@/components/work/project-plan/MilestoneEndAtForm";
-import MilestoneStartAtForm from "@/components/work/project-plan/MilestoneStartAtForm";
 import MilestoneClassificationForm from "@/components/work/project-plan/MilestoneClassificationForm";
 import MilestonePriorityForm from "@/components/work/project-plan/MilestonePriorityForm";
 import MilestoneProgress from "@/components/work/project-plan/MilestoneProgress";
 import MilestoneLinksForm from "@/components/work/project-plan/MilestoneLinksForm";
 import { Milestone } from "@/utils/types/milestone";
+import React from "react";
 
 interface MilestoneCardSummaryProps {
   milestone: Milestone;
@@ -20,8 +20,20 @@ export default function MilestoneCardSummary({
       <MilestoneClassificationForm milestone={milestone} />
       <MilestoneProgress milestone={milestone} />
       <MilestonePriorityForm milestone={milestone} />
-      <MilestoneStartAtForm milestone={milestone} />
-      <MilestoneEndAtForm milestone={milestone} />
+      <DateForm
+        startAt={milestone.startAt}
+        endAt={milestone.endAt}
+        dateType="startAt"
+        parentType="milestone"
+        parentId={milestone.id}
+      />
+      <DateForm
+        startAt={milestone.startAt}
+        endAt={milestone.endAt}
+        dateType="endAt"
+        parentType="milestone"
+        parentId={milestone.id}
+      />
       <MilestoneLinksForm milestone={milestone} />
       <TagsForm
         tags={milestone.tags}

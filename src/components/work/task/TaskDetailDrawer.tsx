@@ -48,7 +48,7 @@ export default function TaskDetailDrawer({
     >
       <DrawerOverlay />
       <DrawerContent>
-        <TaskDetailNav task={task} />
+        <TaskDetailNav task={task} milestoneId={milestoneId} />
         <TaskDetailHeader
           task={task}
           milestoneTitle={milestoneTitle}

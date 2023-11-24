@@ -52,6 +52,6 @@ export const updateTask = async (
 };
 
 export const deleteTask = async (id: number) => {
-  const { data } = await deleteCall(`task/${id}`);
+  const { data } = await deleteCall<Task>(`task/${id}`);
   return data;
 };

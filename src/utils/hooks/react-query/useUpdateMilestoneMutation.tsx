@@ -19,7 +19,6 @@ export const useUpdateMilestoneMutation = (
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries(QueryKeys.getAllMilestones());
-        queryClient.invalidateQueries(QueryKeys.getMilestoneById(milestoneId));
         options?.onSuccess?.();
       },
       onError: (e: any) => {

@@ -38,3 +38,13 @@ export const QueryKeys = {
   // PROJECTS
   getAllProjects,
 };
+
+export const milestoneKeys = {
+  all: (projectId?: number) => ["milestones", projectId] as const,
+  list: (projectId?: number) =>
+    [...milestoneKeys.all(projectId), "list"] as const,
+  details: (projectId?: number) =>
+    [...milestoneKeys.all(projectId), "detail"] as const,
+  detail: (milestoneId: number, projectId?: number) =>
+    [...milestoneKeys.details(projectId), milestoneId] as const,
+};

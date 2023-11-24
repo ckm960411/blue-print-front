@@ -1,7 +1,10 @@
-import { QueryKeys } from "@/utils/common/query-keys";
+import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
+import { projectState } from "@/utils/recoil/store";
 import { updateMilestone } from "@/utils/services/milestone";
 import { UpdateMilestoneReqDto } from "@/utils/services/milestone/dto/update-milestone.req.dto";
+import { Milestone } from "@/utils/types/milestone";
 import { useMutation, useQueryClient } from "react-query";
+import { useRecoilValue } from "recoil";
 
 export const useUpdateMilestoneMutation = (
   milestoneId: number,
@@ -10,6 +13,7 @@ export const useUpdateMilestoneMutation = (
     onError?: (e?: any) => void;
   },
 ) => {
+  const project = useRecoilValue(projectState);
   const queryClient = useQueryClient();
 
   const mutationResult = useMutation(
@@ -17,8 +21,12 @@ export const useUpdateMilestoneMutation = (
     (updateMilestoneReqDto: UpdateMilestoneReqDto) =>
       updateMilestone(milestoneId, updateMilestoneReqDto),
     {
-      onSuccess: (res) => {
+      onSuccess: (patchedMilestone) => {
         queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.setQueryData<Milestone | undefined>(
+          milestoneKeys.detail(milestoneId, project?.id),
+          (prev) => (prev ? { ...prev, ...patchedMilestone } : undefined),
+        );
         options?.onSuccess?.();
       },
       onError: (e: any) => {

@@ -40,7 +40,10 @@ export const updateMilestone = async (
   id: number,
   updateMilestoneReqDto: UpdateMilestoneReqDto,
 ) => {
-  const { data } = await patch(`milestone/${id}`, updateMilestoneReqDto);
+  const { data } = await patch<Milestone>(
+    `milestone/${id}`,
+    updateMilestoneReqDto,
+  );
   return data;
 };
 

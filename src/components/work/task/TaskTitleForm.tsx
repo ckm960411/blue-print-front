@@ -33,18 +33,16 @@ export default function TaskTitleForm({ task }: TaskTitleFormProps) {
   };
 
   return (
-    <div className="mt-16px flex items-start gap-8px">
+    <div className="mt-8px flex items-start gap-8px">
       {isEditing ? (
         <input
           value={tempTitle}
           onChange={(e) => setTempTitle(e.target.value)}
-          placeholder="이름을 설정해주세요"
+          placeholder="할일 제목을 설정해주세요"
           className="max-w-[300px] grow rounded-md border border-gray-200 px-12px py-6px text-16px font-semibold text-gray-700"
         />
       ) : (
-        <div className="flex items-center gap-8px">
-          <p className="text-28px font-bold">{task.title}</p>
-        </div>
+        <p className="text-24px font-bold">{task.title}</p>
       )}
       <MilestoneEditButton
         onClick={handleEdit}

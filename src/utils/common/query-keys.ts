@@ -68,3 +68,8 @@ export const memoKeys = {
   detail: ({ memoId, ...rest }: MemoKeysAllArgs & { memoId: number }) =>
     [...memoKeys.details(rest), memoId] as const,
 };
+
+export const commentKeys = {
+  all: (arg: { projectId?: number; milestoneId?: number }) =>
+    ["comments", ...Object.values(arg)] as const,
+};

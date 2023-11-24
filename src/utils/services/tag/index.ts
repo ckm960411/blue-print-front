@@ -11,7 +11,8 @@ export const updateTag = async (
   tagId: number,
   updateTagReqDto: Partial<CreateTagReqDto>,
 ) => {
-  return await patch(`tag/${tagId}`, updateTagReqDto);
+  const { data } = await patch<Tag>(`tag/${tagId}`, updateTagReqDto);
+  return data;
 };
 
 export const deleteTag = async (id: number) => {

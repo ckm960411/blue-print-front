@@ -106,7 +106,46 @@ export default function CreateUpdateTagForm({
   const { mutate: updateTagRequest } = useMutation(
     ["update-tag"],
     (data: Partial<CreateTagReqDto>) => updateTag(tag!.id, data),
-    { onSuccess, onError },
+    {
+      onSuccess: (patchedTag) => {
+        if (parentIdType === "taskId") {
+          queryClient.invalidateQueries(QueryKeys.getAllTasks());
+        } else {
+          queryClient.setQueryData<Milestone[] | undefined>(
+            milestoneKeys.list(project?.id),
+            (prev) => {
+              if (prev) {
+                return prev.map((milestone) =>
+                  milestone.id === parentId
+                    ? {
+                        ...milestone,
+                        tags: milestone.tags.map((tag) =>
+                          tag.id === patchedTag.id ? patchedTag : tag,
+                        ),
+                      }
+                    : milestone,
+                );
+              }
+              return prev;
+            },
+          );
+          queryClient.setQueryData<Milestone | undefined>(
+            milestoneKeys.detail(parentId, project?.id),
+            (prev) => {
+              return prev
+                ? {
+                    ...prev,
+                    tags: prev.tags.map((tag) =>
+                      tag.id === patchedTag.id ? patchedTag : tag,
+                    ),
+                  }
+                : undefined;
+            },
+          );
+        }
+      },
+      onError,
+    },
   );
 
   const { mutate: deleteTagRequest } = useMutation(

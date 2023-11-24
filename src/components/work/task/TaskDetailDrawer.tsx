@@ -3,6 +3,7 @@ import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm"
 import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorityForm";
 import TaskProgressForm from "@/components/work/components/task-card/TaskProgressForm";
 import TaskStartAtForm from "@/components/work/components/task-card/TaskStartAtForm";
+import TaskContentForm from "@/components/work/task/TaskContentForm";
 import TaskDetailHeader from "@/components/work/task/TaskDetailHeader";
 import { taskKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
@@ -56,6 +57,8 @@ export default function TaskDetailDrawer({
           <TaskPriorityForm task={task} />
           <TaskLinksForm task={task} />
         </div>
+        <hr className="my-16px" />
+        <TaskContentForm task={task} />
       </DrawerContent>
     </Drawer>
   );

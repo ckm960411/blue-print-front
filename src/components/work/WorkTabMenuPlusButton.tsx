@@ -32,6 +32,7 @@ export default function WorkTabMenuPlusButton({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+        queryClient.invalidateQueries(QueryKeys.getWorkCount(project?.id));
       },
       onError: console.error,
     },
@@ -40,6 +41,7 @@ export default function WorkTabMenuPlusButton({
   const { mutate: createMemoRequest } = useMemoMutation({
     onSuccess: (data) => {
       queryClient.invalidateQueries(QueryKeys.getAllMemos());
+      queryClient.invalidateQueries(QueryKeys.getWorkCount(project?.id));
     },
     onError: console.error,
   });

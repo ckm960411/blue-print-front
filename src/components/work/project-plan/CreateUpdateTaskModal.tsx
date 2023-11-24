@@ -48,6 +48,7 @@ export default function CreateUpdateTaskModal({
     openToast({ title: "할일 작성 완료" });
     queryClient.invalidateQueries({ queryKey: QueryKeys.getAllTasks() });
     queryClient.invalidateQueries(QueryKeys.getAllMilestones());
+    queryClient.invalidateQueries(QueryKeys.getWorkCount(project?.id));
     onClose();
     if (type === "create") {
       setTitle("");

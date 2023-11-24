@@ -16,5 +16,6 @@ export const updateTag = async (
 };
 
 export const deleteTag = async (id: number) => {
-  return await deleteCall(`tag/${id}`);
+  const { data } = await deleteCall<Tag>(`tag/${id}`);
+  return data;
 };

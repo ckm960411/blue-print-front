@@ -39,17 +39,6 @@ export default function CreateUpdateTagForm({
     () => tag?.color ?? "slate",
   );
 
-  const onSuccess = () => {
-    if (parentIdType === "taskId") {
-      queryClient.invalidateQueries(QueryKeys.getAllTasks());
-    } else {
-      queryClient.invalidateQueries(QueryKeys.getAllMilestones());
-    }
-    if (type === "create") {
-      setTagName(tag?.name ?? "");
-      setTagColor(tag?.color ?? "slate");
-    }
-  };
   const resetTag = () => {
     setTagName(tag?.name ?? "");
     setTagColor(tag?.color ?? "slate");
@@ -151,7 +140,44 @@ export default function CreateUpdateTagForm({
   const { mutate: deleteTagRequest } = useMutation(
     ["delete-tag"],
     (id: number) => deleteTag(id),
-    { onSuccess, onError },
+    {
+      onSuccess: (deletedTag) => {
+        if (parentIdType === "taskId") {
+          queryClient.invalidateQueries(QueryKeys.getAllTasks());
+        } else {
+          queryClient.setQueryData<Milestone[] | undefined>(
+            milestoneKeys.list(project?.id),
+            (prev) => {
+              if (prev) {
+                return prev.map((milestone) =>
+                  milestone.id === parentId
+                    ? {
+                        ...milestone,
+                        tags: milestone.tags.filter(
+                          (tag) => tag.id !== deletedTag.id,
+                        ),
+                      }
+                    : milestone,
+                );
+              }
+              return prev;
+            },
+          );
+          queryClient.setQueryData<Milestone | undefined>(
+            milestoneKeys.detail(parentId, project?.id),
+            (prev) => {
+              return prev
+                ? {
+                    ...prev,
+                    tags: prev.tags.filter((tag) => tag.id !== deletedTag.id),
+                  }
+                : undefined;
+            },
+          );
+        }
+      },
+      onError,
+    },
   );
 
   const handleConfirm = () => {

@@ -1,4 +1,4 @@
-import CreateUpdateTagForm from "@/components/work/components/task-card/CreateUpdateTagForm";
+import CreateUpdateTagForm from "@/components/work/components/form/CreateUpdateTagForm";
 import { Colors } from "@/utils/common/color";
 import { Tag } from "@/utils/types/tag.index";
 import React from "react";

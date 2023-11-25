@@ -9,7 +9,7 @@ import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMu
 import { projectState } from "@/utils/recoil/store";
 import { Priority } from "@/utils/types";
 
-import PriorityButton from "@/components/work/components/PriorityButton";
+import PriorityButton from "@/components/work/components/form/PriorityButton";
 
 interface PriorityFormProps {
   parentType: "milestone" | "task";

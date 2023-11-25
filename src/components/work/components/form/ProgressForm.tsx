@@ -5,8 +5,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 
 import { Colors } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
-import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
-import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
+import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/work/milestone/useUpdateMilestoneMutation";
+import { useUpdateTaskMutation } from "@/utils/hooks/react-query/work/task/useUpdateTaskMutation";
 import { projectState } from "@/utils/recoil/store";
 import { Progress } from "@/utils/types";
 

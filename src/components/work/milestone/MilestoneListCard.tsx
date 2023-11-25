@@ -9,11 +9,11 @@ import { GrTask } from "react-icons/gr";
 import { Colors } from "@/utils/common/color";
 import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
 import { milestoneKeys } from "@/utils/common/query-keys";
-import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
+import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/work/milestone/useUpdateMilestoneMutation";
 import { Milestone, MilestoneWithContentCount } from "@/utils/types/milestone";
 
 import IconButton from "@/components/components/IconButton";
-import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilestoneEmoji";
+import ProjectMilestoneEmoji from "@/components/work/milestone/ProjectMilestoneEmoji";
 import { useRecoilValue } from "recoil";
 
 interface MilestoneListCardProps {

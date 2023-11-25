@@ -3,7 +3,7 @@
 import ColorPicker from "@/components/components/ColorPicker";
 import { ColorKey } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
-import { useMemoMutation } from "@/utils/hooks/memo/useMemoMutation";
+import { useCreateMemoMutation } from "@/utils/hooks/react-query/work/memo/useCreateMemoMutation";
 import { projectState } from "@/utils/recoil/store";
 import { useQueryClient } from "react-query";
 import dynamic from "next/dynamic";
@@ -36,7 +36,7 @@ export default function CreateMemoForm({
   const [content, setContent] = useState("");
   const [color, setColor] = useState<ColorKey>(DEFAULT_COLOR);
 
-  const { mutate } = useMemoMutation({
+  const { mutate } = useCreateMemoMutation({
     onSuccess: (data) => {
       queryClient.invalidateQueries(QueryKeys.getAllMemos(false));
       setTitle("");

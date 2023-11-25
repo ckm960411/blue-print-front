@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useNotionBlockList } from "@/utils/hooks/react-query/useNotionBlockList";
+import { useNotionBlockList } from "@/utils/hooks/react-query/study/notion/useNotionBlockList";
 import { Block } from "@/utils/types/notion";
 import ColumnBlock from "@/components/notion/ColumnBlock";
 

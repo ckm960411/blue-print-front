@@ -1,6 +1,6 @@
 import DeletePopup from "@/components/work/components/DeletePopup";
 import { milestoneKeys, QueryKeys, taskKeys } from "@/utils/common/query-keys";
-import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
+import { useUpdateTaskMutation } from "@/utils/hooks/react-query/work/task/useUpdateTaskMutation";
 import { projectState } from "@/utils/recoil/store";
 import { deleteTask } from "@/utils/services/task";
 import { useDisclosure } from "@chakra-ui/hooks";

@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, TableContainer, Tbody, Th, Tr } from "@chakra-ui/react";
 
-import { useNotionBlockList } from "@/utils/hooks/react-query/useNotionBlockList";
+import { useNotionBlockList } from "@/utils/hooks/react-query/study/notion/useNotionBlockList";
 import { Block } from "@/utils/types/notion";
 import RichText from "@/components/notion/RichText";
 

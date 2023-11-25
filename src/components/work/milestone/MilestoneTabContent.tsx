@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import MilestoneDetail from "@/components/work/milestone/MilestoneDetail";
+import MilestoneDetail from "@/components/work/milestone/detail/MilestoneDetail";
 import MilestoneList from "@/components/work/milestone/MilestoneList";
 import { ProgressChecked } from "@/components/work/milestone/MilestoneTab";
 

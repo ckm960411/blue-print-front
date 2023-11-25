@@ -1,4 +1,4 @@
-import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
+import { useUpdateTaskMutation } from "@/utils/hooks/react-query/work/task/useUpdateTaskMutation";
 import { projectState } from "@/utils/recoil/store";
 import { Task } from "@/utils/types/task";
 import dynamic from "next/dynamic";

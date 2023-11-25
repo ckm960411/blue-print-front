@@ -4,8 +4,8 @@ import { useBoolean } from "usehooks-ts";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
-import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
-import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
+import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/work/milestone/useUpdateMilestoneMutation";
+import { useUpdateTaskMutation } from "@/utils/hooks/react-query/work/task/useUpdateTaskMutation";
 import { projectState } from "@/utils/recoil/store";
 import { Priority } from "@/utils/types";
 

@@ -1,25 +1,25 @@
-"use client";
-
 import React from "react";
 
 import { useMilestoneByIdQuery } from "@/utils/hooks/react-query/work/milestone/useMilestoneByIdQuery";
 
-import MilestoneDetailTabs from "@/components/work/milestone/detail/MilestoneDetailTabs";
-import MilestoneDetailHeader from "@/components/work/milestone/detail/MilestoneDetailHeader";
 import MilestoneDetailProperties from "@/components/work/milestone/detail/MilestoneDetailProperties";
+import MilestoneDetailTabs from "@/components/work/milestone/detail/MilestoneDetailTabs";
+import MilestoneDetailNav from "@/components/work/milestone/detail/MilestoneDetailNav";
+import MilestoneDetailHeader from "@/components/work/milestone/detail/MilestoneDetailHeader";
 
-interface MilestonePageProps {
-  params: { milestoneId: number };
+interface MilestoneDetailProps {
+  milestoneId: number;
 }
-export default function MilestonePage({
-  params: { milestoneId },
-}: Readonly<MilestonePageProps>) {
+export default function MilestoneDetail({
+  milestoneId,
+}: Readonly<MilestoneDetailProps>) {
   const { data: milestone } = useMilestoneByIdQuery(milestoneId);
 
   if (!milestone) return <></>;
 
   return (
-    <div>
+    <div className="h-full rounded-md border border-gray-200 shadow-md">
+      <MilestoneDetailNav milestone={milestone} />
       <div
         className="h-full px-32px py-40px"
         style={{

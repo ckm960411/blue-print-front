@@ -1,4 +1,4 @@
-import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSummary";
+import MilestoneCardSummary from "@/components/work/milestone/MilestoneCardSummary";
 import { Milestone } from "@/utils/types/milestone";
 import React from "react";
 

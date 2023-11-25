@@ -3,9 +3,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 
 import { Tag } from "@/utils/types/tag.index";
 import { ColorKey } from "@/utils/common/color";
-import { useCreateTagMutation } from "@/utils/hooks/react-query/useCreateTagMutation";
-import { useUpdateTagMutation } from "@/utils/hooks/react-query/useUpdateTagMutation";
-import { useDeleteTagMutation } from "@/utils/hooks/react-query/useDeleteTagMutation";
+import { useCreateTagMutation } from "@/utils/hooks/react-query/work/tag/useCreateTagMutation";
+import { useUpdateTagMutation } from "@/utils/hooks/react-query/work/tag/useUpdateTagMutation";
+import { useDeleteTagMutation } from "@/utils/hooks/react-query/work/tag/useDeleteTagMutation";
 
 import ColorPicker from "@/components/components/ColorPicker";
 

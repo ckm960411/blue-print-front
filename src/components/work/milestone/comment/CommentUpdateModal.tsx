@@ -1,6 +1,6 @@
 import { QueryKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
-import { useUpdateCommentMutation } from "@/utils/hooks/react-query/useUpdateCommentMutation";
+import { useUpdateCommentMutation } from "@/utils/hooks/react-query/work/comment/useUpdateCommentMutation";
 import { Comment } from "@/utils/types/comment";
 import {
   Modal,

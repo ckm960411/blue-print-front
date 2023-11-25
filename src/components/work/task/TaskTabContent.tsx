@@ -9,7 +9,7 @@ import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
 import { taskKeys } from "@/utils/common/query-keys";
-import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
+import { useUpdateTaskMutation } from "@/utils/hooks/react-query/work/task/useUpdateTaskMutation";
 import { projectState } from "@/utils/recoil/store";
 import { getAllTask } from "@/utils/services/task";
 import { Progress } from "@/utils/types";

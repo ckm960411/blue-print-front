@@ -5,12 +5,12 @@ import { useDisclosure } from "@chakra-ui/hooks";
 import { FaPlus } from "react-icons/fa6";
 
 import { milestoneKeys, QueryKeys } from "@/utils/common/query-keys";
-import { useMemoMutation } from "@/utils/hooks/memo/useMemoMutation";
+import { useCreateMemoMutation } from "@/utils/hooks/react-query/work/memo/useCreateMemoMutation";
 import { projectState } from "@/utils/recoil/store";
 import { createMilestone } from "@/utils/services/milestone";
 
 import { WorkTab } from "@/app/work/page";
-import CreateUpdateTaskModal from "@/components/work/project-plan/CreateUpdateTaskModal";
+import CreateUpdateTaskModal from "@/components/work/components/CreateUpdateTaskModal";
 
 interface WorkTabMenuPlusButtonProps {
   workTab: WorkTab;
@@ -38,7 +38,7 @@ export default function WorkTabMenuPlusButton({
     },
   );
 
-  const { mutate: createMemoRequest } = useMemoMutation({
+  const { mutate: createMemoRequest } = useCreateMemoMutation({
     onSuccess: (data) => {
       queryClient.invalidateQueries(QueryKeys.getAllMemos());
       queryClient.invalidateQueries(QueryKeys.getWorkCount(project?.id));

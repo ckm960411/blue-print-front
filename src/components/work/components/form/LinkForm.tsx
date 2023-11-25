@@ -4,8 +4,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
 
 import { Link } from "@/utils/types";
-import { useCreateLinkMutation } from "@/utils/hooks/react-query/useCreateLinkMutation";
-import { useDeleteLinkMutation } from "@/utils/hooks/react-query/useDeleteLinkMutation";
+import { useCreateLinkMutation } from "@/utils/hooks/react-query/work/link/useCreateLinkMutation";
+import { useDeleteLinkMutation } from "@/utils/hooks/react-query/work/link/useDeleteLinkMutation";
 
 import EditButton from "@/components/work/components/form/EditButton";
 

@@ -1,14 +1,16 @@
-import ProjectMilestoneEmoji from "@/components/work/project-plan/ProjectMilestoneEmoji";
-import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
-import { Colors } from "@/utils/common/color";
-import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
-import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
-import { projectState } from "@/utils/recoil/store";
-import { Milestone } from "@/utils/types/milestone";
 import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 import { HiLink } from "react-icons/hi";
 import { IoCalendarClearOutline } from "react-icons/io5";
-import { useRecoilValue } from "recoil";
+
+import { Colors } from "@/utils/common/color";
+import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
+import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/work/milestone/useUpdateMilestoneMutation";
+import { projectState } from "@/utils/recoil/store";
+import { Milestone } from "@/utils/types/milestone";
+
+import EditButton from "@/components/work/components/form/EditButton";
+import ProjectMilestoneEmoji from "@/components/work/milestone/ProjectMilestoneEmoji";
 
 interface MilestoneDetailHeaderProps {
   milestone: Milestone;
@@ -68,7 +70,7 @@ export default function MilestoneDetailHeader({
             <p className="text-28px font-bold">{milestone.title}</p>
           </div>
         )}
-        <MilestoneEditButton
+        <EditButton
           onClick={handleEdit}
           w={24}
           className="text-14px"

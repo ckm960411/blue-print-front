@@ -1,6 +1,6 @@
 import React from "react";
-import ProjectMoreButton from "@/components/work/ProjectMoreButton";
-import ProjectSelect from "@/components/work/ProjectSelect";
+import ProjectMoreButton from "@/components/work/project/ProjectMoreButton";
+import ProjectSelect from "@/components/work/project/ProjectSelect";
 
 export default function WorkPageHeader() {
   return (

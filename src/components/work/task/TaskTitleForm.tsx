@@ -1,5 +1,5 @@
-import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
-import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
+import EditButton from "@/components/work/components/form/EditButton";
+import { useUpdateTaskMutation } from "@/utils/hooks/react-query/work/task/useUpdateTaskMutation";
 import { projectState } from "@/utils/recoil/store";
 import { Task } from "@/utils/types/task";
 import React, { useState } from "react";
@@ -48,7 +48,7 @@ export default function TaskTitleForm({
       ) : (
         <p className="text-24px font-bold">{task.title}</p>
       )}
-      <MilestoneEditButton
+      <EditButton
         onClick={handleEdit}
         w={24}
         className="text-14px"

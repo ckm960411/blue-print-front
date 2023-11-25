@@ -23,7 +23,10 @@ export const useUpdateTagMutation = ({
 
   return useMutation(
     ["update-tag"],
-    (data: Partial<CreateTagReqDto>) => updateTag(tagId!, data),
+    (data: Partial<CreateTagReqDto>) => {
+      if (!tagId) return Promise.reject("no tagId");
+      return updateTag(tagId, data);
+    },
     {
       onSuccess: (patchedTag) => {
         switch (parentType) {

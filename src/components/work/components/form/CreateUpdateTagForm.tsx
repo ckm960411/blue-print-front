@@ -47,7 +47,7 @@ export default function CreateUpdateTagForm({
   const { mutate: updateTagRequest } = useUpdateTagMutation({
     parentType,
     parentId,
-    tagId: tag!.id,
+    tagId: tag?.id,
   });
 
   const { mutate: deleteTagRequest } = useDeleteTagMutation({

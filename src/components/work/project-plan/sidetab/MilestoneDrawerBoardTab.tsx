@@ -1,4 +1,4 @@
-import MilestoneCommentContainer from "@/components/work/project-plan/milestone/MilestoneCommentContainer";
+import MilestoneCommentContainer from "@/components/work/milestone/comment/MilestoneCommentContainer";
 import { Milestone } from "@/utils/types/milestone";
 import { TabPanel } from "@chakra-ui/tabs";
 import React from "react";

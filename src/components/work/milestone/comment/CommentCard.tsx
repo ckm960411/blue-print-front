@@ -1,9 +1,9 @@
 import DeletePopup from "@/components/work/components/DeletePopup";
 import DropdownMenu from "@/components/work/components/DropdownMenu";
 import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
-import CommentCardBookmark from "@/components/work/project-plan/milestone/CommentCardBookmark";
-import CommentCardCheck from "@/components/work/project-plan/milestone/CommentCardCheck";
-import CommentUpdateModal from "@/components/work/project-plan/milestone/CommentUpdateModal";
+import CommentCardBookmark from "@/components/work/milestone/comment/CommentCardBookmark";
+import CommentCardCheck from "@/components/work/milestone/comment/CommentCardCheck";
+import CommentUpdateModal from "@/components/work/milestone/comment/CommentUpdateModal";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { deleteComment } from "@/utils/services/comment";

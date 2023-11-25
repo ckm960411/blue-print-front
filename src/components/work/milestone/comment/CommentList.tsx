@@ -1,4 +1,4 @@
-import CommentCard from "@/components/work/project-plan/milestone/CommentCard";
+import CommentCard from "@/components/work/milestone/comment/CommentCard";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { getAllComments } from "@/utils/services/comment";
 import { useQuery } from "react-query";

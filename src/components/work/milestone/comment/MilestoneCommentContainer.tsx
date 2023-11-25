@@ -1,5 +1,5 @@
-import CommentList from "@/components/work/project-plan/milestone/CommentList";
-import CreateCommentForm from "@/components/work/project-plan/milestone/CreateCommentForm";
+import CommentList from "@/components/work/milestone/comment/CommentList";
+import CreateCommentForm from "@/components/work/milestone/comment/CreateCommentForm";
 import { Milestone } from "@/utils/types/milestone";
 import { useState } from "react";
 

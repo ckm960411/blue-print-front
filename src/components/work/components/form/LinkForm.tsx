@@ -7,7 +7,7 @@ import { Link } from "@/utils/types";
 import { useCreateLinkMutation } from "@/utils/hooks/react-query/useCreateLinkMutation";
 import { useDeleteLinkMutation } from "@/utils/hooks/react-query/useDeleteLinkMutation";
 
-import MilestoneEditButton from "@/components/work/project-plan/tooltip-button/MilestoneEditButton";
+import EditButton from "@/components/work/components/form/EditButton";
 
 interface LinkFormProps {
   parentType: "milestone" | "task";
@@ -73,7 +73,7 @@ export default function LinkForm({
                 ))}
               </div>
             )}
-            <MilestoneEditButton
+            <EditButton
               w={24}
               onClick={handleOpen}
               className="text-14px"

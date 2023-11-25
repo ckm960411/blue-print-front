@@ -20,7 +20,7 @@ export default function MilestoneDetailMemoContainer({
   const project = useRecoilValue(projectState);
 
   const { data: memos = [] } = useQuery(
-    [...memoKeys.list({ projectId: project?.id, milestoneId }), showChecked],
+    memoKeys.list({ projectId: project?.id, milestoneId, showChecked }),
     () =>
       getAllMemos({
         checked: showChecked,

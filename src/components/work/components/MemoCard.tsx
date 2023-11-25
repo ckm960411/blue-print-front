@@ -12,7 +12,7 @@ import {
 
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
-import { GET_ALL_MEMOS } from "@/utils/common/query-keys";
+import { GET_ALL_MEMOS, memoKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
 import {
@@ -51,8 +51,20 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
     ({ id, ...data }: { id: number } & UpdateMemoReqDto) =>
       updateMemo(id, data),
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries([GET_ALL_MEMOS]);
+      onSuccess: (patchedMemo) => {
+        queryClient.setQueryData<Memo[] | undefined>(
+          memoKeys.list({
+            milestoneId: memo.milestoneId ?? undefined,
+            projectId: project?.id,
+          }),
+          (prev) => {
+            console.log("prev: ", prev);
+            if (!prev) return prev;
+            return prev.map((memo) =>
+              memo.id === patchedMemo?.id ? patchedMemo : memo,
+            );
+          },
+        );
       },
       onError: (e: any) => {
         openToast({

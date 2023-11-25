@@ -55,7 +55,11 @@ export const taskKeys = {
   urgent: (arg: TaskKeysAllArgs) => [...taskKeys.all(arg), "urgent"] as const,
 };
 
-type MemoKeysAllArgs = { projectId?: number; milestoneId?: number };
+type MemoKeysAllArgs = {
+  projectId?: number;
+  milestoneId?: number;
+  showChecked?: boolean;
+};
 export const memoKeys = {
   all: (arg: MemoKeysAllArgs) => ["memos", ...Object.values(arg)] as const,
   list: (arg: MemoKeysAllArgs) => [...memoKeys.all(arg), "list"] as const,

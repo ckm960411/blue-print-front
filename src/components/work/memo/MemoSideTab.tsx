@@ -29,10 +29,11 @@ export default function MemoSideTab({
   const [showChecked, setShowChecked] = useState(false);
 
   const { data: memos } = useQuery(
-    [
-      ...memoKeys.list({ projectId: project?.id, milestoneId: undefined }),
+    memoKeys.list({
+      projectId: project?.id,
+      milestoneId: undefined,
       showChecked,
-    ],
+    }),
     () => getAllMemos({ projectId: project?.id, checked: showChecked }),
     {
       enabled: !!project,

@@ -1,4 +1,3 @@
-import PriorityForm from "@/components/work/components/form/PriorityForm";
 import React from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
@@ -8,9 +7,10 @@ import { taskKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getOneTaskById } from "@/utils/services/task";
 
+import LinkForm from "@/components/work/components/form/LinkForm";
+import PriorityForm from "@/components/work/components/form/PriorityForm";
 import DateForm from "@/components/work/components/form/DateForm";
 import ProgressForm from "@/components/work/components/form/ProgressForm";
-import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm";
 import TaskContentForm from "@/components/work/task/TaskContentForm";
 import TaskDetailHeader from "@/components/work/task/TaskDetailHeader";
 import TaskDetailNav from "@/components/work/task/TaskDetailNav";
@@ -39,7 +39,7 @@ export default function TaskDetailDrawer({
 
   if (!task) return <></>;
 
-  const { id, progress, startAt, endAt, priority } = task;
+  const { id, progress, startAt, endAt, priority, links } = task;
 
   return (
     <Drawer
@@ -74,7 +74,7 @@ export default function TaskDetailDrawer({
             parentId={id}
           />
           <PriorityForm parentType="task" parentId={id} priority={priority} />
-          <TaskLinksForm task={task} />
+          <LinkForm parentType="task" parentId={id} links={links} />
         </div>
         <hr className="my-16px" />
         <TaskContentForm task={task} />

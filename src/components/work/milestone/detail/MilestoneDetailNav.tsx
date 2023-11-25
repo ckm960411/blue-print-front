@@ -1,6 +1,6 @@
 import IconButton from "@/components/components/IconButton";
 import DeletePopup from "@/components/work/components/DeletePopup";
-import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
+import DropdownMenu from "@/components/work/components/DropdownMenu";
 import MilestoneColorForm from "@/components/work/project-plan/MilestoneColorForm";
 
 import { milestoneKeys } from "@/utils/common/query-keys";

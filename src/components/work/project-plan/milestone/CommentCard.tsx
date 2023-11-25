@@ -1,5 +1,5 @@
 import DeletePopup from "@/components/work/components/DeletePopup";
-import DropdownMenu from "@/components/work/components/task-card/DropdownMenu";
+import DropdownMenu from "@/components/work/components/DropdownMenu";
 import VerticalDotsButton from "@/components/work/components/VerticalDotsButton";
 import CommentCardBookmark from "@/components/work/project-plan/milestone/CommentCardBookmark";
 import CommentCardCheck from "@/components/work/project-plan/milestone/CommentCardCheck";

@@ -1,12 +1,8 @@
 "use client";
 
 import React from "react";
-import { useQuery } from "react-query";
-import { useRecoilValue } from "recoil";
 
-import { projectState } from "@/utils/recoil/store";
-import { milestoneKeys } from "@/utils/common/query-keys";
-import { getMilestoneById } from "@/utils/services/milestone";
+import { useMilestoneByIdQuery } from "@/utils/hooks/react-query/useMilestoneByIdQuery";
 
 import MilestoneDrawerTabs from "@/components/work/project-plan/sidetab/MilestoneDrawerTabs";
 import MilestoneDetailHeader from "@/components/work/milestone/detail/MilestoneDetailHeader";
@@ -18,13 +14,7 @@ interface MilestonePageProps {
 export default function MilestonePage({
   params: { milestoneId },
 }: Readonly<MilestonePageProps>) {
-  const project = useRecoilValue(projectState);
-
-  const { data: milestone } = useQuery(
-    milestoneKeys.detail(milestoneId, project?.id),
-    () => getMilestoneById(milestoneId),
-    { onError: console.error },
-  );
+  const { data: milestone } = useMilestoneByIdQuery(milestoneId);
 
   if (!milestone) return <></>;
 

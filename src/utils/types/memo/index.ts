@@ -1,3 +1,5 @@
+import { ColorKey } from "@/utils/common/color";
+
 export interface Memo {
   id: number;
   createdAt: Date | string;
@@ -7,7 +9,7 @@ export interface Memo {
   content: string;
   isChecked: boolean;
   isBookmarked: boolean;
-  color?: string;
+  color: ColorKey;
   milestoneId: number | null;
   projectId: number | null;
 }

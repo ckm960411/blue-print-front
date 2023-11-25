@@ -1,7 +1,10 @@
+import React from "react";
 import { format } from "date-fns";
 import { FaRegCalendar, FaRegStickyNote } from "react-icons/fa";
+
 import { ColorKey, Colors } from "@/utils/common/color";
 import { Memo } from "@/utils/types/memo";
+import ColorForm from "@/components/work/components/ColorForm";
 
 interface MemoContentProps {
   memo: Memo | null;
@@ -23,7 +26,10 @@ export default function MemoContent({ memo }: Readonly<MemoContentProps>) {
         backgroundColor: Colors[memo.color as ColorKey][50],
       }}
     >
-      <p className="text-22px font-bold leading-[150%]">{memo.title}</p>
+      <div>
+        <ColorForm initialColor={memo.color} onConfirm={() => {}} />
+        <p className="text-22px font-bold leading-[150%]">{memo.title}</p>
+      </div>
       <div className="flex items-center gap-4px text-gray-600">
         <FaRegCalendar />
         <span className="text-14px">

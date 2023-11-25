@@ -1,3 +1,4 @@
+import PriorityForm from "@/components/work/components/form/PriorityForm";
 import React from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
@@ -10,7 +11,6 @@ import { getOneTaskById } from "@/utils/services/task";
 import DateForm from "@/components/work/components/form/DateForm";
 import ProgressForm from "@/components/work/components/form/ProgressForm";
 import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm";
-import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorityForm";
 import TaskContentForm from "@/components/work/task/TaskContentForm";
 import TaskDetailHeader from "@/components/work/task/TaskDetailHeader";
 import TaskDetailNav from "@/components/work/task/TaskDetailNav";
@@ -39,6 +39,8 @@ export default function TaskDetailDrawer({
 
   if (!task) return <></>;
 
+  const { id, progress, startAt, endAt, priority } = task;
+
   return (
     <Drawer
       id="task-list-card-drawer"
@@ -56,26 +58,22 @@ export default function TaskDetailDrawer({
           milestoneId={milestoneId}
         />
         <div className="flex flex-col gap-16px px-24px pt-16px">
-          <ProgressForm
-            parentType="task"
-            parentId={task.id}
-            progress={task.progress}
-          />
+          <ProgressForm parentType="task" parentId={id} progress={progress} />
           <DateForm
-            startAt={task.startAt}
-            endAt={task.endAt}
+            startAt={startAt}
+            endAt={endAt}
             dateType="startAt"
             parentType="task"
-            parentId={task.id}
+            parentId={id}
           />
           <DateForm
-            startAt={task.startAt}
-            endAt={task.endAt}
+            startAt={startAt}
+            endAt={endAt}
             dateType="endAt"
             parentType="task"
-            parentId={task.id}
+            parentId={id}
           />
-          <TaskPriorityForm task={task} milestoneId={milestoneId} />
+          <PriorityForm parentType="task" parentId={id} priority={priority} />
           <TaskLinksForm task={task} />
         </div>
         <hr className="my-16px" />

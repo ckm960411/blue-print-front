@@ -1,10 +1,10 @@
 "use client";
 
 import DateForm from "@/components/work/components/form/DateForm";
+import PriorityForm from "@/components/work/components/form/PriorityForm";
 import ProgressForm from "@/components/work/components/form/ProgressForm";
 import TagsForm from "@/components/work/components/form/TagsForm";
 import MilestoneClassificationForm from "@/components/work/project-plan/MilestoneClassificationForm";
-import MilestonePriorityForm from "@/components/work/project-plan/MilestonePriorityForm";
 import MilestoneLinksForm from "@/components/work/project-plan/MilestoneLinksForm";
 import { Milestone } from "@/utils/types/milestone";
 import React from "react";
@@ -15,13 +15,13 @@ interface MilestoneCardSummaryProps {
 export default function MilestoneCardSummary({
   milestone,
 }: Readonly<MilestoneCardSummaryProps>) {
-  const { id, progress, startAt, endAt, tags } = milestone;
+  const { id, progress, startAt, endAt, tags, priority } = milestone;
 
   return (
     <div className="flex flex-col gap-16px">
       <MilestoneClassificationForm milestone={milestone} />
       <ProgressForm parentType="milestone" parentId={id} progress={progress} />
-      <MilestonePriorityForm milestone={milestone} />
+      <PriorityForm parentType="milestone" parentId={id} priority={priority} />
       <DateForm
         startAt={startAt}
         endAt={endAt}

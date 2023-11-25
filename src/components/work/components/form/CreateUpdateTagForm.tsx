@@ -1,18 +1,11 @@
-import { Task } from "@/utils/types/task";
 import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "react-query";
-import { useRecoilValue } from "recoil";
 
+import { Tag } from "@/utils/types/tag.index";
 import { ColorKey } from "@/utils/common/color";
-import { milestoneKeys, taskKeys } from "@/utils/common/query-keys";
-import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
-import { deleteTag } from "@/utils/services/tag";
 import { useCreateTagMutation } from "@/utils/hooks/react-query/useCreateTagMutation";
 import { useUpdateTagMutation } from "@/utils/hooks/react-query/useUpdateTagMutation";
-import { projectState } from "@/utils/recoil/store";
-import { Milestone } from "@/utils/types/milestone";
-import { Tag } from "@/utils/types/tag.index";
+import { useDeleteTagMutation } from "@/utils/hooks/react-query/useDeleteTagMutation";
 
 import ColorPicker from "@/components/components/ColorPicker";
 
@@ -32,10 +25,6 @@ export default function CreateUpdateTagForm({
   parentType,
   parentId,
 }: Readonly<CreateUpdateTagFormProps>) {
-  const queryClient = useQueryClient();
-  const { openToast } = useToastMessage();
-
-  const project = useRecoilValue(projectState);
   const [editing, setEditing] = useState(false);
   const [tagName, setTagName] = useState(() => tag?.name ?? "");
   const [tagColor, setTagColor] = useState<ColorKey>(
@@ -45,15 +34,6 @@ export default function CreateUpdateTagForm({
   const onReset = () => {
     setTagName(tag?.name ?? "");
     setTagColor(tag?.color ?? "slate");
-  };
-
-  const onError = (e: any) => {
-    openToast({
-      status: "error",
-      title: "문제 발생",
-      description:
-        e?.response?.data?.message || "문제가 발생했습니다. 다시 시도해주세요.",
-    });
   };
 
   const handleEdit = () => setEditing(true);
@@ -70,57 +50,10 @@ export default function CreateUpdateTagForm({
     tagId: tag!.id,
   });
 
-  const { mutate: deleteTagRequest } = useMutation(
-    ["delete-tag"],
-    (id: number) => deleteTag(id),
-    {
-      onSuccess: (deletedTag) => {
-        if (parentType === "task") {
-          queryClient.setQueryData<Task | undefined>(
-            taskKeys.detail({ taskId: parentId, projectId: project?.id }),
-            (prev) => {
-              if (!prev) return prev;
-              return {
-                ...prev,
-                tags: prev.tags.filter((tag) => tag.id !== deletedTag.id),
-              };
-            },
-          );
-        } else {
-          queryClient.setQueryData<Milestone[] | undefined>(
-            milestoneKeys.list(project?.id),
-            (prev) => {
-              if (prev) {
-                return prev.map((milestone) =>
-                  milestone.id === parentId
-                    ? {
-                        ...milestone,
-                        tags: milestone.tags.filter(
-                          (tag) => tag.id !== deletedTag.id,
-                        ),
-                      }
-                    : milestone,
-                );
-              }
-              return prev;
-            },
-          );
-          queryClient.setQueryData<Milestone | undefined>(
-            milestoneKeys.detail(parentId, project?.id),
-            (prev) => {
-              return prev
-                ? {
-                    ...prev,
-                    tags: prev.tags.filter((tag) => tag.id !== deletedTag.id),
-                  }
-                : undefined;
-            },
-          );
-        }
-      },
-      onError,
-    },
-  );
+  const { mutate: deleteTagRequest } = useDeleteTagMutation({
+    parentType,
+    parentId,
+  });
 
   const handleConfirm = () => {
     if (!tagName.trim()) return;

@@ -1,18 +1,13 @@
-import { Memo } from "@/utils/types/memo";
 import { isUndefined } from "lodash";
-import React, {
-  Dispatch,
-  Fragment,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import React, { Dispatch, Fragment, SetStateAction, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
+import { Memo } from "@/utils/types/memo";
 import { memoKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllMemos } from "@/utils/services/memo";
+import { useToggleMemoChecked } from "@/utils/hooks/work/memo/useToggleMemoChecked";
 
 import ToggleCheckOnly from "@/components/work/components/ToggleCheckOnly";
 import MemoListCard from "@/components/work/memo/MemoListCard";
@@ -26,15 +21,15 @@ export default function MemoSideTab({
   setCurrentMemo,
 }: Readonly<MemoSideTabProps>) {
   const project = useRecoilValue(projectState);
-  const [showChecked, setShowChecked] = useState(false);
+  const { showMemoChecked, toggleMemoChecked } = useToggleMemoChecked();
 
   const { data: memos } = useQuery(
     memoKeys.list({
       projectId: project?.id,
       milestoneId: undefined,
-      showChecked,
+      showChecked: showMemoChecked,
     }),
-    () => getAllMemos({ projectId: project?.id, checked: showChecked }),
+    () => getAllMemos({ projectId: project?.id, checked: showMemoChecked }),
     {
       enabled: !!project,
       onError: console.error,
@@ -57,8 +52,8 @@ export default function MemoSideTab({
         <p className="text-12px text-gray-500">{memos.length} Memos</p>
         <div className="flex-center gap-4px">
           <ToggleCheckOnly
-            checked={showChecked}
-            onClick={() => setShowChecked((prev) => !prev)}
+            checked={showMemoChecked}
+            onClick={toggleMemoChecked}
           />
         </div>
       </div>

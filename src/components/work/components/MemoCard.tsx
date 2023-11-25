@@ -1,3 +1,5 @@
+import { useToggleMemoChecked } from "@/utils/hooks/work/memo/useToggleMemoChecked";
+import { parseAsBoolean, useQueryState } from "next-usequerystate";
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -35,6 +37,8 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
 
   const theme: ColorKey = (color as ColorKey) ?? DEFAULT_COLOR;
 
+  const { showMemoChecked: showChecked } = useToggleMemoChecked();
+
   const { openToast } = useToastMessage();
   const queryClient = useQueryClient();
 
@@ -56,9 +60,9 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
           memoKeys.list({
             milestoneId: memo.milestoneId ?? undefined,
             projectId: project?.id,
+            showChecked,
           }),
           (prev) => {
-            console.log("prev: ", prev);
             if (!prev) return prev;
             return prev.map((memo) =>
               memo.id === patchedMemo?.id ? patchedMemo : memo,

@@ -1,3 +1,5 @@
+import { useToggleMemoChecked } from "@/utils/hooks/work/memo/useToggleMemoChecked";
+import { parseAsBoolean, useQueryState } from "next-usequerystate";
 import React, { useState } from "react";
 
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
@@ -8,17 +10,14 @@ import CreateMemoForm from "@/components/work/components/CreateMemoForm";
 
 interface MilestoneDrawerMemoTabHeaderProps {
   milestone: Milestone;
-  showChecked: boolean;
-  onToggleCheck: () => void;
 }
 export default function MilestoneDetailMemoTabHeader({
   milestone,
-  showChecked,
-  onToggleCheck,
 }: MilestoneDrawerMemoTabHeaderProps) {
   const { openToast } = useToastMessage();
 
   const [showForm, setShowForm] = useState(false);
+  const { showMemoChecked, toggleMemoChecked } = useToggleMemoChecked();
 
   const handleClose = () => setShowForm(false);
 
@@ -48,7 +47,10 @@ export default function MilestoneDetailMemoTabHeader({
         />
       ) : (
         <div className="flex-between">
-          <ToggleCheckOnly checked={showChecked} onClick={onToggleCheck} />
+          <ToggleCheckOnly
+            checked={showMemoChecked}
+            onClick={toggleMemoChecked}
+          />
           <CreateButton onClick={() => setShowForm(true)} />
         </div>
       )}

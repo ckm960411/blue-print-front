@@ -61,7 +61,7 @@ type MemoKeysAllArgs = {
   showChecked?: boolean;
 };
 export const memoKeys = {
-  all: (arg: MemoKeysAllArgs) => ["memos", ...Object.values(arg)] as const,
+  all: (arg: MemoKeysAllArgs) => ["memos", arg] as const,
   list: (arg: MemoKeysAllArgs) => [...memoKeys.all(arg), "list"] as const,
   details: (arg: MemoKeysAllArgs) => [...memoKeys.all(arg), "detail"] as const,
   detail: ({ memoId, ...rest }: MemoKeysAllArgs & { memoId: number }) =>

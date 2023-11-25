@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { useQuery } from "react-query";
 
+import { useToggleMemoChecked } from "@/utils/hooks/work/memo/useToggleMemoChecked";
 import { memoKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
@@ -10,17 +11,21 @@ import MemoCard from "@/components/work/components/MemoCard";
 
 interface WorkSideMemoContainerProps {
   milestoneId?: number;
-  showChecked: boolean;
 }
 export default function MilestoneDetailMemoContainer({
   milestoneId,
-  showChecked,
 }: WorkSideMemoContainerProps) {
   const { openToast } = useToastMessage();
   const project = useRecoilValue(projectState);
 
+  const { showMemoChecked: showChecked } = useToggleMemoChecked();
+
   const { data: memos = [] } = useQuery(
-    memoKeys.list({ projectId: project?.id, milestoneId, showChecked }),
+    memoKeys.list({
+      projectId: project?.id,
+      milestoneId,
+      showChecked,
+    }),
     () =>
       getAllMemos({
         checked: showChecked,

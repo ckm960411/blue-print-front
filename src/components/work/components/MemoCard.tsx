@@ -1,5 +1,3 @@
-import { useToggleMemoChecked } from "@/utils/hooks/work/memo/useToggleMemoChecked";
-import { parseAsBoolean, useQueryState } from "next-usequerystate";
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -12,16 +10,14 @@ import {
   BsTrash,
 } from "react-icons/bs";
 
+import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
+import { useToggleMemoChecked } from "@/utils/hooks/work/memo/useToggleMemoChecked";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
-import { GET_ALL_MEMOS, memoKeys } from "@/utils/common/query-keys";
+import { GET_ALL_MEMOS } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
-import {
-  deleteMemo,
-  updateMemo,
-  UpdateMemoReqDto,
-} from "@/utils/services/memo";
+import { deleteMemo } from "@/utils/services/memo";
 import { Memo } from "@/utils/types/memo";
 
 import IconButton from "@/components/components/IconButton";
@@ -50,37 +46,10 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
     onClose: closeDeletePopup,
   } = useDisclosure();
 
-  const { mutate: updateMemoRequest } = useMutation(
-    ["update-memo"],
-    ({ id, ...data }: { id: number } & UpdateMemoReqDto) =>
-      updateMemo(id, data),
-    {
-      onSuccess: (patchedMemo) => {
-        queryClient.setQueryData<Memo[] | undefined>(
-          memoKeys.list({
-            milestoneId: memo.milestoneId ?? undefined,
-            projectId: project?.id,
-            showChecked,
-          }),
-          (prev) => {
-            if (!prev) return prev;
-            return prev.map((memo) =>
-              memo.id === patchedMemo?.id ? patchedMemo : memo,
-            );
-          },
-        );
-      },
-      onError: (e: any) => {
-        openToast({
-          status: "error",
-          title: "문제 발생",
-          description:
-            e?.response?.data?.message ||
-            "메모 업데이트 중 문제가 발생했습니다. 다시 시도해 주세요.",
-        });
-      },
-    },
-  );
+  const { mutate: updateMemoRequest } = useUpdateMemoMutation({
+    memoId: memo.id,
+    milestoneId: memo.milestoneId ?? undefined,
+  });
 
   const { mutate: deleteMemoRequest } = useMutation(
     ["delete-memo"],
@@ -124,7 +93,6 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
             <IconButton
               onClick={() =>
                 updateMemoRequest({
-                  id: memo.id,
                   isChecked: !isChecked,
                   projectId: project?.id,
                 })
@@ -139,7 +107,6 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
             <IconButton
               onClick={() =>
                 updateMemoRequest({
-                  id: memo.id,
                   isBookmarked: !isBookmarked,
                   projectId: project?.id,
                 })

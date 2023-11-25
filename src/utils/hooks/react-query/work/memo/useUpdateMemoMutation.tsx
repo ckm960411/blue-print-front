@@ -1,5 +1,6 @@
 import { memoKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
+import { useToggleMemoChecked } from "@/utils/hooks/work/memo/useToggleMemoChecked";
 import { projectState } from "@/utils/recoil/store";
 import { updateMemo, UpdateMemoReqDto } from "@/utils/services/memo";
 import { Memo } from "@/utils/types/memo";
@@ -16,6 +17,7 @@ export const useUpdateMemoMutation = ({
   const queryClient = useQueryClient();
   const { openToast } = useToastMessage();
   const project = useRecoilValue(projectState);
+  const { showMemoChecked: showChecked } = useToggleMemoChecked();
 
   return useMutation(
     ["update-memo"],
@@ -26,7 +28,7 @@ export const useUpdateMemoMutation = ({
     {
       onSuccess: (patchedMemo) => {
         queryClient.setQueryData<Memo[] | undefined>(
-          memoKeys.list({ milestoneId, projectId: project?.id }),
+          memoKeys.list({ milestoneId, projectId: project?.id, showChecked }),
           (prev) => {
             if (!prev) return prev;
             return prev.map((memo) =>

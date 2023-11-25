@@ -23,7 +23,7 @@ export default function TaskDetailHeader({
       )}
       <TaskTitleForm task={task} milestoneId={milestoneId} />
       <TaskDescriptionForm task={task} milestoneId={milestoneId} />
-      <TagsForm tags={task.tags} parentId={task.id} parentIdType="taskId" />
+      <TagsForm tags={task.tags} parentId={task.id} parentType="task" />
     </div>
   );
 }

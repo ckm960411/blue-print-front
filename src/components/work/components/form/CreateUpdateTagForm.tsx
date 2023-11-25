@@ -19,7 +19,7 @@ interface CreateUpdateTagFormProps {
   children: React.ReactNode;
   chidlrenWrapperClassName?: HTMLDivElement["className"];
   type: "create" | "update";
-  parentIdType: "taskId" | "milestoneId";
+  parentType: "milestone" | "task";
   parentId: number;
 }
 export default function CreateUpdateTagForm({
@@ -27,7 +27,7 @@ export default function CreateUpdateTagForm({
   children,
   chidlrenWrapperClassName,
   type,
-  parentIdType,
+  parentType,
   parentId,
 }: Readonly<CreateUpdateTagFormProps>) {
   const queryClient = useQueryClient();
@@ -62,7 +62,7 @@ export default function CreateUpdateTagForm({
     (data: CreateTagReqDto) => createTag(data),
     {
       onSuccess: (newTag) => {
-        if (parentIdType === "taskId") {
+        if (parentType === "task") {
           queryClient.setQueryData<Task | undefined>(
             taskKeys.detail({ taskId: parentId, projectId: project?.id }),
             (prev) => {
@@ -104,7 +104,7 @@ export default function CreateUpdateTagForm({
     (data: Partial<CreateTagReqDto>) => updateTag(tag!.id, data),
     {
       onSuccess: (patchedTag) => {
-        if (parentIdType === "taskId") {
+        if (parentType === "task") {
           queryClient.setQueryData<Task | undefined>(
             taskKeys.detail({ taskId: parentId, projectId: project?.id }),
             (prev) => {
@@ -160,7 +160,7 @@ export default function CreateUpdateTagForm({
     (id: number) => deleteTag(id),
     {
       onSuccess: (deletedTag) => {
-        if (parentIdType === "taskId") {
+        if (parentType === "task") {
           queryClient.setQueryData<Task | undefined>(
             taskKeys.detail({ taskId: parentId, projectId: project?.id }),
             (prev) => {
@@ -212,14 +212,14 @@ export default function CreateUpdateTagForm({
 
     if (type === "create") {
       createTagRequest({
-        [parentIdType]: parentId,
+        [parentType === "task" ? "taskId" : "milestoneId"]: parentId,
         name: tagName,
         color: tagColor,
       });
     } else {
       if (!tag) return;
       updateTagRequest({
-        [parentIdType]: parentId,
+        [parentType === "task" ? "taskId" : "milestoneId"]: parentId,
         name: tagName,
         color: tagColor,
       });

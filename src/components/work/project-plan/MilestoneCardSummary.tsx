@@ -37,7 +37,7 @@ export default function MilestoneCardSummary({
         parentId={id}
       />
       <LinkForm parentType="milestone" parentId={id} links={links} />
-      <TagsForm tags={tags} parentId={id} parentIdType="milestoneId" />
+      <TagsForm tags={tags} parentId={id} parentType="milestone" />
     </div>
   );
 }

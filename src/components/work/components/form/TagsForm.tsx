@@ -6,19 +6,19 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 interface TagsFormProps {
   tags: Tag[];
-  parentIdType: "taskId" | "milestoneId";
+  parentType: "milestone" | "task";
   parentId: number;
 }
 export default function TagsForm({
   tags,
   parentId,
-  parentIdType,
+  parentType,
 }: TagsFormProps) {
   if (tags.length === 0)
     return (
       <CreateUpdateTagForm
         type="create"
-        parentIdType={parentIdType}
+        parentType={parentType}
         parentId={parentId}
       >
         <button className="flex-center gap-4px rounded-md bg-gray-50 px-8px py-4px text-14px text-gray-600 duration-200 hover:bg-gray-100">
@@ -35,7 +35,7 @@ export default function TagsForm({
           key={tag.id}
           type="update"
           tag={tag}
-          parentIdType={parentIdType}
+          parentType={parentType}
           parentId={parentId}
         >
           <button
@@ -51,7 +51,7 @@ export default function TagsForm({
       ))}
       <CreateUpdateTagForm
         type="create"
-        parentIdType={parentIdType}
+        parentType={parentType}
         parentId={parentId}
       >
         <button className="flex-center gap-4px rounded-md bg-gray-50 px-8px py-4px text-14px text-gray-600 duration-200 hover:bg-gray-100">

@@ -1,3 +1,4 @@
+import { useCreateTagMutation } from "@/utils/hooks/react-query/useCreateTagMutation";
 import { Task } from "@/utils/types/task";
 import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
@@ -7,7 +8,7 @@ import { useRecoilValue } from "recoil";
 import { ColorKey } from "@/utils/common/color";
 import { milestoneKeys, taskKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
-import { createTag, deleteTag, updateTag } from "@/utils/services/tag";
+import { deleteTag, updateTag } from "@/utils/services/tag";
 import { CreateTagReqDto } from "@/utils/services/tag/dto/create-tag.req.dto";
 import { projectState } from "@/utils/recoil/store";
 import { Milestone } from "@/utils/types/milestone";
@@ -40,7 +41,7 @@ export default function CreateUpdateTagForm({
     () => tag?.color ?? "slate",
   );
 
-  const resetTag = () => {
+  const onReset = () => {
     setTagName(tag?.name ?? "");
     setTagColor(tag?.color ?? "slate");
   };
@@ -57,47 +58,11 @@ export default function CreateUpdateTagForm({
   const handleEdit = () => setEditing(true);
   const handleClose = () => setEditing(false);
 
-  const { mutate: createTagRequest } = useMutation(
-    ["create-tag"],
-    (data: CreateTagReqDto) => createTag(data),
-    {
-      onSuccess: (newTag) => {
-        if (parentType === "task") {
-          queryClient.setQueryData<Task | undefined>(
-            taskKeys.detail({ taskId: parentId, projectId: project?.id }),
-            (prev) => {
-              if (!prev) return prev;
-              return { ...prev, tags: [...prev.tags, newTag] };
-            },
-          );
-        } else {
-          resetTag();
-          queryClient.setQueryData<Milestone[] | undefined>(
-            milestoneKeys.list(project?.id),
-            (prev) => {
-              if (prev) {
-                return prev.map((milestone) =>
-                  milestone.id === parentId
-                    ? { ...milestone, tags: [...milestone.tags, newTag] }
-                    : milestone,
-                );
-              }
-              return prev;
-            },
-          );
-          queryClient.setQueryData<Milestone | undefined>(
-            milestoneKeys.detail(parentId, project?.id),
-            (prev) => {
-              return prev
-                ? { ...prev, tags: [...prev.tags, newTag] }
-                : undefined;
-            },
-          );
-        }
-      },
-      onError,
-    },
-  );
+  const { mutate: createTagRequest } = useCreateTagMutation({
+    parentType,
+    parentId,
+    onReset,
+  });
 
   const { mutate: updateTagRequest } = useMutation(
     ["update-tag"],

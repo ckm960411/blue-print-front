@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { useQuery } from "react-query";
 
-import { QueryKeys } from "@/utils/common/query-keys";
+import { memoKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
 import { getAllMemos } from "@/utils/services/memo";
@@ -20,7 +20,7 @@ export default function MilestoneDetailMemoContainer({
   const project = useRecoilValue(projectState);
 
   const { data: memos = [] } = useQuery(
-    QueryKeys.getAllMemos(showChecked, milestoneId, project?.id),
+    [...memoKeys.list({ projectId: project?.id, milestoneId }), showChecked],
     () =>
       getAllMemos({
         checked: showChecked,

@@ -10,7 +10,7 @@ import React, {
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
-import { QueryKeys } from "@/utils/common/query-keys";
+import { memoKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getAllMemos } from "@/utils/services/memo";
 
@@ -29,7 +29,10 @@ export default function MemoSideTab({
   const [showChecked, setShowChecked] = useState(false);
 
   const { data: memos } = useQuery(
-    QueryKeys.getAllMemos(project?.id, showChecked),
+    [
+      ...memoKeys.list({ projectId: project?.id, milestoneId: undefined }),
+      showChecked,
+    ],
     () => getAllMemos({ projectId: project?.id, checked: showChecked }),
     {
       enabled: !!project,

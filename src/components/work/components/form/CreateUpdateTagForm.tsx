@@ -1,4 +1,3 @@
-import { useCreateTagMutation } from "@/utils/hooks/react-query/useCreateTagMutation";
 import { Task } from "@/utils/types/task";
 import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
@@ -8,11 +7,13 @@ import { useRecoilValue } from "recoil";
 import { ColorKey } from "@/utils/common/color";
 import { milestoneKeys, taskKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
-import { deleteTag, updateTag } from "@/utils/services/tag";
-import { CreateTagReqDto } from "@/utils/services/tag/dto/create-tag.req.dto";
+import { deleteTag } from "@/utils/services/tag";
+import { useCreateTagMutation } from "@/utils/hooks/react-query/useCreateTagMutation";
+import { useUpdateTagMutation } from "@/utils/hooks/react-query/useUpdateTagMutation";
 import { projectState } from "@/utils/recoil/store";
 import { Milestone } from "@/utils/types/milestone";
 import { Tag } from "@/utils/types/tag.index";
+
 import ColorPicker from "@/components/components/ColorPicker";
 
 interface CreateUpdateTagFormProps {
@@ -63,62 +64,11 @@ export default function CreateUpdateTagForm({
     parentId,
     onReset,
   });
-
-  const { mutate: updateTagRequest } = useMutation(
-    ["update-tag"],
-    (data: Partial<CreateTagReqDto>) => updateTag(tag!.id, data),
-    {
-      onSuccess: (patchedTag) => {
-        if (parentType === "task") {
-          queryClient.setQueryData<Task | undefined>(
-            taskKeys.detail({ taskId: parentId, projectId: project?.id }),
-            (prev) => {
-              if (!prev) return prev;
-              return {
-                ...prev,
-                tags: prev.tags.map((tag) =>
-                  tag.id === patchedTag.id ? patchedTag : tag,
-                ),
-              };
-            },
-          );
-        } else {
-          queryClient.setQueryData<Milestone[] | undefined>(
-            milestoneKeys.list(project?.id),
-            (prev) => {
-              if (prev) {
-                return prev.map((milestone) =>
-                  milestone.id === parentId
-                    ? {
-                        ...milestone,
-                        tags: milestone.tags.map((tag) =>
-                          tag.id === patchedTag.id ? patchedTag : tag,
-                        ),
-                      }
-                    : milestone,
-                );
-              }
-              return prev;
-            },
-          );
-          queryClient.setQueryData<Milestone | undefined>(
-            milestoneKeys.detail(parentId, project?.id),
-            (prev) => {
-              return prev
-                ? {
-                    ...prev,
-                    tags: prev.tags.map((tag) =>
-                      tag.id === patchedTag.id ? patchedTag : tag,
-                    ),
-                  }
-                : undefined;
-            },
-          );
-        }
-      },
-      onError,
-    },
-  );
+  const { mutate: updateTagRequest } = useUpdateTagMutation({
+    parentType,
+    parentId,
+    tagId: tag!.id,
+  });
 
   const { mutate: deleteTagRequest } = useMutation(
     ["delete-tag"],

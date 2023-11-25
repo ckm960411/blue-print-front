@@ -13,6 +13,7 @@ export default function TanstackQueryProvider({
     defaultOptions: {
       queries: {
         retry: 3,
+        refetchOnMount: process.env.NODE_ENV !== "production",
       },
     },
   };

@@ -64,7 +64,16 @@ export const memoKeys = {
     [...memoKeys.details(rest), memoId] as const,
 };
 
+type commentKeysAllArgs = { projectId?: number; milestoneId?: number };
 export const commentKeys = {
-  all: (arg: { projectId?: number; milestoneId?: number }) =>
+  all: (arg: commentKeysAllArgs) =>
     ["comments", ...Object.values(arg)] as const,
+  list: (arg: commentKeysAllArgs) => [...commentKeys.all(arg), "list"] as const,
+  details: (arg: commentKeysAllArgs) =>
+    [...commentKeys.all(arg), "detail"] as const,
+  detail: ({
+    commentId,
+    ...rest
+  }: commentKeysAllArgs & { commentId: number }) =>
+    [...commentKeys.details(rest), commentId] as const,
 };

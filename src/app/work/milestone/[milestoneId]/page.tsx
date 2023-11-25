@@ -1,18 +1,16 @@
 "use client";
 
-import { projectState } from "@/utils/recoil/store";
 import React from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
+import { projectState } from "@/utils/recoil/store";
 import { milestoneKeys } from "@/utils/common/query-keys";
 import { getMilestoneById } from "@/utils/services/milestone";
 
-import MilestoneCardHeader from "@/components/work/project-plan/MilestoneCardHeader";
-import MilestoneCardSummary from "@/components/work/project-plan/MilestoneCardSummary";
 import MilestoneDrawerTabs from "@/components/work/project-plan/sidetab/MilestoneDrawerTabs";
-import MilestoenBookmarkButton from "@/components/work/project-plan/tooltip-button/MilestoenBookmarkButton";
-import MilestoneTrashButton from "@/components/work/project-plan/tooltip-button/MilestoneTrashButton";
+import MilestoneDetailHeader from "@/components/work/milestone/detail/MilestoneDetailHeader";
+import MilestoneDetailProperties from "@/components/work/milestone/detail/MilestoneDetailProperties";
 
 interface MilestonePageProps {
   params: { milestoneId: number };
@@ -25,24 +23,25 @@ export default function MilestonePage({
   const { data: milestone } = useQuery(
     milestoneKeys.detail(milestoneId, project?.id),
     () => getMilestoneById(milestoneId),
-    { enabled: !!project?.id, onError: console.error },
+    { onError: console.error },
   );
 
   if (!milestone) return <></>;
 
   return (
-    <div className="h-full bg-gray-50 p-0px sm:p-16px">
-      <div className="relative mx-auto flex h-full max-w-screen-xl flex-col gap-32px rounded-10px bg-white p-16px">
-        <div
-          className={`absolute right-16px top-20px flex items-center gap-8px`}
-        >
-          <MilestoneTrashButton milestone={milestone} />
-          <MilestoenBookmarkButton milestone={milestone} />
+    <div>
+      <div
+        className="h-full px-32px py-40px"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(9,9,121,0.025) 0%, rgba(0,212,255,0.02) 17%, rgba(0,212,255,0) 100%)",
+        }}
+      >
+        <MilestoneDetailHeader milestone={milestone} />
+        <MilestoneDetailProperties milestone={milestone} />
+        <div className="pt-24px">
+          <MilestoneDrawerTabs milestone={milestone} />
         </div>
-
-        <MilestoneCardHeader milestone={milestone} toggleOpened isDetail />
-        <MilestoneCardSummary milestone={milestone} />
-        <MilestoneDrawerTabs milestone={milestone} />
       </div>
     </div>
   );

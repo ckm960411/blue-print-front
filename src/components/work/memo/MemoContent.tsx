@@ -26,7 +26,7 @@ export default function MemoContent({ memo }: Readonly<MemoContentProps>) {
         backgroundColor: Colors[memo.color as ColorKey][50],
       }}
     >
-      <div>
+      <div className="flex items-center gap-8px">
         <ColorForm initialColor={memo.color} onConfirm={() => {}} />
         <p className="text-22px font-bold leading-[150%]">{memo.title}</p>
       </div>

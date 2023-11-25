@@ -1,17 +1,19 @@
-import DateForm from "@/components/work/components/form/DateForm";
-import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm";
-import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorityForm";
-import TaskProgressForm from "@/components/work/components/task-card/TaskProgressForm";
-import TaskContentForm from "@/components/work/task/TaskContentForm";
-import TaskDetailHeader from "@/components/work/task/TaskDetailHeader";
-import { taskKeys } from "@/utils/common/query-keys";
-import { projectState } from "@/utils/recoil/store";
 import React from "react";
-import { Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/modal";
-import TaskDetailNav from "@/components/work/task/TaskDetailNav";
-import { getOneTaskById } from "@/utils/services/task";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
+import { Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/modal";
+
+import { taskKeys } from "@/utils/common/query-keys";
+import { projectState } from "@/utils/recoil/store";
+import { getOneTaskById } from "@/utils/services/task";
+
+import DateForm from "@/components/work/components/form/DateForm";
+import ProgressForm from "@/components/work/components/form/ProgressForm";
+import TaskLinksForm from "@/components/work/components/task-card/TaskLinksForm";
+import TaskPriorityForm from "@/components/work/components/task-card/TaskPriorityForm";
+import TaskContentForm from "@/components/work/task/TaskContentForm";
+import TaskDetailHeader from "@/components/work/task/TaskDetailHeader";
+import TaskDetailNav from "@/components/work/task/TaskDetailNav";
 
 interface TaskDetailDrawerProps {
   taskId: number;
@@ -54,7 +56,11 @@ export default function TaskDetailDrawer({
           milestoneId={milestoneId}
         />
         <div className="flex flex-col gap-16px px-24px pt-16px">
-          <TaskProgressForm task={task} milestoneId={milestoneId} />
+          <ProgressForm
+            parentType="task"
+            parentId={task.id}
+            progress={task.progress}
+          />
           <DateForm
             startAt={task.startAt}
             endAt={task.endAt}

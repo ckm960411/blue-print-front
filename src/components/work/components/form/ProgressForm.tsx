@@ -1,14 +1,16 @@
-import TagButton from "@/components/work/components/form/TagButton";
+import { useState } from "react";
+import { useQueryClient } from "react-query";
+import { useRecoilValue } from "recoil";
+import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
+
 import { Colors } from "@/utils/common/color";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/useUpdateMilestoneMutation";
 import { useUpdateTaskMutation } from "@/utils/hooks/react-query/useUpdateTaskMutation";
 import { projectState } from "@/utils/recoil/store";
 import { Progress } from "@/utils/types";
-import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
-import { useState } from "react";
-import { useQueryClient } from "react-query";
-import { useRecoilValue } from "recoil";
+
+import TagButton from "@/components/work/components/form/TagButton";
 
 interface ProgressFormProps {
   parentType: "milestone" | "task";

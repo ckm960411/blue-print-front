@@ -22,7 +22,7 @@ export const useUpdateMemoMutation = ({
   return useMutation(
     ["update-memo"],
     (updateMemoReqDto: UpdateMemoReqDto) => {
-      if (!memoId) return Promise.reject("no memo id");
+      if (!memoId) return Promise.reject(new Error("no memo id"));
       return updateMemo(memoId, updateMemoReqDto);
     },
     {

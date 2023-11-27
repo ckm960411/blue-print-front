@@ -28,9 +28,7 @@ export default function MemoContent({
   return (
     <div
       className="flex h-full flex-col gap-16px p-16px"
-      style={{
-        backgroundColor: Colors[memo.color][50],
-      }}
+      style={{ backgroundColor: Colors[memo.color][50] }}
     >
       <div className="flex-between">
         <div className="flex items-center gap-8px">

@@ -29,6 +29,10 @@ export const useDeleteMemoMutation = ({
           return prev.filter((memo) => memo.id !== deletedMemo.id);
         },
       );
+      queryClient.setQueryData(
+        memoKeys.detail({ memoId }),
+        (prev) => undefined,
+      );
       openToast({
         status: "success",
         title: "메모 삭제 완료",

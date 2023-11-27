@@ -18,11 +18,9 @@ import DeletePopup from "@/components/work/components/DeletePopup";
 
 interface MemoCardButtonsProps {
   memo: Memo;
-  onDelete?: () => void;
 }
 export default function MemoCardButtons({
   memo,
-  onDelete,
 }: Readonly<MemoCardButtonsProps>) {
   const { id, milestoneId, isBookmarked, isChecked } = memo;
 
@@ -42,7 +40,6 @@ export default function MemoCardButtons({
   const { mutate: deleteMemoRequest } = useDeleteMemoMutation({
     memoId: id,
     milestoneId: memo.milestoneId ?? undefined,
-    onDelete,
   });
 
   const handleDelete = () => {

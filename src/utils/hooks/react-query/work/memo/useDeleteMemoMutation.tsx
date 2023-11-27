@@ -11,11 +11,9 @@ import { Memo } from "@/utils/types/memo";
 export const useDeleteMemoMutation = ({
   memoId,
   milestoneId,
-  onDelete,
 }: {
   memoId: number;
   milestoneId?: number;
-  onDelete?: () => void;
 }) => {
   const { openToast } = useToastMessage();
   const queryClient = useQueryClient();
@@ -31,7 +29,11 @@ export const useDeleteMemoMutation = ({
           return prev.filter((memo) => memo.id !== deletedMemo.id);
         },
       );
-      onDelete?.();
+      openToast({
+        status: "success",
+        title: "메모 삭제 완료",
+        description: "메모 삭제가 완료되었습니다.",
+      });
     },
     onError: (e: any) => {
       openToast({

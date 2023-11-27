@@ -8,9 +8,8 @@ import MemoCardButtons from "@/components/work/components/MemoCardButtons";
 
 interface MemoCardProps {
   memo: Memo;
-  onDelete?: () => void;
 }
-export default function MemoCard({ memo, onDelete }: Readonly<MemoCardProps>) {
+export default function MemoCard({ memo }: Readonly<MemoCardProps>) {
   const DEFAULT_COLOR: ColorKey = "yellow";
   const { color, title, content, createdAt } = memo;
 
@@ -28,7 +27,7 @@ export default function MemoCard({ memo, onDelete }: Readonly<MemoCardProps>) {
         <p className="truncate-1-lines text-16px font-bold text-gray-800">
           {title}
         </p>
-        <MemoCardButtons memo={memo} onDelete={onDelete} />
+        <MemoCardButtons memo={memo} />
       </div>
       <div
         dangerouslySetInnerHTML={{ __html: content }}

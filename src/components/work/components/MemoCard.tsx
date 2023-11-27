@@ -1,4 +1,6 @@
-import React from "react";
+import EditButton from "@/components/work/components/form/EditButton";
+import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
+import React, { useState } from "react";
 import { format } from "date-fns";
 
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
@@ -11,9 +13,29 @@ interface MemoCardProps {
 }
 export default function MemoCard({ memo }: Readonly<MemoCardProps>) {
   const DEFAULT_COLOR: ColorKey = "yellow";
-  const { color, title, content, createdAt } = memo;
+  const { id, milestoneId, color, title, content, createdAt } = memo;
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempTitle, setTempTitle] = useState("");
+
+  const { mutate: updateMemoRequest } = useUpdateMemoMutation({
+    memoId: id,
+    milestoneId: milestoneId ?? undefined,
+  });
 
   const theme: ColorKey = color ?? DEFAULT_COLOR;
+
+  const resetTitle = () => setTempTitle(memo.title ?? "");
+
+  const handleEdit = () => {
+    if (isEditing) {
+      updateMemoRequest({ title: tempTitle });
+      setIsEditing(false);
+    } else {
+      setIsEditing(true);
+    }
+    resetTitle();
+  };
 
   return (
     <div
@@ -24,9 +46,26 @@ export default function MemoCard({ memo }: Readonly<MemoCardProps>) {
       }}
     >
       <div className="flex-between">
-        <p className="truncate-1-lines text-16px font-bold text-gray-800">
-          {title}
-        </p>
+        <div className="flex-center gap-8px">
+          {isEditing ? (
+            <input
+              value={tempTitle}
+              onChange={(e) => setTempTitle(e.target.value)}
+              placeholder="할일 제목을 설정해주세요"
+              className="max-w-[300px] grow rounded-md border border-gray-200 px-12px py-6px text-16px font-semibold text-gray-700"
+            />
+          ) : (
+            <p className="truncate-1-lines text-16px font-bold text-gray-800">
+              {title}
+            </p>
+          )}
+          <EditButton
+            onClick={handleEdit}
+            w={24}
+            className="bg-transparent text-14px"
+            tooltipPlacement="right"
+          />
+        </div>
         <MemoCardButtons
           memo={memo}
           milestoneId={memo.milestoneId ?? undefined}

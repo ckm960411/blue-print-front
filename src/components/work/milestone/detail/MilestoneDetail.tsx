@@ -15,9 +15,7 @@ export default function MilestoneDetail({
 }: Readonly<MilestoneDetailProps>) {
   const { data: milestone } = useMilestoneByIdQuery(milestoneId);
 
-  if (!milestone) return <></>;
-
-  return (
+  return milestone ? (
     <div className="min-h-[calc(100vh-260px)] rounded-md border border-gray-200 shadow-md">
       <MilestoneDetailNav milestone={milestone} />
       <div
@@ -34,5 +32,7 @@ export default function MilestoneDetail({
         </div>
       </div>
     </div>
+  ) : (
+    <div className="flex-center min-h-[calc(100vh-260px)]">마일스톤 없음</div>
   );
 }

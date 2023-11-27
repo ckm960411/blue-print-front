@@ -1,13 +1,13 @@
 import { QueryKeys } from "@/utils/common/query-keys";
 import { projectState } from "@/utils/recoil/store";
 import { getWorkCountByProjectId } from "@/utils/services/work";
+import { WorkTab } from "@/utils/types/work";
 import { isUndefined } from "lodash";
 import { Dispatch, SetStateAction } from "react";
 import { LuMilestone } from "react-icons/lu";
 import { GrTask } from "react-icons/gr";
 import { FaRegStickyNote } from "react-icons/fa";
 
-import { WorkTab } from "@/app/work/page";
 import WorkTabMenuPlusButton from "@/components/work/WorkTabMenuPlusButton";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";

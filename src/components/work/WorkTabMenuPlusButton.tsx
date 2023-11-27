@@ -1,3 +1,4 @@
+import { WorkTab } from "@/utils/types/work";
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
@@ -9,7 +10,6 @@ import { useCreateMemoMutation } from "@/utils/hooks/react-query/work/memo/useCr
 import { projectState } from "@/utils/recoil/store";
 import { createMilestone } from "@/utils/services/milestone";
 
-import { WorkTab } from "@/app/work/page";
 import CreateUpdateTaskModal from "@/components/work/components/CreateUpdateTaskModal";
 
 interface WorkTabMenuPlusButtonProps {

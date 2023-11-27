@@ -1,5 +1,5 @@
 import { get } from "@/app/api/axios";
-import { WorkTab } from "@/app/work/page";
+import { WorkTab } from "@/utils/types/work";
 
 export type WorkCount = Record<WorkTab, number>;
 export const getWorkCountByProjectId = async (projectId: number) => {

@@ -1,7 +1,7 @@
-import { WorkTab } from "@/app/work/page";
 import MemoTab from "@/components/work/memo/MemoTab";
 import MilestoneTab from "@/components/work/milestone/MilestoneTab";
 import TaskTab from "@/components/work/task/TaskTab";
+import { WorkTab } from "@/utils/types/work";
 import React from "react";
 
 interface WorkTabsProps {

@@ -25,6 +25,7 @@ export const useMemoQuery = (options?: { milestoneId?: number }) => {
         projectId: project?.id,
       }),
     {
+      enabled: !!project,
       onError: () =>
         openToast({
           status: "error",

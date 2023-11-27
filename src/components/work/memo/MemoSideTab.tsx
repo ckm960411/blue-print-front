@@ -1,12 +1,8 @@
+import { useMemoQuery } from "@/utils/hooks/react-query/work/memo/useMemoQuery";
 import { isUndefined } from "lodash";
 import React, { Dispatch, Fragment, SetStateAction, useEffect } from "react";
-import { useQuery } from "react-query";
-import { useRecoilValue } from "recoil";
 
 import { Memo } from "@/utils/types/memo";
-import { memoKeys } from "@/utils/common/query-keys";
-import { projectState } from "@/utils/recoil/store";
-import { getAllMemos } from "@/utils/services/memo";
 import { useToggleMemoChecked } from "@/utils/hooks/work/memo/useToggleMemoChecked";
 
 import ToggleCheckOnly from "@/components/work/components/ToggleCheckOnly";
@@ -20,21 +16,9 @@ export default function MemoSideTab({
   currentMemo,
   setCurrentMemo,
 }: Readonly<MemoSideTabProps>) {
-  const project = useRecoilValue(projectState);
   const { showMemoChecked, toggleMemoChecked } = useToggleMemoChecked();
 
-  const { data: memos } = useQuery(
-    memoKeys.list({
-      projectId: project?.id,
-      milestoneId: undefined,
-      showChecked: showMemoChecked,
-    }),
-    () => getAllMemos({ projectId: project?.id, checked: showMemoChecked }),
-    {
-      enabled: !!project,
-      onError: console.error,
-    },
-  );
+  const { data: memos } = useMemoQuery();
 
   useEffect(() => {
     if (isUndefined(memos) || memos.length === 0) return setCurrentMemo(null);

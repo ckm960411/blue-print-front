@@ -18,7 +18,7 @@ export default function MilestoneDetail({
   if (!milestone) return <></>;
 
   return (
-    <div className="h-full rounded-md border border-gray-200 shadow-md">
+    <div className="min-h-[calc(100vh-260px)] rounded-md border border-gray-200 shadow-md">
       <MilestoneDetailNav milestone={milestone} />
       <div
         className="h-full px-32px py-40px"

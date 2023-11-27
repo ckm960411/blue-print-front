@@ -68,14 +68,16 @@ export default function MilestoneList({
 
   return (
     <div className="flex flex-col gap-8px">
-      {milestones.map((milestone) => (
-        <MilestoneListCard
-          key={milestone.id}
-          milestone={milestone}
-          isActive={milestone.id === currentMilestoneId}
-          onClick={() => setCurrentMilestoneId(milestone.id)}
-        />
-      ))}
+      <div className="flex h-[calc(100vh-260px)] flex-col gap-8px overflow-y-auto">
+        {milestones.map((milestone) => (
+          <MilestoneListCard
+            key={milestone.id}
+            milestone={milestone}
+            isActive={milestone.id === currentMilestoneId}
+            onClick={() => setCurrentMilestoneId(milestone.id)}
+          />
+        ))}
+      </div>
       <div className="flex-center gap-8px">
         <IconButton
           disabled={!hasPrev}

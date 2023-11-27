@@ -15,15 +15,15 @@ export default function MilestoneTabContent({
   );
 
   return (
-    <div className="mt-16px grid grid-cols-3 gap-12px">
-      <div className="col-span-1 max-h-[720px] overflow-y-auto">
+    <div className="mt-16px grid grid-cols-3 gap-12px ">
+      <div className="col-span-1">
         <MilestoneList
           currentMilestoneId={currentMilestoneId}
           setCurrentMilestoneId={setCurrentMilestoneId}
           progressChecked={progressChecked}
         />
       </div>
-      <div className="col-span-2 min-h-[720px] overflow-y-auto px-4px pb-4px">
+      <div className="col-span-2 px-4px pb-4px">
         {currentMilestoneId && (
           <MilestoneDetail milestoneId={currentMilestoneId} />
         )}

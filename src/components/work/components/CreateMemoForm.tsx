@@ -1,51 +1,43 @@
 "use client";
 
-import ColorPicker from "@/components/components/ColorPicker";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import { useRecoilValue } from "recoil";
+
 import { ColorKey } from "@/utils/common/color";
-import { QueryKeys } from "@/utils/common/query-keys";
+import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { useCreateMemoMutation } from "@/utils/hooks/react-query/work/memo/useCreateMemoMutation";
 import { projectState } from "@/utils/recoil/store";
-import { useQueryClient } from "react-query";
-import dynamic from "next/dynamic";
-import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
+import ColorPicker from "@/components/components/ColorPicker";
 
 const PlainEditor = dynamic(() => import("../components/PlainEditor"));
 
 interface CreateMemoFormProps {
   milestoneId?: number;
   onClose?: () => void;
-  onSuccess?: () => void;
-  onError?: () => void;
-  onFail?: () => void;
   hideModeSwitch?: boolean;
 }
 export default function CreateMemoForm({
   milestoneId,
   onClose,
-  onSuccess,
-  onError,
-  onFail,
   hideModeSwitch = true,
-}: CreateMemoFormProps) {
+}: Readonly<CreateMemoFormProps>) {
   const DEFAULT_COLOR: ColorKey = "yellow";
-  const queryClient = useQueryClient();
+  const { openToast } = useToastMessage();
 
   const project = useRecoilValue(projectState);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [color, setColor] = useState<ColorKey>(DEFAULT_COLOR);
 
-  const { mutate } = useCreateMemoMutation({
+  const { mutate: createMemoRequest } = useCreateMemoMutation({
+    milestoneId,
     onSuccess: (data) => {
-      queryClient.invalidateQueries(QueryKeys.getAllMemos(false));
       setTitle("");
       setContent("");
       setContent(DEFAULT_COLOR);
-      onSuccess?.();
       onClose?.();
     },
-    onError: onError,
   });
 
   const handleChangeMemo = (value: string) => {
@@ -54,10 +46,20 @@ export default function CreateMemoForm({
 
   const handeSubmit = () => {
     if (title.trim() === "" || content.trim() === "") {
-      return onFail?.();
+      return openToast({
+        status: "warning",
+        title: "메모 작성 실패",
+        description: "제목이나 내용을 모두 입력해주세요.",
+      });
     }
 
-    mutate({ title, content, color, milestoneId, projectId: project?.id });
+    createMemoRequest({
+      title,
+      content,
+      color,
+      milestoneId,
+      projectId: project?.id,
+    });
   };
 
   return (

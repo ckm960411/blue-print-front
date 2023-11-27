@@ -14,7 +14,7 @@ interface WorkSideMemoContainerProps {
 }
 export default function MilestoneDetailMemoContainer({
   milestoneId,
-}: WorkSideMemoContainerProps) {
+}: Readonly<WorkSideMemoContainerProps>) {
   const { openToast } = useToastMessage();
   const project = useRecoilValue(projectState);
 

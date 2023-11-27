@@ -1,11 +1,9 @@
 import React from "react";
-import { useQuery } from "react-query";
 import { format } from "date-fns";
 import { FaRegCalendar, FaRegStickyNote } from "react-icons/fa";
 
-import { memoKeys } from "@/utils/common/query-keys";
-import { getOneMemoById } from "@/utils/services/memo";
 import { Colors } from "@/utils/common/color";
+import { useMemoByIdQuery } from "@/utils/hooks/react-query/work/memo/useMemoByIdQuery";
 
 import MemoCardButtons from "@/components/work/components/MemoCardButtons";
 import ColorForm from "@/components/work/components/ColorForm";
@@ -16,18 +14,7 @@ interface MemoContentProps {
 export default function MemoContent({
   currentMemoId,
 }: Readonly<MemoContentProps>) {
-  const { data: memo } = useQuery(
-    memoKeys.detail({ memoId: currentMemoId }),
-    () => {
-      if (!currentMemoId)
-        return Promise.reject(new Error("no current memo id"));
-      return getOneMemoById(currentMemoId);
-    },
-    {
-      onSuccess: () => {},
-      onError: console.error,
-    },
-  );
+  const { data: memo } = useMemoByIdQuery(currentMemoId);
 
   if (!memo) {
     return (

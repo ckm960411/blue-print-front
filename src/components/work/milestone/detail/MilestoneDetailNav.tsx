@@ -41,12 +41,7 @@ export default function MilestoneDetailNav({
 
   const { mutate: updateMilestoneRequest } = useUpdateMilestoneMutation(
     milestone.id,
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
-      },
-      onError: console.error,
-    },
+    { onError: console.error },
   );
 
   const { mutate: deleteMilestoneRequest } = useMutation(

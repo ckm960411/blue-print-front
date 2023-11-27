@@ -1,6 +1,4 @@
-import { projectState } from "@/utils/recoil/store";
 import React from "react";
-import { useQueryClient } from "react-query";
 import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { CiStar } from "react-icons/ci";
 import { FaRegStickyNote } from "react-icons/fa";
@@ -8,13 +6,11 @@ import { GrTask } from "react-icons/gr";
 
 import { Colors } from "@/utils/common/color";
 import { getRemainDaysText } from "@/utils/common/etc/getRemainDaysText";
-import { milestoneKeys } from "@/utils/common/query-keys";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/work/milestone/useUpdateMilestoneMutation";
-import { Milestone, MilestoneWithContentCount } from "@/utils/types/milestone";
+import { MilestoneWithContentCount } from "@/utils/types/milestone";
 
 import IconButton from "@/components/components/IconButton";
 import ProjectMilestoneEmoji from "@/components/work/milestone/ProjectMilestoneEmoji";
-import { useRecoilValue } from "recoil";
 
 interface MilestoneListCardProps {
   milestone: MilestoneWithContentCount;
@@ -26,26 +22,11 @@ export default function MilestoneListCard({
   isActive,
   onClick,
 }: Readonly<MilestoneListCardProps>) {
-  const project = useRecoilValue(projectState);
   const remainDaysData = getRemainDaysText(milestone.endAt);
-  const queryClient = useQueryClient();
 
   const { mutate: updateMilestoneRequest } = useUpdateMilestoneMutation(
     milestone.id,
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(milestoneKeys.list(project?.id));
-        queryClient.setQueryData<Milestone | undefined>(
-          milestoneKeys.detail(milestone.id, project?.id),
-          (prev) => {
-            return prev
-              ? { ...prev, isBookmarked: !prev.isBookmarked }
-              : undefined;
-          },
-        );
-      },
-      onError: console.error,
-    },
+    { onError: console.error },
   );
 
   return (

@@ -1,8 +1,9 @@
+import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
 import React from "react";
 import { format } from "date-fns";
 import { FaRegCalendar, FaRegStickyNote } from "react-icons/fa";
 
-import { Colors } from "@/utils/common/color";
+import { ColorKey, Colors } from "@/utils/common/color";
 import { useMemoByIdQuery } from "@/utils/hooks/react-query/work/memo/useMemoByIdQuery";
 
 import MemoCardButtons from "@/components/work/components/MemoCardButtons";
@@ -15,6 +16,14 @@ export default function MemoContent({
   currentMemoId,
 }: Readonly<MemoContentProps>) {
   const { data: memo } = useMemoByIdQuery(currentMemoId);
+
+  const { mutate: updateMemoRequest } = useUpdateMemoMutation({
+    memoId: memo?.id,
+  });
+
+  const handleUpdateColor = (color: ColorKey) => {
+    updateMemoRequest({ color });
+  };
 
   if (!memo) {
     return (
@@ -32,7 +41,7 @@ export default function MemoContent({
     >
       <div className="flex-between">
         <div className="flex items-center gap-8px">
-          <ColorForm initialColor={memo.color} onConfirm={() => {}} />
+          <ColorForm initialColor={memo.color} onConfirm={handleUpdateColor} />
           <p className="text-22px font-bold leading-[150%]">{memo.title}</p>
         </div>
         <MemoCardButtons memo={memo} />

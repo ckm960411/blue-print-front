@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { Memo } from "@/utils/types/memo";
 import MemoContent from "@/components/work/memo/MemoContent";
 import MemoSideTab from "@/components/work/memo/MemoSideTab";
 
 export default function MemoTab() {
-  const [currentMemo, setCurrentMemo] = useState<Memo | null>(null);
+  const [currentMemoId, setCurrentMemoId] = useState<number | null>(null);
 
   return (
     <div className="flex">
-      <MemoSideTab currentMemo={currentMemo} setCurrentMemo={setCurrentMemo} />
+      <MemoSideTab
+        currentMemoId={currentMemoId}
+        setCurrentMemoId={setCurrentMemoId}
+      />
       <div className="grow">
-        <MemoContent memo={currentMemo} />
+        <MemoContent currentMemoId={currentMemoId} />
       </div>
     </div>
   );

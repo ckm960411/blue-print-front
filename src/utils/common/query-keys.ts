@@ -63,7 +63,7 @@ export const memoKeys = {
   all: (arg: MemoKeysAllArgs) => ["memos", arg] as const,
   list: (arg: MemoKeysAllArgs) => [...memoKeys.all(arg), "list"] as const,
   details: (arg: MemoKeysAllArgs) => [...memoKeys.all(arg), "detail"] as const,
-  detail: ({ memoId, ...rest }: MemoKeysAllArgs & { memoId: number }) =>
+  detail: ({ memoId, ...rest }: MemoKeysAllArgs & { memoId?: number | null }) =>
     [...memoKeys.details(rest), memoId] as const,
 };
 

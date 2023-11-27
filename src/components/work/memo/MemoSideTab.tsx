@@ -1,7 +1,5 @@
-import { isUndefined } from "lodash";
 import React, { Dispatch, Fragment, SetStateAction, useEffect } from "react";
 
-import { Memo } from "@/utils/types/memo";
 import { useToggleMemoChecked } from "@/utils/hooks/work/memo/useToggleMemoChecked";
 import { useMemoQuery } from "@/utils/hooks/react-query/work/memo/useMemoQuery";
 
@@ -9,21 +7,20 @@ import ToggleCheckOnly from "@/components/work/components/ToggleCheckOnly";
 import MemoListCard from "@/components/work/memo/MemoListCard";
 
 interface MemoSideTabProps {
-  currentMemo: Memo | null;
-  setCurrentMemo: Dispatch<SetStateAction<Memo | null>>;
+  currentMemoId: number | null;
+  setCurrentMemoId: Dispatch<SetStateAction<number | null>>;
 }
 export default function MemoSideTab({
-  currentMemo,
-  setCurrentMemo,
+  currentMemoId,
+  setCurrentMemoId,
 }: Readonly<MemoSideTabProps>) {
   const { showMemoChecked, toggleMemoChecked } = useToggleMemoChecked();
 
   const { data: memos } = useMemoQuery();
 
   useEffect(() => {
-    if (isUndefined(memos) || memos.length === 0) return setCurrentMemo(null);
-    if (!currentMemo) {
-      setCurrentMemo(memos[0]);
+    if (!currentMemoId) {
+      setCurrentMemoId(memos?.[0]?.id ?? null);
     }
   }, [memos]);
 
@@ -46,8 +43,8 @@ export default function MemoSideTab({
           <Fragment key={memo.id}>
             <MemoListCard
               memo={memo}
-              isActive={currentMemo?.id === memo.id}
-              onClick={() => setCurrentMemo(memo)}
+              isActive={currentMemoId === memo.id}
+              onClick={() => setCurrentMemoId(memo.id)}
             />
             <hr />
           </Fragment>

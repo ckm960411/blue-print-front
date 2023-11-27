@@ -11,7 +11,6 @@ import {
 } from "react-icons/bs";
 
 import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
-import { useToggleMemoChecked } from "@/utils/hooks/work/memo/useToggleMemoChecked";
 import { getDayByAsiaSeoulFormat } from "@/utils/common";
 import { ColorKey, Colors } from "@/utils/common/color";
 import { GET_ALL_MEMOS } from "@/utils/common/query-keys";
@@ -27,13 +26,11 @@ interface MemoCardProps {
   memo: Memo;
   onDelete?: () => void;
 }
-export default function MemoCard({ memo, onDelete }: MemoCardProps) {
+export default function MemoCard({ memo, onDelete }: Readonly<MemoCardProps>) {
   const DEFAULT_COLOR: ColorKey = "yellow";
   const { color, isChecked, isBookmarked, title, content, createdAt } = memo;
 
-  const theme: ColorKey = (color as ColorKey) ?? DEFAULT_COLOR;
-
-  const { showMemoChecked: showChecked } = useToggleMemoChecked();
+  const theme: ColorKey = color ?? DEFAULT_COLOR;
 
   const { openToast } = useToastMessage();
   const queryClient = useQueryClient();
@@ -77,74 +74,73 @@ export default function MemoCard({ memo, onDelete }: MemoCardProps) {
   };
 
   return (
-    <>
-      <div
-        className="relative flex w-full flex-col gap-8px rounded-r-[10px] border-l-4 border-green-500 bg-green-50 p-16px"
-        style={{
-          borderColor: Colors[theme][500],
-          backgroundColor: Colors[theme][50],
-        }}
-      >
-        <div className="flex-between">
-          <p className="truncate-1-lines text-16px font-bold text-gray-800">
-            {title}
-          </p>
-          <div className="flex items-center gap-8px">
-            <IconButton
-              onClick={() =>
-                updateMemoRequest({
-                  isChecked: !isChecked,
-                  projectId: project?.id,
-                })
-              }
-              className="rounded-md bg-transparent text-16px hover:bg-transparent"
-              w={24}
-            >
-              <BsCheckLg
-                className={isChecked ? "text-green-500" : "text-gray-800"}
-              />
-            </IconButton>
-            <IconButton
-              onClick={() =>
-                updateMemoRequest({
-                  isBookmarked: !isBookmarked,
-                  projectId: project?.id,
-                })
-              }
-              className="rounded-md bg-transparent text-16px hover:bg-transparent"
-              w={24}
-            >
-              {isBookmarked ? (
-                <BsFillBookmarkFill className="text-red-500" />
-              ) : (
-                <BsBookmark className="text-gray-800" />
-              )}
-            </IconButton>
-            <IconButton
-              onClick={openDeletePopup}
-              className="rounded-md bg-transparent text-18px hover:bg-transparent"
-              w={24}
-            >
-              <BsTrash />
-            </IconButton>
-          </div>
-        </div>
-        <div
-          dangerouslySetInnerHTML={{ __html: content }}
-          className="break-all text-14px leading-[150%] text-gray-700"
-        />
-        <p className="text-14px text-gray-600">
-          {format(new Date(createdAt), "yyyy.MM.dd")} (
-          {getDayByAsiaSeoulFormat(new Date(createdAt))})
+    <div
+      className="relative flex w-full flex-col gap-8px rounded-r-[10px] border-l-4 border-green-500 bg-green-50 p-16px"
+      style={{
+        borderColor: Colors[theme][500],
+        backgroundColor: Colors[theme][50],
+      }}
+    >
+      <div className="flex-between">
+        <p className="truncate-1-lines text-16px font-bold text-gray-800">
+          {title}
         </p>
-
-        <DeletePopup
-          open={isDeletePopupOpen}
-          title="정말 이 메모를 삭제할까요?"
-          onClose={closeDeletePopup}
-          onComplete={handleDelete}
-        />
+        <div className="flex items-center gap-8px">
+          <IconButton
+            onClick={() =>
+              updateMemoRequest({
+                isChecked: !isChecked,
+                projectId: project?.id,
+              })
+            }
+            className="rounded-md bg-transparent text-16px hover:bg-transparent"
+            w={24}
+          >
+            <BsCheckLg
+              className={isChecked ? "text-green-500" : "text-gray-800"}
+            />
+          </IconButton>
+          <IconButton
+            onClick={() =>
+              updateMemoRequest({
+                isBookmarked: !isBookmarked,
+                projectId: project?.id,
+              })
+            }
+            className="rounded-md bg-transparent text-16px hover:bg-transparent"
+            w={24}
+          >
+            {isBookmarked ? (
+              <BsFillBookmarkFill className="text-red-500" />
+            ) : (
+              <BsBookmark className="text-gray-800" />
+            )}
+          </IconButton>
+          <IconButton
+            onClick={openDeletePopup}
+            className="rounded-md bg-transparent text-18px hover:bg-transparent"
+            w={24}
+          >
+            <BsTrash />
+          </IconButton>
+        </div>
       </div>
-    </>
+      <div
+        dangerouslySetInnerHTML={{ __html: content }}
+        className="break-all text-14px leading-[150%] text-gray-700"
+      />
+      <p className="text-14px text-gray-600">
+        {format(new Date(createdAt), "yyyy.MM.dd")} (
+        {getDayByAsiaSeoulFormat(new Date(createdAt))})
+      </p>
+
+      <DeletePopup
+        open={isDeletePopupOpen}
+        title="정말 이 메모를 삭제할까요?"
+        onClose={closeDeletePopup}
+        onComplete={handleDelete}
+        className="right-8px top-8px text-14px"
+      />
+    </div>
   );
 }

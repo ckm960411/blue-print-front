@@ -38,13 +38,7 @@ export default function WorkTabMenuPlusButton({
     },
   );
 
-  const { mutate: createMemoRequest } = useCreateMemoMutation({
-    onSuccess: (data) => {
-      queryClient.invalidateQueries(QueryKeys.getAllMemos());
-      queryClient.invalidateQueries(QueryKeys.getWorkCount(project?.id));
-    },
-    onError: console.error,
-  });
+  const { mutate: createMemoRequest } = useCreateMemoMutation();
 
   const handleClick = () => {
     if (!project) return;

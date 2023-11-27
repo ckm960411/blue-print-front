@@ -9,11 +9,7 @@ import { createMemo } from "@/utils/services/memo";
 import { CreateMemoReqDto } from "@/utils/services/memo/dto/create-memo.req.dto";
 import { Memo } from "@/utils/types/memo";
 
-export const useCreateMemoMutation = ({
-  milestoneId,
-  onSuccess,
-  onError,
-}: {
+export const useCreateMemoMutation = (options?: {
   milestoneId?: number;
   onSuccess?: (data?: Memo) => void;
   onError?: (e?: unknown) => void;
@@ -29,14 +25,18 @@ export const useCreateMemoMutation = ({
     {
       onSuccess: (newMemo) => {
         queryClient.setQueryData<Memo[] | undefined>(
-          memoKeys.list({ milestoneId, projectId: project?.id, showChecked }),
+          memoKeys.list({
+            milestoneId: options?.milestoneId,
+            projectId: project?.id,
+            showChecked,
+          }),
           (prev) => {
             if (!prev) return prev;
             return [newMemo, ...prev];
           },
         );
         openToast({ title: "메모 작성 완료" });
-        onSuccess?.();
+        options?.onSuccess?.();
       },
       onError: (e: any) => {
         openToast({
@@ -44,7 +44,7 @@ export const useCreateMemoMutation = ({
           title: "메모 작성 실패",
           description: "메모 작성 중 에러가 발생했습니다.",
         });
-        onError?.(e);
+        options?.onError?.(e);
       },
     },
   );

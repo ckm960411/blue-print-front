@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import { WEB_STORAGE_KEY } from "@/utils/common/constant";
+import { useLocalStorage } from "@/utils/hooks/common/useLocalStorage";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { GoSidebarExpand } from "react-icons/go";
 import { FiBook } from "react-icons/fi";
@@ -9,9 +11,17 @@ import { MdOutlineLaptopChromebook } from "react-icons/md";
 import { SideLink, SidebarBottom } from "@/components/common/sidebar/index";
 
 export default function SidebarV2() {
+  const [isLocalOpen, setIsLocalOpen] = useLocalStorage(
+    WEB_STORAGE_KEY.SIDEBAR_OPENED,
+    true,
+  );
   const [isOpen, setIsOpen] = useState(true);
 
-  const toggleOpenSidebar = () => setIsOpen((prev) => !prev);
+  useEffect(() => {
+    setIsOpen(isLocalOpen);
+  }, [isLocalOpen]);
+
+  const toggleOpenSidebar = () => setIsLocalOpen((prev) => !prev);
 
   return (
     <div

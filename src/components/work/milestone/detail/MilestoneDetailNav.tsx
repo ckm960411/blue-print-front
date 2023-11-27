@@ -50,8 +50,9 @@ export default function MilestoneDetailNav({
     {
       onSuccess: (deletedMilestone) => {
         queryClient.invalidateQueries(milestoneKeys.list(project?.id));
-        queryClient.removeQueries(
+        queryClient.setQueryData(
           milestoneKeys.detail(milestone.id, project?.id),
+          undefined,
         );
       },
       onError: console.error,

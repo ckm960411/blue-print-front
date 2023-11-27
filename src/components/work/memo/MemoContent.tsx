@@ -1,12 +1,12 @@
-import EditButton from "@/components/work/components/form/EditButton";
-import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
 import React, { useState } from "react";
-import { format } from "date-fns";
-import { FaRegCalendar, FaRegStickyNote } from "react-icons/fa";
+import { FaRegStickyNote } from "react-icons/fa";
 
 import { ColorKey, Colors } from "@/utils/common/color";
 import { useMemoByIdQuery } from "@/utils/hooks/react-query/work/memo/useMemoByIdQuery";
+import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
 
+import EditButton from "@/components/work/components/form/EditButton";
+import MemoContentForm from "@/components/work/memo/MemoContentForm";
 import MemoCardButtons from "@/components/work/components/MemoCardButtons";
 import ColorForm from "@/components/work/components/ColorForm";
 
@@ -78,16 +78,8 @@ export default function MemoContent({
         </div>
         <MemoCardButtons memo={memo} />
       </div>
-      <div className="flex items-center gap-4px text-gray-600">
-        <FaRegCalendar />
-        <span className="text-14px">
-          {format(new Date(memo.createdAt), "yyyy년 MM월 dd일 HH:mm")}
-        </span>
-      </div>
-      <div
-        className="break-all text-16px leading-[150%] text-gray-700"
-        dangerouslySetInnerHTML={{ __html: memo.content }}
-      />
+
+      <MemoContentForm memo={memo} />
     </div>
   );
 }

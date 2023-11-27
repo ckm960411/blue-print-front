@@ -1,23 +1,25 @@
-import { useUpdateTaskMutation } from "@/utils/hooks/react-query/work/task/useUpdateTaskMutation";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import { useRecoilValue } from "recoil";
+
 import { projectState } from "@/utils/recoil/store";
 import { Task } from "@/utils/types/task";
-import dynamic from "next/dynamic";
-import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useUpdateTaskMutation } from "@/utils/hooks/react-query/work/task/useUpdateTaskMutation";
 
 const PlainEditor = dynamic(() => import("../components/PlainEditor"));
 
 interface TaskContentFormProps {
   task: Task;
 }
-export default function TaskContentForm({ task }: TaskContentFormProps) {
+export default function TaskContentForm({
+  task,
+}: Readonly<TaskContentFormProps>) {
   const project = useRecoilValue(projectState);
 
-  const [type, setType] = useState<"create" | "update">(
-    task.content ? "update" : "create",
-  );
   const [content, setContent] = useState(task.content ?? "");
   const [isEditing, setIsEditing] = useState(false);
+
+  const type = task.content ? "update" : "create";
 
   const handleOpen = () => setIsEditing(true);
   const handleClose = () => setIsEditing(false);

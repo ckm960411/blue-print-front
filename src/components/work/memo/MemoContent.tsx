@@ -1,5 +1,6 @@
+import EditButton from "@/components/work/components/form/EditButton";
 import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
-import React from "react";
+import React, { useState } from "react";
 import { format } from "date-fns";
 import { FaRegCalendar, FaRegStickyNote } from "react-icons/fa";
 
@@ -15,15 +16,13 @@ interface MemoContentProps {
 export default function MemoContent({
   currentMemoId,
 }: Readonly<MemoContentProps>) {
-  const { data: memo } = useMemoByIdQuery(currentMemoId);
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempTitle, setTempTitle] = useState("");
 
+  const { data: memo } = useMemoByIdQuery(currentMemoId);
   const { mutate: updateMemoRequest } = useUpdateMemoMutation({
     memoId: memo?.id,
   });
-
-  const handleUpdateColor = (color: ColorKey) => {
-    updateMemoRequest({ color });
-  };
 
   if (!memo) {
     return (
@@ -34,6 +33,22 @@ export default function MemoContent({
     );
   }
 
+  const resetTitle = () => setTempTitle(memo.title ?? "");
+
+  const handleEdit = () => {
+    if (isEditing) {
+      updateMemoRequest({ title: tempTitle });
+      setIsEditing(false);
+    } else {
+      setIsEditing(true);
+    }
+    resetTitle();
+  };
+
+  const handleUpdateColor = (color: ColorKey) => {
+    updateMemoRequest({ color });
+  };
+
   return (
     <div
       className="flex h-full flex-col gap-16px p-16px"
@@ -42,7 +57,24 @@ export default function MemoContent({
       <div className="flex-between">
         <div className="flex items-center gap-8px">
           <ColorForm initialColor={memo.color} onConfirm={handleUpdateColor} />
-          <p className="text-22px font-bold leading-[150%]">{memo.title}</p>
+          <div className="flex-center gap-8px">
+            {isEditing ? (
+              <input
+                value={tempTitle}
+                onChange={(e) => setTempTitle(e.target.value)}
+                placeholder="할일 제목을 설정해주세요"
+                className="max-w-[300px] grow rounded-md border border-gray-200 px-12px py-6px text-16px font-semibold text-gray-700"
+              />
+            ) : (
+              <p className="text-22px font-bold leading-[150%]">{memo.title}</p>
+            )}
+            <EditButton
+              onClick={handleEdit}
+              w={24}
+              className="bg-transparent text-14px"
+              tooltipPlacement="right"
+            />
+          </div>
         </div>
         <MemoCardButtons memo={memo} />
       </div>

@@ -36,6 +36,13 @@ export const useUpdateMemoMutation = ({
             );
           },
         );
+        queryClient.setQueryData<Memo | undefined>(
+          memoKeys.detail({ memoId }),
+          (prev) => {
+            if (!prev) return prev;
+            return patchedMemo;
+          },
+        );
       },
       onError: (e: any) => {
         openToast({

@@ -1,19 +1,19 @@
-import EditButton from "@/components/work/components/form/EditButton";
-import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
 import React, { useState } from "react";
-import { format } from "date-fns";
 
-import { getDayByAsiaSeoulFormat } from "@/utils/common";
+import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
 import { ColorKey, Colors } from "@/utils/common/color";
 import { Memo } from "@/utils/types/memo";
+
 import MemoCardButtons from "@/components/work/components/MemoCardButtons";
+import EditButton from "@/components/work/components/form/EditButton";
+import MemoCardContentForm from "@/components/work/components/MemoCardContentForm";
 
 interface MemoCardProps {
   memo: Memo;
 }
 export default function MemoCard({ memo }: Readonly<MemoCardProps>) {
   const DEFAULT_COLOR: ColorKey = "yellow";
-  const { id, milestoneId, color, title, content, createdAt } = memo;
+  const { id, milestoneId, color, title } = memo;
 
   const [isEditing, setIsEditing] = useState(false);
   const [tempTitle, setTempTitle] = useState("");
@@ -71,14 +71,7 @@ export default function MemoCard({ memo }: Readonly<MemoCardProps>) {
           milestoneId={memo.milestoneId ?? undefined}
         />
       </div>
-      <div
-        dangerouslySetInnerHTML={{ __html: content }}
-        className="break-all text-14px leading-[150%] text-gray-700"
-      />
-      <p className="text-14px text-gray-600">
-        {format(new Date(createdAt), "yyyy.MM.dd")} (
-        {getDayByAsiaSeoulFormat(new Date(createdAt))})
-      </p>
+      <MemoCardContentForm memo={memo} />
     </div>
   );
 }

@@ -1,5 +1,7 @@
+import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
 import React from "react";
 import { format } from "date-fns";
+import { BsFillBookmarkFill } from "react-icons/bs";
 import { FaRegBookmark } from "react-icons/fa";
 
 import { Colors } from "@/utils/common/color";
@@ -16,7 +18,13 @@ export default function MemoListCard({
   isActive,
   onClick,
 }: Readonly<MemoListCardProps>) {
-  const { color, title, content, createdAt } = memo;
+  const { id, color, title, content, createdAt, isBookmarked } = memo;
+
+  const { mutate: updateMemoRequest } = useUpdateMemoMutation({ memoId: id });
+
+  const handleBookmark = () => {
+    updateMemoRequest({ isBookmarked: !isBookmarked });
+  };
 
   return (
     <div
@@ -31,9 +39,14 @@ export default function MemoListCard({
         <p className="truncate-1-lines grow text-14px font-semibold">{title}</p>
         <IconButton
           w={24}
+          onClick={handleBookmark}
           className="flex-shrink-0 bg-transparent text-14px text-gray-600 duration-200 hover:bg-gray-100 hover:text-main"
         >
-          <FaRegBookmark />
+          {isBookmarked ? (
+            <BsFillBookmarkFill className="text-red-500" />
+          ) : (
+            <FaRegBookmark />
+          )}
         </IconButton>
       </div>
       <p

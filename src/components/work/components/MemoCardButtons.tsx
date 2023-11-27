@@ -1,21 +1,20 @@
-import IconButton from "@/components/components/IconButton";
-import DeletePopup from "@/components/work/components/DeletePopup";
-import { GET_ALL_MEMOS } from "@/utils/common/query-keys";
-import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
-import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
-import { projectState } from "@/utils/recoil/store";
-import { deleteMemo } from "@/utils/services/memo";
-import { Memo } from "@/utils/types/memo";
-import { useDisclosure } from "@chakra-ui/hooks";
 import React from "react";
+import { useRecoilValue } from "recoil";
+import { useDisclosure } from "@chakra-ui/hooks";
 import {
   BsBookmark,
   BsCheckLg,
   BsFillBookmarkFill,
   BsTrash,
 } from "react-icons/bs";
-import { useMutation, useQueryClient } from "react-query";
-import { useRecoilValue } from "recoil";
+
+import { useDeleteMemoMutation } from "@/utils/hooks/react-query/work/memo/useDeleteMemoMutation";
+import { useUpdateMemoMutation } from "@/utils/hooks/react-query/work/memo/useUpdateMemoMutation";
+import { projectState } from "@/utils/recoil/store";
+import { Memo } from "@/utils/types/memo";
+
+import IconButton from "@/components/components/IconButton";
+import DeletePopup from "@/components/work/components/DeletePopup";
 
 interface MemoCardButtonsProps {
   memo: Memo;
@@ -28,8 +27,6 @@ export default function MemoCardButtons({
   const { id, milestoneId, isBookmarked, isChecked } = memo;
 
   const project = useRecoilValue(projectState);
-  const { openToast } = useToastMessage();
-  const queryClient = useQueryClient();
 
   const { mutate: updateMemoRequest } = useUpdateMemoMutation({
     memoId: id,
@@ -42,29 +39,15 @@ export default function MemoCardButtons({
     onClose: closeDeletePopup,
   } = useDisclosure();
 
-  const { mutate: deleteMemoRequest } = useMutation(
-    ["delete-memo"],
-    (id: number) => deleteMemo(id),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([GET_ALL_MEMOS]);
-        onDelete?.();
-      },
-      onError: (e: any) => {
-        openToast({
-          status: "error",
-          title: "문제 발생",
-          description:
-            e?.response?.data?.message ||
-            "메모 삭제 중 문제가 발생했습니다. 다시 시도해 주세요.",
-        });
-      },
-    },
-  );
+  const { mutate: deleteMemoRequest } = useDeleteMemoMutation({
+    memoId: id,
+    milestoneId: memo.milestoneId ?? undefined,
+    onDelete,
+  });
 
   const handleDelete = () => {
     closeDeletePopup();
-    deleteMemoRequest(memo.id);
+    deleteMemoRequest();
   };
 
   return (

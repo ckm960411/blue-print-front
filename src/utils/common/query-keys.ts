@@ -1,7 +1,6 @@
 import { omit } from "lodash";
 
-export const GET_ALL_MEMOS = "getAllMemos";
-const getAllMemos = (...args: any[]) => [GET_ALL_MEMOS, ...args];
+const getAllMemos = (...args: any[]) => ["getAllMemos", ...args];
 
 const getThisMonthTasks = (...args: any[]) => ["get-this-month-tasks", ...args];
 

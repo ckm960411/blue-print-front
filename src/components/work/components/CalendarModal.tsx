@@ -6,6 +6,7 @@ interface CalendarModalProps {
   isOpen: boolean;
   date: DateTime | null;
   onClose: () => void;
+  onDelete: () => void;
   onUpdate: (date: Date) => void;
   minDate?: DateTime | null;
   maxDate?: DateTime | null;
@@ -15,6 +16,7 @@ export default function CalendarModal({
   date,
   onUpdate,
   onClose,
+  onDelete,
   minDate,
   maxDate,
 }: CalendarModalProps) {
@@ -37,12 +39,20 @@ export default function CalendarModal({
               onClose();
             }}
             inline
-            showWeek
             minDate={minDate ? new Date(minDate) : undefined}
             maxDate={maxDate ? new Date(maxDate) : undefined}
           />
         </div>
-        <div className="px-16px pb-16px text-right">
+        <div className="flex items-center justify-end px-16px pb-16px">
+          <button
+            onClick={() => {
+              onDelete();
+              onClose();
+            }}
+            className="rounded-md px-12px py-8px text-16px font-medium text-gray-800 hover:bg-gray-50"
+          >
+            삭제
+          </button>
           <button
             onClick={onClose}
             className="rounded-md px-12px py-8px text-16px font-medium text-gray-800 hover:bg-gray-50"

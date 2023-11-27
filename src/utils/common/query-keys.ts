@@ -1,26 +1,21 @@
-import { Progress } from "@/utils/types";
+import { omit } from "lodash";
 
-export const GET_ALL_MEMOS = "getAllMemos";
-const getAllMemos = (...args: any[]) => [GET_ALL_MEMOS, ...args];
-
-const getAllTasks = (...args: any[]) => ["get-all-tasks", ...args];
+const getAllMemos = (...args: any[]) => ["getAllMemos", ...args];
 
 const getThisMonthTasks = (...args: any[]) => ["get-this-month-tasks", ...args];
 
-const getAllMilestones = (...args: any[]) => ["get-all-milestones", ...args];
-
-const getMilestoneById = (id: number) => ["get-milestone-by-id", id];
-
 const getAllProjects = (...args: any[]) => ["get-all-projects", ...args];
 
-const getAllComments = (...args: any[]) => ["get-all-comments", args];
+const getAllComments = (...args: any[]) => ["get-all-comments", ...args];
+
+const getWorkCount = (...args: any[]) => ["get-work-count", ...args];
 
 export const QueryKeys = {
+  // WORK
+  getWorkCount,
+
   // MEMO
   getAllMemos,
-
-  // TASK
-  getAllTasks,
 
   // COMMENT
   getAllComments,
@@ -28,10 +23,60 @@ export const QueryKeys = {
   // this month tasks
   getThisMonthTasks,
 
-  // MILESTONE
-  getAllMilestones,
-  getMilestoneById,
-
   // PROJECTS
   getAllProjects,
+};
+
+const projectKeys = {
+  all: ["projects"] as const,
+  list: () => [...projectKeys.all, "list"] as const,
+  details: () => [...projectKeys.all, "detail"] as const,
+  detail: (id: number) => [...projectKeys.details(), id] as const,
+};
+
+export const milestoneKeys = {
+  all: (projectId?: number) => ["milestones", projectId] as const,
+  list: (projectId?: number) =>
+    [...milestoneKeys.all(projectId), "list"] as const,
+  details: (projectId?: number) =>
+    [...milestoneKeys.all(projectId), "detail"] as const,
+  detail: (milestoneId: number, projectId?: number) =>
+    [...milestoneKeys.details(projectId), milestoneId] as const,
+};
+
+type TaskKeysAllArgs = { projectId?: number; milestoneId?: number };
+export const taskKeys = {
+  all: (arg: TaskKeysAllArgs) => ["tasks", ...Object.values(arg)] as const,
+  list: (arg: TaskKeysAllArgs) => [...taskKeys.all(arg), "list"] as const,
+  details: (arg: TaskKeysAllArgs) => [...taskKeys.all(arg), "detail"] as const,
+  detail: ({ taskId, ...rest }: TaskKeysAllArgs & { taskId: number }) =>
+    [...taskKeys.details(omit(rest, "taskId")), taskId] as const,
+  urgent: (arg: TaskKeysAllArgs) => [...taskKeys.all(arg), "urgent"] as const,
+};
+
+type MemoKeysAllArgs = {
+  projectId?: number;
+  milestoneId?: number;
+  showChecked?: boolean;
+};
+export const memoKeys = {
+  all: (arg: MemoKeysAllArgs) => ["memos", arg] as const,
+  list: (arg: MemoKeysAllArgs) => [...memoKeys.all(arg), "list"] as const,
+  details: (arg: MemoKeysAllArgs) => [...memoKeys.all(arg), "detail"] as const,
+  detail: ({ memoId, ...rest }: MemoKeysAllArgs & { memoId?: number | null }) =>
+    [...memoKeys.details(rest), memoId] as const,
+};
+
+type commentKeysAllArgs = { projectId?: number; milestoneId?: number };
+export const commentKeys = {
+  all: (arg: commentKeysAllArgs) =>
+    ["comments", ...Object.values(arg)] as const,
+  list: (arg: commentKeysAllArgs) => [...commentKeys.all(arg), "list"] as const,
+  details: (arg: commentKeysAllArgs) =>
+    [...commentKeys.all(arg), "detail"] as const,
+  detail: ({
+    commentId,
+    ...rest
+  }: commentKeysAllArgs & { commentId: number }) =>
+    [...commentKeys.details(rest), commentId] as const,
 };

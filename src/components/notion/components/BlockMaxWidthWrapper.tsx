@@ -5,10 +5,9 @@ import { useWindowSize } from "usehooks-ts";
 import { useMediaQuery } from "react-responsive";
 import { useRecoilValue } from "recoil";
 import { sideBarOpenState } from "@/utils/recoil/store";
-import {
-  CLOSED_SIDE_BAR_WIDTH,
-  OPENED_SIDE_BAR_WIDTH,
-} from "@/components/common/sidebar/SideBar";
+
+export const CLOSED_SIDE_BAR_WIDTH = 60;
+export const OPENED_SIDE_BAR_WIDTH = 240;
 
 interface BlockMaxWidthWrapperProps {
   children: React.ReactNode;

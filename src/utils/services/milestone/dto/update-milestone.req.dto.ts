@@ -2,8 +2,8 @@ import { ColorKey } from "@/utils/common/color";
 import { Progress } from "@/utils/types";
 
 export interface UpdateMilestoneReqDto {
-  startAt?: Date;
-  endAt?: Date;
+  startAt?: Date | null;
+  endAt?: Date | null;
   title?: string;
   unicode?: string;
   classification?: string;

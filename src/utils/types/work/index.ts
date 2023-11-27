@@ -1,5 +1,5 @@
-export enum WorkSideContentType {
-  OUTLINE,
-  CALENDAR,
-  MEMO,
+export enum WorkTab {
+  Milestone = "Milestone",
+  Task = "Task",
+  Memo = "Memo",
 }

@@ -1,10 +1,9 @@
 import PrimeReactUIProvider from "@/components/common/PrimeReactUIProvider";
+import { Sidebar } from "@/components/common/sidebar";
 import TanstackQueryProvider from "@/components/common/TanstackQueryProvider";
 import React from "react";
 import type { Metadata } from "next";
 import { pretendard } from "@/utils/fonts";
-import Header from "@/components/common/Header";
-import SideBar from "@/components/common/sidebar/SideBar";
 import { ChakraUIProvider } from "@/components/common/ChakraUIProvider";
 import BottomNavigation from "@/components/common/BottomNavigation";
 import ScrollToTop from "@/components/common/ScrollToTop";
@@ -12,8 +11,6 @@ import RecoilProvider from "@/components/common/RecoilProvider";
 import ImageDetailProvider from "@/components/common/ImageDetailProvider";
 
 import "./globals.css";
-import "../css/react-date-range.css"; // main style file
-import "../css/react-date-range-default.css"; // theme css file
 import "@toast-ui/editor/dist/toastui-editor.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 
@@ -35,9 +32,8 @@ export default function RootLayout({
             <PrimeReactUIProvider>
               <ChakraUIProvider>
                 <div className="relative flex grow">
-                  <SideBar />
+                  <Sidebar />
                   <div className="flex grow flex-col">
-                    <Header />
                     <main className="grow">
                       <ImageDetailProvider>{children}</ImageDetailProvider>
                     </main>

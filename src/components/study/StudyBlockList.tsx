@@ -1,5 +1,5 @@
 import React from "react";
-import { useNotionBlockList } from "@/utils/hooks/react-query/useNotionBlockList";
+import { useNotionBlockList } from "@/utils/hooks/react-query/study/notion/useNotionBlockList";
 import NotionBlock from "@/components/notion/NotionBlock";
 
 interface StudyBlockListProps {

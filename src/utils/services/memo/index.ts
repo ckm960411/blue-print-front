@@ -12,6 +12,11 @@ export const getAllMemos = async (params?: GetAllMemosReqDto) => {
   return data;
 };
 
+export const getOneMemoById = async (id: number) => {
+  const { data } = await get<Memo>(`memo/${id}`);
+  return data;
+};
+
 export const createMemo = async (createMemoReqDto: CreateMemoReqDto) => {
   const { data } = await post<Memo>(`memo`, createMemoReqDto);
   return data;

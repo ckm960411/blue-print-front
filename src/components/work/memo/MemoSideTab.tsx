@@ -1,9 +1,9 @@
-import { useMemoQuery } from "@/utils/hooks/react-query/work/memo/useMemoQuery";
 import { isUndefined } from "lodash";
 import React, { Dispatch, Fragment, SetStateAction, useEffect } from "react";
 
 import { Memo } from "@/utils/types/memo";
 import { useToggleMemoChecked } from "@/utils/hooks/work/memo/useToggleMemoChecked";
+import { useMemoQuery } from "@/utils/hooks/react-query/work/memo/useMemoQuery";
 
 import ToggleCheckOnly from "@/components/work/components/ToggleCheckOnly";
 import MemoListCard from "@/components/work/memo/MemoListCard";

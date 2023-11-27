@@ -1,8 +1,9 @@
+import MemoCardButtons from "@/components/work/components/MemoCardButtons";
 import React from "react";
 import { format } from "date-fns";
 import { FaRegCalendar, FaRegStickyNote } from "react-icons/fa";
 
-import { ColorKey, Colors } from "@/utils/common/color";
+import { Colors } from "@/utils/common/color";
 import { Memo } from "@/utils/types/memo";
 import ColorForm from "@/components/work/components/ColorForm";
 
@@ -23,12 +24,15 @@ export default function MemoContent({ memo }: Readonly<MemoContentProps>) {
     <div
       className="flex h-full flex-col gap-16px p-16px"
       style={{
-        backgroundColor: Colors[memo.color as ColorKey][50],
+        backgroundColor: Colors[memo.color][50],
       }}
     >
-      <div className="flex items-center gap-8px">
-        <ColorForm initialColor={memo.color} onConfirm={() => {}} />
-        <p className="text-22px font-bold leading-[150%]">{memo.title}</p>
+      <div className="flex-between">
+        <div className="flex items-center gap-8px">
+          <ColorForm initialColor={memo.color} onConfirm={() => {}} />
+          <p className="text-22px font-bold leading-[150%]">{memo.title}</p>
+        </div>
+        <MemoCardButtons memo={memo} />
       </div>
       <div className="flex items-center gap-4px text-gray-600">
         <FaRegCalendar />

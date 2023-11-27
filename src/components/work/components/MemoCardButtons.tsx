@@ -18,17 +18,19 @@ import DeletePopup from "@/components/work/components/DeletePopup";
 
 interface MemoCardButtonsProps {
   memo: Memo;
+  milestoneId?: number;
 }
 export default function MemoCardButtons({
   memo,
+  milestoneId,
 }: Readonly<MemoCardButtonsProps>) {
-  const { id, milestoneId, isBookmarked, isChecked } = memo;
+  const { id, isBookmarked, isChecked } = memo;
 
   const project = useRecoilValue(projectState);
 
   const { mutate: updateMemoRequest } = useUpdateMemoMutation({
     memoId: id,
-    milestoneId: milestoneId ?? undefined,
+    milestoneId: milestoneId,
   });
 
   const {

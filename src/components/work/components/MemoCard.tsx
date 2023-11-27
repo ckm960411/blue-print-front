@@ -27,7 +27,10 @@ export default function MemoCard({ memo }: Readonly<MemoCardProps>) {
         <p className="truncate-1-lines text-16px font-bold text-gray-800">
           {title}
         </p>
-        <MemoCardButtons memo={memo} />
+        <MemoCardButtons
+          memo={memo}
+          milestoneId={memo.milestoneId ?? undefined}
+        />
       </div>
       <div
         dangerouslySetInnerHTML={{ __html: content }}

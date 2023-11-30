@@ -20,7 +20,7 @@ export default function PriorityForm({
   parentType,
   parentId,
   priority,
-}: PriorityFormProps) {
+}: Readonly<PriorityFormProps>) {
   const { openToast } = useToastMessage();
   const project = useRecoilValue(projectState);
   const {
@@ -52,7 +52,7 @@ export default function PriorityForm({
     { onSuccess: onStopEditing, onError },
   );
 
-  const handleClick = () => {
+  const handleClick = (priority: Priority) => {
     switch (parentType) {
       case "milestone":
         updateMilestoneRequest({ priority, projectId: project?.id });

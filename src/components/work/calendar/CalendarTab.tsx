@@ -1,10 +1,11 @@
+import { convertWorkToCalendarEvent } from "@/utils/common/work/calendar/convertWorkToCalendarEvent";
 import { projectState } from "@/utils/recoil/store";
 import { getThisMonthWorks } from "@/utils/services/work/[projectId]/calendar";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { getMonth, getYear } from "date-fns";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 
@@ -15,17 +16,13 @@ export default function CalendarTab() {
   const [year, setYear] = useState(getYear(new Date()));
   const [month, setMonth] = useState(getMonth(new Date()) - 1);
 
-  useQuery(
+  const { data: calendarWorks } = useQuery(
     ["calendar", year, month],
     () => {
       if (!project?.id) return Promise.reject(new Error("no project Id"));
       return getThisMonthWorks({ projectId: project.id, year, month });
     },
-    {
-      enabled: !!project,
-      onSuccess: console.log,
-      onError: console.error,
-    },
+    { enabled: !!project, onError: console.error },
   );
 
   const getYearAndWeek = (ref: MutableRefObject<FullCalendar | undefined>) => {
@@ -41,17 +38,9 @@ export default function CalendarTab() {
     return { year, month };
   };
 
-  useEffect(() => {
-    getThisMonthWorks({
-      projectId: 20,
-      year: 2023,
-      month: 11,
-    })
-      .then(console.log)
-      .catch(console.error);
-  }, []);
-
-  console.log(`year: ${year} / month: ${month}`);
+  const works = calendarWorks
+    ? calendarWorks.map(convertWorkToCalendarEvent)
+    : [];
 
   return (
     <div className="p-16px">
@@ -79,7 +68,6 @@ export default function CalendarTab() {
               if (!calendarRef.current) return;
               calendarRef.current?.getApi().next();
               const { year, month } = getYearAndWeek(calendarRef);
-
               setYear(year);
               setMonth(month);
             },
@@ -89,40 +77,8 @@ export default function CalendarTab() {
           left: "title",
           right: "prevButton,nextButton",
         }}
-        events={[
-          {
-            id: "1",
-            title: "rangerangerangerangerangerangerangerange",
-            start: "2023-11-24",
-            end: "2023-11-28",
-            color: "#001487",
-            startEditable: true,
-            interactive: true,
-            className: "mb-4px rounded-md font-semibold",
-          },
-          {
-            title: "date",
-            date: "2023-11-24",
-            textColor: "red",
-            display: "list-item",
-            startEditable: true,
-          },
-          {
-            title: "date",
-            date: "2023-11-24",
-            textColor: "red",
-            display: "list-item",
-            startEditable: true,
-          },
-          {
-            title: "date",
-            date: "2023-11-24",
-            textColor: "red",
-            display: "list-item",
-            startEditable: true,
-          },
-        ]}
-        dayMaxEventRows={3}
+        events={works}
+        dayMaxEventRows={6}
         moreLinkClick={(morLinkArg) => console.log("morLinkArg: ", morLinkArg)}
         dateClick={(dateClickArg) =>
           console.log("dateClickArg: ", dateClickArg)

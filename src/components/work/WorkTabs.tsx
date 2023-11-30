@@ -1,3 +1,4 @@
+import CalendarTab from "@/components/work/calendar/CalendarTab";
 import MemoTab from "@/components/work/memo/MemoTab";
 import MilestoneTab from "@/components/work/milestone/MilestoneTab";
 import TaskTab from "@/components/work/task/TaskTab";
@@ -13,6 +14,7 @@ export default function WorkTabs({ workTab }: Readonly<WorkTabsProps>) {
       {workTab === WorkTab.Milestone && <MilestoneTab />}
       {workTab === WorkTab.Task && <TaskTab />}
       {workTab === WorkTab.Memo && <MemoTab />}
+      {workTab === WorkTab.Calendar && <CalendarTab />}
     </div>
   );
 }

@@ -14,10 +14,10 @@ export default function CalendarTab() {
   const project = useRecoilValue(projectState);
 
   const [year, setYear] = useState(getYear(new Date()));
-  const [month, setMonth] = useState(getMonth(new Date()) - 1);
+  const [month, setMonth] = useState(getMonth(new Date()) + 1);
 
   const { data: calendarWorks } = useQuery(
-    ["calendar", year, month],
+    ["calendar", year, month, project?.id],
     () => {
       if (!project?.id) return Promise.reject(new Error("no project Id"));
       return getThisMonthWorks({ projectId: project.id, year, month });
@@ -29,7 +29,7 @@ export default function CalendarTab() {
     if (!ref.current) {
       return {
         year: getYear(new Date()),
-        month: getMonth(new Date()) - 1,
+        month: getMonth(new Date()) + 1,
       };
     }
     const date = ref.current.getApi().getDate();

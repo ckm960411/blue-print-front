@@ -1,6 +1,6 @@
 import { get } from "@/app/api/axios";
 import { ColorKey } from "@/utils/common/color";
-import { DateTime, Progress } from "@/utils/types";
+import { DateTime, Priority, Progress } from "@/utils/types";
 
 export interface GetThisMonthWorksReqDto {
   projectId: number;
@@ -15,6 +15,7 @@ export interface CalendarMilestone {
   unicode: string;
   progress: Progress;
   color: ColorKey;
+  priority: Priority;
   startAt: DateTime;
   endAt: DateTime;
 }
@@ -25,6 +26,7 @@ export interface CalendarTask {
   unicode: null;
   progress: Progress;
   color: ColorKey;
+  priority: Priority;
   startAt: DateTime;
   endAt: DateTime;
 }

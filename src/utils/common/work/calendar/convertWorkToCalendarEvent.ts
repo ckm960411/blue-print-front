@@ -36,12 +36,17 @@ const getTextColor = (work: CalendarWork) => {
   }
 };
 
+const getEmoji = ({ unicode }: CalendarWork) => {
+  const emoji = unicode ? String.fromCodePoint(parseInt(unicode, 16)) : "";
+  return `${emoji} `;
+};
+
 export const convertWorkToCalendarEvent = (work: CalendarWork) => {
-  const { milestoneId, taskId, title, unicode, startAt, endAt } = work;
+  const { milestoneId, taskId, title, startAt, endAt } = work;
 
   return {
     id: `${isMilestone(work) ? "milestone" : "task"}-${milestoneId ?? taskId}`,
-    title: title,
+    title: `${getEmoji(work)} ${title}`,
     start: isRange(work) ? formatDate(startAt) : undefined,
     end: isRange(work) ? formatDate(endAt) : undefined,
     date: isRange(work) ? undefined : formatDate(startAt),

@@ -27,6 +27,7 @@ export const useUpdateMilestoneMutation = (
           milestoneKeys.detail(milestoneId, project?.id),
           (prev) => (prev ? { ...prev, ...patchedMilestone } : undefined),
         );
+        queryClient.invalidateQueries(["calendar"]);
         options?.onSuccess?.();
       },
       onError: (e: any) => {

@@ -35,6 +35,7 @@ export const useUpdateTaskMutation = (options?: {
           },
         );
         queryClient.invalidateQueries(milestoneKeys.list(project?.id));
+        queryClient.invalidateQueries(["calendar"]);
         options?.onSuccess?.();
       },
       onError: (e: any) => {

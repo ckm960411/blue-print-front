@@ -57,6 +57,7 @@ export default function CalendarTab() {
         ref={calendarRef as MutableRefObject<FullCalendar>}
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
+        locale="ko"
         fixedWeekCount={false}
         titleFormat={{ year: "numeric", month: "short" }}
         weekNumbers={true}

@@ -61,6 +61,7 @@ export default function CalendarTab() {
         fixedWeekCount={false}
         titleFormat={{ year: "numeric", month: "short" }}
         weekNumbers={true}
+        height="auto"
         customButtons={{
           prevButton: {
             text: "prev",

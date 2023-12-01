@@ -89,22 +89,11 @@ export default function CalendarTab() {
         }}
         events={works}
         dayMaxEventRows={6}
-        moreLinkClick={(morLinkArg) => console.log("morLinkArg: ", morLinkArg)}
-        dateClick={(dateClickArg) =>
-          console.log("dateClickArg: ", dateClickArg)
-        }
-        eventDrop={(eventDropArg) =>
-          console.log("eventDropArg: ", eventDropArg)
-        }
-        eventMouseEnter={(eventHoveringArg) =>
-          console.log("eventHoveringArg: ", eventHoveringArg)
-        }
         eventClick={(eventClickArg) => {
           const type = eventClickArg.event.id.split("-")[0] as
             | "milestone"
             | "task";
           const workId = Number(eventClickArg.event.id.split("-")[1]);
-
           setCurrentWork({ type, id: workId });
           onOpen();
         }}

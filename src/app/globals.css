@@ -70,4 +70,6 @@ div#plain-editor div.ProseMirror.toastui-editor-contents {
   padding: 16px;
 }
 
-
+.fc .fc-popover {
+  z-index: 10;
+}

@@ -9,17 +9,23 @@ import MilestoneDetailHeader from "@/components/work/milestone/detail/MilestoneD
 
 interface MilestoneDetailProps {
   milestoneId: number;
+  isDrawer?: boolean;
 }
 export default function MilestoneDetail({
   milestoneId,
+  isDrawer = false,
 }: Readonly<MilestoneDetailProps>) {
   const { data: milestone } = useMilestoneByIdQuery(milestoneId);
 
   return milestone ? (
-    <div className="min-h-[calc(100vh-260px)] rounded-md border border-gray-200 shadow-md">
+    <div
+      className={`rounded-md border border-gray-200 shadow-md ${
+        isDrawer ? "h-full" : "min-h-[calc(100vh-260px)]"
+      }`}
+    >
       <MilestoneDetailNav milestone={milestone} />
       <div
-        className="h-full px-32px py-40px"
+        className={`h-full py-40px ${isDrawer ? "px-16px" : "px-32px"}`}
         style={{
           background:
             "linear-gradient(180deg, rgba(9,9,121,0.025) 0%, rgba(0,212,255,0.02) 17%, rgba(0,212,255,0) 100%)",

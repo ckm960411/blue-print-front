@@ -1,3 +1,4 @@
+import MilestoneDetailDrawer from "@/components/work/milestone/detail/MilestoneDetailDrawer";
 import TaskDetailDrawer from "@/components/work/task/TaskDetailDrawer";
 import { convertWorkToCalendarEvent } from "@/utils/common/work/calendar/convertWorkToCalendarEvent";
 import { projectState } from "@/utils/recoil/store";
@@ -114,6 +115,14 @@ export default function CalendarTab() {
           isOpen={isOpen}
           onClose={onClose}
           milestoneTitle={null}
+        />
+      )}
+
+      {currentWork?.type === "milestone" && (
+        <MilestoneDetailDrawer
+          milestoneId={currentWork.id}
+          isOpen={isOpen}
+          onClose={onClose}
         />
       )}
     </div>

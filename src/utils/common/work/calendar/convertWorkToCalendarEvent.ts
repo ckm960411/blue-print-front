@@ -55,5 +55,6 @@ export const convertWorkToCalendarEvent = (work: CalendarWork) => {
     textColor: getTextColor(work),
     display: isRange(work) ? undefined : "list-item",
     className: "mb-4px font-bold rounded-md pl-8px py-4px cursor-pointer",
+    allDay: true,
   };
 };

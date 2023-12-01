@@ -4,7 +4,7 @@ import { DateTime } from "@/utils/types";
 import { format } from "date-fns";
 
 const formatDate = (dateTime: DateTime) =>
-  format(new Date(dateTime), "yyyy-MM-dd");
+  `${format(new Date(dateTime), "yyyy-MM-dd")}T23:59:59`;
 
 const isMilestone = (work: CalendarWork) => !!work.milestoneId;
 const isRange = (work: CalendarWork) => !!(work.startAt && work.endAt);

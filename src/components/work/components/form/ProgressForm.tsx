@@ -8,12 +8,12 @@ import { QueryKeys } from "@/utils/common/query-keys";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/work/milestone/useUpdateMilestoneMutation";
 import { useUpdateTaskMutation } from "@/utils/hooks/react-query/work/task/useUpdateTaskMutation";
 import { projectState } from "@/utils/recoil/store";
-import { Progress } from "@/utils/types";
+import { MilestoneOrTask, Progress } from "@/utils/types";
 
 import TagButton from "@/components/work/components/form/TagButton";
 
 interface ProgressFormProps {
-  parentType: "milestone" | "task";
+  parentType: MilestoneOrTask;
   parentId: number;
   progress: Progress;
 }

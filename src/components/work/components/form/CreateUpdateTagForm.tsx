@@ -1,3 +1,4 @@
+import { MilestoneOrTask } from "@/utils/types";
 import React, { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 
@@ -14,7 +15,7 @@ interface CreateUpdateTagFormProps {
   children: React.ReactNode;
   chidlrenWrapperClassName?: HTMLDivElement["className"];
   type: "create" | "update";
-  parentType: "milestone" | "task";
+  parentType: MilestoneOrTask;
   parentId: number;
 }
 export default function CreateUpdateTagForm({

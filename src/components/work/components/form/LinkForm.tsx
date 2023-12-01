@@ -3,14 +3,14 @@ import NextLink from "next/link";
 import { Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
 
-import { Link } from "@/utils/types";
+import { Link, MilestoneOrTask } from "@/utils/types";
 import { useCreateLinkMutation } from "@/utils/hooks/react-query/work/link/useCreateLinkMutation";
 import { useDeleteLinkMutation } from "@/utils/hooks/react-query/work/link/useDeleteLinkMutation";
 
 import EditButton from "@/components/work/components/form/EditButton";
 
 interface LinkFormProps {
-  parentType: "milestone" | "task";
+  parentType: MilestoneOrTask;
   parentId: number;
   links: Link[];
 }

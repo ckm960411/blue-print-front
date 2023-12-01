@@ -1,12 +1,13 @@
 import CreateUpdateTagForm from "@/components/work/components/form/CreateUpdateTagForm";
 import { Colors } from "@/utils/common/color";
+import { MilestoneOrTask } from "@/utils/types";
 import { Tag } from "@/utils/types/tag.index";
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 interface TagsFormProps {
   tags: Tag[];
-  parentType: "milestone" | "task";
+  parentType: MilestoneOrTask;
   parentId: number;
 }
 export default function TagsForm({

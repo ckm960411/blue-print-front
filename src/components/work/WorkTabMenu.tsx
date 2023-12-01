@@ -86,7 +86,9 @@ export default function WorkTabMenu({
             );
           })}
         </div>
-        <WorkTabMenuPlusButton workTab={workTab} />
+        {[WorkTab.Milestone, WorkTab.Task, WorkTab.Milestone].includes(
+          workTab,
+        ) && <WorkTabMenuPlusButton workTab={workTab} />}
       </div>
     </div>
   );

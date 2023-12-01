@@ -3,20 +3,21 @@ import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
 import { createLink } from "@/utils/services/link";
 import { CreateLinkReqDto } from "@/utils/services/link/dto/create-link.req.dto";
+import { MilestoneOrTask } from "@/utils/types";
 import { Milestone } from "@/utils/types/milestone";
 import { Task } from "@/utils/types/task";
 import { useMutation, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 
 export const useCreateLinkMutation = (
-  parentType: "milestone" | "task",
+  parentType: MilestoneOrTask,
   parentId: number,
 ) => {
   const { openToast } = useToastMessage();
   const queryClient = useQueryClient();
   const project = useRecoilValue(projectState);
 
-  const matchingIdOrUndefined = (type: "milestone" | "task") => {
+  const matchingIdOrUndefined = (type: MilestoneOrTask) => {
     return type === parentType ? parentId : undefined;
   };
 

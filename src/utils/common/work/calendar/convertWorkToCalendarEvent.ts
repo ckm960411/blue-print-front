@@ -12,7 +12,7 @@ const isRange = (work: CalendarWork) => !!(work.startAt && work.endAt);
 const getBackgroundColor = (work: CalendarWork) => {
   if (!isRange(work)) return undefined;
   if (isMilestone(work)) {
-    return Colors[work.color][400];
+    return Colors[work.color][100];
   } else {
     return Colors[work.color][50];
   }
@@ -29,11 +29,7 @@ const getBorderColor = (work: CalendarWork) => {
 
 const getTextColor = (work: CalendarWork) => {
   if (!isRange(work)) return "#000";
-  if (isMilestone(work)) {
-    return "#fff";
-  } else {
-    return work.priority === 5 ? Colors.red[500] : "#000";
-  }
+  return work.priority === 5 ? Colors.red[500] : "#000";
 };
 
 const getEmoji = ({ unicode }: CalendarWork) => {
@@ -54,7 +50,7 @@ export const convertWorkToCalendarEvent = (work: CalendarWork) => {
     borderColor: getBorderColor(work),
     textColor: getTextColor(work),
     display: isRange(work) ? undefined : "list-item",
-    className: "mb-4px font-bold rounded-md pl-8px py-4px cursor-pointer",
+    className: "mb-4px font-bold rounded-md pl-8px py-2px cursor-pointer",
     allDay: true,
   };
 };

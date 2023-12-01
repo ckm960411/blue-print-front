@@ -1,6 +1,8 @@
+import TaskDetailDrawer from "@/components/work/task/TaskDetailDrawer";
 import { convertWorkToCalendarEvent } from "@/utils/common/work/calendar/convertWorkToCalendarEvent";
 import { projectState } from "@/utils/recoil/store";
 import { getThisMonthWorks } from "@/utils/services/work/[projectId]/calendar";
+import { useDisclosure } from "@chakra-ui/hooks";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -15,6 +17,12 @@ export default function CalendarTab() {
 
   const [year, setYear] = useState(getYear(new Date()));
   const [month, setMonth] = useState(getMonth(new Date()) + 1);
+  const [currentWork, setCurrentWork] = useState<{
+    type: "milestone" | "task";
+    id: number;
+  } | null>(null);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { data: calendarWorks } = useQuery(
     ["calendar", year, month, project?.id],
@@ -89,10 +97,25 @@ export default function CalendarTab() {
         eventMouseEnter={(eventHoveringArg) =>
           console.log("eventHoveringArg: ", eventHoveringArg)
         }
-        eventClick={(eventClickArg) =>
-          console.log("eventClickArg: ", eventClickArg)
-        }
+        eventClick={(eventClickArg) => {
+          const type = eventClickArg.event.id.split("-")[0] as
+            | "milestone"
+            | "task";
+          const workId = Number(eventClickArg.event.id.split("-")[1]);
+
+          setCurrentWork({ type, id: workId });
+          onOpen();
+        }}
       />
+
+      {currentWork?.type === "task" && (
+        <TaskDetailDrawer
+          taskId={currentWork.id}
+          isOpen={isOpen}
+          onClose={onClose}
+          milestoneTitle={null}
+        />
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import TaskDetailDrawer from "@/components/work/task/TaskDetailDrawer";
 import { convertWorkToCalendarEvent } from "@/utils/common/work/calendar/convertWorkToCalendarEvent";
 import { projectState } from "@/utils/recoil/store";
 import { getThisMonthWorks } from "@/utils/services/work/[projectId]/calendar";
+import { MilestoneOrTask } from "@/utils/types";
 import { useDisclosure } from "@chakra-ui/hooks";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -19,7 +20,7 @@ export default function CalendarTab() {
   const [year, setYear] = useState(getYear(new Date()));
   const [month, setMonth] = useState(getMonth(new Date()) + 1);
   const [currentWork, setCurrentWork] = useState<{
-    type: "milestone" | "task";
+    type: MilestoneOrTask;
     id: number;
   } | null>(null);
 

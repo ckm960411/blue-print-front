@@ -7,12 +7,12 @@ import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { useUpdateMilestoneMutation } from "@/utils/hooks/react-query/work/milestone/useUpdateMilestoneMutation";
 import { useUpdateTaskMutation } from "@/utils/hooks/react-query/work/task/useUpdateTaskMutation";
 import { projectState } from "@/utils/recoil/store";
-import { Priority } from "@/utils/types";
+import { MilestoneOrTask, Priority } from "@/utils/types";
 
 import PriorityButton from "@/components/work/components/form/PriorityButton";
 
 interface PriorityFormProps {
-  parentType: "milestone" | "task";
+  parentType: MilestoneOrTask;
   parentId: number;
   priority: Priority;
 }

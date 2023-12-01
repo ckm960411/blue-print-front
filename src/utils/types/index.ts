@@ -24,3 +24,5 @@ export interface Pagination<T> {
   totalCount: number;
   totalPages: number;
 }
+
+export type MilestoneOrTask = "milestone" | "task";

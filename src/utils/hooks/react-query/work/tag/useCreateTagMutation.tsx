@@ -3,6 +3,7 @@ import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
 import { createTag } from "@/utils/services/tag";
 import { CreateTagReqDto } from "@/utils/services/tag/dto/create-tag.req.dto";
+import { MilestoneOrTask } from "@/utils/types";
 import { Milestone } from "@/utils/types/milestone";
 import { Task } from "@/utils/types/task";
 import { useMutation, useQueryClient } from "react-query";
@@ -13,7 +14,7 @@ export const useCreateTagMutation = ({
   parentId,
   onReset,
 }: {
-  parentType: "milestone" | "task";
+  parentType: MilestoneOrTask;
   parentId: number;
   onReset: () => void;
 }) => {

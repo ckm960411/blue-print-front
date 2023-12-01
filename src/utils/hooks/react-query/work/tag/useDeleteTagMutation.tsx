@@ -2,6 +2,7 @@ import { milestoneKeys, taskKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
 import { deleteTag } from "@/utils/services/tag";
+import { MilestoneOrTask } from "@/utils/types";
 import { Milestone } from "@/utils/types/milestone";
 import { Task } from "@/utils/types/task";
 import { useMutation, useQueryClient } from "react-query";
@@ -11,7 +12,7 @@ export const useDeleteTagMutation = ({
   parentType,
   parentId,
 }: {
-  parentType: "milestone" | "task";
+  parentType: MilestoneOrTask;
   parentId: number;
 }) => {
   const queryClient = useQueryClient();

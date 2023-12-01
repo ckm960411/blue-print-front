@@ -2,13 +2,14 @@ import { milestoneKeys, taskKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { projectState } from "@/utils/recoil/store";
 import { deleteLinkById } from "@/utils/services/link";
+import { MilestoneOrTask } from "@/utils/types";
 import { Milestone } from "@/utils/types/milestone";
 import { Task } from "@/utils/types/task";
 import { useMutation, useQueryClient } from "react-query";
 import { useRecoilValue } from "recoil";
 
 export const useDeleteLinkMutation = (
-  parentType: "milestone" | "task",
+  parentType: MilestoneOrTask,
   parentId: number,
 ) => {
   const project = useRecoilValue(projectState);

@@ -54,6 +54,6 @@ export const convertWorkToCalendarEvent = (work: CalendarWork) => {
     borderColor: getBorderColor(work),
     textColor: getTextColor(work),
     display: isRange(work) ? undefined : "list-item",
-    className: "mb-4px font-bold rounded-md pl-8px py-4px",
+    className: "mb-4px font-bold rounded-md pl-8px py-4px cursor-pointer",
   };
 };

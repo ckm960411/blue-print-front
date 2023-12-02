@@ -96,17 +96,23 @@ export type Block = {
   created_time: Date | string;
   last_edited_time: Date | string;
   has_children: boolean;
-  parent: {
-    type: "page_id";
-    page_id: string;
-  };
+  parent:
+    | {
+        type: "page_id";
+        page_id: string;
+      }
+    | {
+        type: "block_id";
+        block_id: string;
+      };
+  children?: Block[];
 } & BlockTypeContent;
 
 export interface GetBlockListResDto {
   block: any;
   type: "block";
   has_more: boolean;
-  next_cursor: null;
+  next_cursor: string | null;
   object: "list";
   results: Block[];
 }

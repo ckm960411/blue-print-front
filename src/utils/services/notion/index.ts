@@ -12,9 +12,13 @@ export const getNotionPageById = async (pageId: string) => {
   return data;
 };
 
-export const getNotionBlockList = async (blockId: string) => {
+export const getNotionBlockList = async (
+  blockId: string,
+  params?: { start_cursor?: string; page_size?: number },
+) => {
   const { data } = await get<GetBlockListResDto>(
     `notion/blocks/${blockId}/children`,
+    { params },
   );
   return data;
 };

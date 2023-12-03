@@ -62,16 +62,16 @@ export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
       );
     case BlockType.toggle:
       return <ToggleBlock block={block} />;
-    // case BlockType.image:
-    //   return <ImageBlock block={block} />;
-    // case BlockType.bookmark:
-    //   return <BookmarkBlock block={block} />;
-    // case BlockType.child_page:
-    //   return <ChildPageBlock block={block} />;
-    // case BlockType.link_preview:
-    //   return <LinkPreviewBlock block={block} />;
-    // case BlockType.table_of_contents:
-    //   return <TableOfContentsBlock block={block} blocks={blocks} />;
+    case BlockType.image:
+      return <ImageBlock block={block} />;
+    case BlockType.bookmark:
+      return <BookmarkBlock block={block} />;
+    case BlockType.child_page:
+      return <ChildPageBlock block={block} />;
+    case BlockType.link_preview:
+      return <LinkPreviewBlock block={block} />;
+    case BlockType.table_of_contents:
+      return <TableOfContentsBlock block={block} />;
     default:
       return <div>NotionBlock</div>;
   }

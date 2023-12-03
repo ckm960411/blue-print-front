@@ -35,7 +35,7 @@ export default function MilestoneTabCheckboxContainer({
   ] as const;
 
   return (
-    <div className="flex-center gap-16px">
+    <div className="flex-center flex-wrap gap-16px">
       {progressWords.map((progress) => (
         <CheckBox
           key={progress.id}

@@ -42,12 +42,8 @@ export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
       return <NumberedListItemBlock block={block} />;
     case BlockType.callout:
       return <CalloutBlock block={block} />;
-    // case BlockType.paragraph:
-    //   return (
-    //     <ParagraphBlock block={block}>
-    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
-    //     </ParagraphBlock>
-    //   );
+    case BlockType.paragraph:
+      return <ParagraphBlock block={block} />;
     // case BlockType.column_list:
     //   return <ColumnListBlock block={block} />;
     // case BlockType.column:

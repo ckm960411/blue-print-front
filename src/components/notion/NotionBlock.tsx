@@ -24,87 +24,78 @@ import BlockMaxWidthWrapper from "@/components/notion/components/BlockMaxWidthWr
 
 interface NotionBlockProps {
   block: Block;
-  blocks: Block[];
   depth?: number;
 }
-export default function NotionBlock({
-  block,
-  blocks,
-  depth = 0,
-}: NotionBlockProps) {
+export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
   const { type } = block;
 
   switch (type) {
     case BlockType.quote:
-      return (
-        <QuoteBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </QuoteBlock>
-      );
-    case BlockType.heading_1:
-    case BlockType.heading_2:
-    case BlockType.heading_3:
-      return <HeadingBlockWrapper block={block} />;
-    case BlockType.bulleted_list_item:
-      return (
-        <BulletedListItemBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </BulletedListItemBlock>
-      );
-    case BlockType.numbered_list_item:
-      return (
-        <NumberedListItemBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </NumberedListItemBlock>
-      );
-    case BlockType.callout:
-      return (
-        <CalloutBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </CalloutBlock>
-      );
-    case BlockType.paragraph:
-      return (
-        <ParagraphBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </ParagraphBlock>
-      );
-    case BlockType.column_list:
-      return <ColumnListBlock block={block} />;
-    case BlockType.column:
-      return <ColumnBlock block={block} />;
-    case BlockType.code:
-      return <CodeBlock block={block} />;
-    case BlockType.divider:
-      return <DividerBlock />;
-    case BlockType.to_do:
-      return (
-        <ToDoBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </ToDoBlock>
-      );
-    case BlockType.table:
-      return (
-        <BlockMaxWidthWrapper depth={depth + 1}>
-          <TableBlock block={block} />
-        </BlockMaxWidthWrapper>
-      );
-    case BlockType.toggle:
-      return (
-        <ToggleBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </ToggleBlock>
-      );
-    case BlockType.image:
-      return <ImageBlock block={block} />;
-    case BlockType.bookmark:
-      return <BookmarkBlock block={block} />;
-    case BlockType.child_page:
-      return <ChildPageBlock block={block} />;
-    case BlockType.link_preview:
-      return <LinkPreviewBlock block={block} />;
-    case BlockType.table_of_contents:
-      return <TableOfContentsBlock block={block} blocks={blocks} />;
+      return <QuoteBlock block={block} />;
+    // case BlockType.heading_1:
+    // case BlockType.heading_2:
+    // case BlockType.heading_3:
+    //   return <HeadingBlockWrapper block={block} />;
+    // case BlockType.bulleted_list_item:
+    //   return (
+    //     <BulletedListItemBlock block={block}>
+    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
+    //     </BulletedListItemBlock>
+    //   );
+    // case BlockType.numbered_list_item:
+    //   return (
+    //     <NumberedListItemBlock block={block}>
+    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
+    //     </NumberedListItemBlock>
+    //   );
+    // case BlockType.callout:
+    //   return (
+    //     <CalloutBlock block={block}>
+    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
+    //     </CalloutBlock>
+    //   );
+    // case BlockType.paragraph:
+    //   return (
+    //     <ParagraphBlock block={block}>
+    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
+    //     </ParagraphBlock>
+    //   );
+    // case BlockType.column_list:
+    //   return <ColumnListBlock block={block} />;
+    // case BlockType.column:
+    //   return <ColumnBlock block={block} />;
+    // case BlockType.code:
+    //   return <CodeBlock block={block} />;
+    // case BlockType.divider:
+    //   return <DividerBlock />;
+    // case BlockType.to_do:
+    //   return (
+    //     <ToDoBlock block={block}>
+    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
+    //     </ToDoBlock>
+    //   );
+    // case BlockType.table:
+    //   return (
+    //     <BlockMaxWidthWrapper depth={depth + 1}>
+    //       <TableBlock block={block} />
+    //     </BlockMaxWidthWrapper>
+    //   );
+    // case BlockType.toggle:
+    //   return (
+    //     <ToggleBlock block={block}>
+    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
+    //     </ToggleBlock>
+    //   );
+    // case BlockType.image:
+    //   return <ImageBlock block={block} />;
+    // case BlockType.bookmark:
+    //   return <BookmarkBlock block={block} />;
+    // case BlockType.child_page:
+    //   return <ChildPageBlock block={block} />;
+    // case BlockType.link_preview:
+    //   return <LinkPreviewBlock block={block} />;
+    // case BlockType.table_of_contents:
+    //   return <TableOfContentsBlock block={block} blocks={blocks} />;
     default:
       return <div>NotionBlock</div>;
   }

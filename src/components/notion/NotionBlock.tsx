@@ -40,12 +40,8 @@ export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
       return <BulletedListItemBlock block={block} />;
     case BlockType.numbered_list_item:
       return <NumberedListItemBlock block={block} />;
-    // case BlockType.callout:
-    //   return (
-    //     <CalloutBlock block={block}>
-    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
-    //     </CalloutBlock>
-    //   );
+    case BlockType.callout:
+      return <CalloutBlock block={block} />;
     // case BlockType.paragraph:
     //   return (
     //     <ParagraphBlock block={block}>

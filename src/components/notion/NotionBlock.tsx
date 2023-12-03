@@ -32,10 +32,10 @@ export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
   switch (type) {
     case BlockType.quote:
       return <QuoteBlock block={block} />;
-    // case BlockType.heading_1:
-    // case BlockType.heading_2:
-    // case BlockType.heading_3:
-    //   return <HeadingBlockWrapper block={block} />;
+    case BlockType.heading_1:
+    case BlockType.heading_2:
+    case BlockType.heading_3:
+      return <HeadingBlockWrapper block={block} />;
     // case BlockType.bulleted_list_item:
     //   return (
     //     <BulletedListItemBlock block={block}>

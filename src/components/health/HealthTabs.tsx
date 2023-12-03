@@ -1,3 +1,4 @@
+import HealthCalendar from "@/components/health/HealthCalendar";
 import {
   Tab,
   TabIndicator,
@@ -28,7 +29,7 @@ export default function HealthTabs({ thisDate }: Readonly<HealthTabsProps>) {
           <p>two!</p>
         </TabPanel>
         <TabPanel>
-          <p>three!</p>
+          <HealthCalendar />
         </TabPanel>
       </TabPanels>
     </Tabs>

@@ -1,13 +1,13 @@
 "use client";
 
-import { post } from "@/app/api/axios";
+import React, { useEffect } from "react";
+import Image from "next/image";
+import { useInfiniteQuery, useQuery } from "react-query";
+
 import BlockList from "@/components/study/BlockList";
 import { getBlockList } from "@/utils/common/study/notion/getBlockList";
-import { GetPageResDto } from "@/utils/types/notion";
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import { getPagesData } from "@/utils/services/notion";
 import BreadCrumb from "@/components/study/BreadCrumb";
-import { useInfiniteQuery } from "react-query";
 
 interface CategoryPageProps {
   params: { pageIds: string[] };
@@ -17,7 +17,11 @@ export default function CategoryPage({
 }: CategoryPageProps) {
   const pageId = pageIds.at(-1);
 
-  const [pageDatas, setPageDatas] = useState<GetPageResDto[]>();
+  const { data: pageDatas } = useQuery(
+    ["get-pages-data", pageIds],
+    () => getPagesData(pageIds),
+    { enabled: pageIds.length > 0, onError: console.error },
+  );
 
   const {
     data: blockData,
@@ -44,19 +48,6 @@ export default function CategoryPage({
 
     fetchNextPage();
   }, [isBlockFetching, hasNextPage]);
-
-  useEffect(() => {
-    if (!pageId) return;
-    (async () => {
-      try {
-        post(`notion/pages`, { ids: pageIds })
-          .then(({ data }) => setPageDatas(data))
-          .catch(console.error);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [pageId]);
 
   if (!pageId || !pageDatas) return <></>;
 

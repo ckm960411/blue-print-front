@@ -60,12 +60,8 @@ export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
           <TableBlock block={block} />
         </BlockMaxWidthWrapper>
       );
-    // case BlockType.toggle:
-    //   return (
-    //     <ToggleBlock block={block}>
-    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
-    //     </ToggleBlock>
-    //   );
+    case BlockType.toggle:
+      return <ToggleBlock block={block} />;
     // case BlockType.image:
     //   return <ImageBlock block={block} />;
     // case BlockType.bookmark:

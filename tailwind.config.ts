@@ -31,6 +31,7 @@ const config: Config = {
       colors: {
         main: "#001487",
         emerald: "#005f87",
+        lightblue: "#F6F8FF",
       },
       spacing: {
         ...px0_500,

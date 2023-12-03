@@ -7,9 +7,11 @@ import { TbTriangleInvertedFilled } from "react-icons/tb";
 
 interface TableOfContentsBlockProps {
   block: Block;
+  blocks?: Block[];
 }
 export default function TableOfContentsBlock({
   block,
+  blocks,
 }: TableOfContentsBlockProps) {
   const { heading_1, heading_2, heading_3 } = BlockType;
 
@@ -31,7 +33,7 @@ export default function TableOfContentsBlock({
     });
   };
 
-  const headings = block.children?.filter((block) =>
+  const headings = blocks?.filter((block) =>
     [heading_1, heading_2, heading_3].includes(block.type),
   );
 

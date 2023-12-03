@@ -22,9 +22,14 @@ import BlockMaxWidthWrapper from "@/components/notion/components/BlockMaxWidthWr
 
 interface NotionBlockProps {
   block: Block;
+  blocks?: Block[];
   depth?: number;
 }
-export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
+export default function NotionBlock({
+  block,
+  blocks,
+  depth = 0,
+}: NotionBlockProps) {
   const { type } = block;
 
   switch (type) {
@@ -69,7 +74,7 @@ export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
     case BlockType.link_preview:
       return <LinkPreviewBlock block={block} />;
     case BlockType.table_of_contents:
-      return <TableOfContentsBlock block={block} />;
+      return <TableOfContentsBlock block={block} blocks={blocks} />;
     default:
       return <div>NotionBlock</div>;
   }

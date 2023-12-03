@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { useMediaQuery } from "react-responsive";
 import { useRecoilValue } from "recoil";
 import { useQuery } from "react-query";
 import { isUndefined } from "lodash";
@@ -22,6 +23,7 @@ export default function WorkTabMenu({
   workTab,
   setWorkTab,
 }: Readonly<WorkTabMenuProps>) {
+  const UNDER_500PX = useMediaQuery({ query: "(max-width: 499px)" });
   const project = useRecoilValue(projectState);
 
   const handleClickTab = (tab: WorkTab) => {
@@ -61,8 +63,8 @@ export default function WorkTabMenu({
 
   return (
     <div className="sticky top-0 border-b border-gray-200 bg-white">
-      <div className="flex-between rounded-md px-16px py-8px">
-        <div className="inline-flex items-center gap-4px rounded-md bg-gray-100 px-8px py-4px">
+      <div className="flex-between rounded-md sm:px-16px sm:py-8px">
+        <div className="inline-flex w-full items-center justify-center gap-4px rounded-md bg-gray-100 px-8px py-4px sm:w-auto sm:justify-start">
           {tabs.map(({ tab, Icon, count }) => {
             const isActive = tab === workTab;
             return (
@@ -74,7 +76,7 @@ export default function WorkTabMenu({
                 }`}
               >
                 <Icon />
-                <span>{tab}</span>
+                <span className={UNDER_500PX ? "hidden" : "block"}>{tab}</span>
                 {count && (
                   <span
                     className={`inline-flex items-center justify-center rounded-md bg-gray-200 p-4px text-10px font-medium`}
@@ -88,7 +90,11 @@ export default function WorkTabMenu({
         </div>
         {[WorkTab.Milestone, WorkTab.Task, WorkTab.Milestone].includes(
           workTab,
-        ) && <WorkTabMenuPlusButton workTab={workTab} />}
+        ) && (
+          <div className="hidden sm:block">
+            <WorkTabMenuPlusButton workTab={workTab} />
+          </div>
+        )}
       </div>
     </div>
   );

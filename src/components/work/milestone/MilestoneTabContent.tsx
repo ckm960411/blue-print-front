@@ -15,7 +15,7 @@ export default function MilestoneTabContent({
   );
 
   return (
-    <div className="mt-16px grid grid-cols-3 gap-12px ">
+    <div className="mt-16px gap-12px sm:grid sm:grid-cols-3">
       <div className="col-span-1">
         <MilestoneList
           currentMilestoneId={currentMilestoneId}
@@ -23,7 +23,7 @@ export default function MilestoneTabContent({
           progressChecked={progressChecked}
         />
       </div>
-      <div className="col-span-2 px-4px pb-4px">
+      <div className="hidden px-4px pb-4px sm:col-span-2 sm:block">
         {currentMilestoneId && (
           <MilestoneDetail milestoneId={currentMilestoneId} />
         )}

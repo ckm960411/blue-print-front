@@ -27,7 +27,7 @@ export default function MemoSideTab({
   if (!memos) return <></>;
 
   return (
-    <div className="min-h-screen w-240px flex-shrink-0 border-r border-gray-200 bg-gray-50">
+    <div className="min-h-screen w-180px flex-shrink-0 border-r border-gray-200 bg-gray-50 sm:w-240px">
       <div className="p-16px text-18px font-semibold">All Memos</div>
       <div className="flex-between p-16px">
         <p className="text-12px text-gray-500">{memos.length} Memos</p>

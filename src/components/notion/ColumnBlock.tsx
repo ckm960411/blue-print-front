@@ -1,14 +1,10 @@
+import BlockList from "@/components/study/BlockList";
 import { Block } from "@/utils/types/notion";
 import React from "react";
-import StudyBlockList from "../study/StudyBlockList";
 
 interface ColumnBlockProps {
   block: Block;
 }
 export default function ColumnBlock({ block }: ColumnBlockProps) {
-  return (
-    <div>
-      <StudyBlockList pageId={block.id} />
-    </div>
-  );
+  return <div>{block.children && <BlockList blocks={block.children} />}</div>;
 }

@@ -44,10 +44,10 @@ export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
       return <CalloutBlock block={block} />;
     case BlockType.paragraph:
       return <ParagraphBlock block={block} />;
-    // case BlockType.column_list:
-    //   return <ColumnListBlock block={block} />;
-    // case BlockType.column:
-    //   return <ColumnBlock block={block} />;
+    case BlockType.column_list:
+      return <ColumnListBlock block={block} />;
+    case BlockType.column:
+      return <ColumnBlock block={block} />;
     // case BlockType.code:
     //   return <CodeBlock block={block} />;
     // case BlockType.divider:

@@ -36,18 +36,10 @@ export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
     case BlockType.heading_2:
     case BlockType.heading_3:
       return <HeadingBlockWrapper block={block} />;
-    // case BlockType.bulleted_list_item:
-    //   return (
-    //     <BulletedListItemBlock block={block}>
-    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
-    //     </BulletedListItemBlock>
-    //   );
-    // case BlockType.numbered_list_item:
-    //   return (
-    //     <NumberedListItemBlock block={block}>
-    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
-    //     </NumberedListItemBlock>
-    //   );
+    case BlockType.bulleted_list_item:
+      return <BulletedListItemBlock block={block} />;
+    case BlockType.numbered_list_item:
+      return <NumberedListItemBlock block={block} />;
     // case BlockType.callout:
     //   return (
     //     <CalloutBlock block={block}>

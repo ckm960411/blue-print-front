@@ -1,3 +1,4 @@
+import BlockList from "@/components/study/BlockList";
 import { Block } from "@/utils/types/notion";
 import React from "react";
 import RichText from "./RichText";
@@ -5,12 +6,11 @@ import { BsCheckSquare, BsCheckSquareFill } from "react-icons/bs";
 
 interface ToDoBlockProps {
   block: Block;
-  children?: React.ReactNode;
 }
-export default function ToDoBlock({ block, children }: ToDoBlockProps) {
+export default function ToDoBlock({ block }: ToDoBlockProps) {
   const {
     to_do: { checked, rich_text },
-    has_children,
+    children,
   } = block;
 
   if (!rich_text) return <></>;
@@ -29,7 +29,7 @@ export default function ToDoBlock({ block, children }: ToDoBlockProps) {
           <RichText richText={rich_text} />
         </p>
       </p>
-      {has_children && <div className="mt-8px pl-24px">{children}</div>}
+      {children && <BlockList blocks={children} />}
     </div>
   );
 }

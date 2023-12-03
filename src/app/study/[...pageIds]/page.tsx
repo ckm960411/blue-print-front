@@ -1,10 +1,12 @@
 "use client";
 
-import { post } from "@/app/api/axios";
-import { GetPageResDto } from "@/utils/types/notion";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
-import StudyBlockList from "@/components/study/StudyBlockList";
+import { useInfiniteQuery, useQuery } from "react-query";
+
+import BlockList from "@/components/study/BlockList";
+import { getBlockList } from "@/utils/common/study/notion/getBlockList";
+import { getPagesData } from "@/utils/services/notion";
 import BreadCrumb from "@/components/study/BreadCrumb";
 
 interface CategoryPageProps {
@@ -15,20 +17,37 @@ export default function CategoryPage({
 }: CategoryPageProps) {
   const pageId = pageIds.at(-1);
 
-  const [pageDatas, setPageDatas] = useState<GetPageResDto[]>();
+  const { data: pageDatas } = useQuery(
+    ["get-pages-data", pageIds],
+    () => getPagesData(pageIds),
+    { enabled: pageIds.length > 0, onError: console.error },
+  );
+
+  const {
+    data: blockData,
+    isFetching: isBlockFetching,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery(
+    ["notion-blocks", pageId],
+    async ({ pageParam }: { pageParam?: string }) => {
+      if (!pageId) return Promise.reject(new Error("no pageId"));
+      return getBlockList([pageId], { start_cursor: pageParam });
+    },
+    {
+      enabled: !!pageId,
+      getNextPageParam: ({ next_cursor }) => next_cursor,
+      onError: console.error,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    },
+  );
 
   useEffect(() => {
-    if (!pageId) return;
-    (async () => {
-      try {
-        post(`notion/pages`, { ids: pageIds })
-          .then(({ data }) => setPageDatas(data))
-          .catch(console.error);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [pageId]);
+    if (isBlockFetching || !hasNextPage) return;
+
+    fetchNextPage();
+  }, [isBlockFetching, hasNextPage]);
 
   if (!pageId || !pageDatas) return <></>;
 
@@ -43,6 +62,10 @@ export default function CategoryPage({
     id: pageData.id,
     title: pageData.properties.title.title[0].text.content,
   }));
+
+  if (!blockData) return <></>;
+
+  const blocks = blockData.pages.flatMap((page) => page.blocks);
 
   return (
     <div className="p-16px">
@@ -73,7 +96,7 @@ export default function CategoryPage({
         </h1>
       </div>
       <div className="mt-24px">
-        <StudyBlockList pageId={pageId} />
+        <BlockList blocks={blocks} />
       </div>
     </div>
   );

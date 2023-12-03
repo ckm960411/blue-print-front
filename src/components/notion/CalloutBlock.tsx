@@ -1,3 +1,4 @@
+import BlockList from "@/components/study/BlockList";
 import { Block } from "@/utils/types/notion";
 import React from "react";
 import RichText from "./RichText";
@@ -5,12 +6,11 @@ import NotionIcon from "./NotionIcon";
 
 interface CalloutBlockProps {
   block: Block;
-  children?: React.ReactNode;
 }
-export default function CalloutBlock({ block, children }: CalloutBlockProps) {
+export default function CalloutBlock({ block }: CalloutBlockProps) {
   const {
     callout: { rich_text, icon },
-    has_children,
+    children,
   } = block;
 
   if (!rich_text || !icon) return <></>;
@@ -23,7 +23,7 @@ export default function CalloutBlock({ block, children }: CalloutBlockProps) {
           <div>
             <RichText richText={rich_text} />
           </div>
-          {has_children && <div className="mt-8px">{children}</div>}
+          {children && <BlockList blocks={children} />}
         </div>
       </div>
     </div>

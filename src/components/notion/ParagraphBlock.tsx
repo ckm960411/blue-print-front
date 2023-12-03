@@ -1,18 +1,15 @@
+import BlockList from "@/components/study/BlockList";
 import { Block } from "@/utils/types/notion";
 import React from "react";
 import RichText from "./RichText";
 
 interface ParagraphBlockProps {
   block: Block;
-  children?: React.ReactNode;
 }
-export default function ParagraphBlock({
-  block,
-  children,
-}: ParagraphBlockProps) {
+export default function ParagraphBlock({ block }: ParagraphBlockProps) {
   const {
     paragraph: { rich_text },
-    has_children,
+    children,
   } = block;
 
   if (!rich_text) return <></>;
@@ -22,7 +19,7 @@ export default function ParagraphBlock({
       <p>
         <RichText richText={rich_text} />
       </p>
-      {has_children && <div className="mt-8px pl-24px">{children}</div>}
+      {children && <BlockList blocks={children} />}
     </div>
   );
 }

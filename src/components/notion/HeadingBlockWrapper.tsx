@@ -1,7 +1,7 @@
-import { Block, BlockType, TextColor } from "@/utils/types/notion";
+import BlockList from "@/components/study/BlockList";
+import { Block, BlockType } from "@/utils/types/notion";
 import React from "react";
 import ToggleHeadingBlock from "./ToggleHeadingBlock";
-import StudyBlockList from "../study/StudyBlockList";
 import HeadingBlock from "./HeadingBlock";
 
 interface HeadingBlockWrapperProps {
@@ -12,7 +12,7 @@ export default function HeadingBlockWrapper({
 }: HeadingBlockWrapperProps) {
   const { heading_1, heading_2, heading_3 } = BlockType;
 
-  const { type } = block;
+  const { type, children } = block;
 
   if ([heading_1, heading_2, heading_3].includes(type)) {
     const {
@@ -25,7 +25,7 @@ export default function HeadingBlockWrapper({
           block={block}
           heading={<HeadingBlock block={block} />}
         >
-          <StudyBlockList pageId={block.id} />
+          {children && <BlockList blocks={children} />}
         </ToggleHeadingBlock>
       );
     }

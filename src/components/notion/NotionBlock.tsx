@@ -2,7 +2,6 @@ import { Block, BlockType } from "@/utils/types/notion";
 import React from "react";
 import ParagraphBlock from "./ParagraphBlock";
 import QuoteBlock from "./QuoteBlock";
-import HeadingBlock from "./HeadingBlock";
 import BulletedListItemBlock from "./BulletedListItemBlock";
 import NumberedListItemBlock from "./NumberedListItemBlock";
 import CalloutBlock from "./CalloutBlock";
@@ -15,7 +14,6 @@ import TableBlock from "./TableBlock";
 import ToggleBlock from "./ToggleBlock";
 import ImageBlock from "./ImageBlock";
 import BookmarkBlock from "./BookmarkBlock";
-import StudyBlockList from "../study/StudyBlockList";
 import ChildPageBlock from "./ChildPageBlock";
 import LinkPreviewBlock from "./LinkPreviewBlock";
 import TableOfContentsBlock from "./TableOfContentsBlock";
@@ -24,7 +22,7 @@ import BlockMaxWidthWrapper from "@/components/notion/components/BlockMaxWidthWr
 
 interface NotionBlockProps {
   block: Block;
-  blocks: Block[];
+  blocks?: Block[];
   depth?: number;
 }
 export default function NotionBlock({
@@ -36,39 +34,19 @@ export default function NotionBlock({
 
   switch (type) {
     case BlockType.quote:
-      return (
-        <QuoteBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </QuoteBlock>
-      );
+      return <QuoteBlock block={block} />;
     case BlockType.heading_1:
     case BlockType.heading_2:
     case BlockType.heading_3:
       return <HeadingBlockWrapper block={block} />;
     case BlockType.bulleted_list_item:
-      return (
-        <BulletedListItemBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </BulletedListItemBlock>
-      );
+      return <BulletedListItemBlock block={block} />;
     case BlockType.numbered_list_item:
-      return (
-        <NumberedListItemBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </NumberedListItemBlock>
-      );
+      return <NumberedListItemBlock block={block} />;
     case BlockType.callout:
-      return (
-        <CalloutBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </CalloutBlock>
-      );
+      return <CalloutBlock block={block} />;
     case BlockType.paragraph:
-      return (
-        <ParagraphBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </ParagraphBlock>
-      );
+      return <ParagraphBlock block={block} />;
     case BlockType.column_list:
       return <ColumnListBlock block={block} />;
     case BlockType.column:
@@ -78,11 +56,7 @@ export default function NotionBlock({
     case BlockType.divider:
       return <DividerBlock />;
     case BlockType.to_do:
-      return (
-        <ToDoBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </ToDoBlock>
-      );
+      return <ToDoBlock block={block} />;
     case BlockType.table:
       return (
         <BlockMaxWidthWrapper depth={depth + 1}>
@@ -90,11 +64,7 @@ export default function NotionBlock({
         </BlockMaxWidthWrapper>
       );
     case BlockType.toggle:
-      return (
-        <ToggleBlock block={block}>
-          <StudyBlockList pageId={block.id} depth={depth + 1} />
-        </ToggleBlock>
-      );
+      return <ToggleBlock block={block} />;
     case BlockType.image:
       return <ImageBlock block={block} />;
     case BlockType.bookmark:

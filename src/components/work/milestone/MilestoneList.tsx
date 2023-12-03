@@ -1,5 +1,7 @@
 import IconButton from "@/components/components/IconButton";
+import { useRouter } from "next/navigation";
 import React, { Dispatch, SetStateAction, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import { useRecoilValue } from "recoil";
 import { useQuery } from "react-query";
 import { filter, map, pipe } from "lodash/fp";
@@ -26,7 +28,10 @@ export default function MilestoneList({
   currentMilestoneId,
   setCurrentMilestoneId,
 }: Readonly<MilestoneListProps>) {
+  const isMobile = useMediaQuery({ query: "(max-width: 639px)" });
   const project = useRecoilValue(projectState);
+  const router = useRouter();
+
   const [page, setPage] = useState(1);
 
   const progresses = pipe(
@@ -67,7 +72,11 @@ export default function MilestoneList({
             key={milestone.id}
             milestone={milestone}
             isActive={milestone.id === currentMilestoneId}
-            onClick={() => setCurrentMilestoneId(milestone.id)}
+            onClick={() =>
+              isMobile
+                ? router.push(`/work/milestone/${milestone.id}`)
+                : setCurrentMilestoneId(milestone.id)
+            }
           />
         ))}
       </div>

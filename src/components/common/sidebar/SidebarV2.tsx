@@ -1,13 +1,14 @@
 "use client";
 
-import { WEB_STORAGE_KEY } from "@/utils/common/constant";
-import { useLocalStorage } from "@/utils/hooks/common/useLocalStorage";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { GoSidebarExpand } from "react-icons/go";
 import { FiBook } from "react-icons/fi";
 import { MdOutlineLaptopChromebook } from "react-icons/md";
+import { IoIosFitness } from "react-icons/io";
 
+import { WEB_STORAGE_KEY } from "@/utils/common/constant";
+import { useLocalStorage } from "@/utils/hooks/common/useLocalStorage";
 import { SideLink, SidebarBottom } from "@/components/common/sidebar/index";
 
 export default function SidebarV2() {
@@ -53,6 +54,12 @@ export default function SidebarV2() {
           title="Work"
           href="/work"
           icon={<MdOutlineLaptopChromebook />}
+          isSidebarOpen={isOpen}
+        />
+        <SideLink
+          title="Health"
+          href="/health"
+          icon={<IoIosFitness />}
           isSidebarOpen={isOpen}
         />
       </div>

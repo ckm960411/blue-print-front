@@ -1,11 +1,11 @@
 "use client";
 
 import { post } from "@/app/api/axios";
+import BlockList from "@/components/study/BlockList";
 import { getBlockList } from "@/utils/common/study/notion/getBlockList";
 import { GetPageResDto } from "@/utils/types/notion";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import StudyBlockList from "@/components/study/StudyBlockList";
 import BreadCrumb from "@/components/study/BreadCrumb";
 import { useInfiniteQuery } from "react-query";
 
@@ -20,7 +20,7 @@ export default function CategoryPage({
   const [pageDatas, setPageDatas] = useState<GetPageResDto[]>();
 
   const {
-    data,
+    data: blockData,
     isFetching: isBlockFetching,
     fetchNextPage,
     hasNextPage,
@@ -44,14 +44,6 @@ export default function CategoryPage({
 
     fetchNextPage();
   }, [isBlockFetching, hasNextPage]);
-
-  useEffect(() => {
-    console.log("data: ", data);
-  }, [data]);
-
-  useEffect(() => {
-    console.log("hasNextPage: ", hasNextPage);
-  }, [hasNextPage]);
 
   useEffect(() => {
     if (!pageId) return;
@@ -79,6 +71,10 @@ export default function CategoryPage({
     id: pageData.id,
     title: pageData.properties.title.title[0].text.content,
   }));
+
+  if (!blockData) return <></>;
+
+  const blocks = blockData.pages.flatMap((page) => page.blocks);
 
   return (
     <div className="p-16px">
@@ -109,7 +105,7 @@ export default function CategoryPage({
         </h1>
       </div>
       <div className="mt-24px">
-        <StudyBlockList pageId={pageId} />
+        <BlockList blocks={blocks} />
       </div>
     </div>
   );

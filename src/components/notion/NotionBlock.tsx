@@ -48,16 +48,12 @@ export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
       return <ColumnListBlock block={block} />;
     case BlockType.column:
       return <ColumnBlock block={block} />;
-    // case BlockType.code:
-    //   return <CodeBlock block={block} />;
-    // case BlockType.divider:
-    //   return <DividerBlock />;
-    // case BlockType.to_do:
-    //   return (
-    //     <ToDoBlock block={block}>
-    //       <StudyBlockList pageId={block.id} depth={depth + 1} />
-    //     </ToDoBlock>
-    //   );
+    case BlockType.code:
+      return <CodeBlock block={block} />;
+    case BlockType.divider:
+      return <DividerBlock />;
+    case BlockType.to_do:
+      return <ToDoBlock block={block} />;
     // case BlockType.table:
     //   return (
     //     <BlockMaxWidthWrapper depth={depth + 1}>

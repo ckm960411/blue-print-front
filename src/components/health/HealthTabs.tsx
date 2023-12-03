@@ -1,4 +1,5 @@
 import HealthCalendar from "@/components/health/HealthCalendar";
+import HealthDashboard from "@/components/health/HealthDashboard";
 import {
   Tab,
   TabIndicator,
@@ -23,7 +24,7 @@ export default function HealthTabs({ thisDate }: Readonly<HealthTabsProps>) {
       <TabIndicator mt="-1.5px" height="2px" bg="blue.500" borderRadius="1px" />
       <TabPanels>
         <TabPanel>
-          <p>one!</p>
+          <HealthDashboard />
         </TabPanel>
         <TabPanel>
           <p>two!</p>

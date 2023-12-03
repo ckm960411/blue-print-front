@@ -54,12 +54,12 @@ export default function NotionBlock({ block, depth = 0 }: NotionBlockProps) {
       return <DividerBlock />;
     case BlockType.to_do:
       return <ToDoBlock block={block} />;
-    // case BlockType.table:
-    //   return (
-    //     <BlockMaxWidthWrapper depth={depth + 1}>
-    //       <TableBlock block={block} />
-    //     </BlockMaxWidthWrapper>
-    //   );
+    case BlockType.table:
+      return (
+        <BlockMaxWidthWrapper depth={depth + 1}>
+          <TableBlock block={block} />
+        </BlockMaxWidthWrapper>
+      );
     // case BlockType.toggle:
     //   return (
     //     <ToggleBlock block={block}>

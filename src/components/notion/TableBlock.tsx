@@ -1,7 +1,6 @@
 import React from "react";
 import { Table, TableContainer, Tbody, Th, Tr } from "@chakra-ui/react";
 
-import { useNotionBlockList } from "@/utils/hooks/react-query/study/notion/useNotionBlockList";
 import { Block } from "@/utils/types/notion";
 import RichText from "@/components/notion/RichText";
 
@@ -9,11 +8,8 @@ interface TableBlockProps {
   block: Block;
 }
 export default function TableBlock({ block }: TableBlockProps) {
-  const { data } = useNotionBlockList(block.id);
-
-  if (!data) return <></>;
-
-  const { results: rows } = data;
+  [];
+  const rows = block.children ?? [];
 
   return (
     <TableContainer minWidth={800}>

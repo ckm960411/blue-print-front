@@ -45,7 +45,7 @@ export default function BottomNavigation() {
         <Link
           href="/health"
           className={`flex-center flex-col gap-4px p-8px font-medium ${
-            isActive("/work") ? "text-main" : ""
+            isActive("/health") ? "text-main" : ""
           }`}
         >
           <IoIosFitness className="text-22px" />

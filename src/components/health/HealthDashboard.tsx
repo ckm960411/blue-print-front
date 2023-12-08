@@ -1,5 +1,8 @@
-interface HealthDashboardProps {}
-export default function HealthDashboard({}: Readonly<HealthDashboardProps>) {
+import { useMonthExercisesQuery } from "@/utils/hooks/react-query/health/useMonthExercisesQuery";
+
+export default function HealthDashboard() {
+  const { data: exercises = [] } = useMonthExercisesQuery();
+
   return (
     <div className="relative">
       <div className="absolute inset-x-0 top-0 h-60px bg-main" />
@@ -8,7 +11,9 @@ export default function HealthDashboard({}: Readonly<HealthDashboardProps>) {
           <div className="flex flex-col gap-16px p-16px">
             <div className="flex-between font-semibold">
               <span className="text-main">🏋🏼 한걸음 습관 만들기</span>
-              <span className="font-medium">🏅이번 달 n회</span>
+              <span className="font-medium">
+                🏅이번 달 {exercises.length}회
+              </span>
             </div>
 
             <div className="flex items-center gap-8px">

@@ -80,3 +80,14 @@ export const commentKeys = {
   }: commentKeysAllArgs & { commentId: number }) =>
     [...commentKeys.details(rest), commentId] as const,
 };
+
+export const exerciseKeys = {
+  all: (userId?: number) => [userId, "exercises"] as const,
+  list: (userId?: number) => [...exerciseKeys.all(userId), "list"] as const,
+  details: (userId?: number) =>
+    [...exerciseKeys.all(userId), "detail"] as const,
+  detail: (userId?: number, exerciseId?: number) => [
+    ...exerciseKeys.details(userId),
+    exerciseId,
+  ],
+};

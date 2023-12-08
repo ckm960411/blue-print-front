@@ -1,5 +1,6 @@
 "use client";
 
+import HealthDailyExercises from "@/components/health/HealthDailyExercises";
 import HealthDashboard from "@/components/health/HealthDashboard";
 import HealthDaySelect from "@/components/health/HealthDaySelect";
 import HealthMonthlyExercise from "@/components/health/HealthMonthlyExercise";
@@ -14,6 +15,7 @@ export default function HealthPage() {
       <HealthMonthlyExercise />
       <HealthWeight />
       <HealthMonthlyCalendar />
+      <HealthDailyExercises />
     </section>
   );
 }

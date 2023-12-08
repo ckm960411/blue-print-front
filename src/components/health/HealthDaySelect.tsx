@@ -2,17 +2,14 @@ import {
   eachDayOfInterval,
   endOfWeek,
   format,
-  isSameDay,
-  startOfToday,
+  isToday,
   startOfWeek,
 } from "date-fns";
-import React, { useState } from "react";
+import React from "react";
 
 export default function HealthDaySelect() {
-  const [selectedDay, setSelectedDay] = useState(startOfToday());
-
   const weekDays = (() => {
-    const now = selectedDay;
+    const now = new Date();
     const start = startOfWeek(now, { weekStartsOn: 1 }); // 월요일부터 시작
     const end = endOfWeek(now, { weekStartsOn: 1 }); // 일요일까지
 
@@ -29,15 +26,14 @@ export default function HealthDaySelect() {
   return (
     <div className="bg-main p-16px text-white">
       <p className="pb-16px text-18px font-bold">
-        {format(selectedDay, "yyyy년 M월")}
+        {format(new Date(), "yyyy년 M월")}
       </p>
       <div className="grid grid-cols-7 gap-8px">
-        {weekDays.map((day) => {
-          const isActive = isSameDay(day.date, selectedDay);
+        {weekDays.map(({ date, dateString, day }) => {
+          const isActive = isToday(date);
           return (
-            <button
-              key={`${day.dateString}-${day.day}`}
-              onClick={() => setSelectedDay(day.date)}
+            <div
+              key={`${dateString}-${day}`}
               className="flex-center flex-col gap-12px rounded-md text-14px font-medium"
             >
               <span
@@ -45,12 +41,12 @@ export default function HealthDaySelect() {
                   isActive ? "bg-white font-bold text-main" : ""
                 }`}
               >
-                {day.dateString}
+                {dateString}
               </span>
               <span className={isActive ? "font-bold underline" : ""}>
-                {day.day}
+                {day}
               </span>
-            </button>
+            </div>
           );
         })}
       </div>

@@ -2,14 +2,14 @@
 
 import HealthDashboard from "@/components/health/HealthDashboard";
 import HealthDaySelect from "@/components/health/HealthDaySelect";
-import HealthMonthly from "@/components/health/HealthMonthly";
+import HealthMonthlyExercise from "@/components/health/HealthMonthlyExercise";
 
 export default function HealthPage() {
   return (
     <section>
       <HealthDaySelect />
       <HealthDashboard />
-      <HealthMonthly />
+      <HealthMonthlyExercise />
     </section>
   );
 }

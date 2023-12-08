@@ -1,5 +1,5 @@
 interface HealthMonthlyProps {}
-export default function HealthMonthly({}: Readonly<HealthMonthlyProps>) {
+export default function HealthMonthlyExercise({}: Readonly<HealthMonthlyProps>) {
   return (
     <div className="p-16px">
       <div className="rounded-md p-16px shadow-md">

@@ -1,4 +1,3 @@
-import SpaceY from "@/components/common/SpaceY";
 import {
   eachDayOfInterval,
   endOfWeek,
@@ -9,12 +8,7 @@ import {
 } from "date-fns";
 import React, { useState } from "react";
 
-interface HealthDaySelectProps {
-  children?: React.ReactNode;
-}
-export default function HealthDaySelect({
-  children,
-}: Readonly<HealthDaySelectProps>) {
+export default function HealthDaySelect() {
   const [selectedDay, setSelectedDay] = useState(startOfToday());
 
   const weekDays = (() => {
@@ -33,7 +27,7 @@ export default function HealthDaySelect({
   })();
 
   return (
-    <div className="relative bg-main p-16px text-white">
+    <div className="bg-main p-16px text-white">
       <p className="pb-16px text-18px font-bold">
         {format(selectedDay, "yyyy년 M월")}
       </p>
@@ -60,8 +54,6 @@ export default function HealthDaySelect({
           );
         })}
       </div>
-      <SpaceY height={60} />
-      {children}
     </div>
   );
 }

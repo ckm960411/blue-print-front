@@ -10,8 +10,10 @@ import { IoIosFitness } from "react-icons/io";
 import { WEB_STORAGE_KEY } from "@/utils/common/constant";
 import { useLocalStorage } from "@/utils/hooks/common/useLocalStorage";
 import { SideLink, SidebarBottom } from "@/components/common/sidebar/index";
+import { useMediaQuery } from "react-responsive";
 
 export default function SidebarV2() {
+  const UNDER_480PX = useMediaQuery({ query: "(max-width:479px)" });
   const [isLocalOpen, setIsLocalOpen] = useLocalStorage(
     WEB_STORAGE_KEY.SIDEBAR_OPENED,
     true,
@@ -24,9 +26,13 @@ export default function SidebarV2() {
 
   const toggleOpenSidebar = () => setIsLocalOpen((prev) => !prev);
 
+  if (UNDER_480PX) {
+    return <></>;
+  }
+
   return (
     <div
-      className={`bg-lightblue sticky top-0 flex h-screen flex-shrink-0 flex-col border-r border-blue-100 duration-200 ${
+      className={`sticky top-0 flex h-screen flex-shrink-0 flex-col border-r border-blue-100 bg-lightblue duration-200 ${
         isOpen ? "w-240px " : "w-60px items-center"
       }`}
     >

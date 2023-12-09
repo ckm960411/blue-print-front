@@ -34,8 +34,8 @@ export default function CreateExerciseModal({
       <ModalContent>
         <ModalHeader>오늘 한 운동 추가</ModalHeader>
         <ModalCloseButton />
-        <ModalBody className="p-16px">
-          <div className="flex flex-col gap-16px">
+        <ModalBody className="flex flex-col gap-16px p-16px">
+          <div className="flex grow flex-col gap-16px">
             <p className="text-16px font-medium">어떤 운동을 했나요?</p>
             <div className="flex items-center gap-16px text-14px">
               <CreateExerciseSelectType
@@ -50,6 +50,14 @@ export default function CreateExerciseModal({
             </div>
             <CreateExerciseType onSuccess={(type) => setExerciseType(type)} />
             <CreateExerciseDescription />
+          </div>
+          <div className="flex items-center justify-end gap-16px">
+            <button className="rounded-md border border-gray-200 px-12px py-8px text-16px font-medium duration-200 hover:bg-gray-100">
+              닫기
+            </button>
+            <button className="rounded-md border border-gray-200 bg-main px-12px py-8px text-16px font-medium text-white duration-200">
+              작성하기
+            </button>
           </div>
         </ModalBody>
       </ModalContent>

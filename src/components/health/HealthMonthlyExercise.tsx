@@ -3,8 +3,16 @@ import { useMonthExercisesQuery } from "@/utils/hooks/react-query/health/useMont
 
 export default function HealthMonthlyExercise() {
   const { data: exercises = [] } = useMonthExercisesQuery();
-
   const { medal, maxStep } = getMonthlyExerciseMedal(exercises.length);
+
+  const monthlyExerciseCountByType = exercises.reduce(
+    (acc, { name }) => {
+      if (!acc[name]) acc[name] = 0;
+      acc[name]++;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   return (
     <div className="p-16px">
@@ -21,10 +29,11 @@ export default function HealthMonthlyExercise() {
             </span>
           </div>
           <div className="flex flex-col gap-8px pt-12px text-14px">
-            <p className="truncate-1-lines">턱걸이 n회</p>
-            <p className="truncate-1-lines">푸시업 n회</p>
-            <p className="truncate-1-lines">달리기 n회</p>
-            <p className="truncate-1-lines">덤벨 n회</p>
+            {Object.entries(monthlyExerciseCountByType).map(([type, count]) => (
+              <p key={type} className="truncate-1-lines">
+                {type} {count}회
+              </p>
+            ))}
           </div>
         </div>
       </div>

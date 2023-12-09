@@ -24,3 +24,10 @@ export const getWeeklyExerciseChecked = async () => {
   );
   return data;
 };
+
+export const getOneDateExercises = async (date: string) => {
+  const { data } = await get<Exercise[]>(`health/exercises/date`, {
+    params: { date },
+  });
+  return data;
+};

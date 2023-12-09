@@ -1,4 +1,4 @@
-import { get } from "@/app/api/axios";
+import { get, post } from "@/app/api/axios";
 import { Exercise, ExerciseType } from "@/utils/types/health";
 import { format, startOfDay } from "date-fns/fp";
 import { flow } from "lodash/fp";
@@ -34,5 +34,16 @@ export const getOneDateExercises = async (date: string) => {
 
 export const getAllExerciseType = async () => {
   const { data } = await get<ExerciseType[]>(`health/exercises/type`);
+  return data;
+};
+
+export const createExerciseType = async ({
+  name,
+  unit,
+}: {
+  name: string;
+  unit: string;
+}) => {
+  const { data } = await post(`health/exercises/type`, { name, unit });
   return data;
 };

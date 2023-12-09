@@ -47,7 +47,7 @@ export default function CreateExerciseModal({
                 onChangeCount={(value) => setCount(isNaN(value) ? 0 : value)}
               />
             </div>
-            <CreateExerciseType />
+            <CreateExerciseType onSuccess={(type) => setExerciseType(type)} />
           </div>
         </ModalBody>
       </ModalContent>

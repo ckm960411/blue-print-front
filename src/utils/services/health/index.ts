@@ -44,6 +44,9 @@ export const createExerciseType = async ({
   name: string;
   unit: string;
 }) => {
-  const { data } = await post(`health/exercises/type`, { name, unit });
+  const { data } = await post<ExerciseType>(`health/exercises/type`, {
+    name,
+    unit,
+  });
   return data;
 };

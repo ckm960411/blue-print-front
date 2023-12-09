@@ -1,10 +1,15 @@
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
 import { createExerciseType } from "@/utils/services/health";
+import { ExerciseType } from "@/utils/types/health";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 
-interface CreateExerciseTypeProps {}
-export default function CreateExerciseType({}: Readonly<CreateExerciseTypeProps>) {
+interface CreateExerciseTypeProps {
+  onSuccess?: (type: ExerciseType) => void;
+}
+export default function CreateExerciseType({
+  onSuccess,
+}: Readonly<CreateExerciseTypeProps>) {
   const queryClient = useQueryClient();
   const { openToast } = useToastMessage();
 
@@ -17,11 +22,11 @@ export default function CreateExerciseType({}: Readonly<CreateExerciseTypeProps>
     ({ name, unit }: { name: string; unit: string }) =>
       createExerciseType({ name, unit }),
     {
-      onSuccess: (data) => {
+      onSuccess: (type) => {
         queryClient.invalidateQueries(["exerciseType"]);
         resetState();
         setIsEditing(false);
-        console.log("data", data);
+        onSuccess?.(type);
       },
       onError: (e: any) => {
         openToast({

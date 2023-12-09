@@ -34,7 +34,7 @@ export default function CreateExerciseSelectType({
           <MenuItem
             key={type.id}
             onClick={() => onSelect(type)}
-            className="py-4px text-left text-14px"
+            className="py-8px text-left text-14px"
             _hover={{ bg: Colors.gray[50] }}
           >
             {type.name}

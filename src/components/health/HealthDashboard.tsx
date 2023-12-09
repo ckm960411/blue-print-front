@@ -1,23 +1,23 @@
-import { getMonthlyExerciseMedal } from "@/utils/common/health/getMonthlyExerciseMedal";
 import { useState } from "react";
 import { isToday } from "date-fns";
 import { filter, pipe } from "lodash/fp";
 
 import { Exercise } from "@/utils/types/health";
+import { getMonthlyExerciseMedal } from "@/utils/common/health/getMonthlyExerciseMedal";
 import { useMonthExercisesQuery } from "@/utils/hooks/react-query/health/useMonthExercisesQuery";
 import { useWeeklyExerciseChecked } from "@/utils/hooks/react-query/health/useWeeklyExerciseChecked";
 
 export default function HealthDashboard() {
   const [todayExercises, setTodayExercises] = useState<Exercise[]>([]);
 
-  const { data: exercises = [] } = useMonthExercisesQuery({
+  const { data: exercises = [] } = useMonthExercisesQuery<Exercise[]>({
     onSuccess: pipe(
       filter((exercise: Exercise) => isToday(new Date(exercise.date))),
       setTodayExercises,
     ),
   });
-
   const weeklyChecked = useWeeklyExerciseChecked();
+  const { medal } = getMonthlyExerciseMedal(exercises.length);
 
   return (
     <div className="relative">
@@ -28,8 +28,7 @@ export default function HealthDashboard() {
             <div className="flex-between font-semibold">
               <span className="text-main">🏋🏼 한걸음 습관 만들기</span>
               <span className="font-medium">
-                {getMonthlyExerciseMedal(exercises.length).medal} 이번 달{" "}
-                {exercises.length}회
+                {medal} 이번 달 {exercises.length}회
               </span>
             </div>
 

@@ -8,7 +8,7 @@ import { getMonthlyExerciseMedal } from "@/utils/common/health/getMonthlyExercis
 import { useMonthExercisesQuery } from "@/utils/hooks/react-query/health/useMonthExercisesQuery";
 
 import HealthWeeklyChecked from "@/components/health/HealthWeeklyChecked";
-import CreateExerciseModal from "@/components/health/CreateExerciseModal";
+import CreateExerciseModal from "@/components/health/create/CreateExerciseModal";
 
 export default function HealthDashboard() {
   const {

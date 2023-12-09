@@ -1,3 +1,4 @@
+import CreateExerciseDescription from "@/components/health/create/CreateExerciseDescription";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import {
@@ -48,6 +49,7 @@ export default function CreateExerciseModal({
               />
             </div>
             <CreateExerciseType onSuccess={(type) => setExerciseType(type)} />
+            <CreateExerciseDescription />
           </div>
         </ModalBody>
       </ModalContent>

@@ -22,7 +22,7 @@ export default function CreateExerciseModal({
   isOpen,
   onClose,
 }: Readonly<CreateExerciseModalProps>) {
-  const [type, setType] = useState<ExerciseType | null>(null);
+  const [exerciseType, setExerciseType] = useState<ExerciseType | null>(null);
   const [count, setCount] = useState(0);
 
   const UNDER_768PX = useMediaQuery({ query: "(max-width: 767px)" });
@@ -38,11 +38,11 @@ export default function CreateExerciseModal({
             <p className="text-16px font-medium">어떤 운동을 했나요?</p>
             <div className="flex items-center gap-16px text-14px">
               <CreateExerciseSelectType
-                type={type}
-                onSelect={(type) => setType(type)}
+                exerciseType={exerciseType}
+                onSelect={(type) => setExerciseType(type)}
               />
               <CreateExerciseCount
-                type={type}
+                exerciseType={exerciseType}
                 count={count}
                 onChangeCount={(value) => setCount(isNaN(value) ? 0 : value)}
               />

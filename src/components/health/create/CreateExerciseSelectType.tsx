@@ -7,11 +7,11 @@ import { ExerciseType } from "@/utils/types/health";
 import { useAllExerciseTypeQuery } from "@/utils/hooks/react-query/health/useAllExerciseTypeQuery";
 
 interface CreateExerciseSelectTypeProps {
-  type: ExerciseType | null;
+  exerciseType: ExerciseType | null;
   onSelect: (type: ExerciseType) => void;
 }
 export default function CreateExerciseSelectType({
-  type,
+  exerciseType,
   onSelect,
 }: Readonly<CreateExerciseSelectTypeProps>) {
   const exerciseTypes = useAllExerciseTypeQuery();
@@ -27,7 +27,7 @@ export default function CreateExerciseSelectType({
         className="truncate-1-lines w-144px px-8px py-4px text-left text-14px"
         style={{ display: "flex" }}
       >
-        {type?.name ?? "선택"}
+        {exerciseType?.name ?? "선택"}
       </MenuButton>
       <MenuList>
         {exerciseTypes.map((type) => (

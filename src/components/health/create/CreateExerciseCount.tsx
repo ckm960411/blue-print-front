@@ -8,16 +8,16 @@ import {
 import { ExerciseType } from "@/utils/types/health";
 
 interface CreateExerciseCountProps {
-  type: ExerciseType | null;
+  exerciseType: ExerciseType | null;
   count: number;
   onChangeCount: (count: number) => void;
 }
 export default function CreateExerciseCount({
-  type,
+  exerciseType,
   count,
   onChangeCount,
 }: Readonly<CreateExerciseCountProps>) {
-  if (!type) return <></>;
+  if (!exerciseType) return <></>;
 
   return (
     <div className="flex grow items-center gap-8px">
@@ -34,7 +34,7 @@ export default function CreateExerciseCount({
           <NumberDecrementStepper />
         </NumberInputStepper>
       </NumberInput>
-      <div className="grow">{type.unit}</div>
+      <div className="grow">{exerciseType.unit}</div>
     </div>
   );
 }

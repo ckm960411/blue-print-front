@@ -5,7 +5,7 @@ import { filter, pipe } from "lodash/fp";
 import { Exercise } from "@/utils/types/health";
 import { getMonthlyExerciseMedal } from "@/utils/common/health/getMonthlyExerciseMedal";
 import { useMonthExercisesQuery } from "@/utils/hooks/react-query/health/useMonthExercisesQuery";
-import { useWeeklyExerciseChecked } from "@/utils/hooks/react-query/health/useWeeklyExerciseChecked";
+import HealthWeeklyChecked from "@/components/health/HealthWeeklyChecked";
 
 export default function HealthDashboard() {
   const [todayExercises, setTodayExercises] = useState<Exercise[]>([]);
@@ -16,7 +16,6 @@ export default function HealthDashboard() {
       setTodayExercises,
     ),
   });
-  const weeklyChecked = useWeeklyExerciseChecked();
   const { medal } = getMonthlyExerciseMedal(exercises.length);
 
   return (
@@ -32,19 +31,7 @@ export default function HealthDashboard() {
               </span>
             </div>
 
-            <div className="flex items-center gap-8px">
-              <span className="grow font-medium">이번 주</span>
-              <div className="flex-between gap-16px">
-                {weeklyChecked.map((checked, i) => (
-                  <div
-                    key={i}
-                    className="flex-center h-16px w-16px overflow-hidden rounded-full bg-gray-100"
-                  >
-                    {checked ? "✅" : ""}
-                  </div>
-                ))}
-              </div>
-            </div>
+            <HealthWeeklyChecked />
 
             <div className="flex flex-col gap-12px">
               <p className="font-medium">운동 습관 체크!</p>

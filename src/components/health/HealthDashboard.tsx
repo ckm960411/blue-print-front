@@ -1,3 +1,4 @@
+import { getMonthlyExerciseMedal } from "@/utils/common/health/getMonthlyExerciseMedal";
 import { useState } from "react";
 import { getMonth, getYear, isToday } from "date-fns";
 import { filter, pipe } from "lodash/fp";
@@ -29,7 +30,8 @@ export default function HealthDashboard() {
             <div className="flex-between font-semibold">
               <span className="text-main">🏋🏼 한걸음 습관 만들기</span>
               <span className="font-medium">
-                🏅이번 달 {exercises.length}회
+                {getMonthlyExerciseMedal(exercises.length)} 이번 달{" "}
+                {exercises.length}회
               </span>
             </div>
 

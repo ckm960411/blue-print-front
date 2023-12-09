@@ -28,7 +28,7 @@ export default function HealthDashboard() {
             <div className="flex-between font-semibold">
               <span className="text-main">🏋🏼 한걸음 습관 만들기</span>
               <span className="font-medium">
-                {getMonthlyExerciseMedal(exercises.length)} 이번 달{" "}
+                {getMonthlyExerciseMedal(exercises.length).medal} 이번 달{" "}
                 {exercises.length}회
               </span>
             </div>

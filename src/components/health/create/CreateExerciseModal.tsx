@@ -12,6 +12,7 @@ import {
 import { ExerciseType } from "@/utils/types/health";
 import CreateExerciseSelectType from "@/components/health/create/CreateExerciseSelectType";
 import CreateExerciseCount from "@/components/health/create/CreateExerciseCount";
+import CreateExerciseType from "@/components/health/create/CreateExerciseType";
 
 interface CreateExerciseModalProps {
   isOpen: boolean;
@@ -46,6 +47,7 @@ export default function CreateExerciseModal({
                 onChangeCount={(value) => setCount(isNaN(value) ? 0 : value)}
               />
             </div>
+            <CreateExerciseType />
           </div>
         </ModalBody>
       </ModalContent>

@@ -13,7 +13,11 @@ export const useMonthExercisesQuery = <T = Exercise[],>(
   const me = useMe();
 
   return useQuery<Exercise[], unknown, T>(
-    exerciseKeys.list(me?.id),
+    exerciseKeys.list({
+      userId: me?.id,
+      year: options?.year,
+      month: options?.month,
+    }),
     () => getMonthExercises({ year: options?.year, month: options?.month }),
     {
       onSuccess: options?.onSuccess,

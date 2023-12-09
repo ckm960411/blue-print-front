@@ -8,16 +8,10 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal";
-import {
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-} from "@chakra-ui/react";
 
-import CreateExerciseSelectType from "@/components/health/create/CreateExerciseSelectType";
 import { ExerciseType } from "@/utils/types/health";
+import CreateExerciseSelectType from "@/components/health/create/CreateExerciseSelectType";
+import CreateExerciseCount from "@/components/health/create/CreateExerciseCount";
 
 interface CreateExerciseModalProps {
   isOpen: boolean;
@@ -46,23 +40,11 @@ export default function CreateExerciseModal({
                 type={type}
                 onSelect={(type) => setType(type)}
               />
-              {type && (
-                <div className="flex grow items-center gap-8px">
-                  <NumberInput
-                    size="sm"
-                    width={20}
-                    value={count}
-                    onChange={(_, value) => setCount(isNaN(value) ? 0 : value)}
-                  >
-                    <NumberInputField />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                  <div className="grow">{type.unit}</div>
-                </div>
-              )}
+              <CreateExerciseCount
+                type={type}
+                count={count}
+                onChangeCount={(value) => setCount(isNaN(value) ? 0 : value)}
+              />
             </div>
           </div>
         </ModalBody>

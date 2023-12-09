@@ -1,7 +1,21 @@
+import { useState } from "react";
+import { getMonth, getYear, isToday } from "date-fns";
+import { filter, pipe } from "lodash/fp";
+
+import { Exercise } from "@/utils/types/health";
 import { useMonthExercisesQuery } from "@/utils/hooks/react-query/health/useMonthExercisesQuery";
 
 export default function HealthDashboard() {
-  const { data: exercises = [] } = useMonthExercisesQuery();
+  const [todayExercises, setTodayExercises] = useState<Exercise[]>([]);
+
+  const { data: exercises = [] } = useMonthExercisesQuery({
+    year: getYear(new Date()),
+    month: getMonth(new Date()) + 1,
+    onSuccess: pipe(
+      filter((exercise: Exercise) => isToday(new Date(exercise.date))),
+      setTodayExercises,
+    ),
+  });
 
   return (
     <div className="relative">
@@ -32,15 +46,19 @@ export default function HealthDashboard() {
 
             <div className="flex flex-col gap-12px">
               <p className="font-medium">운동 습관 체크!</p>
-              <p className="font-bold">🔻하루 1개 꾸준한 운동맨이 되자!🔻</p>
-              <div className="flex items-center gap-8px">
-                <span>🏆</span>
-                <span className="font-bold text-main">턱걸이</span>
-              </div>
-              <div className="flex items-center gap-8px">
-                <span>🏆</span>
-                <span className="font-bold text-main">푸시업</span>
-              </div>
+              {todayExercises.length > 0 ? (
+                todayExercises.map((exercise) => (
+                  <div key={exercise.id} className="flex items-center gap-8px">
+                    <span>🏆</span>
+                    <span className="font-bold text-main">
+                      {exercise.name} {exercise.count}
+                      {exercise.unit}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <p className="font-bold">🔻하루 1개 꾸준한 운동맨이 되자!🔻</p>
+              )}
             </div>
           </div>
 

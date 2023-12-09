@@ -1,13 +1,39 @@
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
+import { createExerciseType } from "@/utils/services/health";
 import { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 
 interface CreateExerciseTypeProps {}
 export default function CreateExerciseType({}: Readonly<CreateExerciseTypeProps>) {
+  const queryClient = useQueryClient();
   const { openToast } = useToastMessage();
 
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState("");
   const [unit, setUnit] = useState("");
+
+  const { mutate: createExerciseTypeRequest } = useMutation(
+    ["create-exercise-type"],
+    ({ name, unit }: { name: string; unit: string }) =>
+      createExerciseType({ name, unit }),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["exerciseType"]);
+        resetState();
+        setIsEditing(false);
+        console.log("data", data);
+      },
+      onError: (e: any) => {
+        openToast({
+          status: "error",
+          title: "생성 오류",
+          description:
+            e?.response?.data?.message ||
+            "운동 타입 생성 중 문제가 발생했습니다.",
+        });
+      },
+    },
+  );
 
   const resetState = () => {
     setName("");
@@ -19,15 +45,15 @@ export default function CreateExerciseType({}: Readonly<CreateExerciseTypeProps>
       const _name = name.trim();
       const _unit = unit.trim();
 
-      if (!unit) {
+      if (!_name || !_unit) {
         return openToast({
           status: "warning",
           title: "생성 오류",
-          description: "단위를 작성해주세요.",
+          description: "이름 또는 단위를 작성해주세요.",
         });
       }
 
-      resetState();
+      createExerciseTypeRequest({ name, unit });
     };
 
     return (

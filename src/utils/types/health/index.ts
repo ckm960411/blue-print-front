@@ -9,3 +9,9 @@ export interface Exercise {
   name: string;
   unit: string;
 }
+
+export interface ExerciseType {
+  id: number;
+  name: string;
+  unit: string;
+}

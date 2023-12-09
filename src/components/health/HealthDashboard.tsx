@@ -1,6 +1,6 @@
 import { getMonthlyExerciseMedal } from "@/utils/common/health/getMonthlyExerciseMedal";
 import { useState } from "react";
-import { getMonth, getYear, isToday } from "date-fns";
+import { isToday } from "date-fns";
 import { filter, pipe } from "lodash/fp";
 
 import { Exercise } from "@/utils/types/health";
@@ -11,8 +11,6 @@ export default function HealthDashboard() {
   const [todayExercises, setTodayExercises] = useState<Exercise[]>([]);
 
   const { data: exercises = [] } = useMonthExercisesQuery({
-    year: getYear(new Date()),
-    month: getMonth(new Date()) + 1,
     onSuccess: pipe(
       filter((exercise: Exercise) => isToday(new Date(exercise.date))),
       setTodayExercises,

@@ -36,16 +36,14 @@ export default function HealthDashboard() {
             <div className="flex items-center gap-8px">
               <span className="grow font-medium">이번 주</span>
               <div className="flex-between gap-16px">
-                {weeklyChecked.map((checked, i) => {
-                  return (
-                    <div
-                      key={i}
-                      className={`h-16px w-16px rounded-full ${
-                        checked ? "bg-main" : "bg-gray-100"
-                      }`}
-                    />
-                  );
-                })}
+                {weeklyChecked.map((checked, i) => (
+                  <div
+                    key={i}
+                    className="flex-center h-16px w-16px overflow-hidden rounded-full bg-gray-100"
+                  >
+                    {checked ? "✅" : ""}
+                  </div>
+                ))}
               </div>
             </div>
 

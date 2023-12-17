@@ -83,8 +83,9 @@ export const commentKeys = {
 
 type exerciseKeysAllArgs = { userId?: number; year?: number; month?: number };
 export const exerciseKeys = {
+  default: ["exercises"],
   all: (arg: exerciseKeysAllArgs) =>
-    [...Object.values(arg), "exercises"] as const,
+    [...exerciseKeys.default, ...Object.values(arg)] as const,
   list: (arg: exerciseKeysAllArgs) =>
     [...exerciseKeys.all(arg), "list"] as const,
   details: (arg: exerciseKeysAllArgs) =>

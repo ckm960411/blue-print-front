@@ -91,7 +91,7 @@ export default function CreateExerciseModal({
 
     createExerciseRequest({
       exerciseTypeId: exerciseType.id,
-      date: new Date(),
+      date,
       count,
       description,
     });

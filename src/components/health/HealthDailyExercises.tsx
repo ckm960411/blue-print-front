@@ -5,7 +5,12 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 import { useOneDateExercisesQuery } from "@/utils/hooks/react-query/health/useOneDateExercisesQuery";
 
-export default function HealthDailyExercises() {
+interface HealthDailyExercisesProps {
+  openExerciseModal: () => void;
+}
+export default function HealthDailyExercises({
+  openExerciseModal,
+}: HealthDailyExercisesProps) {
   const [currentDate, setCurrentDate] = useState(() =>
     format("yyyy-MM-dd")(new Date()),
   );
@@ -72,13 +77,19 @@ export default function HealthDailyExercises() {
             </div>
           ))}
 
-          <button className="w-full rounded-md bg-main p-8px text-14px font-bold text-white shadow-md">
+          <button
+            onClick={openExerciseModal}
+            className="w-full rounded-md bg-main p-8px text-14px font-bold text-white shadow-md"
+          >
             운동 추가
           </button>
         </div>
       ) : (
         <div className="flex-center h-160px">
-          <button className="flex-center flex-col gap-16px p-16px">
+          <button
+            onClick={openExerciseModal}
+            className="flex-center flex-col gap-16px p-16px"
+          >
             <span className="text-40px">🏆</span>
             <span className="text-14px font-medium">
               운동하고 꾸준함 +1 스택 쌓기

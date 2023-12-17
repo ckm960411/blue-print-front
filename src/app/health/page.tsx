@@ -30,7 +30,7 @@ export default function HealthPage() {
       <HealthMonthlyExercise />
       <HealthWeight />
       <HealthMonthlyCalendar />
-      <HealthDailyExercises />
+      <HealthDailyExercises openExerciseModal={openExerciseModal} />
     </section>
   );
 }

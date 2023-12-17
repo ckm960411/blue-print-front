@@ -1,3 +1,5 @@
+import CreateExerciseCalendar from "@/components/health/create/CreateExerciseCalendar";
+import { Calendar } from "primereact/calendar";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useMediaQuery } from "react-responsive";
@@ -34,6 +36,7 @@ export default function CreateExerciseModal({
   const [exerciseType, setExerciseType] = useState<ExerciseType | null>(null);
   const [count, setCount] = useState(0);
   const [description, setDescription] = useState("");
+  const [date, setDate] = useState<Date>(new Date());
 
   const me = useRecoilValue(meState);
   const UNDER_768PX = useMediaQuery({ query: "(max-width: 767px)" });
@@ -122,6 +125,10 @@ export default function CreateExerciseModal({
             <CreateExerciseDescription
               description={description}
               onChange={(e) => setDescription(e.target.value)}
+            />
+            <CreateExerciseCalendar
+              date={date}
+              onChangeDate={(v) => setDate(v)}
             />
           </div>
           <div className="flex items-center justify-end gap-16px">

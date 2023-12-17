@@ -1,4 +1,5 @@
 import { get, post } from "@/app/api/axios";
+import { CreateExerciseReqDto } from "@/utils/services/health/dto/create-exercise.req.dto";
 import { Exercise, ExerciseType } from "@/utils/types/health";
 import { format, startOfDay } from "date-fns/fp";
 import { flow } from "lodash/fp";
@@ -21,6 +22,16 @@ export const getWeeklyExerciseChecked = async () => {
   const { data } = await get<GetWeeklyExerciseCheckedResDto>(
     `health/week/checked`,
     { params: { today } },
+  );
+  return data;
+};
+
+export const createExercise = async (
+  createExerciseReqDto: CreateExerciseReqDto,
+) => {
+  const { data } = await post<Exercise>(
+    `health/exercises`,
+    createExerciseReqDto,
   );
   return data;
 };

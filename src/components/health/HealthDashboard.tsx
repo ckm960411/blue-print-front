@@ -1,4 +1,3 @@
-import { useDisclosure } from "@chakra-ui/hooks";
 import { useState } from "react";
 import { isToday } from "date-fns";
 import { filter, pipe } from "lodash/fp";
@@ -6,16 +5,14 @@ import { filter, pipe } from "lodash/fp";
 import { Exercise } from "@/utils/types/health";
 import { getMonthlyExerciseMedal } from "@/utils/common/health/getMonthlyExerciseMedal";
 import { useMonthExercisesQuery } from "@/utils/hooks/react-query/health/useMonthExercisesQuery";
-
 import HealthWeeklyChecked from "@/components/health/HealthWeeklyChecked";
-import CreateExerciseModal from "@/components/health/create/CreateExerciseModal";
 
-export default function HealthDashboard() {
-  const {
-    isOpen: isOpenExerciseModal,
-    onOpen: openExerciseModal,
-    onClose: closeExerciseModal,
-  } = useDisclosure();
+interface HealthDashboardProps {
+  openExerciseModal: () => void;
+}
+export default function HealthDashboard({
+  openExerciseModal,
+}: HealthDashboardProps) {
   const [todayExercises, setTodayExercises] = useState<Exercise[]>([]);
 
   const { data: exercises = [] } = useMonthExercisesQuery<Exercise[]>({
@@ -28,11 +25,6 @@ export default function HealthDashboard() {
 
   return (
     <>
-      <CreateExerciseModal
-        isOpen={isOpenExerciseModal}
-        onClose={closeExerciseModal}
-      />
-
       <div className="relative">
         <div className="absolute inset-x-0 top-0 h-60px bg-main" />
         <div className="relative z-10 px-16px">

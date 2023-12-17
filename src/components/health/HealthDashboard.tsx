@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { isToday } from "date-fns";
+import { format, isToday } from "date-fns";
 import { filter, pipe } from "lodash/fp";
 
 import { Exercise } from "@/utils/types/health";
@@ -21,7 +21,14 @@ export default function HealthDashboard({
       setTodayExercises,
     ),
   });
-  const { medal } = getMonthlyExerciseMedal(exercises.length);
+  const monthlyExerciseDayCount = exercises.reduce((acc, exercise) => {
+    const date = format(new Date(exercise.date), "yyyy-MM-dd");
+    if (!acc.includes(date)) {
+      acc.push(date);
+    }
+    return acc;
+  }, [] as string[]).length;
+  const { medal } = getMonthlyExerciseMedal(monthlyExerciseDayCount);
 
   return (
     <>
@@ -33,7 +40,7 @@ export default function HealthDashboard({
               <div className="flex-between font-semibold">
                 <span className="text-main">🏋🏼 한걸음 습관 만들기</span>
                 <span className="font-medium">
-                  {medal} 이번 달 {exercises.length}회
+                  {medal} 이번 달 {monthlyExerciseDayCount}회
                 </span>
               </div>
 

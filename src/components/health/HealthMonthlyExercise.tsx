@@ -1,9 +1,9 @@
+import { format } from "date-fns";
 import { getMonthlyExerciseMedal } from "@/utils/common/health/getMonthlyExerciseMedal";
 import { useMonthExercisesQuery } from "@/utils/hooks/react-query/health/useMonthExercisesQuery";
 
 export default function HealthMonthlyExercise() {
   const { data: exercises = [] } = useMonthExercisesQuery();
-  const { medal, maxStep } = getMonthlyExerciseMedal(exercises.length);
 
   const monthlyExerciseCountByType = exercises.reduce(
     (acc, { name }) => {
@@ -14,6 +14,15 @@ export default function HealthMonthlyExercise() {
     {} as Record<string, number>,
   );
 
+  const monthlyExerciseDayCount = exercises.reduce((acc, exercise) => {
+    const date = format(new Date(exercise.date), "yyyy-MM-dd");
+    if (!acc.includes(date)) {
+      acc.push(date);
+    }
+    return acc;
+  }, [] as string[]).length;
+  const { medal, maxStep } = getMonthlyExerciseMedal(monthlyExerciseDayCount);
+
   return (
     <div className="p-16px">
       <div className="rounded-md p-16px shadow-md">
@@ -23,7 +32,7 @@ export default function HealthMonthlyExercise() {
             <span className="text-[60px]">{medal}</span>
             <span className="absolute inset-x-0 -bottom-4px text-center text-14px text-gray-600">
               <span className="text-16px font-bold text-main">
-                {exercises.length}
+                {monthlyExerciseDayCount}
               </span>
               {maxStep ? ` / ${maxStep}` : ""}
             </span>

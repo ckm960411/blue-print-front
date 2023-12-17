@@ -25,6 +25,7 @@ export default function CreateExerciseModal({
 }: Readonly<CreateExerciseModalProps>) {
   const [exerciseType, setExerciseType] = useState<ExerciseType | null>(null);
   const [count, setCount] = useState(0);
+  const [description, setDescription] = useState("");
 
   const UNDER_768PX = useMediaQuery({ query: "(max-width: 767px)" });
 
@@ -49,7 +50,10 @@ export default function CreateExerciseModal({
               />
             </div>
             <CreateExerciseType onSuccess={(type) => setExerciseType(type)} />
-            <CreateExerciseDescription />
+            <CreateExerciseDescription
+              description={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </div>
           <div className="flex items-center justify-end gap-16px">
             <button

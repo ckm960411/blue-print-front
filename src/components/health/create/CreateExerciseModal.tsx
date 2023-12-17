@@ -52,7 +52,10 @@ export default function CreateExerciseModal({
             <CreateExerciseDescription />
           </div>
           <div className="flex items-center justify-end gap-16px">
-            <button className="rounded-md border border-gray-200 px-12px py-8px text-16px font-medium duration-200 hover:bg-gray-100">
+            <button
+              onClick={onClose}
+              className="rounded-md border border-gray-200 px-12px py-8px text-16px font-medium duration-200 hover:bg-gray-100"
+            >
               닫기
             </button>
             <button className="rounded-md border border-gray-200 bg-main px-12px py-8px text-16px font-medium text-white duration-200">

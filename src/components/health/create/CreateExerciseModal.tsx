@@ -61,6 +61,7 @@ export default function CreateExerciseModal({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(exerciseKeys.default);
+        queryClient.invalidateQueries(["getWeeklyExerciseChecked"]);
         handleClose();
       },
       onError: (e: any) => {

@@ -1,6 +1,7 @@
 import { get, post } from "@/app/api/axios";
 import { CreateExerciseReqDto } from "@/utils/services/health/dto/create-exercise.req.dto";
-import { Exercise, ExerciseType } from "@/utils/types/health";
+import { CreateWeightReqDto } from "@/utils/services/health/dto/create-weight.req.dto";
+import { Exercise, ExerciseType, Weight } from "@/utils/types/health";
 import { format, startOfDay } from "date-fns/fp";
 import { flow } from "lodash/fp";
 
@@ -68,5 +69,10 @@ export const getWeights = async () => {
     weekAgo: number | undefined;
     today: number | undefined;
   }>(`health/weight`);
+  return data;
+};
+
+export const createWeight = async (createWeightReqDto: CreateWeightReqDto) => {
+  const { data } = await post<Weight>(`health/weight`, createWeightReqDto);
   return data;
 };

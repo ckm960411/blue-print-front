@@ -1,4 +1,6 @@
 import InlineCalendarForm from "@/components/health/InlineCalendarForm";
+import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
+import { createWeight } from "@/utils/services/health";
 import {
   Modal,
   ModalCloseButton,
@@ -6,6 +8,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/modal";
 import { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 
 interface HealthWeightModalProps {
   open: boolean;
@@ -15,11 +18,47 @@ export default function HealthWeightModal({
   open,
   onClose,
 }: Readonly<HealthWeightModalProps>) {
+  const { openToast } = useToastMessage();
+  const queryClient = useQueryClient();
+
   const [weight, setWeight] = useState(80);
   const [date, setDate] = useState(new Date());
 
+  const resetState = () => {
+    setWeight(80);
+    setDate(new Date());
+  };
+
+  const handleClose = () => {
+    onClose();
+    resetState();
+  };
+
+  const { mutate: createWeightRequest } = useMutation(
+    ["createWeight"],
+    createWeight,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["getWeights"]);
+        handleClose();
+      },
+      onError: console.error,
+    },
+  );
+
+  const handleCreate = () => {
+    if (weight === 0) {
+      return openToast({
+        status: "warning",
+        title: "체중 오류",
+        description: "체중을 올바르게 적어주세요.",
+      });
+    }
+    createWeightRequest({ weight, date });
+  };
+
   return (
-    <Modal isOpen={open} onClose={onClose} size="xs">
+    <Modal isOpen={open} onClose={handleClose} size="xs">
       <ModalOverlay />
       <ModalContent className="flex flex-col gap-16px p-16px">
         <ModalCloseButton />
@@ -40,12 +79,15 @@ export default function HealthWeightModal({
         </div>
         <div className="flex items-center justify-end gap-8px">
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="rounded-sm border border-gray-200 px-8px py-6px text-14px"
           >
             닫기
           </button>
-          <button className="rounded-sm bg-main px-8px py-6px text-14px font-medium text-white">
+          <button
+            onClick={handleCreate}
+            className="rounded-sm bg-main px-8px py-6px text-14px font-medium text-white"
+          >
             추가
           </button>
         </div>

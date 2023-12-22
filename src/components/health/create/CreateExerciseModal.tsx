@@ -1,4 +1,4 @@
-import InlineCalendarForm from "@/components/health/create/InlineCalendarForm";
+import InlineCalendarForm from "@/components/health/InlineCalendarForm";
 import { Calendar } from "primereact/calendar";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";

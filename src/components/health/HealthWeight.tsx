@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/modal";
 
 import { getWeights } from "@/utils/services/health";
-import InlineCalendarForm from "@/components/health/create/InlineCalendarForm";
+import InlineCalendarForm from "@/components/health/InlineCalendarForm";
 
 enum WeightState {
   INCREASED = "INCREASED",

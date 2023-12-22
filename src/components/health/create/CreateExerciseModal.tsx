@@ -1,4 +1,4 @@
-import CreateExerciseCalendar from "@/components/health/create/CreateExerciseCalendar";
+import InlineCalendarForm from "@/components/health/create/InlineCalendarForm";
 import { Calendar } from "primereact/calendar";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
@@ -126,10 +126,7 @@ export default function CreateExerciseModal({
               description={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-            <CreateExerciseCalendar
-              date={date}
-              onChangeDate={(v) => setDate(v)}
-            />
+            <InlineCalendarForm date={date} onChangeDate={(v) => setDate(v)} />
           </div>
           <div className="flex items-center justify-end gap-16px">
             <button

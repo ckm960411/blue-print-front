@@ -1,14 +1,14 @@
 import { format, isSameDay } from "date-fns";
 import { Calendar } from "primereact/calendar";
 
-interface CreateExerciseCalendarProps {
+interface InlineCalendarFormProps {
   date: Date;
   onChangeDate: (date: Date) => void;
 }
-export default function CreateExerciseCalendar({
+export default function InlineCalendarForm({
   date,
   onChangeDate,
-}: Readonly<CreateExerciseCalendarProps>) {
+}: Readonly<InlineCalendarFormProps>) {
   return (
     <div>
       <div className="flex items-center gap-8px">

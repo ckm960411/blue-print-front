@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/modal";
 
 import { getWeights } from "@/utils/services/health";
-import CreateExerciseCalendar from "@/components/health/create/CreateExerciseCalendar";
+import InlineCalendarForm from "@/components/health/create/InlineCalendarForm";
 
 enum WeightState {
   INCREASED = "INCREASED",
@@ -108,10 +108,7 @@ export default function HealthWeight() {
                 kg
               </span>
             </div>
-            <CreateExerciseCalendar
-              date={date}
-              onChangeDate={(v) => setDate(v)}
-            />
+            <InlineCalendarForm date={date} onChangeDate={(v) => setDate(v)} />
           </div>
           <div className="flex items-center justify-end gap-8px">
             <button

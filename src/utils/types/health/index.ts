@@ -15,3 +15,10 @@ export interface ExerciseType {
   name: string;
   unit: string;
 }
+
+export interface Weight {
+  id: number;
+  weight: number;
+  date: Date;
+  userId: number;
+}

@@ -1,5 +1,15 @@
-import { getWeights } from "@/utils/services/health";
+import { useState } from "react";
 import { useQuery } from "react-query";
+import { useDisclosure } from "@chakra-ui/hooks";
+import {
+  Modal,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
+} from "@chakra-ui/modal";
+
+import { getWeights } from "@/utils/services/health";
+import CreateExerciseCalendar from "@/components/health/create/CreateExerciseCalendar";
 
 enum WeightState {
   INCREASED = "INCREASED",
@@ -11,6 +21,15 @@ export default function HealthWeight() {
   const { data: weightData } = useQuery(["getWeights"], getWeights, {
     onError: console.error,
   });
+
+  const [weight, setWeight] = useState(80);
+  const [date, setDate] = useState(new Date());
+
+  const {
+    isOpen: isOpenWeightModal,
+    onOpen: openWeightModal,
+    onClose: closeWeightModal,
+  } = useDisclosure();
 
   if (!weightData) return <></>;
 
@@ -37,35 +56,76 @@ export default function HealthWeight() {
   };
 
   return (
-    <div className="px-16px pb-16px">
-      <div className="rounded-md shadow-md">
-        <div className="p-16px">
-          <p className="text-14px font-bold text-main">📉 체중</p>
-          <div className="mt-16px grid grid-cols-3 gap-8px text-14px font-medium">
-            <div className="flex-center flex-col gap-8px">
-              <p>한달 전</p>
-              <p className="text-gray-600">
-                {monthAgo ? `${monthAgo} kg` : "없음"}
-              </p>
-            </div>
-            <div className="flex-center flex-col gap-8px">
-              <p>일주일 전</p>
-              <p className={getWeightStateClassName(monthAgo, weekAgo)}>
-                {weekAgo ? `${weekAgo} kg` : "없음"}
-              </p>
-            </div>
-            <div className="flex-center flex-col gap-8px">
-              <p>오늘</p>
-              <p className={getWeightStateClassName(weekAgo, today)}>
-                {today ? `${today} kg` : "없음"}
-              </p>
+    <>
+      <div className="px-16px pb-16px">
+        <div className="rounded-md shadow-md">
+          <div className="p-16px">
+            <p className="text-14px font-bold text-main">📉 체중</p>
+            <div className="mt-16px grid grid-cols-3 gap-8px text-14px font-medium">
+              <div className="flex-center flex-col gap-8px">
+                <p>한달 전</p>
+                <p className="text-gray-600">
+                  {monthAgo ? `${monthAgo} kg` : "없음"}
+                </p>
+              </div>
+              <div className="flex-center flex-col gap-8px">
+                <p>일주일 전</p>
+                <p className={getWeightStateClassName(monthAgo, weekAgo)}>
+                  {weekAgo ? `${weekAgo} kg` : "없음"}
+                </p>
+              </div>
+              <div className="flex-center flex-col gap-8px">
+                <p>오늘</p>
+                <p className={getWeightStateClassName(weekAgo, today)}>
+                  {today ? `${today} kg` : "없음"}
+                </p>
+              </div>
             </div>
           </div>
+          <button
+            onClick={openWeightModal}
+            className="w-full border-t border-gray-200 p-12px text-14px font-medium text-main"
+          >
+            체중 추가
+          </button>
         </div>
-        <button className="w-full border-t border-gray-200 p-12px text-14px font-medium text-main">
-          체중 추가
-        </button>
       </div>
-    </div>
+
+      <Modal isOpen={isOpenWeightModal} onClose={closeWeightModal} size="xs">
+        <ModalOverlay />
+        <ModalContent className="flex flex-col gap-16px p-16px">
+          <ModalCloseButton />
+          <div className="text-18px font-bold">체중 추가</div>
+          <div className="flex flex-col gap-16px">
+            <div>
+              <input
+                value={weight}
+                type="number"
+                onChange={(e) => setWeight(+e.target.value)}
+                className="w-60px rounded-sm border border-gray-200 px-8px py-4px text-16px focus:bg-blue-50"
+              />
+              <span className="ml-4px text-16px font-medium text-gray-800">
+                kg
+              </span>
+            </div>
+            <CreateExerciseCalendar
+              date={date}
+              onChangeDate={(v) => setDate(v)}
+            />
+          </div>
+          <div className="flex items-center justify-end gap-8px">
+            <button
+              onClick={closeWeightModal}
+              className="rounded-sm border border-gray-200 px-8px py-6px text-14px"
+            >
+              닫기
+            </button>
+            <button className="rounded-sm bg-main px-8px py-6px text-14px font-medium text-white">
+              추가
+            </button>
+          </div>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }

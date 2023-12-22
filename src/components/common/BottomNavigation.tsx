@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { AiOutlineLaptop } from "react-icons/ai";
-import { BsJournalBookmark } from "react-icons/bs";
-import { MdWorkOutline } from "react-icons/md";
+import { FiBook } from "react-icons/fi";
+import { IoIosFitness } from "react-icons/io";
+import { MdOutlineLaptopChromebook } from "react-icons/md";
 import { useMediaQuery } from "react-responsive";
 
 export default function BottomNavigation() {
@@ -23,24 +23,15 @@ export default function BottomNavigation() {
       className="sticky bottom-0 w-full flex-shrink-0 rounded-t-xl px-16px py-4px"
       style={{ backgroundColor: "#fafafa" }}
     >
-      <div className="grid grid-cols-2 gap-8px">
-        {/*<Link*/}
-        {/*  href="/tech"*/}
-        {/*  className={`flex-center flex-col gap-4px p-8px font-medium ${*/}
-        {/*    isActive("/tech") ? "text-main" : ""*/}
-        {/*  }`}*/}
-        {/*>*/}
-        {/*  <AiOutlineLaptop className="text-22px" />*/}
-        {/*  <span>TECH</span>*/}
-        {/*</Link>*/}
+      <div className="grid grid-cols-3 gap-8px">
         <Link
           href="/study"
           className={`flex-center flex-col gap-4px p-8px font-medium ${
             isActive("/study") ? "text-main" : ""
           }`}
         >
-          <BsJournalBookmark className="text-20px" />
-          <span>STUDY</span>
+          <FiBook className="text-20px" />
+          <span>Study</span>
         </Link>
         <Link
           href="/work"
@@ -48,8 +39,17 @@ export default function BottomNavigation() {
             isActive("/work") ? "text-main" : ""
           }`}
         >
-          <MdWorkOutline className="text-22px" />
-          <span>WORK</span>
+          <MdOutlineLaptopChromebook className="text-22px" />
+          <span>Work</span>
+        </Link>
+        <Link
+          href="/health"
+          className={`flex-center flex-col gap-4px p-8px font-medium ${
+            isActive("/health") ? "text-main" : ""
+          }`}
+        >
+          <IoIosFitness className="text-22px" />
+          <span>Health</span>
         </Link>
       </div>
     </div>

@@ -80,3 +80,18 @@ export const commentKeys = {
   }: commentKeysAllArgs & { commentId: number }) =>
     [...commentKeys.details(rest), commentId] as const,
 };
+
+type exerciseKeysAllArgs = { userId?: number; year?: number; month?: number };
+export const exerciseKeys = {
+  default: ["exercises"],
+  all: (arg: exerciseKeysAllArgs) =>
+    [...exerciseKeys.default, ...Object.values(arg)] as const,
+  list: (arg: exerciseKeysAllArgs) =>
+    [...exerciseKeys.all(arg), "list"] as const,
+  details: (arg: exerciseKeysAllArgs) =>
+    [...exerciseKeys.all(arg), "detail"] as const,
+  detail: (arg: exerciseKeysAllArgs, exerciseId?: number) => [
+    ...exerciseKeys.details(arg),
+    exerciseId,
+  ],
+};

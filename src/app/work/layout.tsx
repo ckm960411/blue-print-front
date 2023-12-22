@@ -1,18 +1,11 @@
 "use client";
 
+import React from "react";
 import WorkPageHeader from "@/components/work/WorkPageHeader";
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useRedirectIfNoToken } from "@/utils/common/user/useRedirectIfNoToken";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
-
-  useEffect(() => {
-    const token = window.localStorage.getItem("token");
-    if (!token) {
-      router.push("/");
-    }
-  }, []);
+  useRedirectIfNoToken();
 
   return (
     <section>

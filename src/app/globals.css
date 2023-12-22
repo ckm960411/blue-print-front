@@ -27,6 +27,11 @@ input {
   justify-content: space-between;
   align-items: center;
 }
+.flex-end {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
 
 .truncate-1-lines {
   display: -webkit-box;

@@ -6,6 +6,7 @@ import { GoSidebarExpand } from "react-icons/go";
 import { FiBook } from "react-icons/fi";
 import { MdOutlineLaptopChromebook } from "react-icons/md";
 import { IoIosFitness } from "react-icons/io";
+import { FaRegCreditCard } from "react-icons/fa6";
 
 import { WEB_STORAGE_KEY } from "@/utils/common/constant";
 import { useLocalStorage } from "@/utils/hooks/common/useLocalStorage";
@@ -66,6 +67,12 @@ export default function SidebarV2() {
           title="Health"
           href="/health"
           icon={<IoIosFitness />}
+          isSidebarOpen={isOpen}
+        />
+        <SideLink
+          title="Money"
+          href="/money"
+          icon={<FaRegCreditCard />}
           isSidebarOpen={isOpen}
         />
       </div>

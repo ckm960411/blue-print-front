@@ -61,3 +61,12 @@ export const createExerciseType = async ({
   });
   return data;
 };
+
+export const getWeights = async () => {
+  const { data } = await get<{
+    monthAgo: number | undefined;
+    weekAgo: number | undefined;
+    today: number | undefined;
+  }>(`health/weight`);
+  return data;
+};

@@ -1,16 +1,14 @@
+import CategoryBudgetHeader from "@/components/money/budget/CategoryBudgetHeader";
 import { FaChevronRight } from "react-icons/fa6";
 import SpaceY from "@/components/common/SpaceY";
 
 export default function CategoryBudget() {
   return (
     <div>
-      <div className="flex-between">
-        <p className="text-16px font-bold">카테고리별 예산</p>
-        <button className="p-2px text-14px font-bold text-main">
-          카테고리 설정
-        </button>
-      </div>
+      <CategoryBudgetHeader />
+
       <SpaceY height={32} />
+
       <div className="flex flex-col gap-24px">
         <div className="flex flex-col gap-16px">
           <div className="flex-between">

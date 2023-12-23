@@ -55,7 +55,6 @@ export default function MonthlyBudget() {
       />
       <TotalMonthlyBudgetSpent
         monthlyBudgetPolicy={monthlyBudgetPolicy}
-        totalCategoryBudgets={totalCategoryBudgets}
         totalExpenditureTilToday={totalExpenditureTilToday}
       />
     </div>

@@ -58,9 +58,8 @@ export class MonthlyBudgetPolicy {
   /**
    * 그 달의 오늘까지 권장 하루예산
    * - 하루예산을 오늘까지 일수만큼 곱함
-   * @param totalCategoryBudgets 카테고리별 예산 총액
    */
-  getDailyBudgetTillToday(totalCategoryBudgets = 0) {
+  get dailyBudgetTillToday() {
     return this.dailyBudget * this.dayLengthTilToday;
   }
 }

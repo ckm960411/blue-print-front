@@ -11,13 +11,13 @@ export default function MoneyTabs() {
           <Tab className="text-14px">지출</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel className="p-8px">
+          <TabPanel className="p-8px py-16px">
             <BudgetTab />
           </TabPanel>
-          <TabPanel className="p-8px">
+          <TabPanel className="p-8px py-16px">
             <p>저축</p>
           </TabPanel>
-          <TabPanel className="p-8px">
+          <TabPanel className="p-8px py-16px">
             <p>지출</p>
           </TabPanel>
         </TabPanels>

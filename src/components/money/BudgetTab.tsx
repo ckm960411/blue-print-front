@@ -1,3 +1,9 @@
+import MontlyBudget from "@/components/money/budget/MontlyBudget";
+
 export default function BudgetTab() {
-  return <div>BudgetTab</div>;
+  return (
+    <div>
+      <MontlyBudget />
+    </div>
+  );
 }

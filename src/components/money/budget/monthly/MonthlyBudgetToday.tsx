@@ -1,16 +1,13 @@
 import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
-import { MonthlyBudget } from "@/utils/types/money";
 
 interface MonthlyBudgetTodayProps {
-  monthlyBudget: MonthlyBudget;
-  totalCategoryBudgets: number;
+  monthlyBudgetPolicy: MonthlyBudgetPolicy;
+  totalCategoryBudgets: number; // 카테고리별 예산 총액
 }
 export default function MonthlyBudgetToday({
-  monthlyBudget,
+  monthlyBudgetPolicy,
   totalCategoryBudgets,
 }: Readonly<MonthlyBudgetTodayProps>) {
-  const monthlyBudgetPolicy = new MonthlyBudgetPolicy(monthlyBudget);
-
   // TODO: 오늘 지출 총액
   const expenditureToday = 9000;
   // 오늘 예산

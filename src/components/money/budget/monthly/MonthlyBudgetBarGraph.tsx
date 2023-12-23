@@ -1,18 +1,15 @@
 import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
-import { MonthlyBudget } from "@/utils/types/money";
 
 interface MonthlyBudgetBarGraphProps {
-  monthlyBudget: MonthlyBudget;
-  totalCategoryBudgets: number;
-  totalExpenditureTilToday: number;
+  monthlyBudgetPolicy: MonthlyBudgetPolicy;
+  totalCategoryBudgets: number; // 카테고리별 예산 총액
+  totalExpenditureTilToday: number; // 오늘까지 지출총액
 }
 export default function MonthlyBudgetBarGraph({
-  monthlyBudget,
+  monthlyBudgetPolicy,
   totalCategoryBudgets,
   totalExpenditureTilToday,
 }: Readonly<MonthlyBudgetBarGraphProps>) {
-  const monthlyBudgetPolicy = new MonthlyBudgetPolicy(monthlyBudget);
-
   // 총 예산
   const totalMonthlyBudget =
     monthlyBudgetPolicy.getTotalBudgets(totalCategoryBudgets);

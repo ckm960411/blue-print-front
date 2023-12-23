@@ -1,14 +1,11 @@
 import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
-import { MonthlyBudget } from "@/utils/types/money";
 
 interface MonthlyBudgetHeaderProps {
-  monthlyBudget: MonthlyBudget;
+  monthlyBudgetPolicy: MonthlyBudgetPolicy;
 }
 export default function MonthlyBudgetHeader({
-  monthlyBudget,
+  monthlyBudgetPolicy,
 }: Readonly<MonthlyBudgetHeaderProps>) {
-  const monthlyBudgetPolicy = new MonthlyBudgetPolicy(monthlyBudget);
-
   return (
     <div className="flex-between">
       <p className="text-16px font-bold">

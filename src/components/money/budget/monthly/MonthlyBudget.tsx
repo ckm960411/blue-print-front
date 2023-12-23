@@ -39,24 +39,24 @@ export default function MonthlyBudget() {
   return (
     <div>
       <div className="flex flex-col gap-12px">
-        <MonthlyBudgetHeader monthlyBudget={monthlyBudget} />
+        <MonthlyBudgetHeader monthlyBudgetPolicy={monthlyBudgetPolicy} />
         <RemainMonthlyBudget
-          monthlyBudget={monthlyBudget}
+          monthlyBudgetPolicy={monthlyBudgetPolicy}
           totalCategoryBudgets={totalCategoryBudgets}
           totalExpenditureTilToday={totalExpenditureTilToday}
         />
         <MonthlyBudgetToday
-          monthlyBudget={monthlyBudget}
+          monthlyBudgetPolicy={monthlyBudgetPolicy}
           totalCategoryBudgets={totalCategoryBudgets}
         />
       </div>
       <MonthlyBudgetBarGraph
-        monthlyBudget={monthlyBudget}
+        monthlyBudgetPolicy={monthlyBudgetPolicy}
         totalCategoryBudgets={totalCategoryBudgets}
         totalExpenditureTilToday={totalExpenditureTilToday}
       />
       <TotalMonthlyBudgetSpent
-        monthlyBudget={monthlyBudget}
+        monthlyBudgetPolicy={monthlyBudgetPolicy}
         totalCategoryBudgets={totalCategoryBudgets}
         totalExpenditureTilToday={totalExpenditureTilToday}
       />

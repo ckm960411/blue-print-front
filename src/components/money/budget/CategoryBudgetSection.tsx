@@ -2,7 +2,7 @@ import AddCategoryBudgetButton from "@/components/money/budget/AddCategoryBudget
 import CategoryBudgetContainer from "@/components/money/budget/CategoryBudgetContainer";
 import CategoryBudgetHeader from "@/components/money/budget/CategoryBudgetHeader";
 
-export default function CategoryBudget() {
+export default function CategoryBudgetSection() {
   return (
     <div className="flex flex-col gap-32px">
       <CategoryBudgetHeader />

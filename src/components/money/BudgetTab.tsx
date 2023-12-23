@@ -1,4 +1,4 @@
-import CategoryBudget from "@/components/money/budget/CategoryBudget";
+import CategoryBudgetSection from "@/components/money/budget/CategoryBudgetSection";
 import MontlyBudget from "@/components/money/budget/MontlyBudget";
 
 export default function BudgetTab() {
@@ -6,7 +6,7 @@ export default function BudgetTab() {
     <div>
       <MontlyBudget />
       <hr className="my-32px" />
-      <CategoryBudget />
+      <CategoryBudgetSection />
     </div>
   );
 }

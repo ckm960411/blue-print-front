@@ -47,10 +47,7 @@ export default function MonthlyBudget() {
           monthlyBudgetPolicy={monthlyBudgetPolicy}
           totalExpenditureTilToday={totalExpenditureTilToday}
         />
-        <MonthlyBudgetToday
-          monthlyBudgetPolicy={monthlyBudgetPolicy}
-          totalCategoryBudgets={totalCategoryBudgets}
-        />
+        <MonthlyBudgetToday monthlyBudgetPolicy={monthlyBudgetPolicy} />
       </div>
       <MonthlyBudgetBarGraph
         monthlyBudgetPolicy={monthlyBudgetPolicy}

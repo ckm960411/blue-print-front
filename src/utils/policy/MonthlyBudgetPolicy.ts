@@ -50,9 +50,8 @@ export class MonthlyBudgetPolicy {
   /**
    * 그 달의 하루 권장 하루예산 반환
    * - 총예산을 총 이달 일수만큼 나눔
-   * @param totalCategoryBudgets 카테고리별 예산 총액
    */
-  getDailyBudget(totalCategoryBudgets = 0) {
+  get dailyBudget() {
     return Math.round(this.totalBudget / this.dayLength);
   }
 
@@ -62,6 +61,6 @@ export class MonthlyBudgetPolicy {
    * @param totalCategoryBudgets 카테고리별 예산 총액
    */
   getDailyBudgetTillToday(totalCategoryBudgets = 0) {
-    return this.getDailyBudget(totalCategoryBudgets) * this.dayLengthTilToday;
+    return this.dailyBudget * this.dayLengthTilToday;
   }
 }

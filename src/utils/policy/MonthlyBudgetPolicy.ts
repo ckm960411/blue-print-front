@@ -3,9 +3,11 @@ import { differenceInDays, format, startOfDay } from "date-fns";
 
 export class MonthlyBudgetPolicy {
   monthlyBudget: MonthlyBudget;
+  totalCategoryBudgets: number; // 카테고리별 예산 총액
 
-  constructor(monthlyBudget: MonthlyBudget) {
+  constructor(monthlyBudget: MonthlyBudget, totalCategoryBudgets: number) {
     this.monthlyBudget = monthlyBudget;
+    this.totalCategoryBudgets = totalCategoryBudgets;
   }
 
   get startDate() {

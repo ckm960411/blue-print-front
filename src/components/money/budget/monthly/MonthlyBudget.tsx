@@ -28,10 +28,13 @@ export default function MonthlyBudget() {
     return <div>no monthlyBudget</div>;
   }
 
-  const monthlyBudgetPolicy = new MonthlyBudgetPolicy(monthlyBudget);
-
   // TODO: 카테고리별 예산 총액
   const totalCategoryBudgets = 700000;
+
+  const monthlyBudgetPolicy = new MonthlyBudgetPolicy(
+    monthlyBudget,
+    totalCategoryBudgets,
+  );
 
   // TODO: 오늘까지 지출총액
   const totalExpenditureTilToday = 130000;

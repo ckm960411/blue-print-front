@@ -1,6 +1,7 @@
 "use client";
 
 import MonthlyBudgetHeader from "@/components/money/budget/monthly/MonthlyBudgetHeader";
+import MonthlyBudgetToday from "@/components/money/budget/monthly/MonthlyBudgetToday";
 import RemainMonthlyBudget from "@/components/money/budget/monthly/RemainMonthlyBudget";
 import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
 import { getMonthlyBudget } from "@/utils/services/money";
@@ -32,17 +33,11 @@ export default function MonthlyBudget() {
   // 총 예산
   const totalMonthlyBudget =
     monthlyBudgetPolicy.getTotalBudgets(totalCategoryBudgets);
-  // 오늘 예산
-  const suggestedDailyBudget =
-    monthlyBudgetPolicy.getDailyBudget(totalCategoryBudgets);
+
   // 이달 오늘까지의 예산
   const suggestedDailyBudgetTilToday =
     monthlyBudgetPolicy.getDailyBudgetTillToday(totalCategoryBudgets);
 
-  // TODO: 오늘 지출 총액
-  const expenditureToday = 9000;
-  // 오늘 지출 총액 - 오늘 예산 (양수면 초과, 음수면 절약)
-  const budgetSpentDifferenceToday = expenditureToday - suggestedDailyBudget;
   // TODO: 오늘까지 지출총액
   const totalExpenditureTilToday = 130000;
   // 오늘까지 지출 총액 - 오늘까지의 예산 (양수면 초과, 음수면 절약)
@@ -68,24 +63,10 @@ export default function MonthlyBudget() {
           totalCategoryBudgets={totalCategoryBudgets}
           totalExpenditureTilToday={totalExpenditureTilToday}
         />
-        <div className="text-14px leading-[140%] text-gray-500">
-          <p>하루 예산 {suggestedDailyBudget.toLocaleString()}원</p>
-          {budgetSpentDifferenceToday > 0 ? (
-            <p>
-              <span className="font-medium text-red-400">
-                {budgetSpentDifferenceToday.toLocaleString()}원
-              </span>{" "}
-              초과됐어요! 조금만 더 아껴봐요
-            </p>
-          ) : (
-            <p>
-              <span className="font-medium text-blue-400">
-                {Math.abs(budgetSpentDifferenceToday).toLocaleString()}원
-              </span>{" "}
-              덜 썼어요! 이대로 더 아껴봐요
-            </p>
-          )}
-        </div>
+        <MonthlyBudgetToday
+          monthlyBudget={monthlyBudget}
+          totalCategoryBudgets={totalCategoryBudgets}
+        />
       </div>
       <div className="relative pb-20px pt-60px">
         <div

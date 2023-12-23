@@ -1,4 +1,29 @@
+"use client";
+
+import { getMonthlyBudget } from "@/utils/services/money";
+import { format } from "date-fns";
+import { isUndefined } from "lodash";
+import { useQuery } from "react-query";
+
 export default function MonthlyBudget() {
+  const dateToFind = format(new Date(), "yyyy-MM-dd");
+
+  const { data: monthlyBudget } = useQuery(
+    ["getMonthlyBudget", dateToFind],
+    () => getMonthlyBudget(dateToFind),
+    { onError: console.error },
+  );
+
+  if (isUndefined(monthlyBudget)) {
+    return <></>;
+  }
+
+  if (!monthlyBudget) {
+    return <div>no monthlyBudget</div>;
+  }
+
+  console.log("monthlyBudget", monthlyBudget);
+
   return (
     <div>
       <div className="flex flex-col gap-12px">

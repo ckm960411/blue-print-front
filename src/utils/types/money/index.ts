@@ -10,6 +10,7 @@ export interface MonthlyBudget {
   year: number;
   month: number;
   type: MonthlyBudgetType;
+  budget: number; // default: 0
   start: DateTime;
   end: DateTime;
 }

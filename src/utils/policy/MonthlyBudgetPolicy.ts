@@ -38,11 +38,10 @@ export class MonthlyBudgetPolicy {
 
   /**
    * 총 한달 예산 (SUM이면 카테고리별 예산총액 아니라면 직접 정한 예산)
-   * @param totalCategoryBudgets 카테고리별 예산 총액
    */
-  getTotalBudgets(totalCategoryBudgets = 0) {
+  get totalBudget() {
     if (this.monthlyBudget.type === "SUM") {
-      return totalCategoryBudgets;
+      return this.totalCategoryBudgets;
     } else {
       return this.monthlyBudget.budget;
     }
@@ -54,9 +53,7 @@ export class MonthlyBudgetPolicy {
    * @param totalCategoryBudgets 카테고리별 예산 총액
    */
   getDailyBudget(totalCategoryBudgets = 0) {
-    return Math.round(
-      this.getTotalBudgets(totalCategoryBudgets) / this.dayLength,
-    );
+    return Math.round(this.totalBudget / this.dayLength);
   }
 
   /**

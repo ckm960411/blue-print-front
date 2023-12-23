@@ -2,17 +2,14 @@ import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
 
 interface MonthlyBudgetBarGraphProps {
   monthlyBudgetPolicy: MonthlyBudgetPolicy;
-  totalCategoryBudgets: number; // 카테고리별 예산 총액
   totalExpenditureTilToday: number; // 오늘까지 지출총액
 }
 export default function MonthlyBudgetBarGraph({
   monthlyBudgetPolicy,
-  totalCategoryBudgets,
   totalExpenditureTilToday,
 }: Readonly<MonthlyBudgetBarGraphProps>) {
   // 총 예산
-  const totalMonthlyBudget =
-    monthlyBudgetPolicy.getTotalBudgets(totalCategoryBudgets);
+  const totalMonthlyBudget = monthlyBudgetPolicy.totalBudget;
 
   // 권장되는 오늘까지의 예산 사용 퍼센트
   const suggestedPercentage = Math.round(

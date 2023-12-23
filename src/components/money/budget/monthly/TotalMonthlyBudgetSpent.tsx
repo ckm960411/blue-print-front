@@ -11,8 +11,7 @@ export default function TotalMonthlyBudgetSpent({
   totalExpenditureTilToday,
 }: Readonly<TotalMonthlyBudgetSpentProps>) {
   // 총 예산
-  const totalMonthlyBudget =
-    monthlyBudgetPolicy.getTotalBudgets(totalCategoryBudgets);
+  const totalMonthlyBudget = monthlyBudgetPolicy.totalBudget;
   // 이달 오늘까지의 예산
   const suggestedDailyBudgetTilToday =
     monthlyBudgetPolicy.getDailyBudgetTillToday(totalCategoryBudgets);

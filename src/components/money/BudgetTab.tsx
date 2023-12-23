@@ -1,10 +1,10 @@
 import CategoryBudgetSection from "@/components/money/budget/CategoryBudgetSection";
-import MontlyBudget from "@/components/money/budget/MontlyBudget";
+import MonthlyBudget from "@/components/money/budget/MonthlyBudget";
 
 export default function BudgetTab() {
   return (
     <div>
-      <MontlyBudget />
+      <MonthlyBudget />
       <hr className="my-32px" />
       <CategoryBudgetSection />
     </div>

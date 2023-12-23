@@ -1,4 +1,4 @@
-export default function MontlyBudget() {
+export default function MonthlyBudget() {
   return (
     <div>
       <div className="flex flex-col gap-12px">

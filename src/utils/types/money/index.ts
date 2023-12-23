@@ -1,6 +1,6 @@
 import { DateTime } from "@/utils/types";
 
-enum MonthlyBudgetType {
+export enum MonthlyBudgetType {
   SUM = "SUM",
   SPECIFIED = "SPECIFIED",
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import MonthlyBudgetBarGraph from "@/components/money/budget/monthly/MonthlyBudgetBarGraph";
 import MonthlyBudgetHeader from "@/components/money/budget/monthly/MonthlyBudgetHeader";
 import MonthlyBudgetToday from "@/components/money/budget/monthly/MonthlyBudgetToday";
 import RemainMonthlyBudget from "@/components/money/budget/monthly/RemainMonthlyBudget";
@@ -44,16 +45,6 @@ export default function MonthlyBudget() {
   const budgetSpentDifferenceTillToday =
     totalExpenditureTilToday - suggestedDailyBudgetTilToday;
 
-  // 권장되는 오늘까지의 예산 사용 퍼센트
-  const suggestedPercentage = Math.round(
-    (monthlyBudgetPolicy.dayLengthTilToday / monthlyBudgetPolicy.dayLength) *
-      100,
-  );
-  // 총 예산 지출 퍼센트
-  const totalExpenditurePercentage = Math.round(
-    (totalExpenditureTilToday / totalMonthlyBudget) * 100,
-  );
-
   return (
     <div>
       <div className="flex flex-col gap-12px">
@@ -68,27 +59,13 @@ export default function MonthlyBudget() {
           totalCategoryBudgets={totalCategoryBudgets}
         />
       </div>
-      <div className="relative pb-20px pt-60px">
-        <div
-          className="absolute top-24px rounded-2xl border border-gray-200 px-8px py-4px text-14px font-medium"
-          style={{ left: `calc(${suggestedPercentage}% - 22px)` }}
-        >
-          <span>권장</span>
-          <div className="absolute left-1/2 top-full h-12px w-1px translate-x-[-50%] border border-dashed border-gray-600" />
-        </div>
-        <div className="h-40px overflow-hidden rounded-xl bg-gray-100">
-          <div
-            className="h-full bg-main"
-            style={{ width: `${totalExpenditurePercentage}%` }}
-          />
-        </div>
-        <div className="absolute bottom-0 left-[-8px] text-12px font-medium">
-          {monthlyBudgetPolicy.startDate.split(" ")[1]}
-        </div>
-        <div className="absolute bottom-0 right-[-8px] text-12px font-medium">
-          {monthlyBudgetPolicy.endDate.split(" ")[1]}
-        </div>
-      </div>
+
+      <MonthlyBudgetBarGraph
+        monthlyBudget={monthlyBudget}
+        totalCategoryBudgets={totalCategoryBudgets}
+        totalExpenditureTilToday={totalExpenditureTilToday}
+      />
+
       <div className="mt-16px flex flex-col gap-16px text-16px">
         <div className="flex-between">
           <p className="font-medium text-gray-600">💰총 예산</p>

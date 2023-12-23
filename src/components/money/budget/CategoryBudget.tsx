@@ -94,6 +94,13 @@ export default function CategoryBudget() {
           </div>
         </div>
       </div>
+
+      <SpaceY height={32} />
+      <div>
+        <button className="w-full rounded-10px bg-main p-16px text-16px font-bold text-white shadow-lg">
+          예산 추가하기
+        </button>
+      </div>
     </div>
   );
 }

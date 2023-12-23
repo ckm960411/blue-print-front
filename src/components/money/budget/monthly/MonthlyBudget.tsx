@@ -1,6 +1,7 @@
 "use client";
 
 import MonthlyBudgetHeader from "@/components/money/budget/monthly/MonthlyBudgetHeader";
+import RemainMonthlyBudget from "@/components/money/budget/monthly/RemainMonthlyBudget";
 import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
 import { getMonthlyBudget } from "@/utils/services/money";
 import { format } from "date-fns";
@@ -62,11 +63,11 @@ export default function MonthlyBudget() {
     <div>
       <div className="flex flex-col gap-12px">
         <MonthlyBudgetHeader monthlyBudget={monthlyBudget} />
-
-        <p className="text-22px font-bold">
-          {(totalMonthlyBudget - totalExpenditureTilToday).toLocaleString()}원
-          남음
-        </p>
+        <RemainMonthlyBudget
+          monthlyBudget={monthlyBudget}
+          totalCategoryBudgets={totalCategoryBudgets}
+          totalExpenditureTilToday={totalExpenditureTilToday}
+        />
         <div className="text-14px leading-[140%] text-gray-500">
           <p>하루 예산 {suggestedDailyBudget.toLocaleString()}원</p>
           {budgetSpentDifferenceToday > 0 ? (

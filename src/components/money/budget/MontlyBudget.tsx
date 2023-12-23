@@ -3,7 +3,7 @@ export default function MontlyBudget() {
     <div>
       <div className="flex flex-col gap-12px">
         <div className="flex-between">
-          <p className="text-16px font-medium">한달 예산</p>
+          <p className="text-16px font-bold">한달 예산</p>
           <button className="p-2px text-14px font-bold text-main">
             예산 설정
           </button>

@@ -1,5 +1,6 @@
 import { get, patch, post } from "@/app/api/axios";
 import { CreateMonthlyBudgetReqDto } from "@/utils/services/money/create-monthly-budget.req.dto";
+import { CreateBudgetCategoryReqDto } from "@/utils/services/money/dto/create-budget-category.req.dto";
 import { UpdateMonthlyBudgetReqDto } from "@/utils/services/money/update-monthly-budget.req.dto";
 import { DateTime } from "@/utils/types";
 import { BudgetCategory, MonthlyBudget } from "@/utils/types/money";
@@ -37,5 +38,15 @@ export const updateMonthlyBudget = async (
 
 export const getAllBudgetCategories = async () => {
   const { data } = await get<BudgetCategory[]>(`money/budget/category`);
+  return data;
+};
+
+export const createBudgetCategory = async (
+  createBudgetCategoryReqDto: CreateBudgetCategoryReqDto,
+) => {
+  const { data } = await post<BudgetCategory>(
+    `money/budget/category`,
+    createBudgetCategoryReqDto,
+  );
   return data;
 };

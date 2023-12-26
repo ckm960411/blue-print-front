@@ -28,10 +28,12 @@ import { useMutation, useQueryClient } from "react-query";
 interface CreateMonthlyBudgetModalProps {
   isOpen: boolean;
   onClose: () => void;
+  type: "create" | "update";
 }
 export default function CreateMonthlyBudgetModal({
   isOpen,
   onClose,
+  type = "create",
 }: Readonly<CreateMonthlyBudgetModalProps>) {
   const queryClient = useQueryClient();
   const { openToast } = useToastMessage();
@@ -86,12 +88,16 @@ export default function CreateMonthlyBudgetModal({
       return;
     }
 
-    createMonthlyBudgetRequest({
-      year,
-      month,
-      budget,
-      type: monthlyBudgetType,
-    });
+    if (type === "create") {
+      createMonthlyBudgetRequest({
+        year,
+        month,
+        budget,
+        type: monthlyBudgetType,
+      });
+    } else {
+      // UPDATE
+    }
   };
 
   return (

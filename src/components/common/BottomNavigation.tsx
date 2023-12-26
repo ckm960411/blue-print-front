@@ -8,16 +8,18 @@ import { FaRegCreditCard } from "react-icons/fa6";
 import { IoIosFitness } from "react-icons/io";
 import { MdOutlineLaptopChromebook } from "react-icons/md";
 import { useMediaQuery } from "react-responsive";
+import { useIsClient } from "usehooks-ts";
 
 export default function BottomNavigation() {
   const UNDER_480PX = useMediaQuery({ query: "(max-width:479px)" });
   const pathname = usePathname();
+  const isClient = useIsClient();
 
   const isActive = (href: string) => {
     return pathname.startsWith(href);
   };
 
-  if (!UNDER_480PX) return <></>;
+  if (!UNDER_480PX || !isClient) return <></>;
 
   return (
     <div

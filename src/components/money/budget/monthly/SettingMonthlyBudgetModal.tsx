@@ -28,18 +28,18 @@ import { getMonth, getYear } from "date-fns";
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 
-interface CreateMonthlyBudgetModalProps {
+interface SettingMonthlyBudgetModalProps {
   isOpen: boolean;
   onClose: () => void;
   type?: "create" | "update";
   monthlyBudget?: MonthlyBudget;
 }
-export default function CreateMonthlyBudgetModal({
+export default function SettingMonthlyBudgetModal({
   isOpen,
   onClose,
   type = "create",
   monthlyBudget,
-}: Readonly<CreateMonthlyBudgetModalProps>) {
+}: Readonly<SettingMonthlyBudgetModalProps>) {
   const queryClient = useQueryClient();
   const { openToast } = useToastMessage();
 

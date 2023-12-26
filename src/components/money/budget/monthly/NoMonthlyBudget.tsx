@@ -1,4 +1,4 @@
-import CreateMonthlyBudgetModal from "@/components/money/budget/monthly/CreateMonthlyBudgetModal";
+import SettingMonthlyBudgetModal from "@/components/money/budget/monthly/SettingMonthlyBudgetModal";
 import { useDisclosure } from "@chakra-ui/hooks";
 
 export default function NoMonthlyBudget() {
@@ -22,7 +22,7 @@ export default function NoMonthlyBudget() {
         </button>
       </div>
 
-      <CreateMonthlyBudgetModal isOpen={isOpen} onClose={onClose} />
+      <SettingMonthlyBudgetModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 }

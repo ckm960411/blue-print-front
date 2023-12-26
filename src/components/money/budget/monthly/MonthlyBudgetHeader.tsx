@@ -1,4 +1,4 @@
-import CreateMonthlyBudgetModal from "@/components/money/budget/monthly/CreateMonthlyBudgetModal";
+import SettingMonthlyBudgetModal from "@/components/money/budget/monthly/SettingMonthlyBudgetModal";
 import { useMonthlyBudgetQuery } from "@/utils/hooks/react-query/money/useMonthlyBudgetQuery";
 import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -26,7 +26,7 @@ export default function MonthlyBudgetHeader({
         예산 설정
       </button>
 
-      <CreateMonthlyBudgetModal
+      <SettingMonthlyBudgetModal
         type="update"
         isOpen={isOpen}
         onClose={onClose}

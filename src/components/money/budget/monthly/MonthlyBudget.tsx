@@ -5,22 +5,13 @@ import MonthlyBudgetHeader from "@/components/money/budget/monthly/MonthlyBudget
 import MonthlyBudgetToday from "@/components/money/budget/monthly/MonthlyBudgetToday";
 import RemainMonthlyBudget from "@/components/money/budget/monthly/RemainMonthlyBudget";
 import TotalMonthlyBudgetSpent from "@/components/money/budget/monthly/TotalMonthlyBudgetSpent";
+import { useMonthlyBudgetQuery } from "@/utils/hooks/react-query/money/useMonthlyBudgetQuery";
 import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
-import { getMonthlyBudget } from "@/utils/services/money";
-import { format } from "date-fns";
-import { isUndefined } from "lodash";
-import { useQuery } from "react-query";
 
 export default function MonthlyBudget() {
-  const dateToFind = format(new Date(), "yyyy-MM-dd");
+  const { isLoading, data: monthlyBudget } = useMonthlyBudgetQuery(new Date());
 
-  const { data: monthlyBudget } = useQuery(
-    ["getMonthlyBudget", dateToFind],
-    () => getMonthlyBudget(dateToFind),
-    { onError: console.error },
-  );
-
-  if (isUndefined(monthlyBudget)) {
+  if (isLoading) {
     return <></>;
   }
 

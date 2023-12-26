@@ -14,3 +14,10 @@ export interface MonthlyBudget {
   start: DateTime;
   end: DateTime;
 }
+
+export interface BudgetCategory {
+  id: number;
+  name: string;
+  unicode: string;
+  userId: number;
+}

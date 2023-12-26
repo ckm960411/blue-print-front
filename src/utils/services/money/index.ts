@@ -1,8 +1,10 @@
-import { get, post } from "@/app/api/axios";
+import { get, patch, post } from "@/app/api/axios";
 import { CreateMonthlyBudgetReqDto } from "@/utils/services/money/create-monthly-budget.req.dto";
+import { UpdateMonthlyBudgetReqDto } from "@/utils/services/money/update-monthly-budget.req.dto";
 import { DateTime } from "@/utils/types";
 import { MonthlyBudget } from "@/utils/types/money";
 import { format } from "date-fns";
+import { omit } from "lodash";
 
 export const getMonthlyBudget = async (date: DateTime) => {
   const dateToFind = format(new Date(date), "yyyy-MM-dd");
@@ -19,6 +21,16 @@ export const createMonthlyBudget = async (
   const { data } = await post<MonthlyBudget>(
     `money/budget/monthly`,
     createMonthlyBudgetReqDto,
+  );
+  return data;
+};
+
+export const updateMonthlyBudget = async (
+  updateMonthlyBudgetReqDto: UpdateMonthlyBudgetReqDto,
+) => {
+  const { data } = await patch(
+    `money/budget/monthly/${updateMonthlyBudgetReqDto.id}`,
+    omit(updateMonthlyBudgetReqDto, "id"),
   );
   return data;
 };

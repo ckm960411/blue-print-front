@@ -50,7 +50,9 @@ export default function CreateCategoryBudgetModal({
                 currentCategory={currentCategory}
                 onSelect={(category) => setCurrentCategory(category)}
               />
-              <CreateBudgetCategorySection />
+              <CreateBudgetCategorySection
+                onSuccess={(data) => setCurrentCategory(data)}
+              />
             </div>
           </div>
         </ModalBody>

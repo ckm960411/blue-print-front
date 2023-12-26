@@ -1,9 +1,19 @@
 import PickerWrapper from "@/components/components/PickerWrapper";
 import Unicode, { EmojiType } from "@/components/components/Unicode";
+import { QueryKeys } from "@/utils/common/query-keys";
+import { createBudgetCategory } from "@/utils/services/money";
+import { BudgetCategory } from "@/utils/types/money";
 import { useClickOutside } from "primereact/hooks";
 import React, { useRef, useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 
-export default function CreateBudgetCategorySection() {
+interface CreateBudgetCategorySectionProps {
+  onSuccess: (category: BudgetCategory) => void;
+}
+export default function CreateBudgetCategorySection({
+  onSuccess,
+}: Readonly<CreateBudgetCategorySectionProps>) {
+  const queryClient = useQueryClient();
   const pickerWrapperRef = useRef<HTMLDivElement | null>(null);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -18,12 +28,31 @@ export default function CreateBudgetCategorySection() {
     setName("");
   };
 
+  const { mutate: createBudgetCategoryRequest } = useMutation(
+    ["create-budget-category"],
+    createBudgetCategory,
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(QueryKeys.getAllBudgetCategories());
+        onSuccess(data);
+        resetState();
+        setIsEditing(false);
+      },
+      onError: console.error,
+    },
+  );
+
   const handleEmojiSelect = (emoji: EmojiType) => {
     setEmoji(emoji.unified);
     setShowPicker(false);
   };
 
-  const handleConfirm = () => {};
+  const handleConfirm = () => {
+    if (!name.trim()) return;
+    if (!emoji) return;
+
+    createBudgetCategoryRequest({ name, unicode: emoji });
+  };
 
   return (
     <div>

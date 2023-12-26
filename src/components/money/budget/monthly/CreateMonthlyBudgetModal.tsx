@@ -1,3 +1,6 @@
+import { QueryKeys } from "@/utils/common/query-keys";
+import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
+import { createMonthlyBudget } from "@/utils/services/money";
 import { MonthlyBudgetType } from "@/utils/types/money";
 import {
   Modal,
@@ -18,8 +21,9 @@ import {
   RadioGroup,
   Stack,
 } from "@chakra-ui/react";
-import { getMonth } from "date-fns";
+import { getMonth, getYear } from "date-fns";
 import React, { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 
 interface CreateMonthlyBudgetModalProps {
   isOpen: boolean;
@@ -29,18 +33,71 @@ export default function CreateMonthlyBudgetModal({
   isOpen,
   onClose,
 }: Readonly<CreateMonthlyBudgetModalProps>) {
+  const queryClient = useQueryClient();
+  const { openToast } = useToastMessage();
+
   const [value, setValue] = useState("300000");
   const [monthlyBudgetType, setMonthlyBudgetType] = useState<MonthlyBudgetType>(
     MonthlyBudgetType.SUM,
   );
 
+  const resetState = () => {
+    setValue("300000");
+    setMonthlyBudgetType(MonthlyBudgetType.SUM);
+  };
+
+  const handleClose = () => {
+    resetState();
+    onClose();
+  };
+
+  const { mutate: createMonthlyBudgetRequest } = useMutation(
+    ["create-monthly-budget"],
+    createMonthlyBudget,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getMonthlyBudget());
+        handleClose();
+      },
+      onError: (error: any) => {
+        openToast({
+          status: "error",
+          title: "문제 발생",
+          description:
+            error?.response?.data?.message?.join?.(". ") ??
+            `예산 책정 중 문제가 발생했습니다. 다시 시도해주세요.`,
+        });
+        handleClose();
+      },
+    },
+  );
+
   const formatBudget = (val: string) => `${val} 원`;
-  const parseBudget = (val: string) => val.replace(/^\원/, "");
+  const parseBudget = (val: string) => val.replace(/원/, "");
+
+  const handleConfirm = () => {
+    const today = new Date();
+    const year = getYear(today);
+    const month = getMonth(today) + 1;
+
+    const budget = +parseBudget(value);
+
+    if (isNaN(budget)) {
+      return;
+    }
+
+    createMonthlyBudgetRequest({
+      year,
+      month,
+      budget,
+      type: monthlyBudgetType,
+    });
+  };
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       size="full"
       closeOnOverlayClick={false}
       motionPreset="slideInBottom"
@@ -90,11 +147,17 @@ export default function CreateMonthlyBudgetModal({
         </ModalBody>
         <ModalFooter>
           <div className="flex items-center gap-8px">
-            <button className="rounded-md px-12px py-10px text-14px font-medium duration-200 hover:bg-gray-100">
+            <button
+              onClick={handleClose}
+              className="rounded-md px-12px py-10px text-14px font-medium duration-200 hover:bg-gray-100"
+            >
               취소
             </button>
-            <button className="rounded-md bg-main px-12px py-10px text-14px font-semibold text-white duration-200 hover:bg-main">
-              수정
+            <button
+              onClick={handleConfirm}
+              className="rounded-md bg-main px-12px py-10px text-14px font-semibold text-white duration-200 hover:bg-main"
+            >
+              확인
             </button>
           </div>
         </ModalFooter>

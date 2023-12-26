@@ -1,11 +1,7 @@
 import PickerWrapper from "@/components/components/PickerWrapper";
 import Unicode, { EmojiType } from "@/components/components/Unicode";
-import { Colors } from "@/utils/common/color";
-import { useMe } from "@/utils/common/user/useMe";
-import { getAllBudgetCategories } from "@/utils/services/money";
+import CreateBudgetCategoryDropdown from "@/components/money/budget/setting/CreateBudgetCategoryDropdown";
 import { BudgetCategory } from "@/utils/types/money";
-import { Button } from "@chakra-ui/button";
-import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
 import {
   Modal,
   ModalBody,
@@ -17,8 +13,6 @@ import {
 } from "@chakra-ui/modal";
 import { useClickOutside } from "primereact/hooks";
 import React, { useRef, useState } from "react";
-import { IoChevronDownSharp } from "react-icons/io5";
-import { useQuery } from "react-query";
 
 interface SettingCategoryBudgetModalProps {
   isOpen: boolean;
@@ -28,7 +22,6 @@ export default function CreateCategoryBudgetModal({
   isOpen,
   onClose,
 }: Readonly<SettingCategoryBudgetModalProps>) {
-  const me = useMe();
   const [currentCategory, setCurrentCategory] = useState<BudgetCategory | null>(
     null,
   );
@@ -39,12 +32,6 @@ export default function CreateCategoryBudgetModal({
 
   const pickerWrapperRef = useRef<HTMLDivElement | null>(null);
   useClickOutside(pickerWrapperRef, () => setShowPicker(false));
-
-  const { data: categories = [] } = useQuery(
-    ["get-all-budget-categories", me?.id],
-    getAllBudgetCategories,
-    { onError: console.error },
-  );
 
   const handleClose = () => {
     onClose();
@@ -73,31 +60,11 @@ export default function CreateCategoryBudgetModal({
           <div className="flex flex-col gap-16px">
             <p className="text-18px font-bold">생성할 카테고리 선택</p>
             <div className="flex flex-col gap-8px">
-              <Menu>
-                <MenuButton
-                  as={Button}
-                  rightIcon={<IoChevronDownSharp />}
-                  borderRadius="md"
-                  borderWidth="1px"
-                  _expanded={{ bg: "#fff" }}
-                  className="truncate-1-lines w-144px px-8px py-4px text-left text-14px"
-                  style={{ display: "flex" }}
-                >
-                  {currentCategory?.name ?? "선택"}
-                </MenuButton>
-                <MenuList>
-                  {categories.map((category) => (
-                    <MenuItem
-                      key={category.id}
-                      onClick={() => setCurrentCategory(category)}
-                      className="py-8px text-left text-14px"
-                      _hover={{ bg: Colors.gray[50] }}
-                    >
-                      {category.name}
-                    </MenuItem>
-                  ))}
-                </MenuList>
-              </Menu>
+              <CreateBudgetCategoryDropdown
+                currentCategory={currentCategory}
+                onSelect={(category) => setCurrentCategory(category)}
+              />
+
               <div>
                 {isEditing ? (
                   <div className="flex flex-col gap-12px rounded-md border border-main p-16px">

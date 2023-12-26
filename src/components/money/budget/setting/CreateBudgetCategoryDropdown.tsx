@@ -1,4 +1,5 @@
 import { Colors } from "@/utils/common/color";
+import { QueryKeys } from "@/utils/common/query-keys";
 import { useMe } from "@/utils/common/user/useMe";
 import { getAllBudgetCategories } from "@/utils/services/money";
 import { BudgetCategory } from "@/utils/types/money";
@@ -19,7 +20,7 @@ export default function CreateBudgetCategoryDropdown({
   const me = useMe();
 
   const { data: categories = [] } = useQuery(
-    ["get-all-budget-categories", me?.id],
+    QueryKeys.getAllBudgetCategories([me?.id]),
     getAllBudgetCategories,
     { onError: console.error },
   );

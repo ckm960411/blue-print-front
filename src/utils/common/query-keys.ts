@@ -1,3 +1,4 @@
+import { DateTime } from "@/utils/types";
 import { omit } from "lodash";
 
 const getAllMemos = (...args: any[]) => ["getAllMemos", ...args];
@@ -9,6 +10,8 @@ const getAllProjects = (...args: any[]) => ["get-all-projects", ...args];
 const getAllComments = (...args: any[]) => ["get-all-comments", ...args];
 
 const getWorkCount = (...args: any[]) => ["get-work-count", ...args];
+
+const getMonthlyBudget = (...args: any[]) => ["get-monthly-budget", ...args];
 
 export const QueryKeys = {
   // WORK
@@ -25,6 +28,9 @@ export const QueryKeys = {
 
   // PROJECTS
   getAllProjects,
+
+  // MONEY
+  getMonthlyBudget,
 };
 
 const projectKeys = {

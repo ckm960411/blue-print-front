@@ -1,7 +1,10 @@
 import { QueryKeys } from "@/utils/common/query-keys";
 import { useToastMessage } from "@/utils/hooks/chakra/useToastMessage";
-import { createMonthlyBudget } from "@/utils/services/money";
-import { MonthlyBudgetType } from "@/utils/types/money";
+import {
+  createMonthlyBudget,
+  updateMonthlyBudget,
+} from "@/utils/services/money";
+import { MonthlyBudget, MonthlyBudgetType } from "@/utils/types/money";
 import {
   Modal,
   ModalBody,
@@ -28,19 +31,23 @@ import { useMutation, useQueryClient } from "react-query";
 interface CreateMonthlyBudgetModalProps {
   isOpen: boolean;
   onClose: () => void;
-  type: "create" | "update";
+  type?: "create" | "update";
+  monthlyBudget?: MonthlyBudget;
 }
 export default function CreateMonthlyBudgetModal({
   isOpen,
   onClose,
   type = "create",
+  monthlyBudget,
 }: Readonly<CreateMonthlyBudgetModalProps>) {
   const queryClient = useQueryClient();
   const { openToast } = useToastMessage();
 
-  const [value, setValue] = useState("300000");
+  const [value, setValue] = useState<string>(
+    monthlyBudget?.budget ? String(monthlyBudget.budget) : "300000",
+  );
   const [monthlyBudgetType, setMonthlyBudgetType] = useState<MonthlyBudgetType>(
-    MonthlyBudgetType.SUM,
+    monthlyBudget?.type ?? MonthlyBudgetType.SUM,
   );
 
   const resetState = () => {
@@ -74,6 +81,27 @@ export default function CreateMonthlyBudgetModal({
     },
   );
 
+  const { mutate: updateMonthlyBudgetRequest } = useMutation(
+    ["update-monthly-budget"],
+    updateMonthlyBudget,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getMonthlyBudget());
+        handleClose();
+      },
+      onError: (error: any) => {
+        openToast({
+          status: "error",
+          title: "문제 발생",
+          description:
+            error?.response?.data?.message?.join?.(". ") ??
+            `예산 수정 중 문제가 발생했습니다. 다시 시도해주세요.`,
+        });
+        handleClose();
+      },
+    },
+  );
+
   const formatBudget = (val: string) => `${val} 원`;
   const parseBudget = (val: string) => val.replace(/원/, "");
 
@@ -97,6 +125,12 @@ export default function CreateMonthlyBudgetModal({
       });
     } else {
       // UPDATE
+      if (!monthlyBudget) return console.error("no budget");
+      updateMonthlyBudgetRequest({
+        id: monthlyBudget.id,
+        budget,
+        type: monthlyBudgetType,
+      });
     }
   };
 

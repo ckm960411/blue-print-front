@@ -1,4 +1,7 @@
+import CreateMonthlyBudgetModal from "@/components/money/budget/monthly/CreateMonthlyBudgetModal";
+import { useMonthlyBudgetQuery } from "@/utils/hooks/react-query/money/useMonthlyBudgetQuery";
 import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
+import { useDisclosure } from "@chakra-ui/hooks";
 
 interface MonthlyBudgetHeaderProps {
   monthlyBudgetPolicy: MonthlyBudgetPolicy;
@@ -6,6 +9,11 @@ interface MonthlyBudgetHeaderProps {
 export default function MonthlyBudgetHeader({
   monthlyBudgetPolicy,
 }: Readonly<MonthlyBudgetHeaderProps>) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data: monthlyBudget } = useMonthlyBudgetQuery();
+
+  if (!monthlyBudget) return <></>;
+
   return (
     <div className="flex-between">
       <p className="text-16px font-bold">
@@ -14,7 +22,16 @@ export default function MonthlyBudgetHeader({
           ({monthlyBudgetPolicy.startDate} ~ {monthlyBudgetPolicy.endDate})
         </span>
       </p>
-      <button className="p-2px text-14px font-bold text-main">예산 설정</button>
+      <button onClick={onOpen} className="p-2px text-14px font-bold text-main">
+        예산 설정
+      </button>
+
+      <CreateMonthlyBudgetModal
+        type="update"
+        isOpen={isOpen}
+        onClose={onClose}
+        monthlyBudget={monthlyBudget}
+      />
     </div>
   );
 }

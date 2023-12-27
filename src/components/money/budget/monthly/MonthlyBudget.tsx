@@ -6,11 +6,20 @@ import MonthlyBudgetToday from "@/components/money/budget/monthly/MonthlyBudgetT
 import NoMonthlyBudget from "@/components/money/budget/monthly/NoMonthlyBudget";
 import RemainMonthlyBudget from "@/components/money/budget/monthly/RemainMonthlyBudget";
 import TotalMonthlyBudgetSpent from "@/components/money/budget/monthly/TotalMonthlyBudgetSpent";
+import { useMonthlyBudgetCategoriesQuery } from "@/utils/hooks/react-query/money/useMonthlyBudgetCategoriesQuery";
 import { useMonthlyBudgetQuery } from "@/utils/hooks/react-query/money/useMonthlyBudgetQuery";
 import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
 
 export default function MonthlyBudget() {
   const { isLoading, data: monthlyBudget } = useMonthlyBudgetQuery(new Date());
+  // 카테고리별 예산 총액
+  const { data: totalCategoryBudgets = 0 } = useMonthlyBudgetCategoriesQuery(
+    monthlyBudget?.id,
+    {
+      select: (categories) =>
+        categories.reduce((acc, cur) => acc + cur.budget, 0),
+    },
+  );
 
   if (isLoading) {
     return <></>;
@@ -19,9 +28,6 @@ export default function MonthlyBudget() {
   if (!monthlyBudget) {
     return <NoMonthlyBudget />;
   }
-
-  // TODO: 카테고리별 예산 총액
-  const totalCategoryBudgets = 700000;
 
   const monthlyBudgetPolicy = new MonthlyBudgetPolicy(
     monthlyBudget,

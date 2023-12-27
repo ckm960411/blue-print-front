@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 export const useMonthlyBudgetCategoriesQuery = (
   monthlyBudgetId: number | undefined,
 ) => {
-  const { data: monthlyBudgetCategories = [] } = useQuery(
+  return useQuery(
     QueryKeys.getAllMonthlyBudgetCategoreis(monthlyBudgetId),
     () => {
       if (!monthlyBudgetId)
@@ -14,6 +14,4 @@ export const useMonthlyBudgetCategoriesQuery = (
     },
     { staleTime: 60 * 60 * 1000, onError: console.error },
   );
-
-  return monthlyBudgetCategories;
 };

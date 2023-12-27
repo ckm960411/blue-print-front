@@ -5,9 +5,8 @@ import { useMonthlyBudgetQuery } from "@/utils/hooks/react-query/money/useMonthl
 export default function CategoryBudgetContainer() {
   const { data: monthlyBudget } = useMonthlyBudgetQuery();
 
-  const monthlyBudgetCategories = useMonthlyBudgetCategoriesQuery(
-    monthlyBudget?.id,
-  );
+  const { data: monthlyBudgetCategories = [] } =
+    useMonthlyBudgetCategoriesQuery(monthlyBudget?.id);
 
   if (monthlyBudgetCategories.length === 0) {
     return (

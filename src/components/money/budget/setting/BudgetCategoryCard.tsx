@@ -1,6 +1,9 @@
 import CategoryEmojiSelect from "@/components/money/budget/setting/CategoryEmojiSelect";
 import { QueryKeys } from "@/utils/common/query-keys";
-import { updateBudgetCategory } from "@/utils/services/money";
+import {
+  deleteBudgetCategory,
+  updateBudgetCategory,
+} from "@/utils/services/money";
 import { BudgetCategory } from "@/utils/types/money";
 import React, { useState } from "react";
 import { CiEdit } from "react-icons/ci";
@@ -25,6 +28,21 @@ export default function BudgetCategoryCard({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getAllBudgetCategories());
+        setIsEditing(false);
+      },
+      onError: console.error,
+    },
+  );
+
+  const { mutate: deleteBudgetCategoryRequest } = useMutation(
+    ["delete-budget-category"],
+    deleteBudgetCategory,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllBudgetCategories());
+        queryClient.invalidateQueries(
+          QueryKeys.getAllMonthlyBudgetCategoreis(),
+        );
         setIsEditing(false);
       },
       onError: console.error,
@@ -74,7 +92,12 @@ export default function BudgetCategoryCard({
             <CiEdit />
           </button>
         )}
-        <button className="flex-center h-24px w-24px rounded-sm bg-gray-100 text-20px">
+        <button
+          onClick={() => {
+            deleteBudgetCategoryRequest(budgetCategory.id);
+          }}
+          className="flex-center h-24px w-24px rounded-sm bg-gray-100 text-20px"
+        >
           <IoMdClose />
         </button>
       </div>

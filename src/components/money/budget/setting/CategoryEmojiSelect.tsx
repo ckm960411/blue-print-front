@@ -7,9 +7,11 @@ import React, { useRef, useState } from "react";
 
 interface CategoryEmojiSelectProps {
   unicode: string;
+  onEmojiSelect: (unicode: string) => void;
 }
 export default function CategoryEmojiSelect({
   unicode,
+  onEmojiSelect,
 }: Readonly<CategoryEmojiSelectProps>) {
   const pickerWrapperRef = useRef<HTMLDivElement | null>(null);
   const [showPicker, setShowPicker] = useState(false);
@@ -20,7 +22,7 @@ export default function CategoryEmojiSelect({
   const handleClose = () => setShowPicker(false);
 
   const handleEmojiSelect = ({ unified: unicode }: EmojiType) => {
-    console.log("unicode", unicode);
+    onEmojiSelect(unicode);
     handleClose();
   };
 

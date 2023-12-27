@@ -1,8 +1,12 @@
 import CategoryEmojiSelect from "@/components/money/budget/setting/CategoryEmojiSelect";
+import { QueryKeys } from "@/utils/common/query-keys";
+import { updateBudgetCategory } from "@/utils/services/money";
 import { BudgetCategory } from "@/utils/types/money";
-import React from "react";
+import React, { useState } from "react";
 import { CiEdit } from "react-icons/ci";
+import { FaCheck } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
+import { useMutation, useQueryClient } from "react-query";
 
 interface BudgetCategoryCardProps {
   budgetCategory: BudgetCategory;
@@ -10,19 +14,66 @@ interface BudgetCategoryCardProps {
 export default function BudgetCategoryCard({
   budgetCategory,
 }: Readonly<BudgetCategoryCardProps>) {
+  const queryClient = useQueryClient();
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState(budgetCategory.name);
+
+  const { mutate: updateBudgetCategoryRequest } = useMutation(
+    ["update-budget-category"],
+    updateBudgetCategory,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getAllBudgetCategories());
+        setIsEditing(false);
+      },
+      onError: console.error,
+    },
+  );
+
   return (
     <div className="flex-between rounded-md border border-gray-200 p-16px shadow-md">
       <div className="flex items-center gap-8px">
-        <CategoryEmojiSelect unicode={budgetCategory.unicode} />
-        <p className="text-16px font-semibold">{budgetCategory.name}</p>
+        <CategoryEmojiSelect
+          unicode={budgetCategory.unicode}
+          onEmojiSelect={(unicode) =>
+            updateBudgetCategoryRequest({
+              categoryId: budgetCategory.id,
+              unicode,
+            })
+          }
+        />
+        {isEditing ? (
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-160px rounded-md border border-gray-200 px-4px py-2px text-16px font-semibold"
+          />
+        ) : (
+          <p className="text-16px font-semibold">{budgetCategory.name}</p>
+        )}
       </div>
       <div className="flex-center gap-8px">
-        <button className="flex-center h-24px w-24px rounded-sm bg-gray-100 text-20px">
-          <CiEdit />
-        </button>
-        {/*<button className="flex-center h-24px w-24px rounded-sm bg-gray-100 text-16px">*/}
-        {/*  <FaCheck />*/}
-        {/*</button>*/}
+        {isEditing ? (
+          <button
+            onClick={() =>
+              updateBudgetCategoryRequest({
+                categoryId: budgetCategory.id,
+                name,
+              })
+            }
+            className="flex-center h-24px w-24px rounded-sm bg-gray-100 text-16px"
+          >
+            <FaCheck />
+          </button>
+        ) : (
+          <button
+            onClick={() => setIsEditing(true)}
+            className="flex-center h-24px w-24px rounded-sm bg-gray-100 text-20px"
+          >
+            <CiEdit />
+          </button>
+        )}
         <button className="flex-center h-24px w-24px rounded-sm bg-gray-100 text-20px">
           <IoMdClose />
         </button>

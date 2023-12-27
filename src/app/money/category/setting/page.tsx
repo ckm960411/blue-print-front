@@ -16,7 +16,10 @@ export default function CategorySettingPage() {
       </div>
       <div className="flex flex-col gap-8px p-16px">
         {budgetCategories.map((budgetCategory) => (
-          <BudgetCategoryCard key={budgetCategory.id} />
+          <BudgetCategoryCard
+            key={budgetCategory.id}
+            budgetCategory={budgetCategory}
+          />
         ))}
         <button className="w-full rounded-10px bg-main p-12px text-16px font-bold text-white shadow-lg">
           카테고리 추가하기

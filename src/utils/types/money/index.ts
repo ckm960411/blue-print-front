@@ -28,4 +28,10 @@ export interface MonthlyBudgetCategory {
   budget: number;
   monthlyBudgetId: number;
   userId: number;
+  year: number;
+  month: number;
+  start: DateTime;
+  end: DateTime;
+  categoryName: string;
+  categoryUnicode: string;
 }

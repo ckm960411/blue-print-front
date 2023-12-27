@@ -1,5 +1,6 @@
 import CreateBudgetCategoryDropdown from "@/components/money/budget/setting/CreateBudgetCategoryDropdown";
 import CreateBudgetCategorySection from "@/components/money/budget/setting/CreateBudgetCategorySection";
+import CreateCategoryBudgetSection from "@/components/money/budget/setting/CreateCategoryBudgetSection";
 import { BudgetCategory } from "@/utils/types/money";
 import {
   Modal,
@@ -23,6 +24,7 @@ export default function CreateCategoryBudgetModal({
   const [currentCategory, setCurrentCategory] = useState<BudgetCategory | null>(
     null,
   );
+  const [budget, setBudget] = useState<string>("300000");
 
   const handleClose = () => {
     onClose();
@@ -52,6 +54,10 @@ export default function CreateCategoryBudgetModal({
               />
               <CreateBudgetCategorySection
                 onSuccess={(data) => setCurrentCategory(data)}
+              />
+              <CreateCategoryBudgetSection
+                budget={budget}
+                onChange={setBudget}
               />
             </div>
           </div>

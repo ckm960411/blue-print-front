@@ -21,3 +21,11 @@ export interface BudgetCategory {
   unicode: string;
   userId: number;
 }
+
+export interface MonthlyBudgetCategory {
+  id: number;
+  budgetCategoryId: number;
+  budget: number;
+  monthlyBudgetId: number;
+  userId: number;
+}

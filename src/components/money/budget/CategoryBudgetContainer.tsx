@@ -16,10 +16,15 @@ export default function CategoryBudgetContainer() {
     { staleTime: 60 * 60 * 1000, onError: console.error },
   );
 
+  if (monthlyBudgetCategories.length === 0) {
+    return <div>no monthlyBudgetCategories</div>;
+  }
+
   return (
     <div className="flex flex-col gap-24px">
-      <CategoryBudget />
-      <CategoryBudget />
+      {monthlyBudgetCategories.map((category) => (
+        <CategoryBudget key={category.id} monthlyBudgetCategory={category} />
+      ))}
     </div>
   );
 }

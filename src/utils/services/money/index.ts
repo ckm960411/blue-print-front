@@ -56,6 +56,16 @@ export const createBudgetCategory = async (
   return data;
 };
 
+export const updateBudgetCategory = async (
+  dto: Partial<CreateBudgetCategoryReqDto> & { categoryId: number },
+) => {
+  const { data } = await patch<BudgetCategory>(
+    `money/budget/category/${dto.categoryId}`,
+    omit(dto, "categoryId"),
+  );
+  return data;
+};
+
 export const getAllMonthlyBudgetCategoreis = async (
   monthlyBudgetId: number,
 ) => {

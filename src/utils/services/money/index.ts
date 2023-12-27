@@ -1,8 +1,8 @@
 import { get, patch, post } from "@/app/api/axios";
-import { CreateMonthlyBudgetReqDto } from "@/utils/services/money/create-monthly-budget.req.dto";
+import { CreateMonthlyBudgetReqDto } from "@/utils/services/money/dto/create-monthly-budget.req.dto";
 import { CreateBudgetCategoryReqDto } from "@/utils/services/money/dto/create-budget-category.req.dto";
 import { CreateMonthlyBudgetCategoryReqDto } from "@/utils/services/money/dto/create-monthly-budget-category.req.dto";
-import { UpdateMonthlyBudgetReqDto } from "@/utils/services/money/update-monthly-budget.req.dto";
+import { UpdateMonthlyBudgetReqDto } from "@/utils/services/money/dto/update-monthly-budget.req.dto";
 import { DateTime } from "@/utils/types";
 import {
   BudgetCategory,

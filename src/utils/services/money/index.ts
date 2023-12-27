@@ -58,7 +58,7 @@ export const createBudgetCategory = async (
 export const getAllMonthlyBudgetCategoreis = async (
   monthlyBudgetId: number,
 ) => {
-  const { data } = await get<MonthlyBudgetCategory>(
+  const { data } = await get<MonthlyBudgetCategory[]>(
     `money/budget/category/monthly`,
     { params: { monthlyBudgetId } },
   );

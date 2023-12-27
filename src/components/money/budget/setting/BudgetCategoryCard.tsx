@@ -94,7 +94,11 @@ export default function BudgetCategoryCard({
         )}
         <button
           onClick={() => {
-            deleteBudgetCategoryRequest(budgetCategory.id);
+            if (typeof window === "undefined") return;
+            const ok = window.confirm(
+              "정말 삭제하시겠습니까? 관련된 카테고리는 모두 삭제됩니다.",
+            );
+            if (ok) deleteBudgetCategoryRequest(budgetCategory.id);
           }}
           className="flex-center h-24px w-24px rounded-sm bg-gray-100 text-20px"
         >

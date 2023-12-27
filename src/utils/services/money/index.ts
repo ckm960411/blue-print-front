@@ -1,4 +1,4 @@
-import { get, patch, post } from "@/app/api/axios";
+import { deleteCall, get, patch, post } from "@/app/api/axios";
 import { CreateMonthlyBudgetReqDto } from "@/utils/services/money/dto/create-monthly-budget.req.dto";
 import { CreateBudgetCategoryReqDto } from "@/utils/services/money/dto/create-budget-category.req.dto";
 import { CreateMonthlyBudgetCategoryReqDto } from "@/utils/services/money/dto/create-monthly-budget-category.req.dto";
@@ -62,6 +62,13 @@ export const updateBudgetCategory = async (
   const { data } = await patch<BudgetCategory>(
     `money/budget/category/${dto.categoryId}`,
     omit(dto, "categoryId"),
+  );
+  return data;
+};
+
+export const deleteBudgetCategory = async (id: number) => {
+  const { data } = await deleteCall<BudgetCategory>(
+    `money/budget/category/${id}`,
   );
   return data;
 };

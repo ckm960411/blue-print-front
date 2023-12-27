@@ -17,6 +17,11 @@ const getAllBudgetCategories = (...args: any[]) => [
   ...args,
 ];
 
+const getAllMonthlyBudgetCategoreis = (...args: any[]) => [
+  "get-all-monthly-budget-categories",
+  ...args,
+];
+
 export const QueryKeys = {
   // WORK
   getWorkCount,
@@ -36,6 +41,7 @@ export const QueryKeys = {
   // MONEY
   getMonthlyBudget,
   getAllBudgetCategories,
+  getAllMonthlyBudgetCategoreis,
 };
 
 const projectKeys = {

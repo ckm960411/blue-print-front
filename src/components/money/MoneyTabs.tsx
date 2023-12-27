@@ -1,4 +1,5 @@
 import BudgetTab from "@/components/money/BudgetTab";
+import ExpenditureTab from "@/components/money/expenditure/ExpenditureTab";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 
 export default function MoneyTabs() {
@@ -18,7 +19,7 @@ export default function MoneyTabs() {
             <p>저축</p>
           </TabPanel>
           <TabPanel className="p-8px py-16px">
-            <p>지출</p>
+            <ExpenditureTab />
           </TabPanel>
         </TabPanels>
       </Tabs>

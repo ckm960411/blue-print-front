@@ -3,7 +3,11 @@ import { CreateMonthlyBudgetReqDto } from "@/utils/services/money/create-monthly
 import { CreateBudgetCategoryReqDto } from "@/utils/services/money/dto/create-budget-category.req.dto";
 import { UpdateMonthlyBudgetReqDto } from "@/utils/services/money/update-monthly-budget.req.dto";
 import { DateTime } from "@/utils/types";
-import { BudgetCategory, MonthlyBudget } from "@/utils/types/money";
+import {
+  BudgetCategory,
+  MonthlyBudget,
+  MonthlyBudgetCategory,
+} from "@/utils/types/money";
 import { format } from "date-fns";
 import { omit } from "lodash";
 
@@ -47,6 +51,16 @@ export const createBudgetCategory = async (
   const { data } = await post<BudgetCategory>(
     `money/budget/category`,
     createBudgetCategoryReqDto,
+  );
+  return data;
+};
+
+export const getAllMonthlyBudgetCategoreis = async (
+  monthlyBudgetId: number,
+) => {
+  const { data } = await get<MonthlyBudgetCategory>(
+    `money/budget/category/monthly`,
+    { params: { monthlyBudgetId } },
   );
   return data;
 };

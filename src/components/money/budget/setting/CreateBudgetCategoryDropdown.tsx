@@ -1,13 +1,10 @@
 import { Colors } from "@/utils/common/color";
-import { QueryKeys } from "@/utils/common/query-keys";
-import { useMe } from "@/utils/common/user/useMe";
-import { getAllBudgetCategories } from "@/utils/services/money";
+import { useBudgetCategoriesQuery } from "@/utils/hooks/react-query/money/useBudgetCategoriesQuery";
 import { BudgetCategory } from "@/utils/types/money";
 import { Button } from "@chakra-ui/button";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
 import React from "react";
 import { IoChevronDownSharp } from "react-icons/io5";
-import { useQuery } from "react-query";
 
 interface CreateBudgetCategoryDropdownProps {
   currentCategory: BudgetCategory | null;
@@ -17,13 +14,7 @@ export default function CreateBudgetCategoryDropdown({
   currentCategory,
   onSelect,
 }: Readonly<CreateBudgetCategoryDropdownProps>) {
-  const me = useMe();
-
-  const { data: categories = [] } = useQuery(
-    QueryKeys.getAllBudgetCategories([me?.id]),
-    getAllBudgetCategories,
-    { onError: console.error },
-  );
+  const categories = useBudgetCategoriesQuery();
 
   if (categories.length === 0) return <></>;
 

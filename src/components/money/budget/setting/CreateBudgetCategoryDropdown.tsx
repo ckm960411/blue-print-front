@@ -14,7 +14,7 @@ export default function CreateBudgetCategoryDropdown({
   currentCategory,
   onSelect,
 }: Readonly<CreateBudgetCategoryDropdownProps>) {
-  const categories = useBudgetCategoriesQuery();
+  const { data: categories = [] } = useBudgetCategoriesQuery();
 
   if (categories.length === 0) return <></>;
 

@@ -10,7 +10,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 export default function CategorySettingPage() {
   const queryClient = useQueryClient();
-  const budgetCategories = useBudgetCategoriesQuery();
+  const { data: budgetCategories = [] } = useBudgetCategoriesQuery();
 
   const { mutate: createBudgetCategoryRequest } = useMutation(
     ["create-budget-category"],

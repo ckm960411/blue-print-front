@@ -1,47 +1,21 @@
 "use client";
 
 import SpaceY from "@/components/common/SpaceY";
-import { Colors } from "@/utils/common/color";
-import { useBudgetCategoriesQuery } from "@/utils/hooks/react-query/money/useBudgetCategoriesQuery";
-import { Button } from "@chakra-ui/button";
-import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
+import ExpenditureTypeSelect from "@/components/money/expenditure/ExpenditureTypeSelect";
 import React, { useState } from "react";
-import { IoChevronDownSharp } from "react-icons/io5";
 
-const ALL = "전체 내역";
+export const ALL_EXPENDITURE = "전체 내역";
 
 export default function ExpenditureList() {
-  const { data: categoryNames = [] } = useBudgetCategoriesQuery({
-    select: (categories) => categories.map((category) => category.name),
-  });
-
-  const [expenditureType, setExpenditureType] = useState<string>(ALL);
+  const [expenditureType, setExpenditureType] =
+    useState<string>(ALL_EXPENDITURE);
 
   return (
     <div>
-      <Menu>
-        <MenuButton
-          as={Button}
-          rightIcon={<IoChevronDownSharp />}
-          _expanded={{ bg: "#fff" }}
-          className="truncate-1-lines h-20px w-96px p-0px text-left text-14px"
-          style={{ display: "flex" }}
-        >
-          {expenditureType}
-        </MenuButton>
-        <MenuList>
-          {["전체", ...categoryNames].map((type) => (
-            <MenuItem
-              key={type}
-              onClick={() => setExpenditureType(type)}
-              className="w-120px py-8px text-left text-14px"
-              _hover={{ bg: Colors.gray[50] }}
-            >
-              {type}
-            </MenuItem>
-          ))}
-        </MenuList>
-      </Menu>
+      <ExpenditureTypeSelect
+        expenditureType={expenditureType}
+        onSelect={setExpenditureType}
+      />
 
       <SpaceY height={16} />
 

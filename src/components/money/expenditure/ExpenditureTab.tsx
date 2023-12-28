@@ -1,4 +1,4 @@
-import ExpenditureList from "@/components/money/expenditure/ExpenditureList";
+import ExpenditureListContainer from "@/components/money/expenditure/ExpenditureListContainer";
 import ExpenditureMonthlyHeader from "@/components/money/expenditure/ExpenditureMonthlyHeader";
 
 export default function ExpenditureTab() {
@@ -6,7 +6,7 @@ export default function ExpenditureTab() {
     <div>
       <ExpenditureMonthlyHeader />
       <hr className="my-24px" />
-      <ExpenditureList />
+      <ExpenditureListContainer />
     </div>
   );
 }

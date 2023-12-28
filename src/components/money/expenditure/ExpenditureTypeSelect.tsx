@@ -1,4 +1,4 @@
-import { ALL_EXPENDITURE } from "@/components/money/expenditure/ExpenditureList";
+import { ALL_EXPENDITURE } from "@/components/money/expenditure/ExpenditureListContainer";
 import { Colors } from "@/utils/common/color";
 import { useBudgetCategoriesQuery } from "@/utils/hooks/react-query/money/useBudgetCategoriesQuery";
 import { Button } from "@chakra-ui/button";

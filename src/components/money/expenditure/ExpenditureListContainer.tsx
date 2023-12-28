@@ -6,7 +6,7 @@ import React, { useState } from "react";
 
 export const ALL_EXPENDITURE = "전체 내역";
 
-export default function ExpenditureList() {
+export default function ExpenditureListContainer() {
   const [expenditureType, setExpenditureType] =
     useState<string>(ALL_EXPENDITURE);
 

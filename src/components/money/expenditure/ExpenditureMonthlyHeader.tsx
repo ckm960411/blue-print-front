@@ -8,7 +8,7 @@ export default function ExpenditureMonthlyHeader() {
         <button className="flex-center h-24px w-24px">
           <FaChevronLeft />
         </button>
-        <p className="text-20px font-bold">12월</p>
+        <p className="text-20px font-bold">2023년 12월</p>
         <button className="flex-center h-24px w-24px">
           <FaChevronRight />
         </button>

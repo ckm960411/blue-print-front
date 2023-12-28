@@ -27,7 +27,7 @@ export default function ExpenditureMonthlyHeader() {
             <span className="text-16px font-bold text-red-500">nnn,nnn원</span>
           </p>
         </div>
-        <button className="rounded-md bg-slate-100 px-8px py-12px text-14px font-semibold text-gray-700 shadow-md">
+        <button className="rounded-md bg-slate-100 px-8px py-12px text-14px font-semibold text-gray-700">
           지출 등록
         </button>
       </div>

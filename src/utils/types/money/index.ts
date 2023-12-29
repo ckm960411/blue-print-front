@@ -46,6 +46,7 @@ export interface Expenditure {
   year: number;
   month: number;
   type: ExpenditureType;
+  content: string;
   price: number;
   createdAt: Date;
   userId: number;

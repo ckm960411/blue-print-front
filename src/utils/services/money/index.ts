@@ -6,6 +6,7 @@ import { UpdateMonthlyBudgetReqDto } from "@/utils/services/money/dto/update-mon
 import { DateTime } from "@/utils/types";
 import {
   BudgetCategory,
+  DailyExpenditure,
   MonthlyBudget,
   MonthlyBudgetCategory,
 } from "@/utils/types/money";
@@ -98,6 +99,8 @@ export const getMonthlyExpenditures = async (params?: {
   month: number;
   category: string;
 }) => {
-  const { data } = await get(`money/expenditure`, { params });
+  const { data } = await get<DailyExpenditure[]>(`money/expenditure`, {
+    params,
+  });
   return data;
 };

@@ -29,7 +29,7 @@ export default function ExpenditureTab() {
         onChangeDate={handleChangeDate}
       />
       <hr className="my-24px" />
-      <ExpenditureListContainer />
+      <ExpenditureListContainer year={year} month={month} />
     </div>
   );
 }

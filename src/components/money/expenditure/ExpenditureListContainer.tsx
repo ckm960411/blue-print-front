@@ -7,7 +7,14 @@ import React, { useState } from "react";
 
 export const ALL_EXPENDITURE = "전체 내역";
 
-export default function ExpenditureListContainer() {
+interface ExpenditureListContainerProps {
+  year: number;
+  month: number;
+}
+export default function ExpenditureListContainer({
+  year,
+  month,
+}: Readonly<ExpenditureListContainerProps>) {
   const [expenditureType, setExpenditureType] =
     useState<string>(ALL_EXPENDITURE);
 
@@ -18,7 +25,11 @@ export default function ExpenditureListContainer() {
         onSelect={setExpenditureType}
       />
       <SpaceY height={16} />
-      <ExpenditureList expenditureType={expenditureType} />
+      <ExpenditureList
+        expenditureType={expenditureType}
+        year={year}
+        month={month}
+      />
     </div>
   );
 }

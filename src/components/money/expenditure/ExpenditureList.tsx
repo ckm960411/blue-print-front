@@ -5,9 +5,13 @@ import { useQuery } from "react-query";
 
 interface ExpenditureListProps {
   expenditureType: string;
+  year: number;
+  month: number;
 }
 export default function ExpenditureList({
   expenditureType,
+  year,
+  month,
 }: Readonly<ExpenditureListProps>) {
   useQuery(QueryKeys.getMonthlyExpenditures(), () => getMonthlyExpenditures(), {
     onSuccess: console.log,

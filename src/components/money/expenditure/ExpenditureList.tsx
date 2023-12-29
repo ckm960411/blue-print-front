@@ -1,3 +1,4 @@
+import { ALL_EXPENDITURE } from "@/components/money/expenditure/ExpenditureListContainer";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { getMonthlyExpenditures } from "@/utils/services/money";
 import React from "react";
@@ -13,10 +14,19 @@ export default function ExpenditureList({
   year,
   month,
 }: Readonly<ExpenditureListProps>) {
-  useQuery(QueryKeys.getMonthlyExpenditures(), () => getMonthlyExpenditures(), {
-    onSuccess: console.log,
-    onError: console.error,
-  });
+  const { data } = useQuery(
+    QueryKeys.getMonthlyExpenditures(year, month, expenditureType),
+    () =>
+      getMonthlyExpenditures({
+        year,
+        month,
+        category: expenditureType === ALL_EXPENDITURE ? "" : expenditureType,
+      }),
+    {
+      onSuccess: console.log,
+      onError: console.error,
+    },
+  );
 
   return (
     <div>

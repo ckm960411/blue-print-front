@@ -92,3 +92,12 @@ export const createMontlyBudgetCategory = async (
   );
   return data;
 };
+
+export const getMonthlyExpenditures = async (params?: {
+  year: number;
+  month: number;
+  category: string;
+}) => {
+  const { data } = await get(`money/expenditure`, { params });
+  return data;
+};

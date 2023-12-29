@@ -45,6 +45,9 @@ export interface Expenditure {
   id: number;
   year: number;
   month: number;
+  date: number;
+  hour: number;
+  minute: number;
   type: ExpenditureType;
   content: string;
   price: number;

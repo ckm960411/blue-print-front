@@ -1,4 +1,5 @@
 import SpaceY from "@/components/common/SpaceY";
+import CreateExpenditureModal from "@/components/money/expenditure/CreateExpenditureModal";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { getTotalMonthlyExpenditure } from "@/utils/services/money";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
@@ -63,6 +64,13 @@ export default function ExpenditureMonthlyHeader({
           지출 등록
         </button>
       </div>
+
+      <CreateExpenditureModal
+        year={year}
+        month={month}
+        isOpen={true}
+        onClose={() => {}}
+      />
     </div>
   );
 }

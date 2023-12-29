@@ -35,3 +35,29 @@ export interface MonthlyBudgetCategory {
   categoryName: string;
   categoryUnicode: string;
 }
+
+export enum ExpenditureType {
+  INCOME = "INCOME",
+  SPENDING = "SPENDING",
+}
+
+export interface Expenditure {
+  id: number;
+  year: number;
+  month: number;
+  type: ExpenditureType;
+  price: number;
+  createdAt: Date;
+  userId: number;
+  monthlyBudgetCategoryId: number;
+  budgetCategoryId: number;
+  budgetCategoryName: string;
+  budgetCategoryUnicode: string;
+}
+
+export interface DailyExpenditure {
+  date: DateTime;
+  income: number;
+  spending: number;
+  data: Expenditure[];
+}

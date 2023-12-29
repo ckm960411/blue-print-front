@@ -8,10 +8,6 @@ interface CategoryBudgetProps {
 export default function CategoryBudget({
   monthlyBudgetCategory,
 }: Readonly<CategoryBudgetProps>) {
-  console.log(
-    "monthlyBudgetCategory.categoryUnicode",
-    monthlyBudgetCategory.categoryUnicode,
-  );
   return (
     <div className="flex flex-col gap-16px">
       <div className="flex-between">

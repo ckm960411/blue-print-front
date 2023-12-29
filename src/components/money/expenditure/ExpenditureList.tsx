@@ -1,4 +1,7 @@
+import { QueryKeys } from "@/utils/common/query-keys";
+import { getMonthlyExpenditures } from "@/utils/services/money";
 import React from "react";
+import { useQuery } from "react-query";
 
 interface ExpenditureListProps {
   expenditureType: string;
@@ -6,6 +9,11 @@ interface ExpenditureListProps {
 export default function ExpenditureList({
   expenditureType,
 }: Readonly<ExpenditureListProps>) {
+  useQuery(QueryKeys.getMonthlyExpenditures(), () => getMonthlyExpenditures(), {
+    onSuccess: console.log,
+    onError: console.error,
+  });
+
   return (
     <div>
       <div className="flex-between border-b border-gray-200 py-6px">

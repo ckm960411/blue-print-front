@@ -94,6 +94,17 @@ export const createMontlyBudgetCategory = async (
   return data;
 };
 
+export const getTotalMonthlyExpenditure = async (params?: {
+  year: number;
+  month: number;
+}) => {
+  const { data } = await get<{ income: number; spending: number }>(
+    `money/expenditure/monthly`,
+    { params },
+  );
+  return data;
+};
+
 export const getMonthlyExpenditures = async (params?: {
   year: number;
   month: number;

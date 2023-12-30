@@ -1,9 +1,6 @@
 import DailyExpenditureCard from "@/components/money/expenditure/DailyExpenditureCard";
-import { ALL_EXPENDITURE } from "@/components/money/expenditure/ExpenditureListContainer";
-import { QueryKeys } from "@/utils/common/query-keys";
-import { getMonthlyExpenditures } from "@/utils/services/money";
+import { useMonthlyExpendituresQuery } from "@/utils/hooks/react-query/money/useMonthlyExpendituresQuery";
 import React from "react";
-import { useQuery } from "react-query";
 
 interface ExpenditureListProps {
   expenditureType: string;
@@ -15,16 +12,11 @@ export default function ExpenditureList({
   year,
   month,
 }: Readonly<ExpenditureListProps>) {
-  const { data: dailyExpenditures = [] } = useQuery(
-    QueryKeys.getMonthlyExpenditures(year, month, expenditureType),
-    () =>
-      getMonthlyExpenditures({
-        year,
-        month,
-        category: expenditureType === ALL_EXPENDITURE ? "" : expenditureType,
-      }),
-    { onError: console.error },
-  );
+  const { data: dailyExpenditures = [] } = useMonthlyExpendituresQuery({
+    year,
+    month,
+    type: expenditureType,
+  });
 
   return (
     <div>

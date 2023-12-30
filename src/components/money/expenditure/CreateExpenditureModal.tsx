@@ -1,4 +1,5 @@
 import SpaceY from "@/components/common/SpaceY";
+import NumberInputController from "@/components/components/NumberInputController";
 import CreateBudgetCategoryDropdown from "@/components/money/budget/setting/CreateBudgetCategoryDropdown";
 import CreateExpenditureTime from "@/components/money/expenditure/CreateExpenditureTime";
 import CreateExpenditureTypeRadio from "@/components/money/expenditure/CreateExpenditureTypeRadio";
@@ -32,6 +33,7 @@ export default function CreateExpenditureModal({
   const [minute, setMinute] = useState(getMinutes(now));
   const [type, setType] = useState<ExpenditureType>(ExpenditureType.SPENDING);
   const [category, setCategory] = useState<BudgetCategory | null>(null);
+  const [price, setPrice] = useState(10000);
 
   const handleChangeDate = (type: "prev" | "next") => {
     if (type === "prev") {
@@ -85,11 +87,22 @@ export default function CreateExpenditureModal({
           <hr className="my-16px" />
           <div className="flex flex-col gap-16px">
             <CreateExpenditureTypeRadio type={type} onChange={setType} />
-            <CreateBudgetCategoryDropdown
-              currentCategory={category}
-              onSelect={setCategory}
-              hasNoneOption
-            />
+            {type === ExpenditureType.SPENDING && (
+              <CreateBudgetCategoryDropdown
+                currentCategory={category}
+                onSelect={setCategory}
+                hasNoneOption
+              />
+            )}
+            <div className="flex items-center gap-8px">
+              <span className="w-40px text-16px font-bold">금액 : </span>
+              <NumberInputController
+                value={price}
+                onChange={(_, value) => setPrice(value || 0)}
+                width={32}
+              />
+              <span>원</span>
+            </div>
           </div>
         </ModalBody>
         <ModalFooter>

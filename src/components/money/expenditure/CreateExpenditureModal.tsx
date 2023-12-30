@@ -1,3 +1,8 @@
+import SpaceY from "@/components/common/SpaceY";
+import CreateExpenditureTime from "@/components/money/expenditure/CreateExpenditureTime";
+import CreateExpenditureTypeRadio from "@/components/money/expenditure/CreateExpenditureTypeRadio";
+import ExpenditureMonthlyController from "@/components/money/expenditure/ExpenditureMonthlyController";
+import { ExpenditureType } from "@/utils/types/money";
 import {
   Modal,
   ModalBody,
@@ -7,20 +12,37 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal";
-import React from "react";
+import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
+import React, { useState } from "react";
 
 interface CreateExpenditureModalProps {
-  year: number;
-  month: number;
   isOpen: boolean;
   onClose: () => void;
 }
 export default function CreateExpenditureModal({
-  year,
-  month,
   isOpen,
   onClose,
 }: Readonly<CreateExpenditureModalProps>) {
+  const now = new Date();
+  const [year, setYear] = useState(getYear(now));
+  const [month, setMonth] = useState(getMonth(now) + 1);
+  const [date, setDate] = useState(getDate(now));
+  const [hour, setHour] = useState(getHours(now));
+  const [minute, setMinute] = useState(getMinutes(now));
+  const [type, setType] = useState<ExpenditureType>(ExpenditureType.SPENDING);
+
+  const handleChangeDate = (type: "prev" | "next") => {
+    if (type === "prev") {
+      if (month !== 1) return setMonth((prev) => prev - 1);
+      setYear((prev) => prev - 1);
+      setMonth(12);
+    } else {
+      if (month !== 12) return setMonth((prev) => prev + 1);
+      setYear((prev) => prev + 1);
+      setMonth(1);
+    }
+  };
+
   const handleClose = () => {
     onClose();
   };
@@ -39,7 +61,28 @@ export default function CreateExpenditureModal({
       <ModalContent>
         <ModalHeader>이번 달 수입/지출</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>{/* 수입 or 지출*/}</ModalBody>
+        <ModalBody>
+          <ExpenditureMonthlyController
+            year={year}
+            month={month}
+            onChangeDate={handleChangeDate}
+          />
+          <SpaceY height={24} />
+          <CreateExpenditureTime
+            year={year}
+            month={month}
+            date={date}
+            hour={hour}
+            minute={minute}
+            onChange={(type, value) => {
+              if (type === "date") return setDate(value);
+              if (type === "hour") return setHour(value);
+              if (type === "minute") return setMinute(value);
+            }}
+          />
+          <hr className="my-16px" />
+          <CreateExpenditureTypeRadio type={type} onChange={setType} />
+        </ModalBody>
         <ModalFooter>
           <div className="flex items-center gap-8px">
             <button

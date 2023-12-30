@@ -1,8 +1,8 @@
 import SpaceY from "@/components/common/SpaceY";
+import CreateExpenditureModal from "@/components/money/expenditure/CreateExpenditureModal";
 import ExpenditureMonthlyController from "@/components/money/expenditure/ExpenditureMonthlyController";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { getTotalMonthlyExpenditure } from "@/utils/services/money";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { useQuery } from "react-query";
 
 interface ExpenditureMonthlyHeaderProps {
@@ -53,12 +53,7 @@ export default function ExpenditureMonthlyHeader({
         </button>
       </div>
 
-      <CreateExpenditureModal
-        year={year}
-        month={month}
-        isOpen={true}
-        onClose={() => {}}
-      />
+      <CreateExpenditureModal isOpen={true} onClose={() => {}} />
     </div>
   );
 }

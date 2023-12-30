@@ -38,6 +38,7 @@ export default function CreateExpenditureModal({
   onClose,
 }: Readonly<CreateExpenditureModalProps>) {
   const now = new Date();
+  const [category, setCategory] = useState<BudgetCategory | null>(null);
   const [expenditureForm, setExpenditureForm] = useState<ExpenditureForm>({
     type: ExpenditureType.SPENDING,
     year: getYear(now),
@@ -48,30 +49,19 @@ export default function CreateExpenditureModal({
     content: "",
     price: 10000,
   });
-  const [category, setCategory] = useState<BudgetCategory | null>(null);
 
   const handleChangeDate = (type: "prev" | "next") => {
     if (type === "prev") {
-      if (expenditureForm.month !== 1)
-        return setExpenditureForm((prev) => ({
-          ...prev,
-          month: prev.month - 1,
-        }));
       setExpenditureForm((prev) => ({
         ...prev,
-        year: prev.year - 1,
-        month: 12,
+        year: expenditureForm.month === 1 ? prev.year - 1 : prev.year,
+        month: expenditureForm.month === 1 ? 12 : prev.month - 1,
       }));
     } else {
-      if (expenditureForm.month !== 12)
-        return setExpenditureForm((prev) => ({
-          ...prev,
-          month: prev.month + 1,
-        }));
       setExpenditureForm((prev) => ({
         ...prev,
-        year: prev.year + 1,
-        month: 1,
+        year: expenditureForm.month === 12 ? prev.year + 1 : prev.year,
+        month: expenditureForm.month === 12 ? 1 : prev.month + 1,
       }));
     }
   };

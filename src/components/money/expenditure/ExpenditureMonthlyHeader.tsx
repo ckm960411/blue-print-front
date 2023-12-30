@@ -1,5 +1,5 @@
 import SpaceY from "@/components/common/SpaceY";
-import CreateExpenditureModal from "@/components/money/expenditure/CreateExpenditureModal";
+import ExpenditureMonthlyController from "@/components/money/expenditure/ExpenditureMonthlyController";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { getTotalMonthlyExpenditure } from "@/utils/services/money";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
@@ -25,23 +25,11 @@ export default function ExpenditureMonthlyHeader({
 
   return (
     <div>
-      <div className="flex items-center gap-4px">
-        <button
-          onClick={() => onChangeDate("prev")}
-          className="flex-center h-24px w-24px"
-        >
-          <FaChevronLeft />
-        </button>
-        <p className="text-20px font-bold">
-          {year}년 {month}월
-        </p>
-        <button
-          onClick={() => onChangeDate("next")}
-          className="flex-center h-24px w-24px"
-        >
-          <FaChevronRight />
-        </button>
-      </div>
+      <ExpenditureMonthlyController
+        year={year}
+        month={month}
+        onChangeDate={onChangeDate}
+      />
 
       <SpaceY height={24} />
 

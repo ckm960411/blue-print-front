@@ -1,6 +1,7 @@
 import SpaceY from "@/components/common/SpaceY";
 import NumberInputController from "@/components/components/NumberInputController";
 import CreateBudgetCategoryDropdown from "@/components/money/budget/setting/CreateBudgetCategoryDropdown";
+import CreateExpenditurePrice from "@/components/money/expenditure/CreateExpenditurePrice";
 import CreateExpenditureTime from "@/components/money/expenditure/CreateExpenditureTime";
 import CreateExpenditureTypeRadio from "@/components/money/expenditure/CreateExpenditureTypeRadio";
 import ExpenditureMonthlyController from "@/components/money/expenditure/ExpenditureMonthlyController";
@@ -144,17 +145,12 @@ export default function CreateExpenditureModal({
                 className="rounded-md border border-gray-200 px-6px py-6px text-16px"
               />
             </div>
-            <div className="flex items-center gap-8px">
-              <span className="w-40px text-16px font-bold">금액 : </span>
-              <NumberInputController
-                value={expenditureForm.price}
-                onChange={(_, value) =>
-                  setExpenditureForm((prev) => ({ ...prev, price: value || 0 }))
-                }
-                width={32}
-              />
-              <span>원</span>
-            </div>
+            <CreateExpenditurePrice
+              price={expenditureForm.price}
+              onChange={(value) =>
+                setExpenditureForm((prev) => ({ ...prev, price: value }))
+              }
+            />
           </div>
         </ModalBody>
         <ModalFooter>

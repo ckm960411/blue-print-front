@@ -1,6 +1,6 @@
 import SpaceY from "@/components/common/SpaceY";
-import NumberInputController from "@/components/components/NumberInputController";
 import CreateBudgetCategoryDropdown from "@/components/money/budget/setting/CreateBudgetCategoryDropdown";
+import CreateExpenditureContent from "@/components/money/expenditure/CreateExpenditureContent";
 import CreateExpenditurePrice from "@/components/money/expenditure/CreateExpenditurePrice";
 import CreateExpenditureTime from "@/components/money/expenditure/CreateExpenditureTime";
 import CreateExpenditureTypeRadio from "@/components/money/expenditure/CreateExpenditureTypeRadio";
@@ -131,20 +131,12 @@ export default function CreateExpenditureModal({
                 hasNoneOption
               />
             )}
-            <div className="flex items-center gap-8px">
-              <span className="w-40px text-16px font-bold">설명 : </span>
-              <input
-                value={expenditureForm.content}
-                onChange={(e) =>
-                  setExpenditureForm((prev) => ({
-                    ...prev,
-                    content: e.target.value,
-                  }))
-                }
-                placeholder="ex) 슈퍼스타어반"
-                className="rounded-md border border-gray-200 px-6px py-6px text-16px"
-              />
-            </div>
+            <CreateExpenditureContent
+              content={expenditureForm.content}
+              onChange={(value) =>
+                setExpenditureForm((prev) => ({ ...prev, content: value }))
+              }
+            />
             <CreateExpenditurePrice
               price={expenditureForm.price}
               onChange={(value) =>

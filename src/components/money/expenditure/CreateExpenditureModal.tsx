@@ -5,6 +5,8 @@ import CreateExpenditurePrice from "@/components/money/expenditure/CreateExpendi
 import CreateExpenditureTime from "@/components/money/expenditure/CreateExpenditureTime";
 import CreateExpenditureTypeRadio from "@/components/money/expenditure/CreateExpenditureTypeRadio";
 import ExpenditureMonthlyController from "@/components/money/expenditure/ExpenditureMonthlyController";
+import { QueryKeys } from "@/utils/common/query-keys";
+import { createExpenditure } from "@/utils/services/money";
 import { BudgetCategory, ExpenditureType } from "@/utils/types/money";
 import {
   Modal,
@@ -17,6 +19,7 @@ import {
 } from "@chakra-ui/modal";
 import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
 import React, { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 
 interface ExpenditureForm {
   type: ExpenditureType;
@@ -37,9 +40,10 @@ export default function CreateExpenditureModal({
   isOpen,
   onClose,
 }: Readonly<CreateExpenditureModalProps>) {
+  const queryClient = useQueryClient();
+
   const now = new Date();
-  const [category, setCategory] = useState<BudgetCategory | null>(null);
-  const [expenditureForm, setExpenditureForm] = useState<ExpenditureForm>({
+  const initialForm: ExpenditureForm = {
     type: ExpenditureType.SPENDING,
     year: getYear(now),
     month: getMonth(now) + 1,
@@ -48,7 +52,23 @@ export default function CreateExpenditureModal({
     minute: getMinutes(now),
     content: "",
     price: 10000,
-  });
+  };
+
+  const [category, setCategory] = useState<BudgetCategory | null>(null);
+  const [expenditureForm, setExpenditureForm] =
+    useState<ExpenditureForm>(initialForm);
+
+  const { mutate: createExpenditureRequest } = useMutation(
+    ["create-expenditure"],
+    createExpenditure,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getMonthlyExpenditures());
+        handleClose();
+      },
+      onError: console.error,
+    },
+  );
 
   const handleChangeDate = (type: "prev" | "next") => {
     if (type === "prev") {
@@ -67,10 +87,16 @@ export default function CreateExpenditureModal({
   };
 
   const handleClose = () => {
+    setExpenditureForm(initialForm);
     onClose();
   };
 
-  const handleConfirm = () => {};
+  const handleConfirm = () => {
+    createExpenditureRequest({
+      ...expenditureForm,
+      budgetCategoryId: category?.id,
+    });
+  };
 
   return (
     <Modal

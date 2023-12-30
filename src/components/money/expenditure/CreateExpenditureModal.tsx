@@ -17,6 +17,17 @@ import {
 import { getDate, getHours, getMinutes, getMonth, getYear } from "date-fns";
 import React, { useState } from "react";
 
+interface ExpenditureForm {
+  type: ExpenditureType;
+  year: number;
+  month: number;
+  date: number;
+  hour: number;
+  minute: number;
+  content: string;
+  price: number;
+}
+
 interface CreateExpenditureModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -26,25 +37,41 @@ export default function CreateExpenditureModal({
   onClose,
 }: Readonly<CreateExpenditureModalProps>) {
   const now = new Date();
-  const [year, setYear] = useState(getYear(now));
-  const [month, setMonth] = useState(getMonth(now) + 1);
-  const [date, setDate] = useState(getDate(now));
-  const [hour, setHour] = useState(getHours(now));
-  const [minute, setMinute] = useState(getMinutes(now));
-  const [type, setType] = useState<ExpenditureType>(ExpenditureType.SPENDING);
+  const [expenditureForm, setExpenditureForm] = useState<ExpenditureForm>({
+    type: ExpenditureType.SPENDING,
+    year: getYear(now),
+    month: getMonth(now) + 1,
+    date: getDate(now),
+    hour: getHours(now),
+    minute: getMinutes(now),
+    content: "",
+    price: 10000,
+  });
   const [category, setCategory] = useState<BudgetCategory | null>(null);
-  const [content, setContent] = useState("");
-  const [price, setPrice] = useState(10000);
 
   const handleChangeDate = (type: "prev" | "next") => {
     if (type === "prev") {
-      if (month !== 1) return setMonth((prev) => prev - 1);
-      setYear((prev) => prev - 1);
-      setMonth(12);
+      if (expenditureForm.month !== 1)
+        return setExpenditureForm((prev) => ({
+          ...prev,
+          month: prev.month - 1,
+        }));
+      setExpenditureForm((prev) => ({
+        ...prev,
+        year: prev.year - 1,
+        month: 12,
+      }));
     } else {
-      if (month !== 12) return setMonth((prev) => prev + 1);
-      setYear((prev) => prev + 1);
-      setMonth(1);
+      if (expenditureForm.month !== 12)
+        return setExpenditureForm((prev) => ({
+          ...prev,
+          month: prev.month + 1,
+        }));
+      setExpenditureForm((prev) => ({
+        ...prev,
+        year: prev.year + 1,
+        month: 1,
+      }));
     }
   };
 
@@ -68,27 +95,35 @@ export default function CreateExpenditureModal({
         <ModalCloseButton />
         <ModalBody>
           <ExpenditureMonthlyController
-            year={year}
-            month={month}
+            year={expenditureForm.year}
+            month={expenditureForm.month}
             onChangeDate={handleChangeDate}
           />
           <SpaceY height={24} />
           <CreateExpenditureTime
-            year={year}
-            month={month}
-            date={date}
-            hour={hour}
-            minute={minute}
+            year={expenditureForm.year}
+            month={expenditureForm.month}
+            date={expenditureForm.date}
+            hour={expenditureForm.hour}
+            minute={expenditureForm.minute}
             onChange={(type, value) => {
-              if (type === "date") return setDate(value);
-              if (type === "hour") return setHour(value);
-              if (type === "minute") return setMinute(value);
+              setExpenditureForm((prev) => ({
+                ...prev,
+                date: type === "date" ? value : prev.date,
+                hour: type === "hour" ? value : prev.hour,
+                minute: type === "minute" ? value : prev.minute,
+              }));
             }}
           />
           <hr className="my-16px" />
           <div className="flex flex-col gap-16px">
-            <CreateExpenditureTypeRadio type={type} onChange={setType} />
-            {type === ExpenditureType.SPENDING && (
+            <CreateExpenditureTypeRadio
+              type={expenditureForm.type}
+              onChange={(type) =>
+                setExpenditureForm((prev) => ({ ...prev, type }))
+              }
+            />
+            {expenditureForm.type === ExpenditureType.SPENDING && (
               <CreateBudgetCategoryDropdown
                 currentCategory={category}
                 onSelect={setCategory}
@@ -98,8 +133,13 @@ export default function CreateExpenditureModal({
             <div className="flex items-center gap-8px">
               <span className="w-40px text-16px font-bold">설명 : </span>
               <input
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
+                value={expenditureForm.content}
+                onChange={(e) =>
+                  setExpenditureForm((prev) => ({
+                    ...prev,
+                    content: e.target.value,
+                  }))
+                }
                 placeholder="ex) 슈퍼스타어반"
                 className="rounded-md border border-gray-200 px-6px py-6px text-16px"
               />
@@ -107,8 +147,10 @@ export default function CreateExpenditureModal({
             <div className="flex items-center gap-8px">
               <span className="w-40px text-16px font-bold">금액 : </span>
               <NumberInputController
-                value={price}
-                onChange={(_, value) => setPrice(value || 0)}
+                value={expenditureForm.price}
+                onChange={(_, value) =>
+                  setExpenditureForm((prev) => ({ ...prev, price: value || 0 }))
+                }
                 width={32}
               />
               <span>원</span>

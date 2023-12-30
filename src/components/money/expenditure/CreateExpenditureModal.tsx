@@ -1,8 +1,9 @@
 import SpaceY from "@/components/common/SpaceY";
+import CreateBudgetCategoryDropdown from "@/components/money/budget/setting/CreateBudgetCategoryDropdown";
 import CreateExpenditureTime from "@/components/money/expenditure/CreateExpenditureTime";
 import CreateExpenditureTypeRadio from "@/components/money/expenditure/CreateExpenditureTypeRadio";
 import ExpenditureMonthlyController from "@/components/money/expenditure/ExpenditureMonthlyController";
-import { ExpenditureType } from "@/utils/types/money";
+import { BudgetCategory, ExpenditureType } from "@/utils/types/money";
 import {
   Modal,
   ModalBody,
@@ -30,6 +31,7 @@ export default function CreateExpenditureModal({
   const [hour, setHour] = useState(getHours(now));
   const [minute, setMinute] = useState(getMinutes(now));
   const [type, setType] = useState<ExpenditureType>(ExpenditureType.SPENDING);
+  const [category, setCategory] = useState<BudgetCategory | null>(null);
 
   const handleChangeDate = (type: "prev" | "next") => {
     if (type === "prev") {
@@ -81,7 +83,14 @@ export default function CreateExpenditureModal({
             }}
           />
           <hr className="my-16px" />
-          <CreateExpenditureTypeRadio type={type} onChange={setType} />
+          <div className="flex flex-col gap-16px">
+            <CreateExpenditureTypeRadio type={type} onChange={setType} />
+            <CreateBudgetCategoryDropdown
+              currentCategory={category}
+              onSelect={setCategory}
+              hasNoneOption
+            />
+          </div>
         </ModalBody>
         <ModalFooter>
           <div className="flex items-center gap-8px">

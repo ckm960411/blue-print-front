@@ -8,11 +8,13 @@ import { IoChevronDownSharp } from "react-icons/io5";
 
 interface CreateBudgetCategoryDropdownProps {
   currentCategory: BudgetCategory | null;
-  onSelect: (category: BudgetCategory) => void;
+  onSelect: (category: BudgetCategory | null) => void;
+  hasNoneOption?: boolean;
 }
 export default function CreateBudgetCategoryDropdown({
   currentCategory,
   onSelect,
+  hasNoneOption = false,
 }: Readonly<CreateBudgetCategoryDropdownProps>) {
   const { data: categories = [] } = useBudgetCategoriesQuery();
 
@@ -32,6 +34,15 @@ export default function CreateBudgetCategoryDropdown({
         {currentCategory?.name ?? "선택"}
       </MenuButton>
       <MenuList>
+        {hasNoneOption && (
+          <MenuItem
+            onClick={() => onSelect(null)}
+            className="py-8px text-left text-14px"
+            _hover={{ bg: Colors.gray[50] }}
+          >
+            선택
+          </MenuItem>
+        )}
         {categories.map((category) => (
           <MenuItem
             key={category.id}

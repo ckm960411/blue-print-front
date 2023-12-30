@@ -26,7 +26,7 @@ export default function CreateExpenditureTime({
           value={date}
           onChange={(_, value) => {
             const endDateOfMonth = getDate(endOfMonth(new Date(year, month)));
-            if (value === endDateOfMonth + 1) return onChange("date", 1);
+            if (value > endDateOfMonth) return onChange("date", 1);
             if (value === 0) return onChange("date", endDateOfMonth);
             onChange("date", value);
           }}

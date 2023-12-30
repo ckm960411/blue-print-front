@@ -1,4 +1,5 @@
 import { deleteCall, get, patch, post } from "@/app/api/axios";
+import { CreateExpenditureReqDto } from "@/utils/services/money/dto/create-expenditure.req.dto";
 import { CreateMonthlyBudgetReqDto } from "@/utils/services/money/dto/create-monthly-budget.req.dto";
 import { CreateBudgetCategoryReqDto } from "@/utils/services/money/dto/create-budget-category.req.dto";
 import { CreateMonthlyBudgetCategoryReqDto } from "@/utils/services/money/dto/create-monthly-budget-category.req.dto";
@@ -102,6 +103,11 @@ export const getTotalMonthlyExpenditure = async (params?: {
     `money/expenditure/monthly`,
     { params },
   );
+  return data;
+};
+
+export const createExpenditure = async (body: CreateExpenditureReqDto) => {
+  const { data } = await post(`money/expenditure`, body);
   return data;
 };
 

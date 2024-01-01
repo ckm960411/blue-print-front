@@ -8,16 +8,16 @@ export default function MoneyTabs() {
       <Tabs variant="enclosed">
         <TabList>
           <Tab className="text-14px">예산</Tab>
-          <Tab className="text-14px">저축</Tab>
+          {/*<Tab className="text-14px">저축</Tab>*/}
           <Tab className="text-14px">지출</Tab>
         </TabList>
         <TabPanels>
           <TabPanel className="p-8px py-16px">
             <BudgetTab />
           </TabPanel>
-          <TabPanel className="p-8px py-16px">
-            <p>저축</p>
-          </TabPanel>
+          {/*<TabPanel className="p-8px py-16px">*/}
+          {/*  <p>저축</p>*/}
+          {/*</TabPanel>*/}
           <TabPanel className="p-8px py-16px">
             <ExpenditureTab />
           </TabPanel>

@@ -1,4 +1,8 @@
+import { getRemainPayday } from "@/utils/common/money/getRemainPayday";
+
 export default function MoneyCreditCard() {
+  const remainPayday = getRemainPayday();
+
   return (
     <div className="relative">
       <div className="absolute inset-x-0 top-0 h-60px bg-main" />
@@ -18,7 +22,9 @@ export default function MoneyCreditCard() {
               <p className="text-18px font-bold">nnn,nnn원</p>
             </div>
             <div>
-              <p className="text-12px text-gray-700">월급날까지 n일</p>
+              <p className="text-12px text-gray-700">
+                월급날까지 {remainPayday}일
+              </p>
             </div>
           </div>
         </div>

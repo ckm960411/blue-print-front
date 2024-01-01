@@ -1,7 +1,15 @@
+"use client";
+
 import { getRemainPayday } from "@/utils/common/money/getRemainPayday";
+import { useTotalMonthlyExpenditures } from "@/utils/hooks/react-query/money/useTotalMonthlyExpenditures";
+import { getMonth, getYear } from "date-fns";
 
 export default function MoneyCreditCard() {
   const remainPayday = getRemainPayday();
+  const { spending } = useTotalMonthlyExpenditures(
+    getYear(new Date()),
+    getMonth(new Date()) + 1,
+  );
 
   return (
     <div className="relative">
@@ -18,8 +26,10 @@ export default function MoneyCreditCard() {
           </div>
           <div className="flex h-96px flex-col justify-between p-8px">
             <div className="flex flex-col gap-8px">
-              <p className="text-12px text-gray-600">이번달 예상 지출액</p>
-              <p className="text-18px font-bold">nnn,nnn원</p>
+              <p className="text-12px text-gray-600">이번달 지출액</p>
+              <p className="text-18px font-bold">
+                {spending.toLocaleString()}원
+              </p>
             </div>
             <div>
               <p className="text-12px text-gray-700">

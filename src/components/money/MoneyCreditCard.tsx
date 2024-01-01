@@ -45,7 +45,7 @@ export default function MoneyCreditCard() {
             </div>
             <div className="flex-end h-32px gap-4px bg-gray-700 px-6px text-white">
               <p className="text-14px font-semibold">
-                남은 잔고: {balance.toLocaleString()} 원
+                남은 잔고: {balance ? balance.toLocaleString() : 0} 원
               </p>
               <button onClick={onOpen} className="p-4px">
                 <IoSettingsOutline />

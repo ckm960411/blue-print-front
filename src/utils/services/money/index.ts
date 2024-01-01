@@ -19,6 +19,11 @@ export const getBalance = async () => {
   return data;
 };
 
+export const upsertBalance = async (balance: number) => {
+  const { data } = await post(`money/balance`, { balance });
+  return data;
+};
+
 export const getMonthlyBudget = async (date: DateTime) => {
   const dateToFind = format(new Date(date), "yyyy-MM-dd");
 

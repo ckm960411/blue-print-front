@@ -14,6 +14,7 @@ interface NumberInputControllerProps {
   min?: number;
   max?: number;
   size?: "xs" | "sm" | "md" | "lg";
+  step?: number;
 }
 export default function NumberInputController({
   value,
@@ -22,6 +23,7 @@ export default function NumberInputController({
   min,
   max,
   size = "sm",
+  step,
 }: Readonly<NumberInputControllerProps>) {
   return (
     <NumberInput
@@ -31,6 +33,7 @@ export default function NumberInputController({
       max={max}
       value={value}
       onChange={onChange}
+      step={step}
     >
       <NumberInputField />
       <NumberInputStepper>

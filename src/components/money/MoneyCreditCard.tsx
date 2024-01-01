@@ -2,6 +2,8 @@
 
 import SettingBalanceModal from "@/components/money/SettingBalanceModal";
 import { getRemainPayday } from "@/utils/common/money/getRemainPayday";
+import { QueryKeys } from "@/utils/common/query-keys";
+import { useMe } from "@/utils/common/user/useMe";
 import { useTotalMonthlyExpenditures } from "@/utils/hooks/react-query/money/useTotalMonthlyExpenditures";
 import { getBalance } from "@/utils/services/money";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -10,6 +12,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { useQuery } from "react-query";
 
 export default function MoneyCreditCard() {
+  const me = useMe();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const remainPayday = getRemainPayday();
@@ -18,18 +21,20 @@ export default function MoneyCreditCard() {
     getMonth(new Date()) + 1,
   );
   const { data: { balance } = { balance: 0 } } = useQuery(
-    ["get-balance"],
+    QueryKeys.getBalance(me?.id),
     getBalance,
     { onError: console.error },
   );
 
   return (
     <>
-      <SettingBalanceModal
-        isOpen={isOpen}
-        balance={balance}
-        onClose={onClose}
-      />
+      {isOpen && (
+        <SettingBalanceModal
+          isOpen={isOpen}
+          balance={balance}
+          onClose={onClose}
+        />
+      )}
 
       <div className="relative">
         <div className="absolute inset-x-0 top-0 h-60px bg-main" />

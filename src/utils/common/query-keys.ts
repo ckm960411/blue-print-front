@@ -10,6 +10,8 @@ const getAllComments = (...args: any[]) => ["get-all-comments", ...args];
 
 const getWorkCount = (...args: any[]) => ["get-work-count", ...args];
 
+const getBalance = (...args: any[]) => ["get-balance", ...args];
+
 const getMonthlyBudget = (...args: any[]) => ["get-monthly-budget", ...args];
 
 const getAllBudgetCategories = (...args: any[]) => [
@@ -60,6 +62,7 @@ export const QueryKeys = {
   getTotalMonthlyExpenditure,
   getMonthlyExpenditures,
   getMonthlySpending,
+  getBalance,
 };
 
 const projectKeys = {

@@ -1,3 +1,6 @@
+import NumberInputController from "@/components/components/NumberInputController";
+import { QueryKeys } from "@/utils/common/query-keys";
+import { upsertBalance } from "@/utils/services/money";
 import {
   Modal,
   ModalBody,
@@ -7,7 +10,8 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/modal";
-import React from "react";
+import React, { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 
 interface SettingBalanceModalProps {
   isOpen: boolean;
@@ -16,14 +20,32 @@ interface SettingBalanceModalProps {
 }
 export default function SettingBalanceModal({
   isOpen,
-  balance,
+  balance: originBalance,
   onClose,
 }: Readonly<SettingBalanceModalProps>) {
+  const queryClient = useQueryClient();
+
+  const [balance, setBalance] = useState(() => originBalance);
+
+  const { mutate: upsertBalanceRequest } = useMutation(
+    ["upsert-balance"],
+    upsertBalance,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QueryKeys.getBalance());
+        handleClose();
+      },
+      onError: console.error,
+    },
+  );
+
   const handleClose = () => {
     onClose();
   };
 
-  const handleConfirm = () => {};
+  const handleConfirm = () => {
+    upsertBalanceRequest(balance);
+  };
 
   return (
     <Modal
@@ -37,7 +59,19 @@ export default function SettingBalanceModal({
       <ModalContent>
         <ModalHeader>잔고 설정</ModalHeader>
         <ModalCloseButton />
-        <ModalBody></ModalBody>
+        <ModalBody>
+          <div className="flex items-center gap-8px">
+            <span>잔액 : </span>
+            <NumberInputController
+              value={balance}
+              onChange={(_, value) => setBalance(value)}
+              width={32}
+              max={1_000_000_000}
+              step={10_000}
+            />
+            <span>원</span>
+          </div>
+        </ModalBody>
         <ModalFooter>
           <div className="flex items-center gap-8px">
             <button

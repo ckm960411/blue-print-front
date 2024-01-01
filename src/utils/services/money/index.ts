@@ -14,6 +14,11 @@ import {
 import { format } from "date-fns";
 import { omit } from "lodash";
 
+export const getBalance = async () => {
+  const { data } = await get<{ balance: number }>(`money/balance`);
+  return data;
+};
+
 export const getMonthlyBudget = async (date: DateTime) => {
   const dateToFind = format(new Date(date), "yyyy-MM-dd");
 

@@ -10,6 +10,35 @@ const getAllComments = (...args: any[]) => ["get-all-comments", ...args];
 
 const getWorkCount = (...args: any[]) => ["get-work-count", ...args];
 
+const getBalance = (...args: any[]) => ["get-balance", ...args];
+
+const getMonthlyBudget = (...args: any[]) => ["get-monthly-budget", ...args];
+
+const getAllBudgetCategories = (...args: any[]) => [
+  "get-all-budget-categories",
+  ...args,
+];
+
+const getAllMonthlyBudgetCategoreis = (...args: any[]) => [
+  "get-all-monthly-budget-categories",
+  ...args,
+];
+
+const getTotalMonthlyExpenditure = (...args: any[]) => [
+  "get-total-monthly-expenditure",
+  ...args,
+];
+
+const getMonthlyExpenditures = (...args: any[]) => [
+  "get-monthly-expenditures",
+  ...args,
+];
+
+const getMonthlySpending = (...args: any[]) => [
+  "get-monthly-spending",
+  ...args,
+];
+
 export const QueryKeys = {
   // WORK
   getWorkCount,
@@ -25,6 +54,15 @@ export const QueryKeys = {
 
   // PROJECTS
   getAllProjects,
+
+  // MONEY
+  getMonthlyBudget,
+  getAllBudgetCategories,
+  getAllMonthlyBudgetCategoreis,
+  getTotalMonthlyExpenditure,
+  getMonthlyExpenditures,
+  getMonthlySpending,
+  getBalance,
 };
 
 const projectKeys = {

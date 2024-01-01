@@ -43,6 +43,11 @@ export enum ExpenditureType {
   SPENDING = "SPENDING",
 }
 
+export enum SpendingType {
+  CARD = "CARD",
+  CASH = "CASH",
+}
+
 export interface Expenditure {
   id: number;
   year: number;
@@ -51,6 +56,7 @@ export interface Expenditure {
   hour: number;
   minute: number;
   type: ExpenditureType;
+  spendingType: SpendingType;
   content: string;
   price: number;
   createdAt: Date;

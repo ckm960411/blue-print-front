@@ -2,12 +2,17 @@ import SpaceY from "@/components/common/SpaceY";
 import CreateBudgetCategoryDropdown from "@/components/money/budget/setting/CreateBudgetCategoryDropdown";
 import CreateExpenditureContent from "@/components/money/expenditure/CreateExpenditureContent";
 import CreateExpenditurePrice from "@/components/money/expenditure/CreateExpenditurePrice";
+import CreateExpenditureSpendingType from "@/components/money/expenditure/CreateExpenditureSpendingType";
 import CreateExpenditureTime from "@/components/money/expenditure/CreateExpenditureTime";
 import CreateExpenditureTypeRadio from "@/components/money/expenditure/CreateExpenditureTypeRadio";
 import ExpenditureMonthlyController from "@/components/money/expenditure/ExpenditureMonthlyController";
 import { QueryKeys } from "@/utils/common/query-keys";
 import { createExpenditure } from "@/utils/services/money";
-import { BudgetCategory, ExpenditureType } from "@/utils/types/money";
+import {
+  BudgetCategory,
+  ExpenditureType,
+  SpendingType,
+} from "@/utils/types/money";
 import {
   Modal,
   ModalBody,
@@ -55,6 +60,9 @@ export default function CreateExpenditureModal({
   };
 
   const [category, setCategory] = useState<BudgetCategory | null>(null);
+  const [spendingType, setSpendingType] = useState<SpendingType>(
+    SpendingType.CARD,
+  );
   const [expenditureForm, setExpenditureForm] =
     useState<ExpenditureForm>(initialForm);
 
@@ -98,6 +106,8 @@ export default function CreateExpenditureModal({
   const handleConfirm = () => {
     createExpenditureRequest({
       ...expenditureForm,
+      spendingType:
+        expenditureForm.type === "SPENDING" ? spendingType : undefined,
       budgetCategoryId: category?.id,
     });
   };
@@ -143,6 +153,10 @@ export default function CreateExpenditureModal({
               onChange={(type) =>
                 setExpenditureForm((prev) => ({ ...prev, type }))
               }
+            />
+            <CreateExpenditureSpendingType
+              spendingType={spendingType}
+              onChange={setSpendingType}
             />
             {expenditureForm.type === ExpenditureType.SPENDING && (
               <CreateBudgetCategoryDropdown

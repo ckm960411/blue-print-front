@@ -9,9 +9,6 @@ export const useMonthlyBudgetQuery = (date = new Date()) => {
   return useQuery(
     QueryKeys.getMonthlyBudget(dateToFind),
     () => getMonthlyBudget(dateToFind),
-    {
-      staleTime: 60 * 60 * 1000,
-      onError: console.error,
-    },
+    { onError: console.error },
   );
 };

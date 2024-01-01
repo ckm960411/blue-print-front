@@ -7,6 +7,8 @@ import { useMonthlyBudgetQuery } from "@/utils/hooks/react-query/money/useMonthl
 export default function BudgetTab() {
   const { data: monthlyBudget } = useMonthlyBudgetQuery();
 
+  console.log("monthlyBudget", monthlyBudget);
+
   return (
     <div>
       <MonthlyBudget />

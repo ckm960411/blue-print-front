@@ -34,6 +34,8 @@ export interface MonthlyBudgetCategory {
   end: DateTime;
   categoryName: string;
   categoryUnicode: string;
+  expenditures: Expenditure[];
+  spent: number;
 }
 
 export enum ExpenditureType {

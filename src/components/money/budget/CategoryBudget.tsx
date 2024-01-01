@@ -42,9 +42,8 @@ export default function CategoryBudget({
         <span>예산 {budget.toLocaleString()}원</span>
         <span>남은 예산 {(budget - spent).toLocaleString()}원</span>
       </div>
-      {/* TODO: 지출에 따라 반영 */}
       <div className="flex flex-col gap-8px">
-        {expenditures.map((expenditure) => (
+        {expenditures.slice(0, 2).map((expenditure) => (
           <div
             key={expenditure.id}
             className="rounded-r-md border-l-4 border-main bg-slate-50 py-8px pl-16px pr-8px"

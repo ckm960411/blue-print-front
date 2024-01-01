@@ -76,6 +76,8 @@ export default function CreateExpenditureModal({
         queryClient.invalidateQueries(
           QueryKeys.getAllMonthlyBudgetCategoreis(),
         );
+        queryClient.invalidateQueries(QueryKeys.getBalance());
+        queryClient.invalidateQueries(QueryKeys.getTotalMonthlyExpenditure());
         handleClose();
       },
       onError: console.error,

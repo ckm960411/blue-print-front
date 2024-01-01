@@ -1,3 +1,4 @@
+import { useMonthlySpendingQuery } from "@/utils/hooks/react-query/money/useMonthlySpendingQuery";
 import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
 
 interface MonthlyBudgetTodayProps {
@@ -6,8 +7,8 @@ interface MonthlyBudgetTodayProps {
 export default function MonthlyBudgetToday({
   monthlyBudgetPolicy,
 }: Readonly<MonthlyBudgetTodayProps>) {
-  // TODO: 오늘 지출 총액
-  const expenditureToday = 9000;
+  const { daily: expenditureToday } = useMonthlySpendingQuery();
+
   // 오늘 예산
   const dailyBudget = monthlyBudgetPolicy.dailyBudget;
   // 오늘 지출 총액 - 오늘 예산 (양수면 초과, 음수면 절약)

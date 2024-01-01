@@ -1,13 +1,14 @@
+import { useMonthlySpendingQuery } from "@/utils/hooks/react-query/money/useMonthlySpendingQuery";
 import { MonthlyBudgetPolicy } from "@/utils/policy/MonthlyBudgetPolicy";
 
 interface MonthlyBudgetBarGraphProps {
   monthlyBudgetPolicy: MonthlyBudgetPolicy;
-  totalExpenditureTilToday: number; // 오늘까지 지출총액
 }
 export default function MonthlyBudgetBarGraph({
   monthlyBudgetPolicy,
-  totalExpenditureTilToday,
 }: Readonly<MonthlyBudgetBarGraphProps>) {
+  const { monthly: totalExpenditureTilToday } = useMonthlySpendingQuery();
+
   // 총 예산
   const totalMonthlyBudget = monthlyBudgetPolicy.totalBudget;
 

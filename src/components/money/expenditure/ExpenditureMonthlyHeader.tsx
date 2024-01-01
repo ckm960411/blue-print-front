@@ -1,10 +1,8 @@
 import SpaceY from "@/components/common/SpaceY";
 import CreateExpenditureModal from "@/components/money/expenditure/CreateExpenditureModal";
 import ExpenditureMonthlyController from "@/components/money/expenditure/ExpenditureMonthlyController";
-import { QueryKeys } from "@/utils/common/query-keys";
-import { getTotalMonthlyExpenditure } from "@/utils/services/money";
+import { useTotalMonthlyExpenditures } from "@/utils/hooks/react-query/money/useTotalMonthlyExpenditures";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { useQuery } from "react-query";
 
 interface ExpenditureMonthlyHeaderProps {
   year: number;
@@ -18,13 +16,7 @@ export default function ExpenditureMonthlyHeader({
 }: Readonly<ExpenditureMonthlyHeaderProps>) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { data: expenditureData } = useQuery(
-    QueryKeys.getTotalMonthlyExpenditure(year, month),
-    () => getTotalMonthlyExpenditure({ year, month }),
-    { onError: console.error },
-  );
-
-  if (!expenditureData) return <></>;
+  const { income, spending } = useTotalMonthlyExpenditures(year, month);
 
   return (
     <div>
@@ -41,13 +33,13 @@ export default function ExpenditureMonthlyHeader({
           <p className="flex items-center gap-6px">
             <span className="text-14px font-medium text-gray-500">수입</span>
             <span className="text-16px font-bold text-main">
-              {expenditureData.income.toLocaleString()}원
+              {income.toLocaleString()}원
             </span>
           </p>
           <p className="flex items-center gap-6px">
             <span className="text-14px font-medium text-gray-500">지출</span>
             <span className="text-16px font-bold text-red-500">
-              {expenditureData.spending.toLocaleString()}원
+              {spending.toLocaleString()}원
             </span>
           </p>
         </div>

@@ -17,7 +17,6 @@ export const useMonthlyBudgetCategoriesQuery = <T = MonthlyBudgetCategory[],>(
       return getAllMonthlyBudgetCategoreis(monthlyBudgetId);
     },
     {
-      staleTime: 60 * 60 * 1000,
       onError: console.error,
       select: options?.select,
     },

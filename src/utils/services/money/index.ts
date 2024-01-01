@@ -121,3 +121,10 @@ export const getMonthlyExpenditures = async (params?: {
   });
   return data;
 };
+
+export const getMonthlySpending = async (year: number, month: number) => {
+  const { data } = await get<{ monthly: number; daily: number }>(
+    `money/expenditure/${year}/${month}`,
+  );
+  return data;
+};

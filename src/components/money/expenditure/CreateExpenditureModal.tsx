@@ -65,6 +65,9 @@ export default function CreateExpenditureModal({
       onSuccess: () => {
         queryClient.invalidateQueries(QueryKeys.getMonthlyExpenditures());
         queryClient.invalidateQueries(QueryKeys.getMonthlySpending());
+        queryClient.invalidateQueries(
+          QueryKeys.getAllMonthlyBudgetCategoreis(),
+        );
         handleClose();
       },
       onError: console.error,

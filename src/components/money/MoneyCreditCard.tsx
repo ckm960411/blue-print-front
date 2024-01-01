@@ -3,6 +3,7 @@
 import { getRemainPayday } from "@/utils/common/money/getRemainPayday";
 import { useTotalMonthlyExpenditures } from "@/utils/hooks/react-query/money/useTotalMonthlyExpenditures";
 import { getMonth, getYear } from "date-fns";
+import { IoSettingsOutline } from "react-icons/io5";
 
 export default function MoneyCreditCard() {
   const remainPayday = getRemainPayday();
@@ -19,10 +20,11 @@ export default function MoneyCreditCard() {
           <div className="flex-end h-16px p-8px text-10px font-medium">
             경민은행
           </div>
-          <div className="flex-end h-32px bg-gray-700 px-16px">
-            <p className="text-14px font-semibold text-white">
-              남은 잔고: nnn,nnn 원
-            </p>
+          <div className="flex-end h-32px gap-4px bg-gray-700 px-6px text-white">
+            <p className="text-14px font-semibold">남은 잔고: nnn,nnn 원</p>
+            <button className="p-4px">
+              <IoSettingsOutline />
+            </button>
           </div>
           <div className="flex h-96px flex-col justify-between p-8px">
             <div className="flex flex-col gap-8px">
